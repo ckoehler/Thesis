@@ -547,7 +547,7 @@
     \gdef\@mastersdegree{#1}%
   \else 
     \gdef\@doctorsdegree{#1}}
-\newcommand{\@mastersdegree}{MASTER OF SCIENCE IN METEOROLOGY} %in metr added LMK 9 May 2007
+\newcommand{\@mastersdegree}{MASTER OF SCIENCE IN ELECTRICAL AND COMPUTER ENGINEERING} %in metr added LMK 9 May 2007
 \newcommand{\@doctorsdegree}{Doctor of Philosophy}
 
 \newcommand{\majorfield}[1]{%
