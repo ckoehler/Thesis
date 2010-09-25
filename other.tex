@@ -1,0 +1,178 @@
+Note that \LaTeX\ will place Figure \ref{flowchart} after the list,
+because I did not use the {\tt [H]} option after the \verb9\begin{figure}9.
+\begin{figure}
+\begin{center}
+\setlength{\unitlength}{1in}
+\input{flowchart.tex}
+\caption[A flowchart]
+{Flowchart of data assimilation using the adjoint method.}
+\label{flowchart}
+\end{center}
+\end{figure}
+
+\begin{description}
+\item[Step 1:] Make a first estimate of the initial condition (I.C.).
+\item[Step 2:] Run the forward model to generate a forecast over the 
+assimilation interval.
+\item[Step 3:] Compute the cost function, J, using the observations 
+and the model output.
+\item[Step 4:] Compute the gradient of the cost function with respect 
+to the control variable, $\nabla J(c)$, by integrating the adjoint 
+model (which is a combination of the forward model and cost 
+functional) backwards using the Lagrangian multiplier method.
+\item[Step 5:] Generate a new estimate of the initial condition 
+(I.C.) for another forecast using a minimization procedure ({\it 
+e.g.}, Steepest Descent or Conjugate Gradient Method).  This is done 
+iteratively toward the minimum of the cost function using the 
+calculated cost function and its gradient.
+\item[Step 6:] The process is repeated until some convergence criteria 
+are met, {\it i.e.}, the cost functional, J, is near its local minimum.  In 
+practice, this is determined by an insignificant change in the 
+gradient from one iteration to the next.  If not, the process will be 
+terminated when some maximum number of iterations have been achieved.
+\end{description}
+\section{A Bargraph}
+Hey, where did that bargraph go?  I thought I put it in this section!
+\label{bargraph}
+\begin{figure}
+\begin{center}
+\centering
+\fbox{{\bf Best dense, row-wise algorithms}} \\
+\vspace{.5in}
+\textbf{Algorithm 1, p=2, gaxpy}\\[5mm]
+\begin{barenv}
+\setstretch{.3}
+\setyaxis{0}{500}{100}\setyname{secs}
+\bar{.903}{1}[\texttt{s}]
+\bar{116.}{6}[\texttt{1}]
+\bar{116.}{1}[\texttt{1}]
+\bar{117.}{6}[\texttt{2}]
+\bar{58.}{1}[\texttt{2}]
+\bar{233.}{6}[\texttt{4}]
+\bar{58.}{1}[\texttt{4}]
+\bar{465.}{6}[\texttt{8}]
+\bar{58.}{1}[\texttt{8}]
+\end{barenv}
+\caption[CPU Time]{CPU time (hatched) and wall clock time (white) 
+for srowdg (s) and a1rowdg with various 
+numbers of processors. m=128 N=64}
+\label{a1rowdg}
+\end{center}
+\end{figure}
+
+\section{Some tables}
+\label{table}
+\begin{table}
+\begin{center}
+\begin{tabular}{|c|c|} \hline
+	time (hours)   &       T (C) \\ \hline
+  				   0           &             17.0\\
+				   1.5         &            18.8\\
+				   3.0         &            19.8\\
+				   4.5         &            20.5\\
+				   6.0         &            21.0\\
+				   7.5         &            21.3\\
+				   9.0         &            21.5\\
+				  10.5         &           21.8\\
+				  12.0         &           22.2\\
+				  13.5         &           22.8\\
+				  15.0         &           23.5\\
+				  16.5         &           24.1\\
+				  18.0         &           24.3\\ \hline
+
+\end{tabular}
+\caption{T(t) for the initial 18 hours}\label{Tinit}
+\end{center}
+\end{table}
+
+I will put some text here just to see what happens to it.
+ 
+\begin{table}
+\begin{center}
+\begin{tabular}{|l|l|l|l|} \hline
+Step 1 & \multicolumn{3}{c|}{Step 2} \\ \hline
+ & Stage 1 & Stage 2 & Stage 3  \\ \hline
+$x_{1}$ & & & \\
+$x_{1:2}$ & & & \\
+$x_{1:3}$ & & &  \\
+$x_{1:4}$ & & & \\ \hline
+$x_{5}$ &$x_{1:5}$ & &  \\
+$x_{5:6}$,\ $A_{5:6}$ & $x_{1:6}$ & & \\
+$x_{5:7}$,\ $A_{5:7}$ & $x_{1:7}$ & &  \\
+$x_{5:8}$,\ $A_{5:8}$ & $x_{1:8}$ &&\\ \hline
+$x_{9}$& & $x_{1:9}$& \\
+$x_{9:10}$,\ $A_{9:10}$ && $x_{1:10}$&  \\
+$x_{9:11}$,\ $A_{9:11}$ && $x_{1:11}$ & \\
+$x_{9:12}$,\ $A_{9:12}$ &&  $x_{1:12}$ &\\ \hline
+$x_{13}$ &&& $x_{1:13}$ \\
+$x_{13:14}$,\ $A_{13:14}$ & &&  $x_{1:14}$ \\
+$x_{13:15}$,\ $A_{13:15}$ & &&  $x_{1:15}$ \\
+$x_{13:16}$,\ $A_{13:16}$ & &&  $x_{1:16}$ \\ \hline
+\end{tabular}
+\caption[Algorithm \# 3 example]{Algorithm \# 3 example}\label{algo3ex}
+
+\end{center}
+\end{table}
+
+\section{Some complicated equations}
+To this end, the Lagrangian is introduced
+(see \citet{Lanczos} for the theoretical foundations of 
+minimizing functions subject to a constraint).
+\bea
+L(c,\lambda,\mu,\eta) &=& J(c)  \nonumber \\*
+&& + \sum_{i=1}^{n}
+\lambda_{i}\left[
+\theta_{i}-\theta_{i-1}
+-\frac{\tau}{h_{i-1}}C_{T}V(1+K)
+\left(T_{i-1} - \theta_{i-1} \right)
+\right] \nonumber \\*
+&& + \sum_{i=1}^{n}
+\mu_{i}\left[
+h_{i}-h_{i-1}
+-\tau K C_{T}V
+\frac{\left(T_{i-1} - \theta_{i-1} \right)}
+{\sigma_{i-1}}
+-\tau W
+\right]  \nonumber \\*
+&& + \sum_{i=1}^{n}
+\eta_{i}\left[
+\sigma_{i}-\sigma_{i-1}
++\frac{\tau}{h_{i-1}}C_{T}V(1+K)
+\left( T_{i-1} - \theta_{i-1} \right) \right.
+\nonumber \\*
+&&
+\left. \qquad -\tau \gamma K C_{T}V
+\frac{\left(T_{i-1} - \theta_{i-1} \right)}
+{\sigma_{i-1}}
+-\tau \gamma W
+\right]
+\label{niceeq}
+\eea
+where $\lambda=\left(\lambda_{1},\ldots,\lambda_{n}\right)^{t}$,
+$\mu=\left(\mu_{1},\ldots,\mu_{n}\right)^{t}$,
+$\eta=\left(\eta_{1},\ldots,\eta_{n}\right)^{t}$
+are the undetermined Lagrangian 
+multipliers in (\ref{niceeq}).   
+
+\be
+E=
+\left[
+\begin{array}{cccccccc}
+-I_{3} & 0 & 0 & 0 & \ldots & 0 & 0 &0 \\
+D_{1} & -I_{3} & 0 & 0 & \ldots & 0 & 0 &0 \\
+0 & D_{2} & -I_{3}  & 0 & \ldots & 0 & 0 &0 \\
+\ldots & \ldots & \ldots  & \ldots & \ldots & \ldots & \ldots &\ldots \\
+0 & \ldots & \ldots  & \ldots & \ldots & \ldots & D_{n-1} & -I_{3} \\
+\end{array}
+\right],
+\label{Edef}
+\ee
+
+By definition,
+\bea
+\epsilon_{i}^{\theta} &=& \theta_{i} - \overline{\theta}_{i},\label{one}\\* 
+\epsilon_{i}^{h} &=& h_{i} - \overline{h}_{i},\label{two}  \\* 
+\epsilon_{i}^{\sigma} &=& \sigma_{i} - \overline{\sigma}_{i}. 
+\label{three} 
+\eea
+Now we can still refer to (\ref{Edef}) or (\ref{one})-(\ref{three}).

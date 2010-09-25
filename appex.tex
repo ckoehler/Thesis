@@ -1,0 +1,56 @@
+%%%%%following needed for Appendix, appex.tex
+\renewcommand{\th}{\theta} %\th is defined as an obscure character called a "thorn",
+                           %so we must use renewcommand to override it
+\newcommand{\thl}{\th_l}  %these commands are undefined by default, so use newcommand
+\newcommand{\p}[1]{\left( #1 \right)}
+\newcommand{\sqrb}[1]{\left[ #1 \right]}
+\renewcommand{\b}[1]{\overline{#1}}
+\newcommand{\thv}{\th_v}
+\newcommand{\Lcp}{\frac{L}{c_p}}
+\newcommand{\fth}{\b{w'\th'}}
+\newcommand{\fthl}{\b{w'\thl'}}
+\newcommand{\fthv}{\b{w'\thv'}}
+\newcommand{\fqt}{\b{w'q_t'}}
+\newcommand{\fqs}{\b{w'q_s'}}
+\newcommand{\fqv}{\b{w'q_v'}}
+%%%
+The buoyancy production term requires a closure for $\fthv$.  In saturated
+conditions $q_l=q_s$ and we have 3 linear relations between 5 flux densities:
+\bea
+\fth &=& \fthl + B\fqt -B\fqs \label{feq1}\\
+\fthv &=& C\fth + D\fqs -E\fqt \label{feq2}\\
+\fqs &=& F\fth \label{feq3}
+\eea
+where
+\bea
+B &\equiv& \chi \Lcp \\
+C &\equiv& 1 + 1.61 \b{q_s} - \b{q_t}\\
+D &\equiv& 1.61 \b{\th}\\
+E &\equiv& -\b{\th}\\
+F &\equiv& 0.622 \frac{L \b{q_s}}{R_d \b{T} \b{\th}} 
+\eea
+We will eliminate $\fqs$ and $\fth$ from (\ref{feq1})-(\ref{feq3}) and
+thus derive a linear relation between $\fthv$ and $\fthl$ and $\fqt$:
+\be
+\fthv = \frac{C+DF}{1+BF}\fth + \p{\frac{C+D F}{1+BF}B -E}\fqt 
+\ee
+Eq. (\ref{feq3}) has been derived from the Clausius-Clapyron equation
+\be
+\frac{d e_s}{d T}=e_s \frac{L}{R_dT^2}
+\ee
+and
+\be
+q_s \equiv 0.622\frac{e_s}{p}
+\ee
+followed by assumptions that $p'\over \b{p}$ is small compared with both
+$\frac{1}{e_s}\frac{de_s}{dT}T'$ and $T' \over \b{T}$.
+Here is how we calculate $\lambda$:
+\be
+e(z)= \int_z^{z+\lambda_{up}(z)} \frac{g}{\b{\thv}(z')} \sqrb{ \b{\thv}(z) - \b{\thv^*}(z')}dz'
+\ee
+\be
+e(z)= \int_z^{z-\lambda_{down}(z)} \frac{g}{\b{\thv}(z')} \sqrb{ \b{\thv}(z) - \b{\thv^*}(z')}dz'
+\ee
+\be
+\lambda(z)=\sqrb{ \lambda_{down}(z) \lambda_{up}(z) }^{1/2}
+\ee

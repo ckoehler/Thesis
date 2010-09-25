@@ -1,0 +1,49 @@
+\begin{picture}(4,4)
+
+\put(1.25,3.5){\framebox(1.5,0.5){\shortstack{
+control variables}}}
+
+\put(2.,3.4){\vector(0,-1){.25}}
+\put(2.1,3.3){\makebox(0,0)[l]{\shortstack{
+first estimate of I.C.}}}
+
+
+\put(1.25,2.5){\framebox(1.5,0.5){\shortstack{
+Make forecast using \\ forward model}}}
+
+\put(1.5,2.4){\vector(-1,-1){.25}}
+\put(1.3,2.3){\makebox(0,0)[r]{\shortstack{
+model output}}}
+
+
+\put(2.5,2.1){\vector(-1,1){.25}}
+\put(2.5,2.2){\makebox(0,0)[l]{\shortstack{
+new estimate of I.C.}}}
+
+\put(.25,1.5){\framebox(1.5,.5){\shortstack{
+compute \\ cost function J}}}
+\put(1.5,1.4){\vector(0,-1){.25}}
+\put(-.0,1.75){\vector(1,0){.25}}
+\put(-.05,1.75){\makebox(0,0)[r]{\shortstack{
+observations}}}
+
+
+\put(2.25,1.5){\framebox(1.5,.5){\shortstack{
+Minimization \\ procedure}}}
+\put(2.5,1.1){\vector(0,1){.25}}
+
+
+\put(.25,.25){\framebox(1.5,.75){\shortstack{
+compute \\ Lagrangian \\ multipliers}}}
+
+\put(1.9,.5){\vector(1,0){.25}}
+
+\put(2.25,.25){\framebox(1.5,.75){\shortstack{
+compute gradient\\ $\nabla J(c)$ \\ using adjoint model}}}
+
+%\drawline(0.1,1.8)(0.5,1.8)
+%\drawline(0.5,1.8)(0.9,3.0)
+\end{picture}
+
+
+

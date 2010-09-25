@@ -1,0 +1,70 @@
+%\documentclass[letter,12pt,dissertation]{OUdissertation5} %for Ph.D. disseration style
+\documentclass[letter,12pt,thesis]{OUdissertation5} %for M.S. thesis style
+\usepackage{graphicx} %allows .eps and .epsi graphics to be inserted
+\usepackage{epic} %allows use of latex graphics
+\usepackage{eepic} %allows use of latex graphics
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{psfrag}
+\usepackage{float}
+\usepackage{bar}
+% Brian added this on July 15 2006 from suggestion of Di Jin:
+\usepackage[centerfoot]{pageno}
+
+%\usepackage{harvard} %use with agsm.bst, see near end
+%\newcommand{\citet}[1]{\citeasnoun{#1}} %use this with harvard 
+%\newcommand{\citep}[1]{\cite{#1}} %use this with harvard 
+
+\usepackage{natbib} %with amermeteorsoc.bst
+%% For AMS,citations should be of the form ``author year''  not ``author, year'':
+\bibpunct{(}{)}{;}{a}{}{,}
+
+\newcommand{\be}{\begin{equation}} %these definitions save typing
+\newcommand{\ee}{\end{equation}}
+\newcommand{\bea}{\begin{eqnarray}}
+\newcommand{\eea}{\end{eqnarray}}
+\newcommand{\pd}[2]{\frac{\partial#1}{\partial#2}}
+\newcommand{\pdd}[3]{\frac{\partial^{2}#1}{\partial#2 \partial#3}}
+
+
+\begin{document}
+\title{Joint Orthogonal Coding and Pulse Compression for Low-Power Polarimetric Radar}
+\author{CHRISTOPH KOEHLER}
+\depositdate{2011}
+\majorfield{SCHOOL OF ELECTRICAL AND COMPUTER ENGINEERING}
+\memberone{Dr. Robert D. Palmer, chair}
+\membertwo{Dr. Boonleng Cheong}
+\memberthree{Dr. Mark Yeary}
+%next two members are used in dissertation
+%\memberfour{Dr. Homer Simpson}
+%\memberfive{Dr. Strangelove}
+%another member is possible, but you must hack OUdissertation.cls
+%\membersix{Dr. Spock}
+%%%%
+\begin{preface}
+%\prefacesection{Dedication} %Dedication must be without a pagenumber, see end of this file.
+%This dissertation is dedicated to Donald Knuth and Linus Torvalds.
+\prefacesectionX{Dedication}
+This thesis is dedicated to my parents and my wonderful wife. Thank you for investing in me
+by sacrificing so much, and thank you Myka for your patience over the last 6 years with my 
+techie-stuff.
+%must leave a blank line next to avoid bug:
+
+\tableofcontents
+\listoftables
+\listoffigures
+\prefacesection{Abstract}
+ Orthogonal coding foo bla awesome, but even better with pulse compression, so yeah.
+\end{preface}
+\chapter{Introduction}
+\label{intro}
+\input{intro}
+%
+%\references{agsm}{myreferences}
+\references{amermeteorsoc}{references}
+%comment out the next four lines if you don't have an appendix
+%\appendix
+%\chapter{A Long Proof}
+%\OUdoublespace
+%\input{appex}
+\end{document}

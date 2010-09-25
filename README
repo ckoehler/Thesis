@@ -1,0 +1,61 @@
+OUdissertation5.cls is available as of April 21, 2009
+
+Usage:
+
+latex disser
+bibtex disser
+latex disser
+latex disser
+xdvi disser
+dvips -
+... and so on
+
+As of July 13, 2006, you may also use pdflatex.
+But a few things will be dysfunctional  
+when using pdflatex:
+
+latex disser
+bibtex disser
+latex disser
+pdflatex disser
+acroread disser.pdf
+
+IMPORTANT: as of November 25, 2007, with OUdissertation3.cls, I am
+am ONLY having luck with the pdflatex procedure.
+
+----------------------------------------
+
+amermeteorsoc.bst is included for making the bibliography
+amermeteorsoc.bst is produced by by typing: latex amermeteorsoc.dbj
+
+It is possible to edit amermeteorsoc.dbj to attempt minor changes.
+Or you can make you own .dbj file by typing: latex makebst
+Then answer a couple of dozen questions, (hitting return
+accepts the default answer).
+
+OUdissertation.cls was upgraded on March 3, 2004 to print names under
+signature lines
+
+minor change March 1, 2006: \bibpunct added to disser.tex 
+
+OUdisseration2.cls replaces OUdisseration.cls on July 10, 2006.
+But the obsolete doublespace.sty is now included, so using
+OUdisseration.cls is still an option (but as of July 13, it is
+not recommended, because of margin problems and spacing problems
+that are repaired in OUdissertation2.cls).
+
+On April 19, 2007 some minor changes were made to the title, signature
+and copyright pages.  Those pages now conform better with the
+standards of the OU Graduate College (but the font size etc. does
+not look as nice). 
+
+April 22, 2007: A working example of an appendix is included (after
+uncommenting the appropriate lines).
+
+November 25, 2007: pagenumber is removed from dedication page. Fontsizes
+in title page are now downgraded to look like a 1970's IBM selectric typewriter,
+to conform with Graduate College specifications. :(
+
+Decmeber 8, 2008: chapter heading etc. margins fixed by Jeremy Gibbs
+
+April 21, 2009: revised procedure for including the optional Dedication page.

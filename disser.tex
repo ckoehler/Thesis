@@ -1,0 +1,94 @@
+\documentclass[letter,12pt,dissertation]{OUdissertation5} %for Ph.D. disseration style
+%\documentclass[letter,12pt,thesis]{OUdissertation5} %for M.S. thesis style
+\usepackage{graphicx} %allows .eps and .epsi graphics to be inserted
+\usepackage{epic} %allows use of latex graphics
+\usepackage{eepic} %allows use of latex graphics
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{psfrag}
+\usepackage{float}
+\usepackage{bar}
+% Brian added this on July 15 2006 from suggestion of Di Jin:
+\usepackage[centerfoot]{pageno}
+
+%\usepackage{harvard} %use with agsm.bst, see near end
+%\newcommand{\citet}[1]{\citeasnoun{#1}} %use this with harvard 
+%\newcommand{\citep}[1]{\cite{#1}} %use this with harvard 
+
+\usepackage{natbib} %with amermeteorsoc.bst
+%% For AMS,citations should be of the form ``author year''  not ``author, year'':
+\bibpunct{(}{)}{;}{a}{}{,}
+
+\newcommand{\be}{\begin{equation}} %these definitions save typing
+\newcommand{\ee}{\end{equation}}
+\newcommand{\bea}{\begin{eqnarray}}
+\newcommand{\eea}{\end{eqnarray}}
+\newcommand{\pd}[2]{\frac{\partial#1}{\partial#2}}
+\newcommand{\pdd}[3]{\frac{\partial^{2}#1}{\partial#2 \partial#3}}
+
+
+\begin{document}
+\title{ USING \LaTeX\  TO WRITE \\ A DISSERTATION AT O.U.}
+\author{BRIAN FIEDLER}
+\depositdate{1998}
+\majorfield{SCHOOL OF METEOROLOGY}
+\memberone{Prof. Albert Einstein}
+\membertwo{Prof. Enrico Fermi}
+\memberthree{Prof. Alfred E. Newman}
+%next two members are used in dissertation
+\memberfour{Dr. Homer Simpson}
+\memberfive{Dr. Strangelove}
+%another member is possible, but you must hack OUdissertation.cls
+\membersix{Dr. Spock}
+%%%%
+\begin{preface}
+%\prefacesection{Dedication} %Dedication must be without a pagenumber, see end of this file.
+%This dissertation is dedicated to Donald Knuth and Linus Torvalds.
+\prefacesectionX{Dedication}
+This dissertation is dedicated to Donald Knuth and Linus Torvalds.
+
+A dedication page is optional in the OU dissertation.  
+This section is not allowed to have a printed pagenumber, nor is it allowed to
+increment the page number counter. This is why we use the hacked \verb+\prefacesectionX+ for
+the Dedication, rather \verb+\prefacesection+.
+\prefacesection{Acknowledgements}
+I would like to thank Prof. Einstein and Prof. Fermi
+for their expert advice  and  patience.  Their sacrifice
+was enormous, considering the fact that I got a D in
+freshman physics --- and I never really got much better after that.
+%must leave a blank line next to avoid bug:
+
+\tableofcontents
+\listoftables
+\listoffigures
+\prefacesection{Abstract}
+ In 1998, I hacked the \texttt{OUdisseration.cls} file from the 
+{\tt USCthesis.cls} file that I grabbed from the web.
+As of April 21, 2009, this ``dissertation'' uses the \texttt{OUdisseration5.cls} to define the
+document class.
+The comments inside \texttt{OUdissertation5.cls} describe the changes.
+(You may see a bug here with the text extending past the margin.)
+ 
+I put this example ``dissertation'' together for the benefit of
+the students at the University of Oklahoma, who can use it as a 
+template for their own work.   Depending on the demand of the users,
+maybe someday I will clean this up.  {\it Caveat user}.
+\end{preface}
+\chapter{Introduction}
+\label{intro}
+\input{intro}
+\chapter{Mostly {\tt .eps and .pdf} examples}
+\label{eps_pdf_examp}
+\input{eps_pdf_examp}
+\chapter{Other examples}
+\label{other}
+\input{other}
+%
+%\references{agsm}{myreferences}
+\references{amermeteorsoc}{myreferences}
+%comment out the next four lines if you don't have an appendix
+\appendix
+\chapter{A Long Proof}
+\OUdoublespace
+\input{appex}
+\end{document}
