@@ -1,8 +1,27 @@
-% OUdisser.cls was hacked by Brian Fiedler,  and is obviously
+% OUdissertation5.cls was hacked by Brian Fiedler,  and is obviously
 % derived from USCthesis.cls.  If you need more than 3 signature
 % lines for a thesis, or more than 5 for a dissertation, scan
 % forward to "signature lines" and hack the source code...
 % revised March 3, 2004 to have names printed under signature lines
+% revised July 15, 2006 to make TOC and Bibliography single space and to 
+% avoid use of either setspace.sty or doublespace.sty
+% revised April 19, 2007 for for stricter conformance to Grad College standards
+% Seach forward to OUdoublespace... 
+% revised December 8, 2008, with the following words from Jeremy Gibbs:
+% " I went today to the Grad College to have my reading copy checked out.
+%
+% The only thing mentioned was that all pages, even the chapter headings,
+% acknowledgements, and abstract, must have no greater than 1.5" margin on top.
+%
+% As it stood in the .cls file, there was a 50pt buffer in the chapter
+% declarations and some extra space in the others. I guess this must be new,
+% because I saw many in the library that were the same as my reading copy.
+%
+% I have attached the OUdissertation3.cls file with the following edits:
+% commented out the following lines - 777,778,787,788,800,801,858,872
+%
+% Might have been an easier way, but that worked for me."
+% revised April 21, 2009: \prefacesectionX will avoid incrementing the page number
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% USCthesis.cls
 %%% Experimental LaTeX2e version of the University of Southern
@@ -383,8 +402,16 @@
 
 \LoadClass{report}
 
-\RequirePackage{doublespace}
-\setstretch{1.3}
+%\RequirePackage{doublespace} % Brian deleted this legacy from USC on July 10 2006
+
+% Brian uses method in 4.1 of book "Guide to LaTeX" to change spacing.  Note
+% the "\small\normalsize" is a "trick" needed to trigger the change, except for
+% that, it does nothing.
+% Note the 1.3 is not the standard double space, but Grad College might accept it.
+% The standard double space is 1.66, I believe.
+\newcommand{\OUdoublespace}{\renewcommand{\baselinestretch}{1.66} \small\normalsize} %LMK 1.66
+\newcommand{\OUsinglespace}{\renewcommand{\baselinestretch}{1.0} \small\normalsize}
+\OUdoublespace
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -434,11 +461,16 @@
 \topskip   10.0 true pt
 \itemsep    0.0 true pt
 
-\pagetop{1.01 true in}
-\pageleft{1.51 true in}
-\pageheight{8.73 true in}
-\pagewidth{5.92 true in}
-\pagemargin{2.0}
+%\pagetop{1.01 true in}
+\pagetop{1.00 true in}
+%\pageleft{1.51 true in}
+\pageleft{1.50 true in}
+%\pageheight{8.73 true in}
+\pageheight{9.45 true in}
+%\pagewidth{5.92 true in}
+\pagewidth{6.00 true in}
+%\pagemargin{2.0}
+\pagemargin{1.5}
 
 \let\LARGE=\Large
 \let\huge=\Large
@@ -510,12 +542,12 @@
   \@showmajorfieldfalse}
 \newcommand{\@schoolname}{GRADUATE COLLEGE}
 
-\newcommand{\degree}[1]{%
+\newcommand{\Degree}[1]{%
   \if@thesis 
     \gdef\@mastersdegree{#1}%
   \else 
     \gdef\@doctorsdegree{#1}}
-\newcommand{\@mastersdegree}{MASTER OF SCIENCE}
+\newcommand{\@mastersdegree}{MASTER OF SCIENCE IN METEOROLOGY} %in metr added LMK 9 May 2007
 \newcommand{\@doctorsdegree}{Doctor of Philosophy}
 
 \newcommand{\majorfield}[1]{%
@@ -574,7 +606,7 @@
   {\newpage
    \pagenumbering{roman}%
    \pagestyle{empty}%
-   \begin{singlespace}%      
+   \OUdoublespace
      \if@proposal
        \setcounter{page}{1}%
        \addtocounter{page}{\@startpageA}%
@@ -589,7 +621,6 @@
      \ifx\@volume\@empty\else
        \addtocontents{toc}{\protect\contentsline{part}{\@volume}{}}%
      \fi
-   \end{singlespace}%
    \pagestyle{plain}}
 %
   {\newpage
@@ -601,8 +632,9 @@
  \begin{titlepage}%   
     \begin{center}
     \ \\
-    \vskip 7.0 true in%
-    \copyright \  by \  \@author \ \@depositdate \\
+    \vskip 8.5 true in% %changed 7.0 to 8.5 LMK 10 May 2007
+    \OUsinglespace %added LMK 10 May 2007
+    \copyright Copyright \  by \  \@author \ \@depositdate \\
     All Rights Reserved.
     \end{center}
   \end{titlepage}
@@ -610,10 +642,12 @@
   
 \newcommand{\makesignature}{%
   \begin{titlepage}%
+  \OUsinglespace
     \null
     \vskip 60.0 true pt%
     \begin{center}
-      {\bf \LARGE \@title \par}%
+      %%% {\bf \LARGE \@title \par} %obsolete April 19, 2007
+      {\@title \par} %remains single space here (but double space on title page)
       \ifx\@volume\@empty\else
         \vskip 3em%
         \@volume
@@ -622,7 +656,7 @@
       \if@thesis
         {A THESIS APPROVED FOR THE}%
       \else
-        {A Dissertation APPROVED FOR THE}%
+        {A DISSERTATION APPROVED FOR THE}%
       \fi\\*%
       { \@majorfield \par}%
 	  \if@thesis
@@ -631,47 +665,49 @@
         {\vskip .5in}
 	  \fi
 	  
-      {{\bf By}\\*[1.0 true cm]%
+%      {{By}\\*[5.0 true cm]% %changed 1 to 5 LMK 2 May 2007
+      {{By}\\*[2.0 true cm]% %changed  5 to 3 BHF 25 November 2007
           \par}
     \end{center}%
 %%%Brian
-\ \\
-\hspace*{3in} \hrulefill \\
-\vspace{-.25in}
-\hspace*{3in} \@memberone \\ 
-\\
-\\
-\\
-\hspace*{3in} \hrulefill \\
-\vspace{-.25in}
-\hspace*{3in} \@membertwo \\ 
-\\
-\\
-\\
-\hspace*{3in} \hrulefill \\
-\vspace{-.25in}
-\hspace*{3in} \@memberthree \\ 
+\noindent
+\hspace*{3in}\hrulefill
+\vskip .0in
+\hspace*{3in}\@memberone
+\vskip .5in
+%
+\noindent
+\hspace*{3in}\hrulefill
+\vskip .0in
+\hspace*{3in}\@membertwo 
+\vskip .5in
+%
+\noindent
+\hspace*{3in}\hrulefill
+\vskip .0in
+\hspace*{3in}\@memberthree 
+\vskip .5in
+%
 \if@thesis
 %then enough lines
 \else %dissertation, add two more signature lines
-\\
-\\
-\\
-\hspace*{3in} \hrulefill \\
-\vspace{-.25in}
-\hspace*{3in} \@memberfour \\ 
-\\
-\\
-\\
-\hspace*{3in} \hrulefill \\
-\vspace{-.25in}
-\hspace*{3in} \@memberfive \\ 
-%\\
-%\\
-%\\
-%\hspace*{3in} \hrulefill \\
-%\vspace{-.25in}
-%\hspace*{3in} \@membersix \\ 
+\noindent
+\hspace*{3in}\hrulefill
+\vskip .0in
+\hspace*{3in}\@memberfour 
+\vskip .5in
+%
+\noindent
+\hspace*{3in}\hrulefill
+\vskip .0in
+\hspace*{3in}\@memberfive 
+\vskip .5in
+%uncomment the following 4 lines if you have 6 members
+%\noindent
+%\hspace*{3in}\hrulefill
+%\vskip .0in
+%\hspace*{3in}\@membersix 
+%
 \fi
 
     \par
@@ -680,6 +716,7 @@
 
 \renewcommand{\maketitle}{%
  \begin{titlepage}%
+\OUsinglespace
     \setcounter{page}{0}%
     \null
     \vfill
@@ -689,7 +726,10 @@
 %  
       \vfill
 %      
-      {\bf \LARGE \@title \par}%
+      %%% {\bf \LARGE \@title \par} %obsolete April 19, 2007
+ 	\OUdoublespace %title is double space on title page only
+      {\@title \par} %strict conformance to Grad College, April 19, 2007
+ 	\OUsinglespace
       \ifx\@volume\@empty\else
         \vskip 0.16 true in
         \@volume
@@ -703,30 +743,38 @@
 %       \par}
       \vskip 1.0 true in
       \if@thesis
-        A Thesis %
+        A THESIS %
       \else
-        A Dissertation%
+        A DISSERTATION%
       \fi\\*[0.1 true in]%
      SUBMITTED TO THE GRADUATE FACULTY\\*[0.1 true in]%
       in partial fulfillment of the requirements for the\\*[0.1 true in]%
-     degree of\\*[0.1 true in]%
       \if@thesis
+     Degree of\\*[0.1 true in]% %little d 9 May 2007 LMK % not needed APB
         \@mastersdegree
       \else
+     degree of\\*[0.1 true in]%
         \@doctorsdegree
       \fi\\*[0.1 true in]%
 %      \if@showmajorfield
 %        (\@majorfield)%
 %      \fi\\*[1.0 true cm]%
       \vfill
-      By%
-      \vskip 0.16 true in
-      \@author\\*[0.1 true in]%
-      Norman, Oklahoma\\*[0.1 true in]%
+%%%bhf      By%
+%%%bhf      \vskip 0.16 true in
+%%%bhf      \@author\\*[0.1 true in]%
+%%%bhf      Norman, Oklahoma\\*[0.1 true in]%
 %      {\begin{tabular}[t]{c}\@author\\*[0.1 true in]%
 %       \end{tabular}%
 %       \par}
-       {\reset@font\small \@depositdate \par}%
+%%%bhf       {\reset@font\small \@depositdate \par}%
+\OUsinglespace
+      By\\
+      \vskip 0.16 true in
+      \@author\\
+      Norman, Oklahoma\\
+      {\reset@font\small \@depositdate \par}%
+%\OUdoublespace
     \end{center}%
     \par
     \vfill
@@ -740,27 +788,46 @@
 
 
   
-\newdimen\prefacetopspace
-\prefacetopspace=1.0 true in
+%\newdimen\prefacetopspace
+%\prefacetopspace=1.0 true in
 
 \newcommand\prefacesection{\@dblarg{\@prefacesection}}
 
 \def\@prefacesection[#1]#2{%
   \newpage
+  \OUdoublespace %leave next line blank to avoid a bug!
+
   \pagestyle{plain}%
-  \null
-  \vskip\prefacetopspace
-  \begin{center}%
+  %\null
+  %\vskip\prefacetopspace
+  \begin{flushleft}% %replaced center with flushleft LMK 10 May 2007
     \section*{#2}%
-  \end{center}%
+  \end{flushleft}%
   \addcontentsline{toc}{chapter}{#1}}
 
+\newcommand\prefacesectionX{\@dblarg{\@prefacesectionX}}
+\def\@prefacesectionX[#1]#2{%
+  \newpage
+  \OUdoublespace %leave next line blank to avoid a bug!
+
+  \pagestyle{empty}%
+  \addtocounter{page}{-1}
+  %\null
+  %\vskip\prefacetopspace
+  \begin{flushleft}% %replaced center with flushleft LMK 10 May 2007
+    \section*{#2}%
+  \end{flushleft}%
+}
+%  \addcontentsline{toc}{chapter}{#1}}
+
 \renewcommand{\tableofcontents}{%
+\OUsinglespace
   \@ifnextchar [%
     {\@starspeciallist{toc}}%
-    {\@starspeciallist{toc}[Contents]}}
+    {\@starspeciallist{toc}[Contents]} }
 
 \renewcommand{\listoftables}{%
+\OUsinglespace
   \@ifstar
     {\@ifnextchar [%
        {\@starspeciallist{lot}}%
@@ -770,6 +837,7 @@
        {\@speciallist{lot}[List Of Tables]}}}
 
 \renewcommand{\listoffigures}{%
+\OUsinglespace
   \@ifstar
     {\@ifnextchar [%
        {\@starspeciallist{lof}}%
@@ -802,7 +870,7 @@
   \if@restonecol\twocolumn\fi}
   
 \renewcommand{\@makechapterhead}[1]{%
-  \vspace*{50pt}%
+  %\vspace*{50pt}%
   {\parindent 0pt 
    \raggedright
    \hyphenpenalty 10000%
@@ -816,7 +884,7 @@
   \hyphenpenalty 50}
 
 \renewcommand{\@makeschapterhead}[1]{%
-  \vspace*{50pt}%
+  %\vspace*{50pt}%
   {\parindent 0pt 
    \raggedright
    \hyphenpenalty 10000%
@@ -880,6 +948,11 @@
              Use \string\references{bibstyle}{#1}}\@eha}
 
 \newcommand{\references}{%
+\OUsinglespace
+%  \renewcommand{\baselinestretch}{1.0} %Brian sets singlespace
+% % Brian adds trick to activate above command, from Section 4.1 of "Guide to LaTeX",
+% % change fontsize, and change it back to normal:
+%  \small\normalsize
   \@ifstar
     {\@referencesA}%
     {\@referencesB}}
