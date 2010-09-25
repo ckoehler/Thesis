@@ -666,7 +666,7 @@
 	  \fi
 	  
 %      {{By}\\*[5.0 true cm]% %changed 1 to 5 LMK 2 May 2007
-      {{By}\\*[2.0 true cm]% %changed  5 to 3 BHF 25 November 2007
+      {{BY}\\*[2.0 true cm]% %changed  5 to 3 BHF 25 November 2007
           \par}
     \end{center}%
 %%%Brian
@@ -824,7 +824,7 @@
 \OUsinglespace
   \@ifnextchar [%
     {\@starspeciallist{toc}}%
-    {\@starspeciallist{toc}[Contents]} }
+    {\@starspeciallist{toc}[Table of Contents]} }
 
 \renewcommand{\listoftables}{%
 \OUsinglespace
