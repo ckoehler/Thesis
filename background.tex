@@ -1,1 +1,27 @@
 This is the background
+
+\section{Orthogonal Coding}
+Orthogonal coding is used in polarimetric radars to reduce the linear depolarization ratio between H and V-channels.
+According to \cite{Chandrasekar:2008}, orthogonal coding foo.
+Each channel is encoded with one of a pair of codes that are said to be orthogonal. That means that when the pair is 
+multiplied together, the product is zero, effectively eliminating the cross products of (some calculation).
+
+
+\section{Pulse Compression with Frequency Modulation}
+\label{pcwithfreq}
+In Pulse Compression, the frequency inside the pulse is modulated linearly (for Linear FM) or non-linearly over a certain bandwidth.
+The result is an increase in the ambiguous range $r_a$.
+
+\section{Pulse Compression with binary codes}
+One alternative to \ref{pcwithfreq} is the use of binary, or in our case, quadrature codes. With it, a subsection of each pulse is
+shifted in phase by $e^{jk \pi}$, where $k=(0, \frac{1}{2}, 1, \frac{3}{2})$. The performance of each code is measured by calculating
+the Integrated Sidelobe Level (ISL), which is defined as (\cite{Mudukutore:1998}):
+$$ ISL = 10 \log \frac{P_s}{P_m} $$,
+
+where $P_s$ is the power integrated over all the sidelobes, and $P_m$ the total power of the mainlobe.
+
+The lower the ISL, the better the performance of the code.
+
+
+The length of each code is a somewhat arbitrary 
+13 bits, for a total of $4^{13} = 67108864$ possible codes.
