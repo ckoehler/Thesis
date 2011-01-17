@@ -6,10 +6,29 @@ According to \cite{Chandrasekar:2008}, orthogonal coding foo.
 Each channel is encoded with one of a pair of codes that are said to be orthogonal. That means that when the pair is 
 multiplied together, the product is zero, effectively eliminating the cross products of (some calculation).
 
+\section{Pulse Compression}
+\label{pc}
+The goal for radar signals is high sensitivity, which means a high signal-to-noise ratio (SNR), and high resolution. In order to get a high SNR,
+the more energy can be put on target, the better the sensitivity. For a radar operating in transmitter saturation, that means the longer the
+transmitted pulse is, the more energy is transmitted. 
+Unfortunately, pulse length is inverse proportional to the resolution, so the longer the pulse, the larger the resolution volume will be.
+Pulse compression is a way to decouple the relationship between SNR and resolution by controlling the duration and bandwidth separately.
+
+The use of matched filter allows pulse compression since its output is the autocorrelation function of the transmit signal. This allows the design of
+waveforms such that they are narrowly focused in a narrow main lobe, with low sidelobes to concentrate the signal energy in the main lobe (\cite{Richards:2005}).
 
 \section{Pulse Compression with Frequency Modulation}
 \label{pcwithfreq}
-In Pulse Compression, the frequency inside the pulse is modulated linearly (for Linear FM) or non-linearly over a certain bandwidth.
+In Pulse Compression, the frequency inside the pulse is modulated linearly (for Linear FM, or LFM) or non-linearly over a certain bandwidth. It is defined as:
+\begin{equation}
+\label{LFM}
+x(t) = e^{j \pi \beta t^2 / \tau} = e^{j \theta (t)},\ \ 0 \leq t \leq \tau
+\end{equation}
+
+The spectrum of such a LFM waveform approaches the shape of a rectangle that is becomes better defined as the $\beta\tau$ ratio increases. The matched 
+filter response of a rectangular waveform is a sinc function with Rayleigh resolution of approximately $1/\beta$ (\cite{Richards:2005}).
+
+
 The result is an increase in the ambiguous range $r_a$.
 
 \section{Pulse Compression with binary codes}
@@ -19,11 +38,18 @@ the Integrated Sidelobe Level (ISL), which is defined as (\cite{Keeler:1999}):
 
 \begin{equation}
 \label{ISL}
-ISL = 10 \log \left(\frac{\sum\limits_{j} |s_j|^2}{\sum\limits_{k} |m_k|^2}\right)
+ISL = 10 \log \left(\frac{\sum\limits_{j} |m_k|^2}{\sum\limits_{k} |s_j|^2}\right)
 \end{equation}
 
 where $s_j$ is the power of the $j^{th}$ sidelobe, and $m_k$ the power of the $k^{th}$ mainlobe.
 
-The lower the ISL, the better the performance of the code.
+The higher the ISL, the better the performance of the code.
+
+\section{Pule Compression and Velocity Fields}
+For larger pulse width, the returned Doppler phase shift influences the carefully calculated phase shifts of the pulse and can lead to 
+greatly increased range sidelobes. 
+
+One solution could be to determine the Doppler shift with a short pulse and apply some sort of phase correction to the following long pulse
+in order to negate the effects of the non-zero phase shifts returned by moving targets.
 
 
