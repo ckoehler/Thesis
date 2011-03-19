@@ -1,7 +1,3 @@
-\section{Finding Performant Codes}
-For our implementation, we chose quadrature codes of length 13, for a total of $4^{13} = 67108864$ possible codes.
-We then calculate the ISL (\ref{ISL}) for each code to determine how well it performs in respect to pulse compression,
-and keep the best 4000 codes.
-
-In the next step, we test each code with every other code to determine their orthoganality, measuring their performance.
-We evaluate the best performing codes and implement them in the PX1000 mobile radar.
+Optimizations on ISL, peak side lobe
+- fixed, motion, volume scattering, transfer function, quantization effects
+- nlfm, paramterized as polynomial
