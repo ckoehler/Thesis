@@ -64,3 +64,15 @@ why are they using it?
 \section{Military Radars' use of Frequency Modulation} 
 
 \section{Amplitude Tapering compared to Non-linear Frequency Modulation}
+
+\section{Doppler Effect for Atmospheric Radar}
+One question for pulse compression performance is the effect of a Doppler shift on matched filter in the receiver. Any received signal that
+has been affected by a Doppler shift will cause a mismatch in the matched filter of the receiver. This is especially pronounced the higher the
+target velocity is. For atmospheric weather radars, we observe targets that usually move 25 m/s at maximum, causing a Doppler shift of
+$f_d = \frac{2v}{\lambda} = \frac{50}{0.1} = 500\ Hz$ for S-band.
+
+This mismatch effect on the matched filter has been quantified by Kelly and Wishner as follows (\cite{Kelly:1965}):
+
+For a signal of length T, a target of velocity v, and signal bandwidth B, the return Doppler-shifted signal can be written as $T(1-\frac{2v}{c})=T-\Delta T$. If 
+$\Delta T$ is much smaller than $T$, i.e.  $\Delta T << \frac{1}{B}$, the mismatch due to the Doppler effect can be neglected. In other words, 
+$\frac{2v}{c}BT << 1$. For a $1\mu s$ pulse at 5 MHz bandwidth moving at 30 m/s, $0.001 << 1$ is true, so the Doppler effect can be ignored.
