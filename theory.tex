@@ -1,14 +1,33 @@
-\section{Correlation Function}
+\section{Amiguity Function}
+The main tool to determine waveform performance is the Ambiguity Function (AF). It is defined as:
 
-\section{Fixed Target}
+\begin{equation}
+\label{AF}
+  |\chi(\tau,f_d)| = | \int_{-\infty}^\infty{u(t) u^*(t+\tau) e^{j2\pi f_d t} dt}|
+\end{equation}
 
-\section{Moving Target}
-Show that/if Doppler effects are negligible for weather.
-Speeds are only +- 50m/s
+, where $u(t)$ is the complex envelope of the signal, $\tau$ is the delay on the delay axis, and $f_d$
+is the Doppler frequency shift in the Doppler axis.
+We can clearly see that, for $f_d = 0$, the AF reduces to the Autocorrelation Function (ACF).
 
-\section{Volume Scattering}
 
-\section{Transmitter transfer function}
-Amplitude and phase, linear and quadratic, Gaussian pulse.
-How does transfer function operating region change pulse compression?
+For a simple rectangular pulse of the form $u(t)=\frac{1}{\sqrt{T}} rect(\frac{t}{T})$, the AF is:
+\begin{eqnarray}
+  |\chi(\tau,f_d)| &=& | \int_{-\infty}^\infty{u(t) u^*(t+\tau) e^{j2\pi f_d t} dt}| \nonumber \\ 
+  &=& 
+  \begin{cases}
+    \frac{1}{T} \int_{-\frac{T}{2} + \tau}^{\frac{T}{2}}{e^{j2\pi f_d t}dt} & \text{for $0 \leq \tau \leq T$} \nonumber \\
+    \frac{1}{T} \int_{-\frac{T}{2}}^{\frac{T}{2} + \tau}{e^{j2\pi f_d t}dt} & \text{for $-T \leq \tau \le 0$} \nonumber \\
+    0 & \text{otherwise} \nonumber \\
+  \end{cases}
+\end{eqnarray}
+
+Evaluate the integral:
+
+\begin{eqnarray}
+  \frac{1}{T} \int_{-\frac{T}{2} + \tau}^{\frac{T}{2}}{e^{j2\pi f_d t}dt}
+  &=& foo \nonumber \\ 
+  &=& bar \nonumber
+\end{eqnarray}
+
 

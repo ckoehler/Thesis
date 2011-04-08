@@ -689,6 +689,11 @@
 \vskip .5in
 %
 \if@thesis
+\noindent
+\hspace*{3in}\hrulefill
+\vskip .0in
+\hspace*{3in}\@memberfour 
+\vskip .5in
 %then enough lines
 \else %dissertation, add two more signature lines
 \noindent
