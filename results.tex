@@ -1,35 +1,98 @@
 \section{Simple pulse}
 A pulse is the simplest waveform for a radar. These graphs show the AF for pulses of varying lengths.
 
-\begin{figure}[ht]
-\includegraphics[width=\textwidth]{figures/pulse-1us.png}
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/pulse-1us.png}
 \caption{ Simple pulse of length 1 $\mu s$ }
 \label{fig:simplepulse-1us}
 \end{figure}
 
-\begin{figure}[ht!]
-\includegraphics[width=\textwidth]{figures/pulse-15us.png}
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/pulse-15us.png}
 \caption{ Simple pulse of length 15 $\mu s$ }
 \label{fig:simplepulse-15us}
 \end{figure}
 
-\begin{figure}[htb!]
-\includegraphics[width=\textwidth]{figures/pulse-50us.png}
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/pulse-50us.png}
 \caption{ Simple pulse of length 50 $\mu s$ }
 \label{fig:simplepulse-50us}
 \end{figure}
 
-\begin{figure}[ht]
-\includegraphics[width=\textwidth]{figures/pulse-100us.png}
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/pulse-100us.png}
 \caption{ Simple pulse of length 100 $\mu s$ }
 \label{fig:simplepulse-100us}
 \end{figure}
 
-\begin{figure}[ht]
-\includegraphics[width=\textwidth]{figures/pulse-200us.png}
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/pulse-200us.png}
 \caption{ Simple pulse of length 200 $\mu s$ }
 \label{fig:simplepulse-200us}
 \end{figure}
 
 
 \section{Phase-coded Barker code}
+Next we will examine a length 13 Barker code of different pulse lengths. Again we notice that
+Doppler performance gets worse with a longer pulse.
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/barker-1us.png}
+\caption{ Barker 13 of length 1 $\mu s$ }
+\label{fig:barker13-1us}
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/barker-15us.png}
+\caption{ Barker 13 of length 15 $\mu s$ }
+\label{fig:barker13-15us}
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/barker-50us.png}
+\caption{ Barker 13 of length 50 $\mu s$ }
+\label{fig:barker13-50us}
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/barker-100us.png}
+\caption{ Barker 13 of length 100 $\mu s$ }
+\label{fig:barker13-100us}
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/barker-200us.png}
+\caption{ Barker 13 of length 200 $\mu s$ }
+\label{fig:barker13-200us}
+\end{figure}
+
+
+\section{Linear Frequency Modulated waveform}
+Here we will look at a linearly frequency modulated waveform. As mentioned before, LFM is a property of the
+AF and thus very simple simple to implement in analog hardware. Also, the figures below show that the Doppler
+performance of an LFM waveform is very high, especially for our weather radar application. There is no visible
+difference between the AFs in the Doppler dimension.
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/lfm-15us.png}
+\caption{ LFM of length 15 $\mu s$ }
+\label{fig:lfm-15us}
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/lfm-50us.png}
+\caption{ LFM of length 50 $\mu s$ }
+\label{fig:lfm-50us}
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/lfm-100us.png}
+\caption{ LFM of length 100 $\mu s$ }
+\label{fig:lfm-100us}
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/lfm-200us.png}
+\caption{ LFM of length 200 $\mu s$ }
+\label{fig:lfm-200us}
+\end{figure}
