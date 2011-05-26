@@ -2,46 +2,52 @@ This is the background
 
 \section{Pulse Compression}
 \label{pc}
-The goal for radar signals is high sensitivity, which means a high signal-to-noise ratio (SNR), and high resolution. In order to get a high SNR,
-the more energy can be put on target, the better the sensitivity. For a radar operating in transmitter saturation, that means the longer the
-transmitted pulse is, the more energy is transmitted. 
-Unfortunately, pulse length is inverse proportional to the resolution, so the longer the pulse, the larger the resolution volume will be.
-Pulse compression is a way to decouple the relationship between SNR and resolution by controlling the duration and bandwidth separately.
+The goal for radar signals is high sensitivity, which means a high signal-to-noise ratio (SNR), 
+and high resolution. In order to get a high SNR, the more energy can be put on target, the better
+the sensitivity. For a radar operating in transmitter saturation, that means the longer the
+transmitted pulse is, the more energy is transmitted.  Unfortunately, pulse length is inverse 
+proportional to the resolution, so the longer the pulse, the larger the resolution volume will be.
+Pulse compression is a way to decouple the relationship between SNR and resolution by controlling 
+the duration and bandwidth separately.
 
-The use of matched filter allows pulse compression since its output is the autocorrelation function of the transmit signal. This allows the design of
-waveforms such that they are narrowly focused in a narrow main lobe, with low sidelobes to concentrate the signal energy in the main lobe (\cite{Richards:2005}).
+The use of matched filter allows pulse compression since its output is the autocorrelation function 
+of the transmit signal. This allows the design of waveforms such that they are narrowly focused in a 
+narrow main lobe, with low sidelobes to concentrate the signal energy in the main lobe (\cite{Richards:2005}).
 
 \section{Linear Frequency Modulation}
 \label{s_lfm}
-In Pulse Compression, the frequency inside the pulse is modulated linearly (for Linear FM, or LFM) or non-linearly over a certain bandwidth. It is defined as:
+In Pulse Compression, the frequency inside the pulse is modulated linearly (for Linear FM, or LFM) or
+non-linearly over a certain bandwidth. It is defined as:
 \begin{equation}
 \label{LFM}
 x(t) = e^{j \pi \beta t^2 / \tau} = e^{j \theta (t)},\ \ 0 \leq t \leq \tau
 \end{equation}
 
-The spectrum of such a LFM waveform approaches the shape of a rectangle that is becomes better defined as the $\beta\tau$ ratio increases. The matched 
-filter response of a rectangular waveform is a sinc function with Rayleigh resolution of approximately $1/\beta$ (\cite{Richards:2005}).
+The spectrum of such a LFM waveform approaches the shape of a rectangle that is becomes better defined
+as the $\beta\tau$ ratio increases. The matched filter response of a rectangular waveform is a sinc 
+function with Rayleigh resolution of approximately $1/\beta$ (\cite{Richards:2005}).
 
 
 The result is an increase in the ambiguous range $r_a$.
 
 The LFM effect is a consequence of a Ambiguity Function property, as follow:
 
-If $u(t)$ has an added phase that changes quadratically, i.e. $u^{'}(t) = u(t) e^{j\pi kt^2}$, which is equivalent to a linear frequency modulation
-because $\omega(t) = \frac{d}{dt}\phi(t)$, the resulting AF is $|\chi(\tau,f_d-k\tau)|$.
+If $u(t)$ has an added phase that changes quadratically, i.e. $u^{'}(t) = u(t) e^{j\pi kt^2}$, which 
+is equivalent to a linear frequency modulation because $\omega(t) = \frac{d}{dt}\phi(t)$, the resulting 
+AF is $|\chi(\tau,f_d-k\tau)|$.
 
 
 TODO: figures
 
 
-The slow drop-off of peak in the AF makes LFM pulse compression very Doppler tolerant, which make it convenient for radar applications
-that have to deal with high-velocity targets. Add to that the ease of implementation in analog hardware and we have a simple way to 
-improve our radar's performance.
+The slow drop-off of peak in the AF makes LFM pulse compression very Doppler tolerant, which make it convenient 
+for radar applications that have to deal with high-velocity targets. Add to that the ease of implementation in 
+analog hardware and we have a simple way to improve our radar's performance.
 
 \section{Pulse Compression with binary codes}
-One alternative to \ref{s_lfm} is the use of binary, or in our case, quadrature codes. With it, a subsection of each pulse is
-shifted in phase by $e^{jk \pi}$, where $k=(0, \frac{1}{2}, 1, \frac{3}{2})$. The performance of each code is measured by calculating
-the Integrated Sidelobe Level (ISL), which is defined as (\cite{Keeler:1999}):
+One alternative to \ref{s_lfm} is the use of binary, or in our case, quadrature codes. With it, a subsection of 
+each pulse is shifted in phase by $e^{jk \pi}$, where $k=(0, \frac{1}{2}, 1, \frac{3}{2})$. The performance of 
+each code is measured by calculating the Integrated Sidelobe Level (ISL), which is defined as (\cite{Keeler:1999}):
 
 \begin{equation}
 \label{ISL}
@@ -55,28 +61,32 @@ The higher the ISL, the better the performance of the code.
 \section{Binary Phase Codes compared to Frequency Modulation}
 
 \section{Bandwidth for Binary Phase Codes}
-Use less bw?
+The bandwidth of a binary phase-modulated waveform is the inverse of the length of a subpulse. Given a
+pulse with length $\tau$ and $n$ subpulses, the length of a subpulse is $T = \frac{\tau}{n}$, the the bandwidth
+of the whole pulse will be $B = \frac{1}{T}$ Hz.
 
 \section{Use of Phase Codes in Profilers}
 why are they using it?
 
 \section{Military Radars' use of Frequency Modulation} 
-Since LFM is simply taking advantage of a property of the AF, it was the earliest way of getting increased sensitivity. It's fairly
-simple to implement in analog hardware and very Doppler tolerant due to the slow decrease in slope.
+Since LFM is simply taking advantage of a property of the AF, it was the earliest way of getting increased sensitivity.
+It's fairly simple to implement in analog hardware and very Doppler tolerant due to the slow decrease in slope.
 
 \section{Amplitude Tapering compared to Non-linear Frequency Modulation}
 
-\section{Doppler Effect for Atmospheric Radar}
-One question for pulse compression performance is the effect of a Doppler shift on matched filter in the receiver. Any received signal that
-has been affected by a Doppler shift will cause a mismatch in the matched filter of the receiver. This is especially pronounced the higher the
-target velocity is. For atmospheric weather radars, we observe targets that usually move 25 m/s at maximum, causing a Doppler shift of
-$f_d = \frac{2v}{\lambda} = \frac{50}{0.1} = 500\ Hz$ for S-band.
+\section{Doppler Effect for Weather Radars}
+One question for pulse compression performance is the effect of a Doppler shift on matched filter in the receiver. Any
+received signal that has been affected by a Doppler shift will cause a mismatch in the matched filter of the receiver.
+This is especially pronounced the higher the target velocity is. For atmospheric weather radars, we observe targets that
+usually move 25 m/s at maximum, causing a Doppler shift of $f_d = \frac{2v}{\lambda} = \frac{50}{0.1} = 500\ Hz$ for S-band.
 
-This mismatch effect on the matched filter has been quantified by Kelly and Wishner as follows (\cite{Kelly:1965}):
+This mismatch effect on the matched filter has been quantified by Kelly and Wishner as follows (\cite{Kelly:1965}).
 
-For a signal of length T, a target of velocity v, and signal bandwidth B, the return Doppler-shifted signal can be written as $T(1-\frac{2v}{c})=T-\Delta T$. If 
-$\Delta T$ is much smaller than $T$, i.e.  $\Delta T << \frac{1}{B}$, the mismatch due to the Doppler effect can be neglected. In other words, 
-$\frac{2v}{c}BT << 1$. For a $1\mu s$ pulse at 5 MHz bandwidth moving at 30 m/s, $0.001 << 1$ is true, so the Doppler effect can be ignored.
+For a signal of length T, a target of velocity v, and signal bandwidth B, the return Doppler-shifted signal can be written 
+as $T(1-\frac{2v}{c})=T-\Delta T$. If $\Delta T$ is much smaller than $T$, i.e.  $\Delta T << \frac{1}{B}$, the mismatch 
+due to the Doppler effect can be neglected. In other words, $\frac{2v}{c}BT << 1$. For a $1\mu s$ pulse at 5 MHz bandwidth 
+moving at 30 m/s, $0.001 << 1$ is true, so the Doppler effect can be ignored. We will see this confirmed later in the 
+simulations.
 
-The pulse compression ratio, $BT$, is not equal to unity, so the mismatch in the filter is compounded for highly compressed pulses, which also makes sense
-intuitively.
+The pulse compression ratio, $BT$, is not equal to unity, so the mismatch in the filter is compounded for highly compressed 
+pulses, which also makes sense intuitively.

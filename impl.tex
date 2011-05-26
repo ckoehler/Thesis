@@ -1,29 +1,13 @@
-Optimizations on ISL, peak side lobe
+The simulation is done in multiple parts. First, a waveform is generated based on a given
+amplitude, phase, frequency modulation, and impulse response that is applied to the signal.
+The returned waveform is properly sampled based on the desired signal bandwidth to avoid aliasing.
+Once we have the waveform, we generate the AF and plot it as a surface plot.
+
+\section{Optimizations}
+We optimize the waveform on Integrated Sidelobe Level (ISL) and peak sidelobe.
+
 - fixed, motion, volume scattering, transfer function, quantization effects
 - nlfm, paramterized as polynomial
-The Figure~\ref{fig:af} is showing foobar.
 
 
 
-\begin{figure}[h]
-\includegraphics[width=\textwidth]{../figures/lfm-af.png}
-\caption{ foobar}
-\label{fig:af}
-\end{figure}
-
-Optimizations on ISL, peak side lobe
-- fixed, motion, volume scattering, transfer function, quantization effects
-- nlfm, paramterized as polynomial
-The Figure~\ref{fig:af} is showing foobar.
-
-\begin{figure}
-\includegraphics[width=\textwidth]{../figures/lfm-af.png}
-\caption{ foobar}
-\label{fig:af2}
-\end{figure}
-
-\begin{figure}
-\includegraphics[width=\textwidth]{../figures/lfm-af.png}
-\caption{ foobar}
-\label{fig:af3}
-\end{figure}
