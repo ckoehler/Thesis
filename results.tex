@@ -73,6 +73,14 @@ AF and thus very simple simple to implement in analog hardware. Also, the figure
 performance of an LFM waveform is very high, especially for our weather radar application. There is no visible
 difference between the AFs in the Doppler dimension.
 
+The frequency modulation function is shown in figure \ref{fig:lfm-fmf}.
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/lfm-fmf.png}
+\caption{Linear frequency modulation function}
+\label{fig:lfm-fmf}
+\end{figure}
+
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/lfm-15us.png}
 \caption{ LFM of length 15 $\mu s$ }
@@ -97,8 +105,37 @@ difference between the AFs in the Doppler dimension.
 \label{fig:lfm-200us}
 \end{figure}
 
+\section{Linear Frequency Modulated waveform with amplitude weighting}
+The AF of a LFM waveform has fairly high sidelobes that we can try to mitigate with amplitude weighting.
+For that, we'll apply a Hamming window to the amplitude. As expected, the sidelobes decrease, but the main
+lobe width increases.
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/lfm-15us-hamming.png}
+\caption{ LFM of length 15 $\mu s$ with Hamming amplitude weighting }
+\label{fig:lfm-15us-hamming}
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/lfm-50us-hamming.png}
+\caption{ LFM of length 50 $\mu s$ with Hamming amplitude weighting}
+\label{fig:lfm-50us-hamming}
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/lfm-100us-hamming.png}
+\caption{ LFM of length 100 $\mu s$ with Hamming amplitude weighting }
+\label{fig:lfm-100us-hamming}
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/lfm-200us-hamming.png}
+\caption{ LFM of length 200 $\mu s$ with Hamming amplitude weighting }
+\label{fig:lfm-200us-hamming}
+\end{figure}
+
 \section{Quadratic Frequency Modulated waveform}
-Here we will look at a quadradicly frequency modulated waveform. Also, the figures below show that the Doppler
+Here we will look at a quadradicly frequency modulated waveform. The figures below show that the Doppler
 performance of a QFM waveform is very high, especially for our weather radar application. There is no visible
 difference between the AFs in the Doppler dimension.
 
@@ -124,4 +161,68 @@ difference between the AFs in the Doppler dimension.
 \includegraphics[width=\imgsize]{figures/qfm-200us.png}
 \caption{ QFM of length 200 $\mu s$ }
 \label{fig:qfm-200us}
+\end{figure}
+
+\section{Quadratic Frequency Modulated waveform with amplitude weighting}
+Similar to the LFM waveforms, we can decrease sidelobes by applying a Hamming window to the waveform amplitude
+at the expense of a wider main lobe.
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/qfm-15us-hamming.png}
+\caption{ QFM of length 15 $\mu s$ with Hamming amplitude weighting }
+\label{fig:qfm-15us-hamming}
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/qfm-50us-hamming.png}
+\caption{ QFM of length 50 $\mu s$ with Hamming amplitude weighting }
+\label{fig:qfm-50us-hamming}
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/qfm-100us-hamming.png}
+\caption{ QFM of length 100 $\mu s$ with Hamming amplitude weighting }
+\label{fig:qfm-100us-hamming}
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/qfm-200us-hamming.png}
+\caption{ QFM of length 200 $\mu s$ with Hamming amplitude weighting }
+\label{fig:qfm-200us-hamming}
+\end{figure}
+
+\section{Hann-shaped Frequency Modulated waveform}
+The following waveform is frequency modulated according to the Hann function, 
+shown in figure \ref{fig:hannfm-fmf}.
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/hannfm-fmf.png}
+\caption{Hann frequency modulation function}
+\label{fig:hannfm-fmf}
+\end{figure}
+
+
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/hannfm-15us.png}
+\caption{ Hann-shaped FM of length 15 $\mu s$}
+\label{fig:hannfm-15us}
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/hannfm-50us.png}
+\caption{ Hann-shaped FM of length 50 $\mu s$}
+\label{fig:hannfm-50us}
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/hannfm-100us.png}
+\caption{ Hann-shaped FM of length 100 $\mu s$}
+\label{fig:hannfm-100us}
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/hannfm-200us.png}
+\caption{ Hann-shaped FM of length 200 $\mu s$}
+\label{fig:hannfm-200us}
 \end{figure}

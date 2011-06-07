@@ -1,7 +1,36 @@
+\section{Generating Waveforms}
 The simulation is done in multiple parts. First, a waveform is generated based on a given
 amplitude, phase, frequency modulation, and impulse response that is applied to the signal.
 The returned waveform is properly sampled based on the desired signal bandwidth to avoid aliasing.
-Once we have the waveform, we generate the AF and plot it as a surface plot.
+
+If an impulse response was supplied, we get both the distorted and clean waveform back, as well as
+the new pulse length $\tau$ which will be approximately twice the original $\tau$. That lengthening
+is due to the convolution of the original waveform $u(t)$ with the impulse response $h(t)$.
+
+\section{Calculate the Ambiguity Function}
+Once we have the waveform, we generate the AF and plot it as a surface plot. There are three components
+to the AF: 
+
+\begin{enumerate}
+\item the original waveform, $u(t)$
+\item the shifted complex conjugate of the waveform, $u^*(t+\tau)$
+\item the Doppler shift, $e^{j2\pi f_d t}$
+\end{enumerate}
+These components are multiplied and the result summed up. To do that, we convert $u(t)$ into a diagonal
+matrix, so that each data point of the signal is on its own row. The shifted complex conjugate is also 
+a matrix, where each row contains the flipped signal shifted a little further. If we ignore the Doppler
+shift for a moment and multiply what we have so far and sum over it, we get the auto-correlation of $u(t)$,
+which is easy to verify.
+
+Next we calculate the Doppler shifts for a given range of frequencies over the time $t$. The multiplication of 
+$f_d$ and $t$ results in a matrix where each row corresponds to a certain Doppler shift. The first row at 
+$f_d = 0$ gives us a vector of 1s, as we would expect.
+
+Finally, we multiply all three components together and sum to get the AF in a 2D matrix that we can visualize
+as a surface plot.
+Note that the original signal $u(t)$ could be distorted by an arbitrary impulse response if we decide to include
+that aspect in the simulation, whereas the shifted complex conjugate part is always based on the clean, original
+signal.
 
 \section{Optimizations}
 We optimize the waveform on Integrated Sidelobe Level (ISL) and peak sidelobe.
