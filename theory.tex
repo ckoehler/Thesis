@@ -44,3 +44,25 @@ with the impulse response $h(t)$:
 
 We can easily see that applying the impulse response to the return signal is equivalent to applying it to the original pulse $u(t)$. 
 
+\section{Waveform optimizations}
+\subsection{Integrated Sidelobe Level}
+The performance of each code is measured by calculating the Integrated Sidelobe Level (ISL), which is defined as (\cite{Keeler:1999}):
+
+\begin{equation}
+\label{ISL}
+ISL = 10 \log \left(\frac{\sum\limits_{j} |m_k|^2}{\sum\limits_{k} |s_j|^2}\right)
+\end{equation}
+
+where $s_j$ is the power of the $j^{th}$ sidelobe, and $m_k$ the power of the $k^{th}$ mainlobe.
+
+The higher the ISL, the better the performance of the code.
+
+\subsection{3dB Beamwidth}
+Another metric to evaluate the performance of a waveform is the 3dB waveform in units of meters, i.e. the spatial delay.
+The lower the value, the finer the resolution of the radar.
+
+
+\subsection{Maximum Sidelobe Level}
+Although the ISL is a good way to quantify waveform performance, it can be misleading. Sidelobes are very undesirable, so a waveform
+that has overall low sidelobes except for one very dominant one will have a low ISL, but may not be performant enough for actual use due
+to the outlier sidelobe.

@@ -46,18 +46,7 @@ analog hardware and we have a simple way to improve our radar's performance.
 
 \section{Pulse Compression with binary codes}
 One alternative to \ref{s_lfm} is the use of binary, or in our case, quadrature codes. With it, a subsection of 
-each pulse is shifted in phase by $e^{jk \pi}$, where $k=(0, \frac{1}{2}, 1, \frac{3}{2})$. The performance of 
-each code is measured by calculating the Integrated Sidelobe Level (ISL), which is defined as (\cite{Keeler:1999}):
-
-\begin{equation}
-\label{ISL}
-ISL = 10 \log \left(\frac{\sum\limits_{j} |m_k|^2}{\sum\limits_{k} |s_j|^2}\right)
-\end{equation}
-
-where $s_j$ is the power of the $j^{th}$ sidelobe, and $m_k$ the power of the $k^{th}$ mainlobe.
-
-The higher the ISL, the better the performance of the code.
-
+each pulse is shifted in phase by $e^{jk \pi}$, where $k=(0, \frac{1}{2}, 1, \frac{3}{2})$. 
 \section{Binary Phase Codes compared to Frequency Modulation}
 
 \section{Bandwidth for Binary Phase Codes}
