@@ -1,12 +1,48 @@
-This thesis will focus on the following topics.
+\section{Literary Survey}
+There are numerous works available on waveform design, the most comprehensive being \cite{Levanon:2004} without
+a doubt. \cite{Richards:2005} also hits on general waveform techniques for radar.
+The paper by \cite{Keeler:1999} has much information for weather radar applications, concentrating on phased
+array radars.
 
-In order to evaluate a waveform, we will use the Ambiguity Function (AF). It shows the spatial delay in one
-dimension and Doppler velocity in the other dimension. The third dimension shows how much energy of the signal
-is contained at any delay-velocity combination.
+\section{Using Radar for Observing the Atmosphere}
+From only observing hard targets during WWII and the latter part of the 20th century, radar quickly became 
+a great way to observe the atmosphere. As with all remote sensing applications, radar could give advanced warning
+and better insights into what's happening in the atmosphere in places that are not possible or difficult to observe
+using other means.
 
-We will then compare binary codes with frequency modulated waveforms based on their AFs. We will compare the
-AFs of different waveforms with varying pulse lengths and modulations.
+A basic pulsed radar allows for the retrieval of weather intensity as well as Doppler shift to determine the radial
+velocity of the hydrometeors.
 
-After that, the effects of impulse response distortion on the waveform's AF will be examined.
+Some frequency bands perform better for observing weather than others. The higher the frequency, the more attenuated
+the signal becomes as it passes through the atmosphere. The ideal band for weather radars is about 3 GHz, or S-band,
+because of its low attenuation. However, S-band may already be reserved and is generally highly desired for other applications,
+like cell phones, so C-band or X-band radars are also used for observing weather, where the effects of attenuation can be
+mitigated somewhat. One advantage of higher frequency radars is the need for a smaller antenna, which reduces required
+space and cost.
 
-Finally, we will include volume scattering into the calculations.
+\section{Phased Array Radars}
+As more and more radar components are pushed into the digital domain, radars have become smaller in size and cheaper to
+manufacture. In particular, phased array radars move away from a standard dish antenna to so-called array antennas.
+An array antenna is made up of discrete units of transceivers distributed in one or more dimensions. OU's Phased Array 
+Radar, for example, has over 4000 elements distributed across a plane. Each of the elements is able to transmit a
+signal with a certain phase shift. Setting these phase shifts in a certain way will result in the signals of all the
+array elements to add up in different ways, steering the radar beam without physically moving the antenna.
+
+This electronic steering has the advantage of being very fast and flexible and works well to reduce overall scan time,
+focus on particular targets in space in any order, or reduce data correlation by steering the beam out-of-order.
+
+Lower power amplifiers in these systems make it necessary to increase pulse length in order to get the same amount of 
+energy on target. Longer pulses, in turn, decrease range resolution.
+
+\section{The Need for Pulse Compression}
+The goal for radar signals is high sensitivity, which means a high signal-to-noise ratio (SNR), 
+and high resolution. In order to get a high SNR, the more energy can be put on target, the better
+the sensitivity. For a radar operating in transmitter saturation, that means the longer the
+transmitted pulse is, the more energy is transmitted.  Unfortunately, pulse length is inverse 
+proportional to the resolution, so the longer the pulse, the larger the resolution volume will be.
+Pulse compression is a way to decouple the relationship between SNR and resolution by controlling 
+the duration and bandwidth separately.
+
+The use of matched filter allows pulse compression since its output is the autocorrelation function 
+of the transmit signal. This allows the design of waveforms such that they are narrowly focused in a 
+narrow main lobe, with low sidelobes to concentrate the signal energy in the main lobe (\cite{Richards:2005}).

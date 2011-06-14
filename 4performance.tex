@@ -1,42 +1,94 @@
-\section{Generating Waveforms}
-The simulation is done in multiple parts. First, a waveform is generated based on a given
-amplitude, phase, frequency modulation, and impulse response that is applied to the signal.
-The returned waveform is properly sampled based on the desired signal bandwidth to avoid aliasing.
+\section{Quantifications}
+\subsection{Amiguity Function}
+The main tool to determine waveform performance is the Ambiguity Function (AF) (\cite{Levanon:2004}). It is defined as:
 
-If an impulse response was supplied, we get both the distorted and clean waveform back, as well as
-the new pulse length $\tau$ which will be approximately twice the original $\tau$. That lengthening
-is due to the convolution of the original waveform $u(t)$ with the impulse response $h(t)$.
+\begin{equation}
+\label{eq:AF}
+  |\chi(\tau,f_d)| = | \int_{-\infty}^\infty{u(t) u^*(t+\tau) e^{j2\pi f_d t} dt}|,
+\end{equation}
 
-\section{Calculate the Ambiguity Function}
-Once we have the waveform, we generate the AF and plot it as a surface plot. There are three components
-to the AF: 
-
-\begin{enumerate}
-\item the original waveform, $u(t)$
-\item the shifted complex conjugate of the waveform, $u^*(t+\tau)$
-\item the Doppler shift, $e^{j2\pi f_d t}$
-\end{enumerate}
-These components are multiplied and the result summed up. To do that, we convert $u(t)$ into a diagonal
-matrix, so that each data point of the signal is on its own row. The shifted complex conjugate is also 
-a matrix, where each row contains the flipped signal shifted a little further. If we ignore the Doppler
-shift for a moment and multiply what we have so far and sum over it, we get the auto-correlation of $u(t)$,
-which is easy to verify.
-
-Next we calculate the Doppler shifts for a given range of frequencies over the time $t$. The multiplication of 
-$f_d$ and $t$ results in a matrix where each row corresponds to a certain Doppler shift. The first row at 
-$f_d = 0$ gives us a vector of 1s, as we would expect.
-
-Finally, we multiply all three components together and sum to get the AF in a 2D matrix that we can visualize
-as a surface plot.
-Note that the original signal $u(t)$ could be distorted by an arbitrary impulse response if we decide to include
-that aspect in the simulation, whereas the shifted complex conjugate part is always based on the clean, original
-signal.
-
-\section{Optimizations}
-We optimize the waveform on Integrated Sidelobe Level (ISL) and peak sidelobe.
-
-- fixed, motion, volume scattering, transfer function, quantization effects
-- nlfm, paramterized as polynomial
+where $u(t)$ is the complex envelope of the signal, $\tau$ is the delay on the delay axis, and $f_d$
+is the Doppler frequency shift in the Doppler axis.
+We can clearly see that, for $f_d = 0$, the AF reduces to the Autocorrelation Function (ACF).
 
 
+For a simple rectangular pulse of the form $u(t)=\frac{1}{\sqrt{T}} rect(\frac{t}{T})$, the AF is:
+\begin{align*}
+  |\chi(\tau,f_d)| &= | \int_{-\infty}^\infty{u(t) u^*(t+\tau) e^{j2\pi f_d t} dt}| \\ 
+  &= 
+  \begin{cases}
+    \frac{1}{T} \int_{-\frac{T}{2} + \tau}^{\frac{T}{2}}{e^{j2\pi f_d t}dt} & \text{for $0 \leq \tau \leq T$}, \\
+    \frac{1}{T} \int_{-\frac{T}{2}}^{\frac{T}{2} + \tau}{e^{j2\pi f_d t}dt} & \text{for $-T \leq \tau < 0$}, \\
+    0 & \text{otherwise}. \\
+  \end{cases}
+\end{align*}
 
+Evaluate the integral:
+
+\begin{align*}
+  \frac{1}{T} \int_{-\frac{T}{2} + \tau}^{\frac{T}{2}}{e^{j2\pi f_d t}dt}
+  &= foo \\ 
+  &= bar 
+\end{align*}
+
+\subsection{Integrated Sidelobe Level}
+The performance of each code is measured by calculating the Integrated Sidelobe Level (ISL), which is defined as (\cite{Keeler:1999}):
+
+\begin{equation}
+\label{ISL}
+ISL = 10 \log \left(\frac{\sum\limits_{j} |s_j|^2}{\sum\limits_{k} |m_k|^2}\right)
+\end{equation}
+
+where $s_j$ is the power of the $j^{th}$ sidelobe, and $m_k$ the power of the $k^{th}$ mainlobe.
+
+The lower the ISL, the better the performance of the code.
+
+\subsection{3dB Beamwidth}
+Another metric to evaluate the performance of a waveform is the 3dB waveform in units of meters, i.e. the spatial delay.
+The lower the value, the finer the resolution of the radar.
+
+
+\subsection{Maximum Sidelobe Level}
+Although the ISL is a good way to quantify waveform performance, it can be misleading. Sidelobes are very undesirable, so a waveform
+that has overall low sidelobes except for one very dominant one will have a low ISL, but may not be performant enough for actual use due
+to the outlier sidelobe.
+
+
+
+
+
+\section{Limitations}
+\subsection{Doppler Effect for Weather Radars}
+One question for pulse compression performance is the effect of a Doppler shift on matched filter in the receiver. Any
+received signal that has been affected by a Doppler shift will cause a mismatch in the matched filter of the receiver.
+This is especially pronounced the higher the target velocity is. For atmospheric weather radars, we observe targets that
+usually move 25 m/s at maximum, causing a Doppler shift of $f_d = \frac{2v}{\lambda} = \frac{50}{0.1} = 500\ Hz$ for S-band.
+
+This mismatch effect on the matched filter has been quantified by Kelly and Wishner as follows (\cite{Kelly:1965}).
+
+For a signal of length T, a target of velocity v, and signal bandwidth B, the return Doppler-shifted signal can be written 
+as $T(1-\frac{2v}{c})=T-\Delta T$. If $\Delta T$ is much smaller than $T$, i.e.  $\Delta T << \frac{1}{B}$, the mismatch 
+due to the Doppler effect can be neglected. In other words, $\frac{2v}{c}BT << 1$. For a $1\mu s$ pulse at 5 MHz bandwidth 
+moving at 30 m/s, $0.001 << 1$ is true, so the Doppler effect can be ignored. We will see this confirmed later in the 
+simulations.
+
+The pulse compression ratio, $BT$, is not equal to unity, so the mismatch in the filter is compounded for highly compressed 
+pulses, which also makes sense intuitively.
+
+\subsection{Effects of amplifier impulse response on the Ambiguity function}
+
+Next we will examine the effects of the amplifier in the receive chain on the pulse.
+Recall the general AF (\ref{eq:AF}) and let the return signal part of it pass through the system
+with the impulse response $h(t)$:
+
+\begin{align*}
+   \chi(t,f_d) &= |\int_{-\infty}^\infty{u(t) [(u^*(t+\tau) e^{j2\pi f_d t})*h(t)]\ dt}| \\
+   &= |\int_{-\infty}^\infty{u(t) \int_{-\infty}^{\infty}{u^*(t'+\tau) e^{j2\pi f_d t'}h^*(t'-t) dt'}\ dt}| \\
+   \iff \chi(t',f_d) &= |\int_{-\infty}^\infty{u^*(t'+\tau) e^{j2\pi f_d t'}\int_{-\infty}^{\infty}{u(t) h^*(t'-t) dt}\ dt'}| 
+\end{align*}
+
+We can easily see that applying the impulse response to the return signal is equivalent to applying it to the original pulse $u(t)$. 
+
+\subsection{Quantization}
+
+\subsection{Volume Scattering}

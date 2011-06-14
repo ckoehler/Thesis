@@ -1,68 +1,73 @@
-\section{Amiguity Function}
-The main tool to determine waveform performance is the Ambiguity Function (AF) (\cite{Levanon:2004}). It is defined as:
 
+\section{Frequency Modulation}
+\subsection{Linear Frequency Modulation}
+\label{s_lfm}
+In Pulse Compression, the frequency inside the pulse is modulated linearly (for Linear FM, or LFM) or
+non-linearly over a certain bandwidth. It is defined as:
 \begin{equation}
-\label{eq:AF}
-  |\chi(\tau,f_d)| = | \int_{-\infty}^\infty{u(t) u^*(t+\tau) e^{j2\pi f_d t} dt}|,
+\label{LFM}
+x(t) = e^{j \pi \beta t^2 } = e^{j \theta (t)},\ \ 0 \leq t \leq \tau
 \end{equation}
 
-where $u(t)$ is the complex envelope of the signal, $\tau$ is the delay on the delay axis, and $f_d$
-is the Doppler frequency shift in the Doppler axis.
-We can clearly see that, for $f_d = 0$, the AF reduces to the Autocorrelation Function (ACF).
+The spectrum of such a LFM waveform approaches the shape of a rectangle that becomes better defined
+as the $\beta\tau$ ratio increases. The matched filter response of a rectangular waveform is a sinc 
+function with Rayleigh resolution of approximately $1/\beta$ (\cite{Richards:2005}).
 
 
-For a simple rectangular pulse of the form $u(t)=\frac{1}{\sqrt{T}} rect(\frac{t}{T})$, the AF is:
-\begin{align*}
-  |\chi(\tau,f_d)| &= | \int_{-\infty}^\infty{u(t) u^*(t+\tau) e^{j2\pi f_d t} dt}| \\ 
-  &= 
-  \begin{cases}
-    \frac{1}{T} \int_{-\frac{T}{2} + \tau}^{\frac{T}{2}}{e^{j2\pi f_d t}dt} & \text{for $0 \leq \tau \leq T$}, \\
-    \frac{1}{T} \int_{-\frac{T}{2}}^{\frac{T}{2} + \tau}{e^{j2\pi f_d t}dt} & \text{for $-T \leq \tau < 0$}, \\
-    0 & \text{otherwise}. \\
-  \end{cases}
-\end{align*}
+The result is an increase in the ambiguous range $r_a$.
 
-Evaluate the integral:
+The LFM effect is a consequence of a Ambiguity Function property, as follow:
 
-\begin{align*}
-  \frac{1}{T} \int_{-\frac{T}{2} + \tau}^{\frac{T}{2}}{e^{j2\pi f_d t}dt}
-  &= foo \\ 
-  &= bar 
-\end{align*}
+If $u(t)$ has an added phase that changes quadratically, i.e. $u^{'}(t) = u(t) e^{j\pi \beta t^2}$, which 
+is equivalent to a linear frequency modulation because $\omega(t) = \frac{d}{dt}\phi(t)$, the resulting 
+AF is $|\chi(\tau,f_d-k\tau)|$.
 
-\section{Effects of amplifier impulse response on the Ambiguity function}
 
-Next we will examine the effects of the amplifier in the receive chain on the pulse.
-Recall the general AF (\ref{eq:AF}) and let the return signal part of it pass through the system
-with the impulse response $h(t)$:
+TODO: figures
 
-\begin{align*}
-   \chi(t,f_d) &= |\int_{-\infty}^\infty{u(t) [(u^*(t+\tau) e^{j2\pi f_d t})*h(t)]\ dt}| \\
-   &= |\int_{-\infty}^\infty{u(t) \int_{-\infty}^{\infty}{u^*(t'+\tau) e^{j2\pi f_d t'}h^*(t'-t) dt'}\ dt}| \\
-   \iff \chi(t',f_d) &= |\int_{-\infty}^\infty{u^*(t'+\tau) e^{j2\pi f_d t'}\int_{-\infty}^{\infty}{u(t) h^*(t'-t) dt}\ dt'}| 
-\end{align*}
 
-We can easily see that applying the impulse response to the return signal is equivalent to applying it to the original pulse $u(t)$. 
+The slow drop-off of peak in the AF makes LFM pulse compression very Doppler tolerant, which make it convenient 
+for radar applications that have to deal with high-velocity targets. Add to that the ease of implementation in 
+analog hardware and we have a simple way to improve our radar's performance.
 
-\section{Waveform optimizations}
-\subsection{Integrated Sidelobe Level}
-The performance of each code is measured by calculating the Integrated Sidelobe Level (ISL), which is defined as (\cite{Keeler:1999}):
+\subsection{Non-linear Frequency Modulation}
+Extrapolating from the results above, the general expression for a frequency modulated waveform is as follows.
 
 \begin{equation}
-\label{ISL}
-ISL = 10 \log \left(\frac{\sum\limits_{j} |m_k|^2}{\sum\limits_{k} |s_j|^2}\right)
+\label{NLFM}
+x(t) = e^{j 2 \pi \int_0^t{f(t') dt'}} ,\ \ 0 \leq t \leq \tau,
 \end{equation}
 
-where $s_j$ is the power of the $j^{th}$ sidelobe, and $m_k$ the power of the $k^{th}$ mainlobe.
+where $f(t)$ defines the function of the frequency sweep. In the LFM case, $f(t)=\beta t$, which simplifies Eq
+\ref{NLFM} to
 
-The higher the ISL, the better the performance of the code.
+\begin{equation}
+\label{NLFM_simp}
+x(t) = e^{j 2 \pi \int_0^t{f(t') dt'}} =  e^{j 2 \pi \frac{\beta t^2}{2}} = e^{j \pi \beta t^2},
+\end{equation}
 
-\subsection{3dB Beamwidth}
-Another metric to evaluate the performance of a waveform is the 3dB waveform in units of meters, i.e. the spatial delay.
-The lower the value, the finer the resolution of the radar.
+which validates our initial claim that a quadratic phase modulation corresponds to a linear frequency change.
+
+\subsection{Military Radars' use of Frequency Modulation} 
+Since LFM is simply taking advantage of a property of the AF, it was the earliest way of getting increased sensitivity.
+It's fairly simple to implement in analog hardware and very Doppler tolerant due to the slow decrease in slope.
 
 
-\subsection{Maximum Sidelobe Level}
-Although the ISL is a good way to quantify waveform performance, it can be misleading. Sidelobes are very undesirable, so a waveform
-that has overall low sidelobes except for one very dominant one will have a low ISL, but may not be performant enough for actual use due
-to the outlier sidelobe.
+\section{Amplitude Modulation}
+
+\section{Phase Modulation}
+\subsection{Binary Codes}
+One alternative to \ref{s_lfm} is the use of binary, or in our case, quadrature codes. With it, a subsection of 
+each pulse is shifted in phase by $e^{jk \pi}$, where $k=(0, \frac{1}{2}, 1, \frac{3}{2})$. 
+\subsubsection{Binary Phase Codes compared to Frequency Modulation}
+
+\subsubsection{Bandwidth for Binary Phase Codes}
+The bandwidth of a binary phase-modulated waveform is the inverse of the length of a subpulse. Given a
+pulse with length $\tau$ and $n$ subpulses, the length of a subpulse is $T = \frac{\tau}{n}$, the the bandwidth
+of the whole pulse will be $B = \frac{1}{T}$ Hz.
+
+\subsubsection{Use of Phase Codes in Profilers}
+why are they using it?
+
+
+\subsection{Amplitude Tapering compared to Non-linear Frequency Modulation}
