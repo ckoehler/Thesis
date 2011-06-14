@@ -20,10 +20,10 @@ In Pulse Compression, the frequency inside the pulse is modulated linearly (for 
 non-linearly over a certain bandwidth. It is defined as:
 \begin{equation}
 \label{LFM}
-x(t) = e^{j \pi \beta t^2 / \tau} = e^{j \theta (t)},\ \ 0 \leq t \leq \tau
+x(t) = e^{j \pi \beta t^2 } = e^{j \theta (t)},\ \ 0 \leq t \leq \tau
 \end{equation}
 
-The spectrum of such a LFM waveform approaches the shape of a rectangle that is becomes better defined
+The spectrum of such a LFM waveform approaches the shape of a rectangle that becomes better defined
 as the $\beta\tau$ ratio increases. The matched filter response of a rectangular waveform is a sinc 
 function with Rayleigh resolution of approximately $1/\beta$ (\cite{Richards:2005}).
 
@@ -32,7 +32,7 @@ The result is an increase in the ambiguous range $r_a$.
 
 The LFM effect is a consequence of a Ambiguity Function property, as follow:
 
-If $u(t)$ has an added phase that changes quadratically, i.e. $u^{'}(t) = u(t) e^{j\pi kt^2}$, which 
+If $u(t)$ has an added phase that changes quadratically, i.e. $u^{'}(t) = u(t) e^{j\pi \beta t^2}$, which 
 is equivalent to a linear frequency modulation because $\omega(t) = \frac{d}{dt}\phi(t)$, the resulting 
 AF is $|\chi(\tau,f_d-k\tau)|$.
 
@@ -43,6 +43,25 @@ TODO: figures
 The slow drop-off of peak in the AF makes LFM pulse compression very Doppler tolerant, which make it convenient 
 for radar applications that have to deal with high-velocity targets. Add to that the ease of implementation in 
 analog hardware and we have a simple way to improve our radar's performance.
+
+\section{Non-linear Frequency Modulation}
+Extrapolating from the results above, the general expression for a frequency modulated waveform is as follows.
+
+\begin{equation}
+\label{NLFM}
+x(t) = e^{j 2 \pi \int_0^t{f(t') dt'}} ,\ \ 0 \leq t \leq \tau,
+\end{equation}
+
+where $f(t)$ defines the function of the frequency sweep. In the LFM case, $f(t)=\beta t$, which simplifies Eq
+\ref{NLFM} to
+
+\begin{equation}
+\label{NLFM_simp}
+x(t) = e^{j 2 \pi \int_0^t{f(t') dt'}} =  e^{j 2 \pi \frac{\beta t^2}{2}} = e^{j \pi \beta t^2},
+\end{equation}
+
+which validates our initial claim that a quadratic phase modulation corresponds to a linear frequency change.
+
 
 \section{Pulse Compression with binary codes}
 One alternative to \ref{s_lfm} is the use of binary, or in our case, quadrature codes. With it, a subsection of 
