@@ -20,6 +20,9 @@ like cell phones, so C-band or X-band radars are also used for observing weather
 mitigated somewhat. One advantage of higher frequency radars is the need for a smaller antenna, which reduces required
 space and cost.
 
+As technology advances, demands on radar performance also increase. Finer resolution allows better detail, while
+dual polarization radars provide even more data that can be used to better analyze the atmosphere.
+
 \section{Phased Array Radars}
 As more and more radar components are pushed into the digital domain, radars have become smaller in size and cheaper to
 manufacture. In particular, phased array radars move away from a standard dish antenna to so-called array antennas.
@@ -29,20 +32,20 @@ signal with a certain phase shift. Setting these phase shifts in a certain way w
 array elements to add up in different ways, steering the radar beam without physically moving the antenna.
 
 This electronic steering has the advantage of being very fast and flexible and works well to reduce overall scan time,
-focus on particular targets in space in any order, or reduce data correlation by steering the beam out-of-order.
+focus on particular targets in space in any order, or reduce data correlation by steering the beam out-of-order across
+a storm.
 
-Lower power amplifiers in these systems make it necessary to increase pulse length in order to get the same amount of 
-energy on target. Longer pulses, in turn, decrease range resolution.
+However, the small size requirement demands lower power amplifiers in these systems, which make it necessary to increase
+pulse length in order to get the same amount of energy on target. Longer pulses, in turn, decrease range resolution,
+so a method is needed to improve the signal-to-noise ratio while keeping the range resolution acceptable.
 
 \section{The Need for Pulse Compression}
-The goal for radar signals is high sensitivity, which means a high signal-to-noise ratio (SNR), 
-and high resolution. In order to get a high SNR, the more energy can be put on target, the better
-the sensitivity. For a radar operating in transmitter saturation, that means the longer the
-transmitted pulse is, the more energy is transmitted.  Unfortunately, pulse length is inverse 
-proportional to the resolution, so the longer the pulse, the larger the resolution volume will be.
-Pulse compression is a way to decouple the relationship between SNR and resolution by controlling 
-the duration and bandwidth separately.
+As desribed above, pulse length is inversely proportional to range resolution,
+so the longer the pulse, the larger the resolution volume will be.  Pulse compression is a way to decouple
+the relationship between SNR and resolution by controlling the duration and bandwidth separately.
 
 The use of matched filter allows pulse compression since its output is the autocorrelation function 
 of the transmit signal. This allows the design of waveforms such that they are narrowly focused in a 
 narrow main lobe, with low sidelobes to concentrate the signal energy in the main lobe (\cite{Richards:2005}).
+The challenge now becomes to design a waveform that has the needed SNR and at the same time good range resolution, 
+all the while keeping down sidelobes. It's a procedure of many trade-offs.

@@ -50,15 +50,29 @@ which validates our initial claim that a quadratic phase modulation corresponds 
 
 \subsection{Military Radars' use of Frequency Modulation} 
 Since LFM is simply taking advantage of a property of the AF, it was the earliest way of getting increased sensitivity.
-It's fairly simple to implement in analog hardware and very Doppler tolerant due to the slow decrease in slope.
+It's fairly simple to implement in analog hardware and very Doppler tolerant due to the slow decrease in slope, making it
+a popular choice for early radars that had to detect fast moving targets.
 
 
 \section{Amplitude Modulation}
+One way to bring down undesired sidelobes is to weight the amplitude of the signal such that less energy is transmitted
+towards the edges of the signal. However, this has a couple of downsides. First, not as much energy is transmitted onto the
+target because the amplifier doesn't put out as much power for a weighted amplitude waveform as it would for a 
+rectangular pulse. This results in a lower SNR and can impact rate of detection. Second, the mainlobe is broadened,
+resulting in a decrease in spatial resolution.
 
 \section{Phase Modulation}
 \subsection{Binary Codes}
-One alternative to \ref{s_lfm} is the use of binary, or in our case, quadrature codes. With it, a subsection of 
-each pulse is shifted in phase by $e^{jk \pi}$, where $k=(0, \frac{1}{2}, 1, \frac{3}{2})$. 
+Binary codes vary the phase of the signal in increments of $\pi$. 
+The most commonly known phase code is a Barker code, which is believed to exist up to a length of 13. The Barker 13 code
+looks like +1 +1 +1 +1 +1 −1 −1 +1 +1 −1 +1 −1 +1. It's called a "perfect" code because its autocorrelation has a main lobe 
+of 13 and sidelobes of no more than 1.
+
+\subsection{n-ary Codes}
+Instead of varying the phase of the signal between only 0 and $\pi$, they can be varied arbitrarily between 0 and $2\pi$ in
+an attempt to gain a better performing code.
+
+
 \subsubsection{Binary Phase Codes compared to Frequency Modulation}
 
 \subsubsection{Bandwidth for Binary Phase Codes}

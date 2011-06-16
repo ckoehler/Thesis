@@ -43,8 +43,8 @@ where $s_j$ is the power of the $j^{th}$ sidelobe, and $m_k$ the power of the $k
 
 The lower the ISL, the better the performance of the code.
 
-\subsection{3dB Beamwidth}
-Another metric to evaluate the performance of a waveform is the 3dB waveform in units of meters, i.e. the spatial delay.
+\subsection{3dB Spatial Resolution}
+Another metric to evaluate the performance of a waveform is the 3dB spatial resolution in units of meters, i.e. the spatial delay.
 The lower the value, the finer the resolution of the radar.
 
 
@@ -53,7 +53,24 @@ Although the ISL is a good way to quantify waveform performance, it can be misle
 that has overall low sidelobes except for one very dominant one will have a low ISL, but may not be performant enough for actual use due
 to the outlier sidelobe.
 
+This metric determines the highest sidelobe level in the plane of the ambiguity function so it can be compared to the ISL.
 
+
+\subsection{Pulse Power Ratio}
+For amplitude weighting, another factor needs to be taken into consideration: Pulse Power Ratio. For a perfect pulse, 100\% of the signal
+power is transmitted. For a weighted amplitude, however, that is not the case. We define the Pulse Power Ratio as follows:
+
+
+\begin{equation}
+\label{PPR}
+PPR = \frac{\sum\limits_{\tau} A_w}{\sum\limits_{\tau} A_p}, 
+\end{equation}
+
+where $A_w$ is the weighted amplitude of the pulse, defined over the pulse length $\tau$, and $A_p$ is the equivalent amplitude of a simple,
+unweighted pulse. We simply compare the total power of the weighted amplitude $A_w$ with the maximum possible amplitude of a pulse of the same
+length, $A_p$.
+
+This metric tells us how much power is lost by weighting the signal so we can include this aspect in our optimization calculations.
 
 
 
