@@ -12,16 +12,24 @@ To fix this problem, some radars will alternate between a long and a short pulse
 purely reflectivity, and both for determining Doppler velocity.
 
 The ratio between both PRTs is chosen and known beforehand, so the way that velocities alias is also known. 
-The velocities received from both PRTs can then be used to determine the true velocity, such that the 
-unambiguous velocity is $v_a = av_1$.
+The velocities received from both PRTs can then be used to determine the true velocity. Given the unambiguous 
+velocities ratio $2 v_{a1} = 3 v_{a2}$, the unambiguous velocity is $v_a = 2 v_{a1} = 3 v_{a2}$, and higher than
+the unambiguous velocity of a single PRT.
 
-The disadvantage is a longer scan time, since every sector now has to be scanned twice, once with the short
+The disadvantage is a longer scan time, since every radial now has to be scanned twice, once with the short
 and once with the long pulse, doubling the time between sweeps. For some applications, this is not an acceptable
 trade-off.
 
 
 \section{Coded Pulse}
+A coded pulse is one whose phase is not continuous, but in some way modulated. The most basic kind are binary 
+phase codes, like Barker codes that shift the phase between 0 and $\pi$ radians in certain patterns. 
+
+
 \section{Pulse Compression}
+The goal, as with all pulse compression schemes, is to decouple the pulse length from the bandwidth. In the case of a 
+coded pulse, the bandwidth is determined by the length of each sub-pulse.
+For frequency sweeps, or chirps, the bandwidth is determined by the frequency range of the chirp. 
 
 
 
