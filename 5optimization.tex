@@ -25,7 +25,8 @@ which is easy to verify.
 
 Next we calculate the Doppler shifts for a given range of frequencies over the time $t$. The multiplication of 
 $f_d$ and $t$ results in a matrix where each row corresponds to a certain Doppler shift. The first row at 
-$f_d = 0$ gives us a vector of 1s, as we would expect.
+$f_d = 0$ gives us a vector of ones, as we would expect, since there is no Doppler shift and the signal is
+unchanged.
 
 Finally, we multiply all three components together and sum to get the AF in a 2D matrix that we can visualize
 as a surface plot.
@@ -33,39 +34,16 @@ Note that the original signal $u(t)$ could be distorted by an arbitrary impulse 
 that aspect in the simulation, whereas the shifted complex conjugate part is always based on the clean, original
 signal.
 
-\subsection{Optimizations}
-We optimize the waveform on Integrated Sidelobe Level (ISL) and peak sidelobe.
-
-- fixed, motion, volume scattering, transfer function, quantization effects
-- nlfm, paramterized as polynomial
-
-
 
 \section{Simple pulse}
-A pulse is the simplest waveform for a radar. These graphs show the AF for pulses of varying lengths.
+A pulse is the simplest waveform for a radar. These graphs show the AF for pulses of varying lengths so we can 
+evaluate the effect of pulse length on Doppler resistance. As we predicted in \ref{s:dopplereffect}, if the 
+pulse length is much smaller than the inverse of the bandwidth, the Doppler effect 
 
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/pulse-1us.png}
 \caption{ Simple pulse of length 1 $\mu s$ }
 \label{fig:simplepulse-1us}
-\end{figure}
-
-\begin{figure}[H]
-\includegraphics[width=\imgsize]{figures/pulse-15us.png}
-\caption{ Simple pulse of length 15 $\mu s$ }
-\label{fig:simplepulse-15us}
-\end{figure}
-
-\begin{figure}[H]
-\includegraphics[width=\imgsize]{figures/pulse-50us.png}
-\caption{ Simple pulse of length 50 $\mu s$ }
-\label{fig:simplepulse-50us}
-\end{figure}
-
-\begin{figure}[H]
-\includegraphics[width=\imgsize]{figures/pulse-100us.png}
-\caption{ Simple pulse of length 100 $\mu s$ }
-\label{fig:simplepulse-100us}
 \end{figure}
 
 \begin{figure}[H]

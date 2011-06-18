@@ -1,10 +1,17 @@
-\section{Continuous Wave}
-Continuous wave (CW) radars will not be considered here and only be mentioned briefly. These bistatic
-radars continuosly transmit a wave from one antenna and receive with another. While they have many uses,
-their use in weather observation is almost non-existant.
-\section{Pulsed Radar}
-The basic pulsed radar emits many pulses of duration $\tau$ towards the target by switching the transmitter
-on for $\tau$ s and then off to transmit any returns for a significantly longer time compared to $\tau$.
+\section{Pulse Repetition Time}
+The pulse repetition time (PRT) is the time between two consecutive pulses and determines the unambiguous
+range of the radar. The higher the PRT, the longer the radar waits in receive mode to listen for echoes.
+A low PRT can lead to aliasing of second trip echoes, i.e. echoes that are caused by the first pulse, but
+are received after the second pulse has already been sent. To achieve a high range, we need as long a PRT
+as possible.
+
+While the unambiguous range is proportional to the PRT, unambiguous velocity is inversely proportional to it.
+That means the higher the PRT, the lower the unambiguous velocity, and the more likely we will see velocity
+aliasing.
+The resulting problem is called the Doppler dilemma, which states that one can either achieve high unambiguous
+range or high unambiguous velocity, but not both.
+
+
 \section{Staggered PRT}
 The problem with a single PRT is the so-called Doppler dilemma. A short PRT provides great unambiguous Doppler
 velocity before the signal aliases, while a long PRT gives us a long unambiguous range. Neither gives us both.
@@ -21,9 +28,21 @@ and once with the long pulse, doubling the time between sweeps. For some applica
 trade-off.
 
 
-\section{Coded Pulse}
-A coded pulse is one whose phase is not continuous, but in some way modulated. The most basic kind are binary 
-phase codes, like Barker codes that shift the phase between 0 and $\pi$ radians in certain patterns. 
+\section{Pulse Coding}
+A coded pulse is in some way modulated, so it's not just rectangular. The idea is to code subsequent pulses
+differently, such that the received echoes can be assigned to a certain pulse. That way, an echo from the first
+pulse that is received after the second pulse has already been transmitted can be seen to belong to the first pulse
+and thus distinguished from echoes caused by the second pulse.
+
+This allows the use of a small PRT, resulting in good unambiguous velocity, but also the ability to unfold second, third,
+or even fourth trip echoes correctly. The advantage to the Staggered PRT approach is that the scan time doesn't increase, 
+since each radial is still only scanned once.
+
+
+\section{Pulse Length}
+The previous techniques were independent of the pulse's length, denoted by $\tau$. However, the pulse length of a 
+rectangular pulse determines the bandwidth of the signal. More specifically, the bandwidth B is the inverse of the pulse
+length $\tau$.
 
 
 \section{Pulse Compression}

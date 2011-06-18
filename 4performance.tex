@@ -1,5 +1,5 @@
 \section{Quantifications}
-\subsection{Amiguity Function}
+\subsection{Ambiguity Function}
 The main tool to determine waveform performance is the Ambiguity Function (AF) (\cite{Levanon:2004}). It is defined as:
 
 \begin{equation}
@@ -50,7 +50,7 @@ The lower the value, the finer the resolution of the radar.
 
 \subsection{Maximum Sidelobe Level}
 Although the ISL is a good way to quantify waveform performance, it can be misleading. Sidelobes are very undesirable, so a waveform
-that has overall low sidelobes except for one very dominant one will have a low ISL, but may not be performant enough for actual use due
+that has overall low sidelobes except for one very dominant one will have a low ISL, but may not be performing well enough for actual use due
 to the outlier sidelobe.
 
 This metric determines the highest sidelobe level in the plane of the ambiguity function so it can be compared to the ISL.
@@ -76,6 +76,7 @@ This metric tells us how much power is lost by weighting the signal so we can in
 
 \section{Limitations}
 \subsection{Doppler Effect for Weather Radars}
+\label{s:dopplereffect}
 One question for pulse compression performance is the effect of a Doppler shift on matched filter in the receiver. Any
 received signal that has been affected by a Doppler shift will cause a mismatch in the matched filter of the receiver.
 This is especially pronounced the higher the target velocity is. For atmospheric weather radars, we observe targets that
