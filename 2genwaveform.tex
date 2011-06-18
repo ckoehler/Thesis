@@ -30,7 +30,7 @@ trade-off.
 
 \section{Pulse Coding}
 A coded pulse is in some way modulated, so it's not just rectangular. The idea is to code subsequent pulses
-differently, such that the received echoes can be assigned to a certain pulse. That way, an echo from the first
+differently, such that the received echoes can be paired up with a certain pulse. That way, an echo from the first
 pulse that is received after the second pulse has already been transmitted can be seen to belong to the first pulse
 and thus distinguished from echoes caused by the second pulse.
 
@@ -41,13 +41,15 @@ since each radial is still only scanned once.
 
 \section{Pulse Length}
 The previous techniques were independent of the pulse's length, denoted by $\tau$. However, the pulse length of a 
-rectangular pulse determines the bandwidth of the signal. More specifically, the bandwidth B is the inverse of the pulse
-length $\tau$.
+rectangular pulse determines the bandwidth of the signal. For a simple pulse, the bandwidth B is generally the inverse of
+the pulse length $\tau$. Intuitively, for a larger $\tau$, more energy is put on the target. However, a larger pulse
+length also decreases range resolution, so it's not a solution for increasing SNR.
 
 
 \section{Pulse Compression}
-The goal, as with all pulse compression schemes, is to decouple the pulse length from the bandwidth. In the case of a 
-coded pulse, the bandwidth is determined by the length of each sub-pulse.
+We need some way to decouple the pulse length from the bandwidth to get both good SNR and fine range resolution.
+Pulse compression does just that.
+In the case of a phase-coded pulse, the bandwidth is determined by the length of each sub-pulse.
 For frequency sweeps, or chirps, the bandwidth is determined by the frequency range of the chirp. 
 
 

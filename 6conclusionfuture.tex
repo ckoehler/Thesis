@@ -1,31 +1,14 @@
-\section{Effects of Impulse Response on the Ambiguity Function}
+\section{Conclusions}
+Conclusion here. 
 
-As the signal returns to the radar and passes through the receive chain, it will be distorted by the
-impulse response of the filter and amplifier. Figure \ref{fig:pulsewoir-200us} shows a standard pulse
-that is undistorted. 
-
-\begin{figure}[!ht]
-\includegraphics[width=\imgsize]{figures/pulsewoir-200us.png}
-\caption{ Pulse without IR distortion}
-\label{fig:pulsewoir-200us}
-\end{figure}
+It looks like the waveform with the best performance is a NLFM signal with 
+$a=xxxx$ and amplitude weighting.
 
 
-On the other hand, figure \ref{fig:pulsewir-200us} shows the AF for a pulse that
-has been distorted by the transfer function shown in figure \ref{fig:tf1}. 
+\section{Future Work}
+Other, more complex waveforms could be evaluated to get even better 
+performance.
 
-\begin{figure}[!ht]
-\includegraphics[width=\imgsize]{figures/pulsewir-200us.png}
-\caption{ Pulse with IR distortion}
-\label{fig:pulsewir-200us}
-\end{figure}
-
-\begin{figure}[!ht]
-\includegraphics[width=\imgsize]{figures/tf1.png}
-\caption{Transfer Function}
-\label{fig:tf1}
-\end{figure}
-
-The distortion lengthened the signal and smoothed it out a bit.
-
-
+The effects of the amplifier impulse response and other system components
+should be better quantified and the results compared with the theoretical
+results we expect.

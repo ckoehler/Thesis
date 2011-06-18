@@ -1,4 +1,6 @@
 \section{Setup and Configuration}
+
+
 \subsection{Generating Waveforms}
 The simulation is done in multiple parts. First, a waveform is generated based on a given
 amplitude, phase, frequency modulation, and impulse response that is applied to the signal.
@@ -35,6 +37,12 @@ that aspect in the simulation, whereas the shifted complex conjugate part is alw
 signal.
 
 
+
+
+
+
+
+
 \section{Simple pulse}
 A pulse is the simplest waveform for a radar. These graphs show the AF for pulses of varying lengths so we can 
 evaluate the effect of pulse length on Doppler resistance. As we predicted in \ref{s:dopplereffect}, if the 
@@ -53,6 +61,13 @@ pulse length is much smaller than the inverse of the bandwidth, the Doppler effe
 \end{figure}
 
 
+
+
+
+
+
+
+
 \section{Phase-coded Barker code}
 Next we will examine a length 13 Barker code of different pulse lengths. Again we notice that
 Doppler performance gets worse with a longer pulse.
@@ -64,28 +79,19 @@ Doppler performance gets worse with a longer pulse.
 \end{figure}
 
 \begin{figure}[H]
-\includegraphics[width=\imgsize]{figures/barker-15us.png}
-\caption{ Barker 13 of length 15 $\mu s$ }
-\label{fig:barker13-15us}
-\end{figure}
-
-\begin{figure}[H]
-\includegraphics[width=\imgsize]{figures/barker-50us.png}
-\caption{ Barker 13 of length 50 $\mu s$ }
-\label{fig:barker13-50us}
-\end{figure}
-
-\begin{figure}[H]
-\includegraphics[width=\imgsize]{figures/barker-100us.png}
-\caption{ Barker 13 of length 100 $\mu s$ }
-\label{fig:barker13-100us}
-\end{figure}
-
-\begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/barker-200us.png}
 \caption{ Barker 13 of length 200 $\mu s$ }
 \label{fig:barker13-200us}
 \end{figure}
+
+
+
+
+
+
+
+
+
 
 
 \section{Linear Frequency Modulated waveform}
@@ -114,6 +120,16 @@ The frequency modulation function is shown in figure \ref{fig:lfm-fmf}.
 \label{fig:lfm-200us}
 \end{figure}
 
+
+
+
+
+
+
+
+
+
+
 \section{Linear Frequency Modulated waveform with amplitude weighting}
 The AF of a LFM waveform has fairly high sidelobes that we can try to mitigate with amplitude weighting.
 For that, we'll apply a Hamming window to the amplitude. As expected, the sidelobes decrease, but the main
@@ -131,6 +147,17 @@ lobe width increases.
 \caption{ LFM of length 200 $\mu s$ with Hamming amplitude weighting }
 \label{fig:lfm-200us-hamming}
 \end{figure}
+
+
+
+
+
+
+
+
+
+
+
 
 \section{Quadratic Frequency Modulated waveform}
 Here we will look at a quadradicly frequency modulated waveform. The figures below show that the Doppler
@@ -151,22 +178,20 @@ The frequency modulation function is shown in figure \ref{fig:qfm-fmf}.
 \end{figure}
 
 \begin{figure}[H]
-\includegraphics[width=\imgsize]{figures/qfm-50us.png}
-\caption{ QFM of length 50 $\mu s$ }
-\label{fig:qfm-50us}
-\end{figure}
-
-\begin{figure}[H]
-\includegraphics[width=\imgsize]{figures/qfm-100us.png}
-\caption{ QFM of length 100 $\mu s$ }
-\label{fig:qfm-100us}
-\end{figure}
-
-\begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/qfm-200us.png}
 \caption{ QFM of length 200 $\mu s$ }
 \label{fig:qfm-200us}
 \end{figure}
+
+
+
+
+
+
+
+
+
+
 
 \section{Quadratic Frequency Modulated waveform with amplitude weighting}
 Similar to the LFM waveforms, we can decrease sidelobes by applying a Hamming window to the waveform amplitude
@@ -179,22 +204,20 @@ at the expense of a wider main lobe.
 \end{figure}
 
 \begin{figure}[H]
-\includegraphics[width=\imgsize]{figures/qfm-50us-hamming.png}
-\caption{ QFM of length 50 $\mu s$ with Hamming amplitude weighting }
-\label{fig:qfm-50us-hamming}
-\end{figure}
-
-\begin{figure}[H]
-\includegraphics[width=\imgsize]{figures/qfm-100us-hamming.png}
-\caption{ QFM of length 100 $\mu s$ with Hamming amplitude weighting }
-\label{fig:qfm-100us-hamming}
-\end{figure}
-
-\begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/qfm-200us-hamming.png}
 \caption{ QFM of length 200 $\mu s$ with Hamming amplitude weighting }
 \label{fig:qfm-200us-hamming}
 \end{figure}
+
+
+
+
+
+
+
+
+
+
 
 \section{Hann-shaped Frequency Modulated waveform}
 The following waveform is frequency modulated according to the Hann function, 
@@ -207,7 +230,6 @@ shown in figure \ref{fig:hannfm-fmf}.
 \end{figure}
 
 
-
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/hannfm-15us.png}
 \caption{ Hann-shaped FM of length 15 $\mu s$}
@@ -215,19 +237,74 @@ shown in figure \ref{fig:hannfm-fmf}.
 \end{figure}
 
 \begin{figure}[H]
-\includegraphics[width=\imgsize]{figures/hannfm-50us.png}
-\caption{ Hann-shaped FM of length 50 $\mu s$}
-\label{fig:hannfm-50us}
-\end{figure}
-
-\begin{figure}[H]
-\includegraphics[width=\imgsize]{figures/hannfm-100us.png}
-\caption{ Hann-shaped FM of length 100 $\mu s$}
-\label{fig:hannfm-100us}
-\end{figure}
-
-\begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/hannfm-200us.png}
 \caption{ Hann-shaped FM of length 200 $\mu s$}
 \label{fig:hannfm-200us}
 \end{figure}
+
+
+
+
+
+
+
+
+
+
+\section{Non-Linear Frequency Modulation}
+In this case, we vary the frequency of the signal non-linearly. Specifically, we let
+
+\begin{equation}
+  f(t) = a x^7 + x,
+\end{equation}
+
+and vary $a$ from 0 to 10. The two extremes for $a=0$ and $a=10$ are shown in figure \ref{fig:nlfm-functions}. 
+Each function is applied over the pulse length $\tau$ of the signal.
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/nlfm-functions.png}
+\caption{Functions describing the non-linear frequency sweeps}
+\label{fig:nlfm-functions}
+\end{figure}
+
+For each function a waveform and ambiguity functions is generated and then evaluated according to the optimizations described
+in section \ref{s:quantifications}. We can then determine which waveform is best suited for our application in weather radars
+or further change the setup to combine it with, e.g. amplitude weighting to achieve even better performance.
+
+
+
+
+
+
+
+\section{Effects of Impulse Response on the Ambiguity Function}
+
+As the signal returns to the radar and passes through the receive chain, it will be distorted by the
+impulse response of the filter and amplifier. Figure \ref{fig:pulsewoir-200us} shows a standard pulse
+that is undistorted. 
+
+\begin{figure}[!ht]
+\includegraphics[width=\imgsize]{figures/pulsewoir-200us.png}
+\caption{ Pulse without IR distortion}
+\label{fig:pulsewoir-200us}
+\end{figure}
+
+
+On the other hand, figure \ref{fig:pulsewir-200us} shows the AF for a pulse that
+has been distorted by the transfer function shown in figure \ref{fig:tf1}. 
+
+\begin{figure}[!ht]
+\includegraphics[width=\imgsize]{figures/pulsewir-200us.png}
+\caption{ Pulse with IR distortion}
+\label{fig:pulsewir-200us}
+\end{figure}
+
+\begin{figure}[!ht]
+\includegraphics[width=\imgsize]{figures/tf1.png}
+\caption{Transfer Function}
+\label{fig:tf1}
+\end{figure}
+
+The distortion lengthened the signal and smoothed it out a bit.
+
+

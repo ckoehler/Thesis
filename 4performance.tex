@@ -1,4 +1,6 @@
 \section{Quantifications}
+\label{s:quantifications}
+
 \subsection{Ambiguity Function}
 The main tool to determine waveform performance is the Ambiguity Function (AF) (\cite{Levanon:2004}). It is defined as:
 
@@ -12,7 +14,7 @@ is the Doppler frequency shift in the Doppler axis.
 We can clearly see that, for $f_d = 0$, the AF reduces to the Autocorrelation Function (ACF).
 
 
-For a simple rectangular pulse of the form $u(t)=\frac{1}{\sqrt{T}} rect(\frac{t}{T})$, the AF is:
+For a simple rectangular pulse of the form $u(t)=\frac{1}{\sqrt{T}} rect(\frac{t}{T})$, the AF is (\cite{Levanon:2004}):
 \begin{align*}
   |\chi(\tau,f_d)| &= | \int_{-\infty}^\infty{u(t) u^*(t+\tau) e^{j2\pi f_d t} dt}| \\ 
   &= 
@@ -23,13 +25,13 @@ For a simple rectangular pulse of the form $u(t)=\frac{1}{\sqrt{T}} rect(\frac{t
   \end{cases}
 \end{align*}
 
-Evaluate the integral:
+Evaluate the integral and we get:
 
-\begin{align*}
-  \frac{1}{T} \int_{-\frac{T}{2} + \tau}^{\frac{T}{2}}{e^{j2\pi f_d t}dt}
-  &= foo \\ 
-  &= bar 
-\end{align*}
+\begin{equation}
+  |\chi(\tau,v)| = \left|\left(1-\frac{|\tau|}{T}\right) \frac{sin[\pi T v(1- \frac{|\tau|}{T})]}{\pi T v(1- \frac{|\tau|}{T})}\right|, |\tau| \leq T, \text{zero elsewhere}
+\end{equation}
+
+For $\tau=0$ we see the sinc function, for $v=0$ we simply get the autocorrelation function of a pulse, which is a triangle.
 
 \subsection{Integrated Sidelobe Level}
 The performance of each code is measured by calculating the Integrated Sidelobe Level (ISL), which is defined as (\cite{Keeler:1999}):
