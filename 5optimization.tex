@@ -94,7 +94,8 @@ Doppler performance gets worse with a longer pulse.
 
 
 
-\section{Linear Frequency Modulated waveform}
+\section{Linear Frequency Modulation}
+\subsection{Linear Frequency Modulation}
 Here we will look at a linearly frequency modulated waveform. As mentioned before, LFM is a property of the
 AF and thus very simple simple to implement in analog hardware. Also, the figures below show that the Doppler
 performance of an LFM waveform is very high, especially for our weather radar application. There is no visible
@@ -122,15 +123,7 @@ The frequency modulation function is shown in figure \ref{fig:lfm-fmf}.
 
 
 
-
-
-
-
-
-
-
-
-\subsection{Linear Frequency Modulated waveform with amplitude weighting}
+\subsection{Linear Frequency Modulation with Amplitude Weighting}
 The AF of a LFM waveform has fairly high sidelobes that we can try to mitigate with amplitude weighting.
 For that, we'll apply a Kaiser window to the amplitude. We vary the parameter for the Kaiser function
 from 0 to 50, generate the AF for each, and evaluate it. The results are shown in figure \ref{fig:lfm-isl-15us-opti}.
@@ -180,6 +173,7 @@ or further change the setup to combine it with, e.g. amplitude weighting to achi
 
 
 \subsection{Parameterized NLFM Results}
+\label{s:nlfm-only-results}
 Figure \ref{fig:nlfm-side-15us-opti} shows the results for varying NLFM waveforms in regards to ISL, MSL, and range resolution.
 We find that the closer the frequency modulation function approaches an S-curve, the better the ISL becomes, though it's never
 fantastic. The maximum ISL seems to be around -13 dB. The maximum sidelobe level decreases rapidly first to about -15 dB and
@@ -197,20 +191,41 @@ because the whole AF is taken up by the mainlobe with only minimal sidelobes.
 
 
 \subsection{Parameterized NLFM with Amplitude Weighting}
-Figure \ref{fig:nlfm-side-15us-opti} shows the results for varying NLFM waveforms in regards to ISL, MSL, and range resolution.
-We find that the closer the frequency modulation function approaches an S-curve, the better the ISL becomes, though it's never
-fantastic. The maximum ISL seems to be around -13 dB. The maximum sidelobe level decreases rapidly first to about -15 dB and
-mostly decreases to about -20 dB, where it stays constant. The range resolution gets progressively coarser, starting at about 50 m
-and increasing to about 500 m, meaning the mainlobe broadens. This also explains the decreasing and eventually constant MSL,
-because the whole AF is taken up by the mainlobe with only minimal sidelobes.
+Next we try to optimize varying NLFM waveforms combined with Kaiser windowing. First,
+look at the ISL in figure \ref{fig:nlfm-kaiser-15us-opti-isl}. Intuitively we find that the waveform that is most aggressively 
+weighted generally has better ISL performance. The same seems true for the NLFM parameter. The ideal range for the NLFM parameter
+looks to be around 3 all the way up to 10, with as low a Kaiser parameter as we can live with.
+
+Next, let's look at the MSL in figure \ref{fig:nlfm-kaiser-15us-opti-msl}. The shape closely mirrors that of the ISL optimization,
+so the same discussion applies to it.
 
 \begin{figure}[H]
-\includegraphics[width=\imgsize]{figures/nlfm-side-15us-opti.png}
-\caption{Optimization results for NLFM}
-\label{fig:nlfm-side-15us-opti}
+\includegraphics[width=\imgsize]{figures/nlfm-kaiser-15us-opti-isl.png}
+\caption{ISL optimization results for NLFM combined with Kaiser amplitude weighting}
+\label{fig:nlfm-kaiser-15us-opti-isl}
+\includegraphics[width=\imgsize]{figures/nlfm-kaiser-15us-opti-msl.png}
+\caption{MSL optimization results for NLFM combined with Kaiser amplitude weighting}
+\label{fig:nlfm-kaiser-15us-opti-msl}
 \end{figure}
 
 
+The pulse power ration in figure \ref{fig:nlfm-kaiser-15us-opti-msl} is the same for each waveform, because it only depends on 
+the shape of the amplitude weighting function determined by the Kaiser parameter. As described previously, the power decreases rapidly
+with more aggressive weighting.
+
+The range resolution result also makes sense. Similar to the NLFM-only case in section \ref{s:nlfm-only-results}, the range resolution
+decreases slightly with increasing NLFM parameter. The same happens for an increasing Kaiser parameter. Interestingly, the effect of both
+seems to be compounded such that aggressive windowing and high NLFM parameter result in a very large decrease in range resolution.
+
+
+\begin{figure}[ht]
+\includegraphics[width=\imgsize]{figures/nlfm-kaiser-15us-opti-ppr.png}
+\caption{PPR optimization results for NLFM combined with Kaiser amplitude weighting}
+\label{fig:nlfm-kaiser-15us-opti-ppr}
+\includegraphics[width=\imgsize]{figures/nlfm-kaiser-15us-opti-res.png}
+\caption{Resolution optimization results for NLFM combined with Kaiser amplitude weighting}
+\label{fig:nlfm-kaiser-15us-opti-res}
+\end{figure}
 
 
 
