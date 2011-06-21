@@ -130,119 +130,26 @@ The frequency modulation function is shown in figure \ref{fig:lfm-fmf}.
 
 
 
-\section{Linear Frequency Modulated waveform with amplitude weighting}
+\subsection{Linear Frequency Modulated waveform with amplitude weighting}
 The AF of a LFM waveform has fairly high sidelobes that we can try to mitigate with amplitude weighting.
-For that, we'll apply a Hamming window to the amplitude. As expected, the sidelobes decrease, but the main
-lobe width increases.
+For that, we'll apply a Kaiser window to the amplitude. We vary the parameter for the Kaiser function
+from 0 to 50, generate the AF for each, and evaluate it. The results are shown in figure \ref{fig:lfm-isl-15us-opti}.
+As expected, the ISL dramatically decreases, as does the MSL. At the same time, the range resolution decreases from
+an initial 60 m to about 400 m. The pulse power ratio may be the limiting metric here. The weighted signal quickly
+loses half of its energy with only minor amplitude weighting and eventually decreases to about 0.2, which means
+the signal loses 80\% of its energy. 
 
-\begin{figure}[H]
-\includegraphics[width=\imgsize]{figures/lfm-15us-hamming.png}
-\caption{ LFM of length 15 $\mu s$ with Hamming amplitude weighting }
-\label{fig:lfm-15us-hamming}
-\end{figure}
-
-
-\begin{figure}[H]
-\includegraphics[width=\imgsize]{figures/lfm-200us-hamming.png}
-\caption{ LFM of length 200 $\mu s$ with Hamming amplitude weighting }
-\label{fig:lfm-200us-hamming}
-\end{figure}
-
-
-
-
-
-
-
-
-
-
-
-
-\section{Quadratic Frequency Modulated waveform}
-Here we will look at a quadradicly frequency modulated waveform. The figures below show that the Doppler
-performance of a QFM waveform is very high, especially for our weather radar application. There is no visible
-difference between the AFs in the Doppler dimension.
-The frequency modulation function is shown in figure \ref{fig:qfm-fmf}.
-
-\begin{figure}[H]
-\includegraphics[width=\imgsize]{figures/qfm-fmf.png}
-\caption{Linear frequency modulation function}
-\label{fig:qfm-fmf}
-\end{figure}
-
-\begin{figure}[H]
-\includegraphics[width=\imgsize]{figures/qfm-15us.png}
-\caption{ QFM of length 15 $\mu s$ }
-\label{fig:qfm-15us}
-\end{figure}
-
-\begin{figure}[H]
-\includegraphics[width=\imgsize]{figures/qfm-200us.png}
-\caption{ QFM of length 200 $\mu s$ }
-\label{fig:qfm-200us}
-\end{figure}
-
-
-
-
-
-
-
-
-
-
-
-\section{Quadratic Frequency Modulated waveform with amplitude weighting}
-Similar to the LFM waveforms, we can decrease sidelobes by applying a Hamming window to the waveform amplitude
-at the expense of a wider main lobe.
-
-\begin{figure}[H]
-\includegraphics[width=\imgsize]{figures/qfm-15us-hamming.png}
-\caption{ QFM of length 15 $\mu s$ with Hamming amplitude weighting }
-\label{fig:qfm-15us-hamming}
-\end{figure}
-
-\begin{figure}[H]
-\includegraphics[width=\imgsize]{figures/qfm-200us-hamming.png}
-\caption{ QFM of length 200 $\mu s$ with Hamming amplitude weighting }
-\label{fig:qfm-200us-hamming}
-\end{figure}
-
-
-
-
-
-
-
-
-
-
-
-\section{Hann-shaped Frequency Modulated waveform}
-The following waveform is frequency modulated according to the Hann function, 
-shown in figure \ref{fig:hannfm-fmf}.
-
-\begin{figure}[H]
-\includegraphics[width=\imgsize]{figures/hannfm-fmf.png}
-\caption{Hann frequency modulation function}
-\label{fig:hannfm-fmf}
-\end{figure}
 
 
 \begin{figure}[H]
-\includegraphics[width=\imgsize]{figures/hannfm-15us.png}
-\caption{ Hann-shaped FM of length 15 $\mu s$}
-\label{fig:hannfm-15us}
-\end{figure}
-
-\begin{figure}[H]
-\includegraphics[width=\imgsize]{figures/hannfm-200us.png}
-\caption{ Hann-shaped FM of length 200 $\mu s$}
-\label{fig:hannfm-200us}
+\includegraphics[width=\imgsize]{figures/lfm-isl-15us-opti.png}
+\caption{Optimization results for LFM with Kaiser amplitude weighting}
+\label{fig:lfm-isl-15us-opti}
 \end{figure}
 
 
+Clearly, a tradeoff must be made. If we choose the half power point, we end up with an ISL of about -22 dB, 
+MSL of -35 dB, and a range resolution of 151 m.
 
 
 
@@ -270,6 +177,38 @@ Each function is applied over the pulse length $\tau$ of the signal.
 For each function a waveform and ambiguity functions is generated and then evaluated according to the optimizations described
 in section \ref{s:quantifications}. We can then determine which waveform is best suited for our application in weather radars
 or further change the setup to combine it with, e.g. amplitude weighting to achieve even better performance.
+
+
+\subsection{Parameterized NLFM Results}
+Figure \ref{fig:nlfm-side-15us-opti} shows the results for varying NLFM waveforms in regards to ISL, MSL, and range resolution.
+We find that the closer the frequency modulation function approaches an S-curve, the better the ISL becomes, though it's never
+fantastic. The maximum ISL seems to be around -13 dB. The maximum sidelobe level decreases rapidly first to about -15 dB and
+mostly decreases to about -20 dB, where it stays constant. The range resolution gets progressively coarser, starting at about 50 m
+and increasing to about 500 m, meaning the mainlobe broadens. This also explains the decreasing and eventually constant MSL,
+because the whole AF is taken up by the mainlobe with only minimal sidelobes.
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/nlfm-side-15us-opti.png}
+\caption{Optimization results for NLFM}
+\label{fig:nlfm-side-15us-opti}
+\end{figure}
+
+
+
+
+\subsection{Parameterized NLFM with Amplitude Weighting}
+Figure \ref{fig:nlfm-side-15us-opti} shows the results for varying NLFM waveforms in regards to ISL, MSL, and range resolution.
+We find that the closer the frequency modulation function approaches an S-curve, the better the ISL becomes, though it's never
+fantastic. The maximum ISL seems to be around -13 dB. The maximum sidelobe level decreases rapidly first to about -15 dB and
+mostly decreases to about -20 dB, where it stays constant. The range resolution gets progressively coarser, starting at about 50 m
+and increasing to about 500 m, meaning the mainlobe broadens. This also explains the decreasing and eventually constant MSL,
+because the whole AF is taken up by the mainlobe with only minimal sidelobes.
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/nlfm-side-15us-opti.png}
+\caption{Optimization results for NLFM}
+\label{fig:nlfm-side-15us-opti}
+\end{figure}
 
 
 
