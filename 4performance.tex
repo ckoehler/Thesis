@@ -33,6 +33,10 @@ Evaluate the integral and we get:
 
 For $\tau=0$ we see the sinc function, for $v=0$ we simply get the autocorrelation function of a pulse, which is a triangle.
 
+
+The ideal AF shape depends on the application. One useful AF looks like a thumbtack and provides good range and Doppler resolution.
+However, this also means that any kind of Doppler shift will result in a weak or, for the ideal case, no return signal.
+
 \subsection{Integrated Sidelobe Level}
 The performance of each code is measured by calculating the Integrated Sidelobe Level (ISL), which is defined as (\cite{Keeler:1999}):
 
@@ -45,9 +49,13 @@ where $s_j$ is the power of the $j^{th}$ sidelobe, and $m_k$ the power of the $k
 
 The lower the ISL, the better the performance of the code.
 
-\subsection{3dB Spatial Resolution}
-Another metric to evaluate the performance of a waveform is the 3dB spatial resolution in units of meters, i.e. the spatial delay.
-The lower the value, the finer the resolution of the radar.
+\subsection{3dB Range Resolution}
+Another metric to evaluate the performance of a waveform is the 3dB range resolution in units of meters, i.e. the spatial delay.
+The lower the value, the finer the resolution of the radar. The factors that influence range resolution are mainly pulse
+length and amplitude tapering. First, for pulse length, the shorter the pulse, the better the resolution. 
+Second, amplitude tapering or non-linear frequency modulation will cause the mainlobe to broaden, decreasing the range resolution.
+
+The goal is to achieve as fine a range resolution as possible.
 
 
 \subsection{Maximum Sidelobe Level}
@@ -95,7 +103,7 @@ simulations.
 The pulse compression ratio, $BT$, is not equal to unity, so the mismatch in the filter is compounded for highly compressed 
 pulses, which also makes sense intuitively.
 
-\subsection{Effects of amplifier impulse response on the Ambiguity function}
+\subsection{Effects of Amplifier Impulse Response on the Ambiguity Function}
 
 Next we will examine the effects of the amplifier in the receive chain on the pulse.
 Recall the general AF (\ref{eq:AF}) and let the return signal part of it pass through the system
@@ -110,5 +118,15 @@ with the impulse response $h(t)$:
 We can easily see that applying the impulse response to the return signal is equivalent to applying it to the original pulse $u(t)$. 
 
 \subsection{Quantization}
+Once the signal is received through the antenna, it is eventually converted into a digital signal for further processing.
+The first step in that process is to sample the signal in time. The second is called quantization, in which the
+amplitude of each sample is converted to one of a finite possible values for the amplitude (\cite{Richards:2005}).
+
+For $b$ available bits we get $2^b$ possible values to represent the amplitude of the signal. These $b$ bits need to be able
+to contain the whole dynamic range of possible return signals. For weather, we generally consider signals to about 80 dBZ,
+which is usually hail. However, that means that lower strength return signals, e.g. rain at 15 dBZ, only get about 20 \%
+of the available bits, so we need to be sure that we have sufficient bits to adequately quantize any possible return signal.
+For every additional bit, the dynamic range increases about 6 dB, so we need about 14 bits to represent our whole
+dynamic range (\cite{Richards:2005}).
 
 \subsection{Volume Scattering}
