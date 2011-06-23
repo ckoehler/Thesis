@@ -109,18 +109,34 @@ The frequency modulation function is shown in figure \ref{fig:lfm-fmf}.
 \label{fig:lfm-fmf}
 \end{figure}
 
+
+Comparing the two AFs to determine the difference that the pulse length makes, we see that in the Doppler
+direction, the waveform does not change significantly. To get a better understanding of the difference 
+in range resolution, let's look at the zero Doppler cut in figures \ref{fig:lfm-15us-0d} and \ref{fig:lfm-200us-0d}.
+
+We see the expected shape with sidelobes around -13 dB in both AFs, and the shapes are approximately the same
+for each case, which means that the pulse length has little effect on the range resolution, which is determined
+by the bandwidth swept instead. These figures confirm that observation.
+
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/lfm-15us.png}
 \caption{ LFM of length 15 $\mu s$ }
 \label{fig:lfm-15us}
-\end{figure}
-
-\begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/lfm-200us.png}
 \caption{ LFM of length 200 $\mu s$ }
 \label{fig:lfm-200us}
 \end{figure}
 
+
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/lfm-15us-0D.png}
+\caption{ LFM of length 15 $\mu s$, zero Doppler cut. }
+\label{fig:lfm-15us-0d}
+\includegraphics[width=\imgsize]{figures/lfm-200us-0D.png}
+\caption{ LFM of length 200 $\mu s$, zero Doppler cut. }
+\label{fig:lfm-200us-0d}
+\end{figure}
 
 
 \subsection{Linear Frequency Modulation with Amplitude Weighting}
@@ -144,7 +160,15 @@ the signal loses 80\% of its energy.
 Clearly, a tradeoff must be made. If we choose the half power point, we end up with an ISL of about -22 dB, 
 MSL of -35 dB, and a range resolution of 151 m.
 
+The corresponding zero Doppler cut of the AF at this point is shown in figure \ref{fig:lfm-isl-15us-opti-slice13}.
+The sidelobes are fairly low at about -70 dB with acceptable range resolution and may be a good candidate to use.
 
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/lfm-isl-15us-opti-slice13.png}
+\caption{Zero Doppler cut of the AF at the half power point.}
+\label{fig:lfm-isl-15us-opti-slice13}
+\end{figure}
 
 
 
@@ -155,7 +179,7 @@ MSL of -35 dB, and a range resolution of 151 m.
 In this case, we vary the frequency of the signal non-linearly. Specifically, we let
 
 \begin{equation}
-  f(t) = a x^7 + x,
+  f(t) = a t^7 + t,
 \end{equation}
 
 and vary $a$ from 0 to 10. The two extremes for $a=0$ and $a=10$ are shown in figure \ref{fig:nlfm-functions}. 
