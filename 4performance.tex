@@ -37,6 +37,15 @@ For $\tau=0$ we see the sinc function, for $v=0$ we simply get the autocorrelati
 The ideal AF shape depends on the application. One useful AF looks like a thumbtack and provides good range and Doppler resolution.
 However, this also means that any kind of Doppler shift will result in a weak or, for the ideal case, no return signal.
 
+\subsection{3dB Range Resolution}
+Another metric to evaluate the performance of a waveform is the 3dB range resolution in units of meters, i.e. the spatial delay.
+The lower the value, the finer the resolution of the radar. The factors that influence range resolution are mainly pulse
+length and amplitude tapering. First, for pulse length, the shorter the pulse, the better the resolution. 
+Second, amplitude tapering or non-linear frequency modulation will cause the mainlobe to broaden, decreasing the range resolution.
+
+The goal is to achieve as fine a range resolution as possible.
+
+
 \subsection{Integrated Sidelobe Level}
 The performance of each code is measured by calculating the Integrated Sidelobe Level (ISL), which is defined as (\cite{Keeler:1999}):
 
@@ -48,14 +57,6 @@ ISL = 10 \log \left(\frac{\sum\limits_{j} |s_j|^2}{\sum\limits_{k} |m_k|^2}\righ
 where $s_j$ is the power of the $j^{th}$ sidelobe, and $m_k$ the power of the $k^{th}$ mainlobe.
 
 The lower the ISL, the better the performance of the code.
-
-\subsection{3dB Range Resolution}
-Another metric to evaluate the performance of a waveform is the 3dB range resolution in units of meters, i.e. the spatial delay.
-The lower the value, the finer the resolution of the radar. The factors that influence range resolution are mainly pulse
-length and amplitude tapering. First, for pulse length, the shorter the pulse, the better the resolution. 
-Second, amplitude tapering or non-linear frequency modulation will cause the mainlobe to broaden, decreasing the range resolution.
-
-The goal is to achieve as fine a range resolution as possible.
 
 
 \subsection{Maximum Sidelobe Level}
