@@ -1,23 +1,31 @@
+This chapter examines the different approaches to quantifying waveform performance in the context of
+weather radar applications, as well as limitations associated with them.
+
 \section{Quantifications}
 \label{s:quantifications}
 
+In order to evaluate the pulse compression techniques examined in this work, several different
+metrics are used to quantify their performance. Together they can assist in creating waveforms that
+perform optimally for weather radars.
+
 \subsection{Ambiguity Function}
 \label{s:af}
-The main tool to determine waveform performance is the Ambiguity Function (AF) (\cite{Levanon:2004}). It is defined as:
+The main metric to determine waveform performance is the Ambiguity Function (AF) \citep{Levanon:2004}. It is defined as:
 
 \begin{equation}
 \label{eq:AF}
-  |\chi(\tau,f_d)| = | \int_{-\infty}^\infty{u(t) u^*(t+\tau) e^{j2\pi f_d t} dt}|,
+  |\chi(\tau,f_d)| = \left| \int_{-\infty}^\infty{u(t) u^*(t+\tau) e^{-j2\pi f_d t} dt}\right|,
 \end{equation}
 
-where $u(t)$ is the complex envelope of the signal, $\tau$ is the delay on the delay axis, and $f_d$
-is the Doppler frequency shift in the Doppler axis.
+where $u(t)$ is the complex envelope of the signal, $\tau$ is the delay due to propagation, and $f_d$
+is the Doppler frequency in the Doppler axis.
 We can clearly see that, for $f_d = 0$, the AF reduces to the Autocorrelation Function (ACF).
 
 
-For a simple rectangular pulse of the form $u(t)=\frac{1}{\sqrt{T}} rect(\frac{t}{T})$, the AF is (\cite{Levanon:2004}):
+For a simple rectangular pulse of the form $u(t)=\frac{1}{\sqrt{T}} rect(\frac{t}{T})$, the AF is \citep{Levanon:2004}:
+
 \begin{align*}
-  |\chi(\tau,f_d)| &= | \int_{-\infty}^\infty{u(t) u^*(t+\tau) e^{j2\pi f_d t} dt}| \\ 
+  |\chi(\tau,f_d)| &= \left| \int_{-\infty}^\infty{u(t) u^*(t+\tau) e^{j2\pi f_d t} dt}\right| \\ 
   &= 
   \begin{cases}
     \frac{1}{T} \int_{-\frac{T}{2} + \tau}^{\frac{T}{2}}{e^{j2\pi f_d t}dt} & \text{for $0 \leq \tau \leq T$}, \\
@@ -29,22 +37,25 @@ For a simple rectangular pulse of the form $u(t)=\frac{1}{\sqrt{T}} rect(\frac{t
 Evaluate the integral and we get:
 
 \begin{equation}
-  |\chi(\tau,v)| = \left|\left(1-\frac{|\tau|}{T}\right) \frac{sin[\pi T v(1- \frac{|\tau|}{T})]}{\pi T v(1- \frac{|\tau|}{T})}\right|, |\tau| \leq T, \text{zero elsewhere}
+  |\chi(\tau,v)| = \left|\left(1-\frac{|\tau|}{T}\right) \frac{\sin[\pi T v(1- \frac{|\tau|}{T})]}{\pi T v(1- \frac{|\tau|}{T})}\right|, |\tau| \leq T, \text{zero elsewhere}
 \end{equation}
 
 For $\tau=0$ we see the sinc function, for $v=0$ we simply get the autocorrelation function of a pulse, which is a triangle.
 
 
 The ideal AF shape depends on the application. One useful AF looks like a thumbtack and provides good range and Doppler resolution.
-However, this also means that any kind of Doppler shift will result in a weak or, for the ideal case, no return signal.
+However, this also means that any kind of Doppler shift will result in a weak or, for the ideal case, no return signal. This waveform
+can be used to detect targets whose velocity is already known, or is in a known, narrow range, as is the case for weather applications.
+Thumbtack shaped AFs can be used for different Doppler shifts by using several different filters, each matched to a different Doppler shift.
+The reader is referred to Chapter 7.2 of \citep{Levanon:2004} for more information.
+
 
 \subsection{3dB Range Resolution}
-Another metric to evaluate the performance of a waveform is the 3dB range resolution in units of meters, i.e. the spatial delay.
-The lower the value, the finer the resolution of the radar. The factors that influence range resolution are mainly pulse
-length and amplitude tapering. First, for pulse length, the shorter the pulse, the better the resolution. 
-Second, amplitude tapering or non-linear frequency modulation will cause the mainlobe to broaden, decreasing the range resolution.
+Another metric to evaluate the performance of a waveform is the 3dB range resolution in units of meters.
+Lower value means finer resolution of the waveform. The factors that influence range resolution are mainly pulse
+length and amplitude tapering. For pulse length, the shorter the pulse, the better the resolution. 
+Amplitude tapering or non-linear frequency modulation will also change the resolution.
 
-The goal is to achieve as fine a range resolution as possible.
 
 
 \subsection{Integrated Sidelobe Level}
@@ -52,12 +63,12 @@ The performance of each code is measured by calculating the Integrated Sidelobe 
 
 \begin{equation}
 \label{ISL}
-ISL = 10 \log \left(\frac{\sum\limits_{j} |s_j|^2}{\sum\limits_{k} |m_k|^2}\right)
+\text{ISL} = 10 \log \left(\frac{\sum\limits_{j} |s_j|^2}{\sum\limits_{k} |m_k|^2}\right)
 \end{equation}
-
 where $s_j$ is the power of the $j^{th}$ sidelobe, and $m_k$ the power of the $k^{th}$ mainlobe.
 
-The lower the ISL, the better the performance of the code.
+Lower ISL means better performance of the code. In this work, the ISL is only calculated with $v \in \left[-50, +50\right]\ \si{\metre\per\second}$
+as the main focus is weather application.
 
 
 \subsection{Maximum Sidelobe Level}
