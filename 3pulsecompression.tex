@@ -1,100 +1,122 @@
-ture
+Having looked at general waveform design, several techniques of pulse compression are considered next. As previously mentioned, 
+the goal is to increase sensitivity without increasing the pulse length and thus control the bandwidth and length separately.
+To that end, different types of modulation are examined that allow the signal to be designed to the desired specifications.
+
+
 \section{Amplitude Modulation}
-One way to bring down undesired sidelobes is to weight the amplitude of the signal such that less energy is transmitted
-towards the edges of the signal. However, this has a couple of downsides. First, not as much energy is transmitted onto the
-target because the amplifier doesn't put out as much power for a weighted amplitude waveform as it would for a 
-rectangular window. This results in a lower SNR and can impact rate of detection. Second, the mainlobe is broadened,
+\label{s:ampmod}
+One way to suppress the sidelobes is to weight the amplitude of the signal such that less energy is transmitted
+towards the edges of the signal \citep{signalbook}. However, this has a couple of downsides. First, less energy is illuminating the
+target because the amplifier does not transmit as much power for an amplitude-weighted waveform compared to a 
+rectangular pulse. This results in a lower SNR, which has a negative impact on detection. Second, the mainlobe is broadened,
 resulting in a decrease in spatial resolution.
 
 
 \section{Frequency Modulation}
+Frequency modulation is generally divided into two areas. There is Linear Frequency Modulation (LFM) and everything else, 
+commonly referred to as Non-Linear Frequency Modulation (NLFM). This section will examine how both work and compare to 
+amplitude modulation, discussed previously in Section \ref{s:ampmod}.
+
+
 \subsection{Linear Frequency Modulation}
-\label{s_lfm}
-In Pulse Compression, the frequency inside the pulse is modulated linearly (for Linear FM, or LFM) or
-non-linearly over a certain bandwidth. It is defined as:
+\label{s:lfm}
+For LFM, the frequency of the pulse is simply modulated linearly over a certain bandwidth $B$.
+It is defined as:
+
 \begin{equation}
-\label{LFM}
-x(t) = e^{j \pi \beta t^2 } = e^{j \theta (t)},\ \ 0 \leq t \leq \tau
+\label{eq:LFM}
+x(t) = e^{-j \pi \beta t^2 } ,\ \ 0 \leq t \leq \tau
 \end{equation}
 
-The spectrum of such a LFM waveform approaches the shape of a rectangle that becomes better defined
-as the $\beta\tau$ ratio increases. The matched filter response of a rectangular waveform is a sinc 
-function with Rayleigh resolution of approximately $1/\beta$ (\cite{Richards:2005}, p. 191).
+The LFM effect is a consequence of a property of the ambiguity function, which will be more closely examined in
+Section \ref{s:af}. This property states that given a signal $u(t)$, 
+if $u(t)$ has an added phase that changes quadratically, i.e. $u^{'}(t) = u(t) e^{j\pi \beta t^2}$, caused by a
+certain Doppler shift of frequency $f_d$, this phase change 
+is equivalent to a linear frequency modulation because $\omega(t) = \frac{1}{2 \pi}\frac{d}{dt}\phi(t)$. The resulting 
+AF is $|\chi(\tau,f_d-k\tau)|$ \citep[ch. 3]{Levanon:2004}.
 
 
-The result is an increase in the ambiguous range $r_a$.
+TODO: add figure of LFM AF.
 
-The LFM effect is a consequence of a Ambiguity Function property, as follow:
-
-If $u(t)$ has an added phase that changes quadratically, i.e. $u^{'}(t) = u(t) e^{j\pi \beta t^2}$, which 
-is equivalent to a linear frequency modulation because $\omega(t) = \frac{1}{2 \pi}\frac{d}{dt}\phi(t)$, the resulting 
-AF is $|\chi(\tau,f_d-k\tau)|$.
-
-
-TODO: figures
-
-
-The slow drop-off of peak in the AF makes LFM pulse compression very Doppler tolerant, which make it convenient 
-for radar applications that have to deal with targets whose velocity is unknown. Add to that the ease of implementation in 
-analog hardware and we have a simple way to improve our radar's performance.
+The slow drop-off of peak in the AF makes LFM pulse compression very Doppler tolerant, which make it convenient
+for radar applications that have to deal with targets whose velocity is unknown. The ease of implementation in 
+analog hardware results in a simple way to improve a radar's performance.
 
 \subsection{Amplitude Weighting compared to Non-linear Frequency Modulation}
-It seems like tapering the amplitude of a signal to reduce sidelobes delivers the same result as simply sweeping the frequency
-in a non-linear manner. The reason for this is easily explained. The sidelobes appear in the ACF, which is the inverse
-Fourier transform of the power spectrum. Thus modifying the power spectrum, e.g. by amplitude weighting, will change the 
-shape of the ACF.
+Tapering the amplitude of a signal to reduce sidelobes delivers the same result as simply sweeping the frequency
+in a non-linear manner. This relationship can be explained by considering the autocorrelation function (ACF) of
+the signal. The sidelobes appear in the ACF, which is the inverse
+Fourier transform of the power spectrum. Thus modifying the power spectrum, e.g. by amplitude weighting, will likewise 
+change the shape of the ACF.
 
-Alternatively, the spectrum can be shaped by varying the frequency sweep in a non-linear fashion and spend more time at frequencies
-that should be enhanced (\cite{Levanon:2004}, 87). This is called Non-Linear Frequency Modulation, or NLFM.
+Alternatively, the spectrum can be shaped by varying the frequency sweep in a non-linear fashion to spend more time at frequencies
+that should be enhanced \citep[p. 87]{Levanon:2004}. This is called Non-Linear Frequency Modulation, or NLFM, which will be considered
+next.
 
 \subsection{Non-linear Frequency Modulation}
-Extrapolating from the results above, the general expression for a frequency modulated waveform is as follows.
+Equation \eqref{eq:LFM} is a special case for linear frequency modulation. A more general expression for a frequency modulated 
+waveform is
 
 \begin{equation}
-\label{NLFM}
-x(t) = e^{j 2 \pi \int_0^t{f(t') dt'}} ,\ \ 0 \leq t \leq \tau,
+\label{eq:NLFM}
+x(t) =  e^{-j \Phi(t)} = e^{-j 2 \pi \int_0^t{f(x) dx}} ,\ \ 0 \leq t \leq \tau,
 \end{equation}
 
-where $f(t)$ defines the function of the frequency sweep. In the LFM case, $f(t)=\beta t$, which simplifies Eq
-\ref{NLFM} to
+where $f(x)$ defines the function of the frequency sweep \citep[p. 88]{Levanon:2004}. 
+
+In the LFM case, $f(x)=\beta x$, which simplifies Equation \eqref{eq:NLFM} to
 
 \begin{equation}
-\label{NLFM_simp}
-x(t) = e^{j 2 \pi \int_0^t{f(t') dt'}} =  e^{j 2 \pi \frac{\beta t^2}{2}} = e^{j \pi \beta t^2},
+\label{eq:NLFM_simp}
+x(t) = e^{j 2 \pi \int_0^t{f(x) dx}} =  e^{j 2 \pi \frac{\beta t^2}{2}} = e^{j \pi \beta t^2},
 \end{equation}
 
-which validates our initial claim that a quadratic phase modulation corresponds to a linear frequency change.
-In this case, $f(t)$ can be any desired function that describes the way the frequency band should be sweeped.
-We will later experiment with different functions and examine the way it affects the ambiguity function.
+which indidates that a quadratic phase modulation corresponds to a linear frequency change.
+In this case, $f(t)$ can be any desired function that describes the sweep pattern within the frequency band.
+In this work, various sweep patterns have been investigated and the results will be presented in Chapter \ref{chap:optimization}.
 
 \subsection{Early Use of Frequency Modulation} 
-Since LFM is simply taking advantage of a property of the AF, it was one the earliest ways of getting increased sensitivity.
-It's fairly simple to implement in analog hardware and very Doppler tolerant due to the slow decrease in slope, making it
+Since LFM is simply taking advantage of a property of the AF, as described in Section \ref{s:lfm}, it was one the earliest
+ways of improving sensitivity.
+It is fairly simple to implement in analog hardware and very Doppler tolerant due to the slow decrease in slope, making it
 a popular choice for early radars that had to detect fast moving targets. With the move of a lot of components into the digital
 domain, other forms of pulse compression are becoming increasingly more common because they are easier to implement in digital
 systems.
 
 
 \section{Phase Modulation}
+Similar to amplitude modulation and frequency modulation, waveforms can be modulated in phase as well. A pulse $u(t)$ of length $\tau$ is
+divided up into $M$ different parts, and each part is assigned a different phase \citep[ch. 6]{Levanon:2004}. The set of phases 
+associated with the different parts of the pulse is called the \emph{phase code} of $u(t)$. There is an unlimited amount of phase codes
+and much work has gone into finding codes that improve the performance of waveform. Only a few different types will be discussed here.
+The reader is encouraged to refer to \cite{Levanon:2004} for a much more comprehensive treatment of phase codes.
+
+
 \subsection{Binary Codes}
 Binary codes vary the phase of the signal in increments of $\pi$. 
-The most commonly known phase code is a Barker code, which is believed to exist up to a length of 13. The Barker 13 code
-looks like +1 +1 +1 +1 +1 −1 −1 +1 +1 −1 +1 −1 +1. It's called a "perfect" code because its autocorrelation has a main lobe 
-of 13 and sidelobes of no more than 1.
+The most commonly known phase code is a Barker code, which is believed to exist up to a length of 13 \citep[p. 106]{Levanon:2004}.
+The Barker 13 code looks like +1 +1 +1 +1 +1 -1 -1 +1 +1 -1 +1 -1 +1. It's called a ``perfect" code because its autocorrelation has a main lobe 
+of 13 and sidelobes of no more than 1, as depicted in Figure \ref{fig:barker13-acf}.
+
+\begin{figure}[h]
+\includegraphics[width=\imgsize]{figures/barker13-acf.png}
+\caption{Autocorrelation function of the Barker code with length 13.}
+\label{fig:barker13-acf}
+\end{figure}
 
 \subsection{$n$-ary Codes}
+\label{s:narycodes}
 Instead of varying the phase of the signal between only 0 and $\pi$, they can be varied arbitrarily between 0 and $2\pi$ in
-an attempt to gain a better performing code.
+an attempt to gain a better performing code. These types of codes are also known as \emph{polyphase codes}. Examples, including
+a table of polyphase Barker codes up to length 45, are given in \cite[p. 109ff]{Levanon:2004}.
+
+Other polyphase codes include Frank codes and their derivatives, like P1, P2, and Px codes \citep{Levanon:2004}, which are derived
+from sampling the phase of a LFM waveform and thus called \emph{chirplike}.
 
 
-\subsubsection{Binary Phase Codes compared to Frequency Modulation}
-
-\subsubsection{Bandwidth for Binary Phase Codes}
-The bandwidth of a binary phase-modulated waveform is the inverse of the length of a subpulse. Given a
+\subsection{Bandwidth for Phase Codes}
+The bandwidth of a phase-modulated waveform is the inverse of the length of a subpulse. Given a
 pulse with length $\tau$ and $n$ subpulses, the length of a subpulse is $T = \frac{\tau}{n}$, the bandwidth
-of the whole pulse will be $B = \frac{1}{T}$ Hz.
-
-\subsubsection{Use of Phase Codes in Profilers}
-why are they using it?
-
+of the whole pulse will be $B = \frac{1}{T}$ Hz. This is the important property at the heart of pulse compression
+that allows the decoupling of pulse length and signal bandwidth.
 
