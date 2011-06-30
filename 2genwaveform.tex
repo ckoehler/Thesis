@@ -1,49 +1,82 @@
 \section{Pulse Repetition Time}
-The pulse repetition time (PRT) is the time between two consecutive pulses and determines the unambiguous
-range of the radar. The higher the PRT, the longer the radar waits in receive mode to listen for echoes.
-A low PRT can lead to aliasing of second trip echoes, i.e. echoes that are caused by the first pulse, but
-are received after the second pulse has already been sent. To achieve a high range, we need as long a PRT
-as possible.
 
-While the unambiguous range is proportional to the PRT, unambiguous velocity is inversely proportional to it.
+The pulse repetition time (PRT) is the time between two consecutive pulses and determines the unambiguous
+range of the radar which is defined as
+
+\begin{equation}
+\label{eq:unambrange}
+r_a = \frac{c T_s}{2},
+\end{equation}
+
+where $c$ is the speed of light and $T_s$ the PRT \citep[p. 60f]{Doviak:2006}.
+
+The higher the PRT, the longer the radar waits in receive mode to listen for echoes.
+A low PRT can lead to aliasing of second trip echoes, i.e. echoes that are caused by the first pulse, but
+are received after the second pulse has already been sent. In order to scan out to long range, a long PRT
+is needed.
+
+While the unambiguous range is proportional to the PRT, unambiguous velocity is inversely proportional to it, i.e.
+
+\begin{equation}
+  \label{eq:unambvelocity}
+  v_a = \pm \frac{\lambda}{4 T_s},
+\end{equation}
+where $\lambda$ is the wavelength of the radar.
 That means the higher the PRT, the lower the unambiguous velocity, and the more likely we will see velocity
 aliasing.
 The resulting problem is called the Doppler dilemma, which states that one can either achieve high unambiguous
-range or high unambiguous velocity, but not both.
+range or high unambiguous velocity, but not both \citep[p. 60f]{Doviak:2006}
 
 
 \section{Staggered PRT}
-The problem with a single PRT is the so-called Doppler dilemma. A short PRT provides great unambiguous Doppler
-velocity before the signal aliases, while a long PRT gives us a long unambiguous range. Neither gives us both.
-To fix this problem, some radars will alternate between a long and a short pulse, and use one for determining
-purely reflectivity, and both for determining Doppler velocity.
-
-The ratio between both PRTs is chosen and known beforehand, so the way that velocities alias is also known. 
-The velocities received from both PRTs can then be used to determine the true velocity. Given the unambiguous 
-velocities ratio $2 v_{a1} = 3 v_{a2}$, the unambiguous velocity is $v_a = 2 v_{a1} = 3 v_{a2}$, and higher than
-the unambiguous velocity of a single PRT.
+As mentioned earlier, the problem with a single PRT is the so-called Doppler dilemma. A short PRT provides high
+unambiguous Doppler
+velocity, while a long PRT gives us a long unambiguous range. Neither gives us both.
+To fix this problem, some radars will use two different PRTs, a long and a short one, and combine measurements of 
+both to increase unambiguous velocity.
+Typically, the long PRT is chosen based on the desired unambiguous range, while at the same time maximizing
+the unambiguous velocity of the combination of both, defined as \citep[p. 173]{Doviak:2006}
+\begin{equation}
+  \label{eq:vm}
+  v_m = \pm \frac{\lambda}{4(T_{s2} - T_{s1})}
+\end{equation}
 
 The disadvantage is a longer scan time, since every radial now has to be scanned twice, once with the short
 and once with the long pulse, doubling the time between sweeps. For some applications, this is not an acceptable
 trade-off.
 
+TODO: Loss of sensitivity?
 
-\section{Pulse Coding}
+\section{Inter-pulse Coding}
 A coded pulse is in some way modulated, so it's not just rectangular. The idea is to code subsequent pulses
 differently, such that the received echoes can be paired up with a certain pulse. That way, an echo from the first
 pulse that is received after the second pulse has already been transmitted can be seen to belong to the first pulse
 and thus distinguished from echoes caused by the second pulse.
 
 This allows the use of a small PRT, resulting in good unambiguous velocity, but also the ability to unfold second, third,
-or even fourth trip echoes correctly. The advantage to the Staggered PRT approach is that the scan time doesn't increase, 
-since each radial is still only scanned once.
-
+or even fourth trip echoes correctly. For one such implementation, called SZ phase codes, see \cite{Sachidananda:1999}.
 
 \section{Pulse Length}
-The previous techniques were independent of the pulse's length, denoted by $\tau$. However, the pulse length of a 
-rectangular pulse determines the bandwidth of the signal. For a simple pulse, the bandwidth B is generally the inverse of
-the pulse length $\tau$. Intuitively, for a larger $\tau$, more energy is put on the target. However, a larger pulse
-length also decreases range resolution, so it's not a solution for increasing SNR.
+The previous techniques were independent of the pulse length. However, the pulse length of a 
+rectangular pulse determines the bandwidth of the signal. For a simple pulse, the bandwidth $B$ is generally the inverse of
+the pulse length $\tau$. Intuitively, by using a longer pulse, the target is illuminated by more energy, thus increasing
+the sensitivity of the radar. However, a longer pulse
+also decreases range resolution. Depending on the application, such a solution may not be desirable.
+
+\section{Amplifiers}
+The amplifier will influence what kind of pulse lengths and pulse repetition times are possible and determine
+how much power is put out. The radar's average power is an important metric that relates amplifier peak power, pulse
+length, and pulse repetition time, as shown in \cite[p. 74]{Skolnik:2001} and shown as Equation \ref{eq:avgpower}.
+
+\begin{equation}
+  \label{eq:avgpower}
+  P_{av} = \frac{P_t \tau}{T_s},
+\end{equation}
+
+The goal is to output as much power as possible to improve the maximum range of the radar and signal-to-noise ratio.
+
+Another kind of amplifier, the low-noise amplifier (LNA) in the receive chain, also influences the sensitivity of the
+radar by amplifying the return signal while at the same time adding as little additional noise as possible.
 
 
 \section{Pulse Compression}
