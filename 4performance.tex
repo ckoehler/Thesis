@@ -76,68 +76,75 @@ Although the ISL is a good way to quantify waveform performance, it can be misle
 that has overall low sidelobes except for one very dominant one will have a low ISL, but may not be performing well enough for actual use due
 to the outlier sidelobe.
 
-This metric determines the highest sidelobe level in the plane of the ambiguity function so it can be compared to the ISL.
+This metric determines the highest sidelobe level in the plane of the ambiguity function so it complements the ISL.
 
 
 \subsection{Pulse Power Ratio}
-For amplitude weighting, another factor needs to be taken into consideration: Pulse Power Ratio. For a perfect pulse, 100\% of the signal
-power is transmitted. For a weighted amplitude, however, that is not the case. We define the Pulse Power Ratio as follows:
+For amplitude weighting, another factor needs to be taken into consideration, i.e. Pulse Power Ratio. For a rectangular pulse, 100\% of the signal
+power is transmitted. For a amplitude-tapered pulse, however, that is not the case. We define the Pulse Power Ratio as follows:
 
 
 \begin{equation}
 \label{PPR}
-PPR = \frac{\sum\limits_{\tau} A_w}{\sum\limits_{\tau} A_p}, 
+\text{PPR} = \frac{\int_{\tau} w(t)dt}{A_p \tau}, 
 \end{equation}
+where $w(t)$ is the tapering function applied to the pulse, integrated over the pulse length $\tau$, and $A_p$ is the original amplitude.
 
-where $A_w$ is the weighted amplitude of the pulse, defined over the pulse length $\tau$, and $A_p$ is the equivalent amplitude of a simple,
-unweighted pulse. We simply compare the total power of the weighted amplitude $A_w$ with the maximum possible amplitude of a pulse of the same
-length, $A_p$.
-
-This metric tells us how much power is lost by weighting the signal so we can include this aspect in our optimization calculations.
-
+This metric represents the fraction of energy that is utilized when amplitude tapering is applied.
 
 
 \section{Limitations}
+There are a some limitations that need to be taken into consideration, e.g. whether 
+waveforms used in weather radar need to be very Doppler tolerant. This is highly specific to weather radars and can simplify the task 
+of waveform design. Another limitation is the effect of the amplifier impulse response on the signal.
+
+
 \subsection{Doppler Effect for Weather Radars}
 \label{s:dopplereffect}
-One question for pulse compression performance is the effect of a Doppler shift on matched filter in the receiver. Any
-received signal that has been affected by a Doppler shift will cause a mismatch in the matched filter of the receiver.
-This is especially pronounced the higher the target velocity is. For atmospheric weather radars, we observe targets that
-usually move 25 m/s at maximum, causing a Doppler shift of $f_d = \frac{2v}{\lambda} = \frac{50}{0.1} = 500\ Hz$ for S-band.
+One concern for pulse compression performance is the effect of a Doppler shift on matched filter in the receiver. A
+received signal that has been affected by a Doppler shift causes a mismatch in the matched filter processing of the receiver.
+This is especially pronounced at high target velocities. For atmospheric weather radars, such as the WSR-88D, the maximum
+unambiguous velocity is \SI{80000}{\metre\per\second}.
+At \SI{25}{\metre\per\second}, for example, a Doppler shift of $f_d = \frac{2v}{\lambda} = \frac{50}{0.1} = \SI{500}{Hz}$ is
+observed.
 
-This mismatch effect on the matched filter has been quantified by Kelly and Wishner as follows (\cite{Kelly:1965}).
+This mismatch effect on the matched filter has been quantified by Kelly and Wishner as follows \citep{Kelly:1965}.
 
-For a signal of length T, a target of velocity v, and signal bandwidth B, the return Doppler-shifted signal can be written 
-as $T(1-\frac{2v}{c})=T-\Delta T$. If $\Delta T$ is much smaller than $T$, i.e.  $\Delta T << \frac{1}{B}$, the mismatch 
-due to the Doppler effect can be neglected. In other words, $\frac{2v}{c}BT << 1$. For a $1\mu s$ pulse at 5 MHz bandwidth 
-moving at 30 m/s, $0.001 << 1$ is true, so the Doppler effect can be ignored. We will see this confirmed later in the 
+For a signal of length $T$, a target of velocity $v$, and signal bandwidth $B$, the return Doppler-shifted signal can be expressed 
+as 
+\begin{equation}
+  T(1-\frac{2v}{c})=T-\Delta T
+\end{equation}
+If $\Delta T$ is much smaller than $T$, i.e.  $\Delta T \ll \frac{1}{B}$, the mismatch 
+due to the Doppler effect can be neglected. In other words, $\frac{2v}{c}BT \ll 1$. For a \SI{1}{\micro\second} pulse at \SI{5}{\mega\hertz} bandwidth 
+moving at \SI{30}{\metre\per\second}, $0.001 \ll 1$ is true, so the Doppler effect can be ignored. We will see this confirmed later in the 
 simulations.
 
 The pulse compression ratio, $BT$, is not equal to unity, so the mismatch in the filter is compounded for highly compressed 
-pulses, which also makes sense intuitively.
+pulses.
 
 \subsection{Effects of Amplifier Impulse Response on the Ambiguity Function}
 
 Next we will examine the effects of the amplifier in the receive chain on the pulse.
-Recall the general AF (\ref{eq:AF}) and let the return signal part of it pass through the system
-with the impulse response $h(t)$:
+Starting with Equation \eqref{eq:AF}, substitute the return signal with $h(t) \star u(t-\frac{2r}{c})$, where $h(t)$ is the impulse
+response of the system. The AF then becomes
 
 \begin{align*}
-   \chi(t,f_d) &= |\int_{-\infty}^\infty{u(t) [(u^*(t+\tau) e^{j2\pi f_d t})*h(t)]\ dt}| \\
-   &= |\int_{-\infty}^\infty{u(t) \int_{-\infty}^{\infty}{u^*(t'+\tau) e^{j2\pi f_d t'}h^*(t'-t) dt'}\ dt}| \\
-   \iff \chi(t',f_d) &= |\int_{-\infty}^\infty{u^*(t'+\tau) e^{j2\pi f_d t'}\int_{-\infty}^{\infty}{u(t) h^*(t'-t) dt}\ dt'}| 
+   \chi(\tau,f_d) &= \left|\int_{-\infty}^\infty{u(t) \left[(u^*(t+\tau) e^{-j2\pi f_d t})*h(t)\right]\ dt}\right| \\
+   &= \left|\int_{-\infty}^\infty{u(t) \int_{-\infty}^{\infty}{u^*(t'+\tau) e^{-j2\pi f_d t'}h^*(t'-t) dt'}\ dt}\right| \\
+   &= \left|\int_{-\infty}^\infty{u^*(t'+\tau) e^{-j2\pi f_d t'}\int_{-\infty}^{\infty}{u(t) h^*(t'-t) dt}\ dt'}\right| 
 \end{align*}
 
 We can easily see that applying the impulse response to the return signal is equivalent to applying it to the original pulse $u(t)$. 
 
 \subsection{Quantization}
-Once the signal is received through the antenna, it is eventually converted into a digital signal for further processing.
+Once the signal is received through the antenna, it is eventually converted into a digital form for further processing.
 The first step in that process is to sample the signal in time. The second is called quantization, in which the
-amplitude of each sample is converted to one of a finite possible values for the amplitude (\cite{Richards:2005}).
+amplitude of each sample is converted to one of a finite possible values for the amplitude \citep{Richards:2005}.
 
 For $b$ available bits we get $2^b$ possible values to represent the amplitude of the signal. These $b$ bits need to be able
 to contain the whole dynamic range of possible return signals. For weather, we generally consider signals to about 80 dBZ,
-which is usually hail. However, that means that lower strength return signals, e.g. rain at 15 dBZ, only get about 20 \%
+which is usually hail. However, that means that weaker return signals, e.g. rain at 15 dBZ, only get about 20 \%
 of the available bits, so we need to be sure that we have sufficient bits to adequately quantize any possible return signal.
 For every additional bit, the dynamic range increases about 6 dB, so we need about 14 bits to represent our whole
 dynamic range (\cite{Richards:2005}).

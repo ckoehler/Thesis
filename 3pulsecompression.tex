@@ -11,6 +11,8 @@ target because the amplifier does not transmit as much power for an amplitude-we
 rectangular pulse. This results in a lower SNR, which has a negative impact on detection. Second, the mainlobe is broadened,
 resulting in a decrease in spatial resolution.
 
+TODO: Hardware considerations, amplifier reqs, sensitivity? trade offs?
+
 
 \section{Frequency Modulation}
 Frequency modulation is generally divided into two areas. There is Linear Frequency Modulation (LFM) and everything else, 
@@ -41,6 +43,16 @@ TODO: add figure of LFM AF.
 The slow drop-off of peak in the AF makes LFM pulse compression very Doppler tolerant, which make it convenient
 for radar applications that have to deal with targets whose velocity is unknown. The ease of implementation in 
 analog hardware results in a simple way to improve a radar's performance.
+
+The maximum range resolution of a LFM waveform is now only dependent on the bandwidth $B$, not the pulse length $\tau$. 
+It is expressed as
+\begin{equation}
+  \label{eq:lfm-rangeres}
+  \Delta r_{max} = \frac{c}{2 B}
+\end{equation}
+
+This result will be confirmed in the simulation letter, where it is shown that the pulse length does not change the
+shape of the zero-Doppler cut of the ambiguity function.
 
 \subsection{Amplitude Weighting compared to Non-linear Frequency Modulation}
 Tapering the amplitude of a signal to reduce sidelobes delivers the same result as simply sweeping the frequency
