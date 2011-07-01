@@ -11,6 +11,36 @@ target because the amplifier does not transmit as much power for an amplitude-we
 rectangular pulse. This results in a lower SNR, which has a negative impact on detection. Second, the mainlobe is broadened,
 resulting in a decrease in spatial resolution.
 
+In this work, the Kaiser window is chosen because it allows for its shape to be changed based on one parameter $\alpha$. Evaluating 
+the different waveforms for various values of $\alpha$ allows optimizing the amplitude tapering for weather application.
+The Kaiser window is defined as
+
+\begin{equation}
+  \label{eq:kaiser}
+  w_n = \frac{I_0\left(\pi \alpha \sqrt{1- \left( \frac{n}{N/2} \right) ^2 \right)}} { I_0(\pi \alpha)}, 0 \leq |n| \leq N/2,
+\end{equation}
+where $I_0$ is the zeroeth order Modified Bessel function of the first kind, $N$ is the length of the sequence, and $\alpha$ is
+the parameter that determines the shape of the window \citep{Harris:1978}.
+
+For the sake of simplicity, the parameter is redefined as $\beta = \pi \alpha$ to make the function
+
+\begin{equation}
+  \label{eq:kaiser2}
+  w_n = \frac{I_0\left(\beta \sqrt{1- \left( \frac{n}{N/2} \right) ^2 \right)}} { I_0(\beta)}, 0 \leq |n| \leq N/2,
+\end{equation}
+This work will use $\beta$ as the parameter describing the window shape.
+
+Figure \ref{fig:kaiserparams} shows the Kaiser Window function for varying values of the parameter $\beta$.
+
+\begin{figure}[h]
+\includegraphics[width=\imgsize]{figures/kaiserparams.png}
+\caption{Kaiser Window function for varying values of $\beta$}
+\label{fig:kaiserparams}
+\end{figure}
+
+
+
+
 TODO: Hardware considerations, amplifier reqs, sensitivity? trade offs?
 
 

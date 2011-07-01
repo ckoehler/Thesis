@@ -1,40 +1,41 @@
+In this section the setup and results of the simulations will be presented. First, the way the 
+simulations were conducted is explained. After that, the results for various waveforms will be 
+presented.
+
 \section{Setup and Configuration}
+All simulations were performed with the MATLAB\textsuperscript{\textregistered} software package.
+The general algorithm to compute the ambiguity function is presented, with the complete code
+given in Appendix \ref{app:code}.
 
 
 \subsection{Generating Waveforms}
 The simulation is done in multiple parts. First, a waveform is generated based on a given
 amplitude, phase, frequency modulation, and impulse response that is applied to the signal.
-The returned waveform is properly sampled based on the desired signal bandwidth to avoid aliasing.
+The returned waveform is generated at a proper sampling frequency in order to avoid aliasing.
 
 If an impulse response was supplied, we get both the distorted and clean waveform back, as well as
 the new pulse length $\tau$ which will be approximately twice the original $\tau$. That lengthening
 is due to the convolution of the original waveform $u(t)$ with the impulse response $h(t)$.
 
 \subsection{Calculating the Ambiguity Function}
-Once we have the waveform, we generate the AF and plot it as a surface plot. There are three components
-to the AF: 
+Once we have the waveform, we generate the AF and plot it as a surface plot. 
+In pseudo-code, given the complex signal \emph{signal} and an array of Doppler frequencies \emph{doppler\_frequencies}
+to compute the normalized AF for:
 
-\begin{enumerate}
-\item the original waveform, $u(t)$
-\item the shifted complex conjugate of the waveform, $u^*(t+\tau)$
-\item the Doppler shift, $e^{j2\pi f_d t}$
-\end{enumerate}
-These components are multiplied and the result summed up. To do that, we convert $u(t)$ into a diagonal
-matrix, so that each data point of the signal is on its own row. The shifted complex conjugate is also 
-a matrix, where each row contains the flipped signal shifted a little further. If we ignore the Doppler
-shift for a moment and multiply what we have so far and sum over it, we get the auto-correlation of $u(t)$,
-which is easy to verify.
+\lstset{
+  basicstyle=\footnotesize
+}
+\begin{lstlisting}[language=Ruby]
+af = []
+for dfreq in doppler_freqencies do
+  doppler_shift = exp(-j*2*pi*dfreq)
+  shifted_signal = signal*doppler_shift
+  af << abs(xcorr(signal, shifted_signal))
+end
+return (af / max(af))
 
-Next we calculate the Doppler shifts for a given range of frequencies over the time $t$. The multiplication of 
-$f_d$ and $t$ results in a matrix where each row corresponds to a certain Doppler shift. The first row at 
-$f_d = 0$ gives us a vector of ones, as we would expect, since there is no Doppler shift and the signal is
-unchanged.
+\end{lstlisting}
 
-Finally, we multiply all three components together and sum to get the AF in a 2D matrix that we can visualize
-as a surface plot.
-Note that the original signal $u(t)$ could be distorted by an arbitrary impulse response if we decide to include
-that aspect in the simulation, whereas the shifted complex conjugate part is always based on the clean, original
-signal.
 
 
 
@@ -44,7 +45,7 @@ signal.
 
 
 \section{Simple pulse}
-A pulse is the simplest waveform for a radar. These graphs show the AF for pulses of varying lengths so we can 
+A rectangular pulse is the simplest waveform for a radar. These graphs show the AF for pulses of varying lengths so we can 
 evaluate the effect of pulse length on Doppler resistance. As we predicted in \ref{s:dopplereffect}, if the 
 pulse length is much smaller than the inverse of the bandwidth, the Doppler effect 
 
@@ -68,9 +69,9 @@ pulse length is much smaller than the inverse of the bandwidth, the Doppler effe
 
 
 
-\section{Phase-coded Barker code}
+\section{Barker code}
 Next we will examine a length 13 Barker code of different pulse lengths. Again we notice that
-Doppler performance gets worse with a longer pulse.
+Doppler tolerance decreases with a longer pulse.
 
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/barker-1us.png}
@@ -95,9 +96,12 @@ Doppler performance gets worse with a longer pulse.
 
 
 \section{Linear Frequency Modulation}
+Here the results of different variations of linear frequency modulation will be presented, specifically LFM with
+and without amplitude tapering.
+
 \subsection{Linear Frequency Modulation}
-Here we will look at a linearly frequency modulated waveform. As mentioned before, LFM is a property of the
-AF and thus very simple simple to implement in analog hardware. Also, the figures below show that the Doppler
+Here we will look at the performance results of a linearly frequency modulated waveform. 
+As expected, the figures below show that the Doppler
 performance of an LFM waveform is very high, especially for our weather radar application. There is no visible
 difference between the AFs in the Doppler dimension.
 
@@ -139,29 +143,29 @@ by the bandwidth swept instead. These figures confirm that observation.
 \end{figure}
 
 
-\subsection{Linear Frequency Modulation with Amplitude Weighting}
-The AF of a LFM waveform has fairly high sidelobes that we can try to mitigate with amplitude weighting.
-For that, we'll apply a Kaiser window to the amplitude. We vary the parameter for the Kaiser function
-from 0 to 50, generate the AF for each, and evaluate it. The results are shown in figure \ref{fig:lfm-isl-15us-opti}.
+\subsection{Linear Frequency Modulation with Amplitude Tapering}
+The AF of a LFM waveform has fairly high sidelobes that we can try to mitigate with amplitude tapering.
+For that, a Kaiser window is applied to the amplitude. Based on Equation \eqref{eq:kaiser2}, the parameter $\beta$ is
+varied from 0 to 50, and the AF generated and evaluated for each. The results are shown in figure \ref{fig:lfm-isl-15us-opti}.
 As expected, the ISL dramatically decreases, as does the MSL. At the same time, the range resolution decreases from
-an initial 60 m to about 400 m. The pulse power ratio may be the limiting metric here. The weighted signal quickly
-loses half of its energy with only minor amplitude weighting and eventually decreases to about 0.2, which means
+an initial 60 m to about 400 m. The PPR may be the limiting metric here. The tapered signal quickly
+loses half of its energy with only minor amplitude tapering and eventually decreases to about 0.2, which means
 the signal loses 80\% of its energy. 
 
 
 
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/lfm-isl-15us-opti.png}
-\caption{Optimization results for LFM with Kaiser amplitude weighting}
+\caption{Optimization results for LFM with Kaiser amplitude tapering}
 \label{fig:lfm-isl-15us-opti}
 \end{figure}
 
 
-Clearly, a tradeoff must be made. If we choose the half power point, we end up with an ISL of about -22 dB, 
-MSL of -35 dB, and a range resolution of 151 m.
+Clearly, a tradeoff must be made. If the half power point is selected, the waveform would have an ISL of about -22 dB, 
+MSL of -35 dB, and a range resolution of 75 m.
 
-The corresponding zero Doppler cut of the AF at this point is shown in figure \ref{fig:lfm-isl-15us-opti-slice13}.
-The sidelobes are fairly low at about -70 dB with acceptable range resolution and may be a good candidate to use.
+The corresponding zero Doppler cut of the AF at this point is shown in figure \ref{fig:lfm-isl-15us-opti-slice13}. It 
+clearly shows the sidelobes at about -70 dB, which means this waveform is adequate for typical weather observations.
 
 
 \begin{figure}[H]
@@ -192,14 +196,14 @@ Each function is applied over the pulse length $\tau$ of the signal.
 \end{figure}
 
 For each function a waveform and ambiguity functions is generated and then evaluated according to the optimizations described
-in section \ref{s:quantifications}. We can then determine which waveform is best suited for our application in weather radars
-or further change the setup to combine it with, e.g. amplitude weighting to achieve even better performance.
+in Section \ref{s:quantifications}. We can then determine which waveform is best suited for our application in weather radars
+or further change the setup to combine it with, e.g. amplitude tapering to achieve even better performance.
 
 
 \subsection{Parameterized NLFM Results}
 \label{s:nlfm-only-results}
 Figure \ref{fig:nlfm-side-15us-opti} shows the results for varying NLFM waveforms in regards to ISL, MSL, and range resolution.
-We find that the closer the frequency modulation function approaches an S-curve, the better the ISL becomes, though it's never
+We find that the closer the frequency modulation function approaches an S-curve, the better the ISL becomes, though it is never
 fantastic. The maximum ISL seems to be around -13 dB. The maximum sidelobe level decreases rapidly first to about -15 dB and
 mostly decreases to about -20 dB, where it stays constant. The range resolution gets progressively coarser, starting at about 50 m
 and increasing to about 500 m, meaning the mainlobe broadens. This also explains the decreasing and eventually constant MSL,
@@ -214,10 +218,10 @@ because the whole AF is taken up by the mainlobe with only minimal sidelobes.
 
 
 
-\subsection{Parameterized NLFM with Amplitude Weighting}
+\subsection{Parameterized NLFM with Amplitude Tapering}
 Next we try to optimize varying NLFM waveforms combined with Kaiser windowing. First,
 look at the ISL in figure \ref{fig:nlfm-kaiser-15us-opti-isl}. Intuitively we find that the waveform that is most aggressively 
-weighted generally has better ISL performance. The same seems true for the NLFM parameter. The ideal range for the NLFM parameter
+tapered generally has better ISL performance. The same seems true for the NLFM parameter. The ideal range for the NLFM parameter
 looks to be around 3 all the way up to 10, with as low a Kaiser parameter as we can live with.
 
 Next, let's look at the MSL in figure \ref{fig:nlfm-kaiser-15us-opti-msl}. The shape closely mirrors that of the ISL optimization,
@@ -225,29 +229,30 @@ so the same discussion applies to it.
 
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/nlfm-kaiser-15us-opti-isl.png}
-\caption{ISL optimization results for NLFM combined with Kaiser amplitude weighting}
+\caption{ISL optimization results for NLFM combined with Kaiser amplitude tapering}
 \label{fig:nlfm-kaiser-15us-opti-isl}
 \includegraphics[width=\imgsize]{figures/nlfm-kaiser-15us-opti-msl.png}
-\caption{MSL optimization results for NLFM combined with Kaiser amplitude weighting}
+\caption{MSL optimization results for NLFM combined with Kaiser amplitude tapering}
 \label{fig:nlfm-kaiser-15us-opti-msl}
 \end{figure}
 
 
-The pulse power ration in figure \ref{fig:nlfm-kaiser-15us-opti-msl} is the same for each waveform, because it only depends on 
-the shape of the amplitude weighting function determined by the Kaiser parameter. As described previously, the power decreases rapidly
-with more aggressive weighting.
+The PPR in Figure \ref{fig:nlfm-kaiser-15us-opti-ppr} is the same for each waveform, because it only depends on 
+the shape of the amplitude tapering function determined by the Kaiser parameter. As described previously, the power decreases rapidly
+as $\beta$ in the Kaiser window function increases.
 
-The range resolution result also makes sense. Similar to the NLFM-only case in section \ref{s:nlfm-only-results}, the range resolution
-decreases slightly with increasing NLFM parameter. The same happens for an increasing Kaiser parameter. Interestingly, the effect of both
-seems to be compounded such that aggressive windowing and high NLFM parameter result in a very large decrease in range resolution.
+Similar to the NLFM-only case in Section \ref{s:nlfm-only-results}, the range resolution
+decreases slightly as the NLFM parameter $a$ increases. The same happens for an increasing Kaiser parameter.
+The effect of both together is compounded such that a large $\beta$ and large $a$ result in a large decrease in range
+resolution.
 
 
-\begin{figure}[ht]
+\begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/nlfm-kaiser-15us-opti-ppr.png}
-\caption{PPR optimization results for NLFM combined with Kaiser amplitude weighting}
+\caption{PPR optimization results for NLFM combined with Kaiser amplitude tapering}
 \label{fig:nlfm-kaiser-15us-opti-ppr}
 \includegraphics[width=\imgsize]{figures/nlfm-kaiser-15us-opti-res.png}
-\caption{Resolution optimization results for NLFM combined with Kaiser amplitude weighting}
+\caption{Resolution optimization results for NLFM combined with Kaiser amplitude tapering}
 \label{fig:nlfm-kaiser-15us-opti-res}
 \end{figure}
 
