@@ -104,8 +104,9 @@ of waveform design. Another limitation is the effect of the amplifier impulse re
 One concern for pulse compression performance is the effect of a Doppler shift on matched filter in the receiver. A
 received signal that has been affected by a Doppler shift causes a mismatch in the matched filter processing of the receiver.
 This is especially pronounced at high target velocities. For atmospheric weather radars, such as the WSR-88D, the maximum
-unambiguous velocity is \SI{80000}{\metre\per\second}.
-At \SI{25}{\metre\per\second}, for example, a Doppler shift of $f_d = \frac{2v}{\lambda} = \frac{50}{0.1} = \SI{500}{Hz}$ is
+unambiguous velocity is \SI{32.5}{\metre\per\second}, based on $\lambda = \SI{0.1}{\metre}$ and a maximum PRT $T_s = \SI{1300}{\hertz}$,
+not taking into account any signal processing techniques described previously \citep[p. 47]{Doviak:2006}.
+At that velocity, a Doppler shift of $f_d = \frac{2v}{\lambda} = \frac{65}{0.1} = \SI{650}{Hz}$ is
 observed.
 
 This mismatch effect on the matched filter has been quantified by Kelly and Wishner as follows \citep{Kelly:1965}.
@@ -143,8 +144,8 @@ The first step in that process is to sample the signal in time. The second is ca
 amplitude of each sample is converted to one of a finite possible values for the amplitude \citep{Richards:2005}.
 
 For $b$ available bits we get $2^b$ possible values to represent the amplitude of the signal. These $b$ bits need to be able
-to contain the whole dynamic range of possible return signals. For weather, we generally consider signals to about 80 dBZ,
-which is usually hail. However, that means that weaker return signals, e.g. rain at 15 dBZ, only get about 20 \%
+to contain the whole dynamic range of possible return signals. For the WSR-88D network radars, the dynamic range at the receiver
+is \SI{93}{\db}. However, that means that weaker return signals, e.g. rain at 15 dBZ, only get about 20 \%
 of the available bits, so we need to be sure that we have sufficient bits to adequately quantize any possible return signal.
 For every additional bit, the dynamic range increases about 6 dB, so we need about 14 bits to represent our whole
 dynamic range (\cite{Richards:2005}).
