@@ -22,8 +22,7 @@ While the unambiguous range is proportional to the PRT, unambiguous velocity is 
   v_a = \pm \frac{\lambda}{4 T_s},
 \end{equation}
 where $\lambda$ is the wavelength of the radar.
-That means the higher the PRT, the lower the unambiguous velocity, and the more likely we will see velocity
-aliasing.
+That means for a large PRT, the unambiguous velocity will be low and velocity aliasing will become more likely.
 The resulting problem is called the Doppler dilemma, which states that one can either achieve high unambiguous
 range or high unambiguous velocity, but not both \citep[p. 60f]{Doviak:2006}
 
@@ -80,10 +79,23 @@ radar by amplifying the return signal while at the same time adding as little ad
 
 
 \section{Pulse Compression}
-We need some way to decouple the pulse length from the bandwidth to get both good SNR and fine range resolution.
-Pulse compression does just that.
-In the case of a phase-coded pulse, the bandwidth is determined by the length of each sub-pulse.
-For frequency sweeps, or chirps, the bandwidth is determined by the frequency range of the chirp. 
+At the heart of pulse compression is the matched filter. It is called that because its response is matched to the transmitted
+waveform. As the waveform passes through the filter, it is compressed in range and will ideally concentrate most of the energy
+in a narrow mainlobe with no or low sidelobes. The process of the return waveform passing through the matched filter can be 
+described by the cross correlation function of the filter response, i.e. the original waveform shape, and the return signal
+received back at the radar. Ideally, this should be identical to the autocorrelation function, i.e. the matched filter response
+and the return signal will be identical. Although this is almost never the case, this work will only refer to autocorrelation
+function (ACF).
+
+More formally, then, the ACF is defined as the convolution between the signal $u(t)$ and the impulse response of the matched filter, 
+$h(t)$ \citep{Levanon:2004}.
+
+\begin{equation}
+  \label{eq:acf}
+  \text{ACF}(\tau) = u(t) \star h(t) = \int_{-\infty}^{\infty} u(t) u^*(t-\tau) dt}.
+\end{equation}
+
+This is an important function that is the basis of analysing the performance of radar signals.
 
 
 
