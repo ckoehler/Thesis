@@ -13,12 +13,12 @@ The simulation is done in multiple parts. First, a waveform is generated based o
 amplitude, phase, frequency modulation, and impulse response that is applied to the signal.
 The returned waveform is generated at a proper sampling frequency in order to avoid aliasing.
 
-If an impulse response was supplied, we get both the distorted and clean waveform back, as well as
+If an impulse response was supplied, both the distorted and clean waveform will be returned, as well as
 the new pulse length $\tau$ which will be approximately twice the original $\tau$. That lengthening
 is due to the convolution of the original waveform $u(t)$ with the impulse response $h(t)$.
 
 \subsection{Calculating the Ambiguity Function}
-Once we have the waveform, we generate the AF and plot it as a surface plot. 
+Once the waveform has been returned, the AF is generated and plotted in a surface plot. 
 In pseudo-code, given the complex signal \emph{signal} and an array of Doppler frequencies \emph{doppler\_frequencies}
 to compute the normalized AF for:
 
@@ -45,8 +45,8 @@ return (af / max(af))
 
 
 \section{Simple pulse}
-A rectangular pulse is the simplest waveform for a radar. These graphs show the AF for pulses of varying lengths so we can 
-evaluate the effect of pulse length on Doppler resistance. As we predicted in \ref{s:dopplereffect}, if the 
+A rectangular pulse is the simplest waveform for a radar. These graphs show the AF for pulses of varying lengths so 
+that the effect of pulse length on Doppler resistance can be examined. As predicted in Section \ref{s:dopplereffect}, if the 
 pulse length is much smaller than the inverse of the bandwidth, the Doppler effect 
 
 \begin{figure}[H]
@@ -70,8 +70,9 @@ pulse length is much smaller than the inverse of the bandwidth, the Doppler effe
 
 
 \section{Barker code}
-Next we will examine a length 13 Barker code of different pulse lengths. Again we notice that
-Doppler tolerance decreases with a longer pulse.
+Next, a length 13 Barker code of different pulse lengths will be examined. As with the pulse, the Doppler tolerance
+decreases with a longer pulse.
+
 
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/barker-1us.png}
@@ -100,7 +101,7 @@ Here the results of different variations of linear frequency modulation will be 
 and without amplitude tapering.
 
 \subsection{Linear Frequency Modulation}
-Here we will look at the performance results of a linearly frequency modulated waveform. 
+In this section the performance results of a linearly frequency modulated waveform will be presented.
 As expected, the figures below show that the Doppler
 performance of an LFM waveform is very high, especially for our weather radar application. There is no visible
 difference between the AFs in the Doppler dimension.
@@ -114,11 +115,11 @@ The frequency modulation function is shown in figure \ref{fig:lfm-fmf}.
 \end{figure}
 
 
-Comparing the two AFs to determine the difference that the pulse length makes, we see that in the Doppler
-direction, the waveform does not change significantly. To get a better understanding of the difference 
-in range resolution, let's look at the zero Doppler cut in figures \ref{fig:lfm-15us-0d} and \ref{fig:lfm-200us-0d}.
+Comparing the two AFs to determine the difference that the pulse length makes, it can be seen that it has
+little effect for weather applications. To get a better understanding of the difference 
+in range resolution, the zero Doppler cut of both AFs is shown in figures \ref{fig:lfm-15us-0d} and \ref{fig:lfm-200us-0d}.
 
-We see the expected shape with sidelobes around -13 dB in both AFs, and the shapes are approximately the same
+As expected, the sidelobes are around -13 dB in both AFs, and the shapes are approximately the same
 for each case, which means that the pulse length has little effect on the range resolution, which is determined
 by the bandwidth swept instead. These figures confirm that observation.
 
@@ -144,7 +145,7 @@ by the bandwidth swept instead. These figures confirm that observation.
 
 
 \subsection{Linear Frequency Modulation with Amplitude Tapering}
-The AF of a LFM waveform has fairly high sidelobes that we can try to mitigate with amplitude tapering.
+The AF of a LFM waveform has fairly high sidelobes that can be mitigate with amplitude tapering.
 For that, a Kaiser window is applied to the amplitude. Based on Equation \eqref{eq:kaiser2}, the parameter $\beta$ is
 varied from 0 to 50, and the AF generated and evaluated for each. The results are shown in figure \ref{fig:lfm-isl-15us-opti}.
 As expected, the ISL dramatically decreases, as does the MSL. At the same time, the range resolution decreases from
@@ -180,13 +181,13 @@ clearly shows the sidelobes at about -70 dB, which means this waveform is adequa
 
 
 \section{Non-Linear Frequency Modulation}
-In this case, we vary the frequency of the signal non-linearly. Specifically, we let
+In this case, the frequency of the signal is changed non-linearly. Specifically, the function that determines the frequency
+sweep is given by
 
 \begin{equation}
   f(t) = a t^7 + t,
 \end{equation}
-
-and vary $a$ from 0 to 10. The two extremes for $a=0$ and $a=10$ are shown in figure \ref{fig:nlfm-functions}. 
+where $a$ varies from 0 to 10. The two extremes for $a=0$ and $a=10$ are shown in figure \ref{fig:nlfm-functions}. 
 Each function is applied over the pulse length $\tau$ of the signal.
 
 \begin{figure}[H]
@@ -196,8 +197,8 @@ Each function is applied over the pulse length $\tau$ of the signal.
 \end{figure}
 
 For each function a waveform and ambiguity functions is generated and then evaluated according to the optimizations described
-in Section \ref{s:quantifications}. We can then determine which waveform is best suited for our application in weather radars
-or further change the setup to combine it with, e.g. amplitude tapering to achieve even better performance.
+in Section \ref{s:quantifications}. It can then be determined which waveform is best suited for weather radar applications, 
+or further changes to the setup can be made to combine it with, e.g. amplitude tapering to achieve even better performance.
 
 
 \subsection{Parameterized NLFM Results}
@@ -219,12 +220,12 @@ because the whole AF is taken up by the mainlobe with only minimal sidelobes.
 
 
 \subsection{Parameterized NLFM with Amplitude Tapering}
-Next we try to optimize varying NLFM waveforms combined with Kaiser windowing. First,
-look at the ISL in figure \ref{fig:nlfm-kaiser-15us-opti-isl}. Intuitively we find that the waveform that is most aggressively 
-tapered generally has better ISL performance. The same seems true for the NLFM parameter. The ideal range for the NLFM parameter
-looks to be around 3 all the way up to 10, with as low a Kaiser parameter as we can live with.
+Next, the varying NLFM waveforms are combined with a Kaiser window to further improve performance. Looking
+ at the ISL in figure \ref{fig:nlfm-kaiser-15us-opti-isl}, it is shown that the waveform that is most aggressively 
+tapered generally has better ISL performance. The same is true for the NLFM parameter. The ideal range for the NLFM parameter
+seems to be around 3 all the way up to 10, with as low a Kaiser parameter to retain good range resolution.
 
-Next, let's look at the MSL in figure \ref{fig:nlfm-kaiser-15us-opti-msl}. The shape closely mirrors that of the ISL optimization,
+Next, the MSL shown in figure \ref{fig:nlfm-kaiser-15us-opti-msl} closely mirrors the shape of the ISL optimization,
 so the same discussion applies to it.
 
 \begin{figure}[H]
