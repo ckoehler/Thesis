@@ -19,8 +19,8 @@ is due to the convolution of the original waveform $u(t)$ with the impulse respo
 
 \subsection{Calculating the Ambiguity Function}
 Once the waveform has been returned, the AF is generated and plotted in a surface plot. 
-In pseudo-code, given the complex signal \emph{signal} and an array of Doppler frequencies \emph{doppler\_frequencies}
-to compute the normalized AF for:
+In pseudo-code, given the complex signal \emph{signal} and an array of Doppler frequencies \emph{doppler\_frequencies},
+the normalized AF is computed as follows.
 
 \lstset{
   basicstyle=\footnotesize
@@ -46,8 +46,20 @@ return (af / max(af))
 
 \section{Simple pulse}
 A rectangular pulse is the simplest waveform for a radar. These graphs show the AF for pulses of varying lengths so 
-that the effect of pulse length on Doppler resistance can be examined. As predicted in Section \ref{s:dopplereffect}, if the 
-pulse length is much smaller than the inverse of the bandwidth, the Doppler effect 
+that the effect of pulse length on Doppler resistance can be examined. Figure \ref{fig:simplepulse-1us} shows the AF
+of a \SI{1}{\micro\second} pulse. Across the delay axis, the characteristic triangle shape can be seen. Across the 
+Doppler axis, there is no visible change in the AF. The different Doppler cuts are identical, so for weather radar 
+applications, the commonly encountered Doppler shifts do not cause any distortion to the signal for short pulses.
+
+Similarly, Figure \ref{fig:simplepulse-200us} shows the AF of a much longer, \SI{200}{\micro\second} pulse. Comparing
+it to the shorter pulse, it looks very similar. However, unlike for a short pulse, there is some distortion at higher
+Doppler velocities. This distortion is visibly minimal, so the impact on weather radar application is negligible because,
+first, the distortion doesn't occur until higher velocity weather targets, and second, pulse lengths of \SI{200}{\micro\second}
+are not common. For comparison, the two pulse lengths used in the WSR-88D radar network are \SI{1.57}{\micro\second} and 
+\SI{4.57}{\micro\seconds} \citep[p. 47]{Doviak:2006}.
+
+
+
 
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/pulse-1us.png}
@@ -70,19 +82,31 @@ pulse length is much smaller than the inverse of the bandwidth, the Doppler effe
 
 
 \section{Barker code}
-Next, a length 13 Barker code of different pulse lengths will be examined. As with the pulse, the Doppler tolerance
-decreases with a longer pulse.
+Next, a length 13 Barker code of different pulse lengths will be examined. Figures \ref{fig:barker13-1us} and
+\ref{fig:barker13-1us-0D} show a \SI{1}{\micro\second} pulse that has been phase coded with a length 13 Barker 
+code. As for a rectangular pulse, there is no visible degradation of the signal with increasing Doppler shifts.
+The zero-Doppler cut shows the typical shape of the Barker code and sidelobes of about
+\SI{-22}{\decibel} \citep[p. 351]{Skolnik:2001}.
 
+Comparing these images to Figures \ref{fig:barker13-200us} and \ref{fig:barker13-200us-0D} shows little difference
+in the Doppler dimension, confirming again that for weather radar applications, the Doppler distortions can be 
+neglected. The only difference is the expected loss of range resolution caused by the longer pulse.
 
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/barker-1us.png}
 \caption{ Barker 13 of length 1 $\mu s$ }
 \label{fig:barker13-1us}
+\includegraphics[width=\imgsize]{figures/barker-1us-0D.png}
+\caption{Zero Doppler cut of the AF}
+\label{fig:barker13-1us-0D}
 \end{figure}
 
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/barker-200us.png}
 \caption{ Barker 13 of length 200 $\mu s$ }
+\label{fig:barker13-200us}
+\includegraphics[width=\imgsize]{figures/barker-200us-0D.png}
+\caption{Zero Doppler Cut of the AF}
 \label{fig:barker13-200us}
 \end{figure}
 
@@ -102,11 +126,9 @@ and without amplitude tapering.
 
 \subsection{Linear Frequency Modulation}
 In this section the performance results of a linearly frequency modulated waveform will be presented.
-As expected, the figures below show that the Doppler
-performance of an LFM waveform is very high, especially for our weather radar application. There is no visible
-difference between the AFs in the Doppler dimension.
 
-The frequency modulation function is shown in figure \ref{fig:lfm-fmf}.
+The frequency modulation function is shown in figure \ref{fig:lfm-fmf}. It is a linear sweep from \SI{-2.5}{\mega\hertz} to
+\SI{2.5}{\mega\hertz}, over a total of \SI{5}{\mega\hertz}.
 
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/lfm-fmf.png}
@@ -115,13 +137,16 @@ The frequency modulation function is shown in figure \ref{fig:lfm-fmf}.
 \end{figure}
 
 
-Comparing the two AFs to determine the difference that the pulse length makes, it can be seen that it has
-little effect for weather applications. To get a better understanding of the difference 
-in range resolution, the zero Doppler cut of both AFs is shown in figures \ref{fig:lfm-15us-0d} and \ref{fig:lfm-200us-0d}.
+Figures \ref{fig:lfm-15us} and \ref{fig:lfm-200us} show the AFs of two LFM waveforms, of \SI{15}{\micro\second} and
+\SI{200}{\micro\second} lengths, respectively.
+Comparing the two for differences shows once again that in the Doppler dimension, the pulse length has
+little effect for weather radar applications. 
 
-As expected, the sidelobes are around -13 dB in both AFs, and the shapes are approximately the same
-for each case, which means that the pulse length has little effect on the range resolution, which is determined
-by the bandwidth swept instead. These figures confirm that observation.
+One observation of significance is the range resolution of both signals.
+Figures \ref{fig:lfm-15us-0d} and \ref{fig:lfm-200us-0d} show the zero-Doppler cut of both signals.
+As expected, the sidelobes are around -13 dB in both AFs, but also, the shapes are approximately the same
+for each case, which means that the pulse length has little effect on the range resolution. Instead, range
+resolution is determined by the sweep bandwidth, not the pulse length. 
 
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/lfm-15us.png}
