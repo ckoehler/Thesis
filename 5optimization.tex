@@ -247,15 +247,29 @@ This also explains the decreasing and eventually constant MSL, because the whole
 \label{fig:nlfm-side-15us-opti}
 \end{figure}
 
+To get a better picture about NLFM waveforms, consider Figure \ref{fig:nlfm-side-15us-0D-1}, showing the zero-Doppler slice of
+the NLFM waveform generated with the sweep function with $a=2.9293$. The mainlobe is fairly wide, though only about \SI{50}{\metre}
+at the \SI{3}{\decibel} point. The sidelobes are better than those of the LFM waveform at slightly higher than \SI{-30}{\decibel}.
+In comparison, Figure \ref{fig:nlfm-side-15us-0D-2} shows the NLFM waveform generated with the sweep function with $a=6.46$. 
+Altough the sidelobes are a little lower at \SI{-40}{\decibel} and the range resolution at the \SI{3}{\decibel} point is still 
+only about \SI{70}{\metre}, the mainlobe quickly becomes very wide, making it not ideal for weather radar applications.
 
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/nlfm-side-15us-0D-1.png}
+\caption{Zero-Doppler slice for AF with $a=2.92$}
+\label{fig:nlfm-side-15us-0D-1}
+\includegraphics[width=\imgsize]{figures/nlfm-side-15us-0D-2.png}
+\caption{Zero-Doppler slice for AF with $a=6.46$}
+\label{fig:nlfm-side-15us-0D-2}
+\end{figure}
 
 
 \subsection{Parameterized NLFM with Amplitude Tapering}
-Next, the varying NLFM waveforms are combined with a Kaiser window to further improve performance. Looking
- at the ISL in figure \ref{fig:nlfm-kaiser-15us-opti-isl}, it is shown that the waveform that is most aggressively 
-tapered generally has better ISL performance. The same is true for the NLFM parameter. The ideal range for the NLFM parameter
-seems to be around 3 all the way up to 10, with as low a Kaiser parameter to retain good range resolution.
+In order to improve the performance of the varying NLFM waveforms, Kaiser windows are applied to taper the amplitude.
+The results are presented in Figures \ref{fig:nlfm-kaiser-15us-opti-isl}-\ref{fig:nlfm-kaiser-15us-opti-res}.
 
+Looking at the ISL in figure \ref{fig:nlfm-kaiser-15us-opti-isl}, it can be seen that the waveform that is most aggressively 
+tapered generally has better ISL performance. The same is true for the NLFM parameter $a$. 
 Next, the MSL shown in figure \ref{fig:nlfm-kaiser-15us-opti-msl} closely mirrors the shape of the ISL optimization,
 so the same discussion applies to it.
 
@@ -274,9 +288,9 @@ the shape of the amplitude tapering function determined by the Kaiser parameter.
 as $\beta$ in the Kaiser window function increases.
 
 Similar to the NLFM-only case in Section \ref{s:nlfm-only-results}, the range resolution
-decreases slightly as the NLFM parameter $a$ increases. The same happens for an increasing Kaiser parameter.
-The effect of both together is compounded such that a large $\beta$ and large $a$ result in a large decrease in range
-resolution.
+decreases slightly as the NLFM parameter $a$ increases. The same happens for an increasing Kaiser parameter $\beta$.
+The effect of both together, however, is compounded such that a large $\beta$ and large $a$ result in a decrease in range
+resolution that is much larger than a mere linear superposition of both individually.
 
 
 \begin{figure}[H]
@@ -290,29 +304,41 @@ resolution.
 
 
 
+To give some examples, Figure \ref{fig:nlfm-kaiser-slices-15us} shows zero-Doppler cuts of a few waveforms with
+varying values for $a$ and $\beta$. Similar to the untapered NLFM waveforms, the top left figure shows sidelobes of about
+\SI{-40}{\decibel} with only mild tapering, with range resolution of about \SI{180}{\metre}. 
+With more aggressive tapering, sidelobes decrease to about \SI{-70}{\decibel}
+while sacrificing range resolution, which is about \SI{280}{\metre}, shown on the top right,
+
+The bottom two figures show very low sidelobes, but fairly low range resolution at \SI{300}{\metre} and \SI{400}{\metre} on 
+the left and right, respectively. These are not ideal for weather radar applications because even though the sidelobes are
+sufficiently low, range resolution is not fine enough.
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/nlfm-kaiser-slices-15us.png}
+\caption{NLFM waveform zero-Doppler cuts with varying a and $\beta$ parameters}
+\label{fig:nlfm-kaiser-slices-15us}
+\end{figure}
+
+
+
 
 
 \section{Effects of Impulse Response on the Ambiguity Function}
-
-As the signal returns to the radar and passes through the receive chain, it will be distorted by the
-impulse response of the filter and amplifier. Figure \ref{fig:pulsewoir-15us} shows a standard pulse
-that is undistorted. 
+As discussed in Section \ref{s:ireffects}, as the return signal passes through the receive chain, it will be distorted by the
+impulse response of the filter and amplifier. The effects of that on the waveform are presented here.
+To provide a baseline, Figure \ref{fig:pulsewoir-15us} shows a rectangular pulse that is undistorted as a reference.
 
 \begin{figure}[!ht]
 \includegraphics[width=\imgsize]{figures/pulsewoir-15us.png}
-\caption{ Pulse without IR distortion}
+\caption{ Rectangular pulse without IR distortion}
 \label{fig:pulsewoir-15us}
 \end{figure}
 
 
-On the other hand, figure \ref{fig:pulsewir-15us} shows the AF for a pulse that
-has been distorted by the transfer function shown in figure \ref{fig:tf1}. 
-
-\begin{figure}[!ht]
-\includegraphics[width=\imgsize]{figures/pulsewir-15us.png}
-\caption{ Pulse with IR distortion}
-\label{fig:pulsewir-15us}
-\end{figure}
+Figure \ref{fig:pulsewir-15us} shows the AF for a pulse that
+has been distorted by the transfer function shown in figure \ref{fig:tf1}. Since the exact shape of the impulse response of 
+the PX1000 mobile radar is still unknown, it is approximated with a Rayleigh-shaped function.
 
 \begin{figure}[!ht]
 \includegraphics[width=\imgsize]{figures/tf1.png}
@@ -320,6 +346,16 @@ has been distorted by the transfer function shown in figure \ref{fig:tf1}.
 \label{fig:tf1}
 \end{figure}
 
-The distortion lengthened the signal and smoothed it out a bit.
+\begin{figure}[!ht]
+\includegraphics[width=\imgsize]{figures/pulsewir-15us.png}
+\caption{ Pulse with IR distortion}
+\label{fig:pulsewir-15us}
+\end{figure}
+
+
+The result is not unexpected. First, there is again
+no visible distortion in the Doppler dimension, which is the same as the simple rectangular pulse. The only effect is in the 
+range delay dimension. There, the asymmetric shape of the impulse response is reflected in the range delay of the AF. This
+distortion is not desirable and should be corrected.
 
 
