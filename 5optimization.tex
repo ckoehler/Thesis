@@ -170,13 +170,17 @@ resolution is determined by the sweep bandwidth, not the pulse length.
 
 
 \subsection{Linear Frequency Modulation with Amplitude Tapering}
-The AF of a LFM waveform has fairly high sidelobes that can be mitigate with amplitude tapering.
-For that, a Kaiser window is applied to the amplitude. Based on Equation \eqref{eq:kaiser2}, the parameter $\beta$ is
-varied from 0 to 50, and the AF generated and evaluated for each. The results are shown in figure \ref{fig:lfm-isl-15us-opti}.
+LFM has the disadvantage of very high sidelobes at about \SI{-13}{\decibel}.  
+These can be mitigate with amplitude tapering, so a Kaiser window is applied to the amplitude. 
+
+Based on Equation \eqref{eq:kaiser2}, the parameter $\beta$ is
+varied from 0 to 50, and the AF generated and evaluated for each by quantifiying its performance according to the metrics
+described in Section \ref{s:quantifications}. The results are shown in figure \ref{fig:lfm-isl-15us-opti}.
+
 As expected, the ISL dramatically decreases, as does the MSL. At the same time, the range resolution decreases from
-an initial 60 m to about 400 m. The PPR may be the limiting metric here. The tapered signal quickly
-loses half of its energy with only minor amplitude tapering and eventually decreases to about 0.2, which means
-the signal loses 80\% of its energy. 
+an initial 40 m to about 200 m. The PPR may be the limiting metric here because the tapered signal quickly
+loses half of its energy with only minor amplitude tapering and eventually decreases to about \SI{20}{\percent} of
+the original amplitude, which means the signal loses \SI{80}{\percent} of its energy. This, in turn, means reduced sensitivity.
 
 
 
@@ -187,11 +191,11 @@ the signal loses 80\% of its energy.
 \end{figure}
 
 
-Clearly, a tradeoff must be made. If the half power point is selected, the waveform would have an ISL of about -22 dB, 
-MSL of -35 dB, and a range resolution of 75 m.
+Clearly, a tradeoff must be made. If the half power point is selected, the waveform would have an ISL of about \SI{-20}{\decibel}, 
+MSL of \SI{-33}{\decibel}, and a range resolution of \SI{68}{\metre}.
 
 The corresponding zero Doppler cut of the AF at this point is shown in figure \ref{fig:lfm-isl-15us-opti-slice13}. It 
-clearly shows the sidelobes at about -70 dB, which means this waveform is adequate for typical weather observations.
+clearly shows the sidelobes at about -70 dB, which means this waveform would be adequate for typical weather observations.
 
 
 \begin{figure}[H]
@@ -206,13 +210,15 @@ clearly shows the sidelobes at about -70 dB, which means this waveform is adequa
 
 
 \section{Non-Linear Frequency Modulation}
-In this case, the frequency of the signal is changed non-linearly. Specifically, the function that determines the frequency
-sweep is given by
+As described in Section \ref{s:nlfm}, the frequency of a frequency modulated signal can be swept non-linearly as well. In
+order to find more useful waveforms for weather radar applications, this work evaluates several different sweep functions 
+described by Equation \eqref{eq:nlfm-sweep} below. The general form is
 
 \begin{equation}
+\label{eq:nlfm-sweep}
   f(t) = a t^7 + t,
 \end{equation}
-where $a$ varies from 0 to 10. The two extremes for $a=0$ and $a=10$ are shown in figure \ref{fig:nlfm-functions}. 
+where $a$ varies from 0 to 10. Whole functions for different values of $a$ are shown in figure \ref{fig:nlfm-functions}. 
 Each function is applied over the pulse length $\tau$ of the signal.
 
 \begin{figure}[H]
@@ -221,8 +227,8 @@ Each function is applied over the pulse length $\tau$ of the signal.
 \label{fig:nlfm-functions}
 \end{figure}
 
-For each function a waveform and ambiguity functions is generated and then evaluated according to the optimizations described
-in Section \ref{s:quantifications}. It can then be determined which waveform is best suited for weather radar applications, 
+For each function a waveform and ambiguity functions are generated and then evaluated according to the optimizations described
+in Section \ref{s:quantifications}. It can then be determined which sweep function is best suited for weather radar applications, 
 or further changes to the setup can be made to combine it with, e.g. amplitude tapering to achieve even better performance.
 
 
@@ -230,10 +236,10 @@ or further changes to the setup can be made to combine it with, e.g. amplitude t
 \label{s:nlfm-only-results}
 Figure \ref{fig:nlfm-side-15us-opti} shows the results for varying NLFM waveforms in regards to ISL, MSL, and range resolution.
 We find that the closer the frequency modulation function approaches an S-curve, the better the ISL becomes, though it is never
-fantastic. The maximum ISL seems to be around -13 dB. The maximum sidelobe level decreases rapidly first to about -15 dB and
-mostly decreases to about -20 dB, where it stays constant. The range resolution gets progressively coarser, starting at about 50 m
-and increasing to about 500 m, meaning the mainlobe broadens. This also explains the decreasing and eventually constant MSL,
-because the whole AF is taken up by the mainlobe with only minimal sidelobes.
+fantastic. The maximum ISL seems to be around \SI{-15}{\decibel}. The maximum sidelobe level decreases rapidly first to about 
+\SI{-13}{\decibel} and then slowly decreases to about \SI{-20}{\decibel}, where it stays fairly constant. The range resolution
+gets progressively worse, starting at about \SI{30}{\metre} and increasing to about \SI{210}{\metre}, meaning the mainlobe broadens.
+This also explains the decreasing and eventually constant MSL, because the whole AF is one big mainlobe with only minimal sidelobes.
 
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/nlfm-side-15us-opti.png}
