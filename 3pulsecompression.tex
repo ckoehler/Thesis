@@ -6,7 +6,9 @@ To that end, different types of modulation are examined that allow the signal to
 \section{Amplitude Modulation}
 \label{s:ampmod}
 One way to suppress the sidelobes is to taper the amplitude of the signal such that less energy is transmitted
-towards the edges of the signal \citep{signalbook}. However, this has a couple of downsides. First, less energy is illuminating the
+towards the edges of the signal in order to reduce so-called \emph{spectral leakage} caused by working with
+finite sequences of signal data \citep{Harris:1978}.
+However, this has a couple of downsides. First, less energy is illuminating the
 target because the amplifier does not transmit as much power for an amplitude tapered waveform compared to a 
 rectangular pulse. This results in a lower SNR, which has a negative impact on detection. Second, the mainlobe is broadened,
 resulting in a decrease in spatial resolution.
@@ -17,7 +19,7 @@ The Kaiser window is defined as
 
 \begin{equation}
   \label{eq:kaiser}
-  w_n = \frac{I_0\left(\pi \alpha \sqrt{1- \left( \frac{n}{N/2} \right) ^2 \right)}} { I_0(\pi \alpha)}, 0 \leq |n| \leq N/2,
+  w_n = \frac{I_0\left(\pi \alpha \sqrt{1- \left( \frac{n}{N/2} \right) ^2} \right)} { I_0(\pi \alpha)}, 0 \leq |n| \leq N/2,
 \end{equation}
 where $I_0$ is the zeroeth order Modified Bessel function of the first kind, $N$ is the length of the sequence, and $\alpha$ is
 the parameter that determines the shape of the window \citep{Harris:1978}.
@@ -26,7 +28,7 @@ For the sake of simplicity, the parameter is redefined as $\beta = \pi \alpha$ t
 
 \begin{equation}
   \label{eq:kaiser2}
-  w_n = \frac{I_0\left(\beta \sqrt{1- \left( \frac{n}{N/2} \right) ^2 \right)}} { I_0(\beta)}, 0 \leq |n| \leq N/2,
+  w_n = \frac{I_0\left(\beta \sqrt{1- \left( \frac{n}{N/2} \right) ^2} \right)} { I_0(\beta)}, 0 \leq |n| \leq N/2,
 \end{equation}
 This work will use $\beta$ as the parameter describing the window shape.
 

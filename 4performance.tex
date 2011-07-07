@@ -146,9 +146,9 @@ amplitude of each sample is converted to one of a finite possible values for the
 
 For $b$ available bits there are $2^b$ possible values to represent the amplitude of the signal. These $b$ bits need to be able
 to contain the whole dynamic range of possible return signals. For the WSR-88D network radars, the dynamic range at the receiver
-is \SI{93}{\db}. However, that means that weaker return signals, e.g. rain at 15 dBZ, only get about 20 \%
+is \SI{93}{\decibel}. However, that means that weaker return signals, e.g. rain at \SI{15}{\decibel}Z, only get about \SI{20}{\percent}
 of the available bits, so there must be a sufficient number of bits to adequately quantize any possible return signal.
 For every additional bit, the dynamic range increases about 6 dB, so about 14 bits are needed to represent our whole
-dynamic range (\cite{Richards:2005}).
+dynamic range \citep{Richards:2005}.
 
 \subsection{Volume Scattering}
