@@ -1,8 +1,10 @@
 \section{Conclusions}
 This work examined several different techniques of pulse compression and evaluated their performance 
 in regards to weather radar applications. 
-It looks like the waveform with the best performance is a NLFM signal with 
-$a=xxxx$ and amplitude tapering.
+
+A rectangular pulse still performs fairly well, with good range resolution and no sidelobes. Although much
+effort was put into finding well-performing NLFM waveforms, the simulations favor an amplitude tapered LFM waveform with
+sidelobes around \SI{-70}{\decibel}, with the only drawback being a \SI{3}{\decibel} loss in energy.
 
 
 \section{Future Work}
@@ -10,7 +12,8 @@ There are several ways to improve on this work in the future.
 
 First, other waveform can be evaluated based on the presented metrics, like more complex
 phase coded signals. Other sweeping functions than the one presented could be evaluated
-to perhaps find waveforms that perform better for weather radar applications.
+to perhaps find waveforms that perform better for weather radar applications than the examined NLFM sweep
+functions.
 
 Second, the effects of the amplifier impulse response and other system components
 chould be better quantified and the results compared with the theoretical

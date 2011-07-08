@@ -19,7 +19,7 @@ The main metric to determine waveform performance is the Ambiguity Function (AF)
 
 where $u(t)$ is the complex envelope of the signal, $\tau$ is the delay due to propagation, and $f_d$
 is the Doppler frequency in the Doppler axis.
-We can clearly see that, for $f_d = 0$, the AF reduces to the Autocorrelation Function (ACF).
+It can clearly be be be seen that, for $f_d = 0$, the AF reduces to the Autocorrelation Function (ACF).
 
 
 For a simple rectangular pulse of the form $u(t)=\frac{1}{\sqrt{T}} rect(\frac{t}{T})$, the AF is \citep{Levanon:2004}:
@@ -124,11 +124,14 @@ simulations.
 The pulse compression ratio, $BT$, is not equal to unity, so the mismatch in the filter is compounded for highly compressed 
 pulses.
 
+All this said, the simulations in this work will show in Chapter \ref{chap:optimization} that for weather radar applications, the Doppler mismatch can be safely ignored for the low velocities
+of most observed weather phenomena.
+
 \subsection{Effects of Amplifier Impulse Response on the Ambiguity Function}
 \label{s:ireffects}
 
 Next, the effects of the amplifier in the receive chain on the pulse will be examined.
-Starting with Equation \eqref{eq:AF}, substitute the return signal with $h(t) \star u(t-\frac{2r}{c})$, where $h(t)$ is the impulse
+Starting with Equation \eqref{eq:AF}, convolve the return signal with $h(t)$, the impulse
 response of the system. The AF then becomes
 
 \begin{align*}
@@ -137,18 +140,19 @@ response of the system. The AF then becomes
    &= \left|\int_{-\infty}^\infty{u^*(t'+\tau) e^{-j2\pi f_d t'}\int_{-\infty}^{\infty}{u(t) h^*(t'-t) dt}\ dt'}\right| 
 \end{align*}
 
-We can easily see that applying the impulse response to the return signal is equivalent to applying it to the original pulse $u(t)$. 
+It can be seen that applying the impulse response to the return signal is equivalent to applying it to the original pulse $u(t)$. 
+This makes it easy in simulation to apply an impulse response to the calculations in order to evaluate the its effects on the AF.
+The results of a Rayleigh-shaped impulse response on a rectangular pulse are presented in Section \ref{s:ireffects}.
 
 \subsection{Quantization}
 Once the signal is received through the antenna, it is eventually converted into a digital form for further processing.
 The first step in that process is to sample the signal in time. The second is called quantization, in which the
-amplitude of each sample is converted to one of a finite possible values for the amplitude \citep{Richards:2005}.
+amplitude of each sample is converted to one of a finite possible values for the amplitude \citep[p. 140]{Richards:2005}.
 
 For $b$ available bits there are $2^b$ possible values to represent the amplitude of the signal. These $b$ bits need to be able
 to contain the whole dynamic range of possible return signals. For the WSR-88D network radars, the dynamic range at the receiver
 is \SI{93}{\decibel}. However, that means that weaker return signals, e.g. rain at \SI{15}{\decibel}Z, only get about \SI{20}{\percent}
 of the available bits, so there must be a sufficient number of bits to adequately quantize any possible return signal.
 For every additional bit, the dynamic range increases about 6 dB, so about 14 bits are needed to represent our whole
-dynamic range \citep{Richards:2005}.
+dynamic range \citep[p. 142]{Richards:2005}.
 
-\subsection{Volume Scattering}

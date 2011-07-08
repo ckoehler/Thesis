@@ -81,7 +81,7 @@ are not common. For comparison, the two pulse lengths used in the WSR-88D radar 
 
 
 
-\section{Barker code}
+\section{Barker Code}
 Next, a length 13 Barker code of different pulse lengths will be examined. Figures \ref{fig:barker13-1us} and
 \ref{fig:barker13-1us-0D} show a \SI{1}{\micro\second} pulse that has been phase coded with a length 13 Barker 
 code. As for a rectangular pulse, there is no visible degradation of the signal with increasing Doppler shifts.
@@ -111,8 +111,27 @@ neglected. The only difference is the expected loss of range resolution caused b
 \end{figure}
 
 
+\section{Barker Code with Amplitude Tapering}
+Applying amplitude tapering to the Barker 13 phase coded signal does not improve the signal. Due to the Barker codes being
+perfect this isn't surprising. Specifically, Figure \ref{fig:barker13-15us-opti} shows the optimization results of applying a 
+Kaiser window with different values of $\beta$ to the Barker 13 signal. It shows that both ISL and MSL generally become worse with increased
+tapering, while range resolution stays constant. This means that the mainlobe width is not affected at all by amplitude tapering.
+As expected, the PPR shape is consistent with other results since it only depends on the Kaiser window.
+
+ISL does become slightly better with very light tapering, with the minimum ISL occuring with $\beta = 1.026$. The zero-Doppler cut of
+the AF at this point is shown in Figure \ref{fig:barker13-15us-opti-slice3}. Unfortunately, sidelobes still occur at around \SI{-22}{\decibel},
+so there is not much improvement. These results show that a Barker coded signal is not very useful for weather radar applications.
 
 
+
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/barker-15us-opti.png}
+\caption{Amplitude tapering optimization results for a Barker 13 code }
+\label{fig:barker13-15us-opti}
+\includegraphics[width=\imgsize]{figures/barker-15us-opti-slice3.png}
+\caption{Zero-Doppler slice at $\beta=1.026$}
+\label{fig:barker13-15us-opti-slice3}
+\end{figure}
 
 
 
@@ -235,7 +254,7 @@ or further changes to the setup can be made to combine it with, e.g. amplitude t
 \subsection{Parameterized NLFM Results}
 \label{s:nlfm-only-results}
 Figure \ref{fig:nlfm-side-15us-opti} shows the results for varying NLFM waveforms in regards to ISL, MSL, and range resolution.
-We find that the closer the frequency modulation function approaches an S-curve, the better the ISL becomes, though it is never
+The closer the frequency modulation function approaches an S-curve, the better the ISL becomes, though it is never
 fantastic. The maximum ISL seems to be around \SI{-15}{\decibel}. The maximum sidelobe level decreases rapidly first to about 
 \SI{-13}{\decibel} and then slowly decreases to about \SI{-20}{\decibel}, where it stays fairly constant. The range resolution
 gets progressively worse, starting at about \SI{30}{\metre} and increasing to about \SI{210}{\metre}, meaning the mainlobe broadens.
