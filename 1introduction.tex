@@ -2,8 +2,8 @@
 There are numerous works available on waveform design, the most comprehensive being \cite{Levanon:2004} without
 a doubt. It covers the most common waveforms used today, such as pulses, pulse trains, frequency and phase modulated signals, 
 as well as continuous wave signals, each accompanied by comprehensive discussion and examples.
-\cite{Richards:2005} also hits on general waveform techniques for radar with discussions on frequency modulation 
-and pulse trains, but more of a focus on radar signal processing.
+\cite{Richards:2005} also discusses radar waveforms with emphasis on frequency modulation 
+and pulse trains, but generally focuses more on radar signal processing.
 The paper by \cite{Keeler:1999} has much information for weather radar applications, concentrating on 
 filter design in phased array radars.
 
@@ -13,10 +13,10 @@ a great way to observe the atmosphere. As with all remote sensing applications, 
 and better insights into what is happening in the atmosphere in places that are not possible or difficult to observe
 using other means, such as localized weather stations or weather balloons, because this single instrument could 
 cover a very large area from many miles away. This made dense networks of instruments unnecessary, drastically
-lowering maintenance expenses.
+lowering maintenance expenses and increasing the area of observation.
 
-A basic pulsed radar allows for the retrieval of weather intensity as well as Doppler shift to determine the radial
-velocity of various targets. 
+A pulsed radar allows for the retrieval of intensity as well as Doppler shift to determine the radial
+velocity of weather targets. 
 
 Some wavelengths perform better for observing weather than others, especially in respect to attenuation 
 \citep[p. 448]{Skolnik:2001}. The smaller the wavelength, the more attenuated
@@ -25,12 +25,14 @@ covers frequencies between 2 and 4 GHz. More specifically, the 88D radars operat
 \citep[p. 47]{Doviak:2006}.
 However, S-band may already be reserved and is generally highly desired for other applications,
 like cell phones, so C-band or X-band radars are also used for observing weather. In such cases, the effects of attenuation can be
-somewhat mitigated by, e.g. using polarimetric radar measurements \citep{Ryzhkov:2008}. One advantage of higher frequency
+somewhat mitigated by, e.g. using polarimetric radar measurements \citep{Ryzhkov:2008}. 
+
+One advantage of higher frequency
 radars is the need for a smaller antenna size for the same angular resolution. Other components such as waveguides,
 amplifiers and support structure are also smaller, so the whole system requires less space and is often cheaper to 
-manufacture.
+manufacture and easier to deploy.
 
-As technology advances, demands on radar performance increase. Finer resolution allows better detail, while
+As technology advances, demands on radar performance increase. Finer resolution offers better detail, while
 dual polarization radars provide even more data that can be used to better analyze the atmosphere \citep[p. 242]{Doviak:2006}.
 
 \section{Phased Array Radars}
@@ -45,8 +47,8 @@ focus on particular targets in space in any order, or reduce data correlation by
 a storm, a technique called beam multiplexing \citep{Yu:2007}.
 
 For an active array of transmitters, such as solid-state amplifiers, the peak power is generally lower, compared to a
-Klystron or magnetron. One way to regain the sensitivity lost due to lower transmit power is to transmit longer pulses. Longer pulses,
-in turn, decrease range resolution,
+Klystron or magnetron. One way to regain the sensitivity lost due to lower transmit power is to transmit longer pulses 
+\citep[p. 702]{Skolnik:2001}. Longer pulses, in turn, decrease range resolution,
 so a method is needed to improve the signal-to-noise ratio while keeping the range resolution acceptable.
 
 \section{The Need for Pulse Compression}
@@ -55,13 +57,13 @@ Range resolution is defined as
 \label{eq:rangeres}
 \Delta r = \frac{c \tau}{2},
 \end{equation}
-where $c= \SI{3e8}{\metre\per\second}$ represents the speed of light and $\tau$ is the pulse length. Looking at Equation
-\ref{eq:rangeres} it can be seen that the longer the pulse, the larger the resolution volume will be. 
-Pulse compression is a technique to increase the SNR and resolution by using waveforms that allow controlling the duration
-and bandwidth separately.
+where $c= \SI{3e8}{\metre\per\second}$ represents the speed of light and $\tau$ is the pulse length. Equation
+\ref{eq:rangeres} shows that the longer the pulse, the larger the resolution volume will be. 
+Pulse compression is a technique to increase the SNR and resolution by using waveforms that allow the duration
+and bandwidth to be controlled separately.
 
 Compression is achieved by using one or more matched filters, which will be introduced in Chapter \ref{genwaveform}.
 This allows the design of waveforms such that they are narrowly focused in a 
 narrow main lobe, with low sidelobes to concentrate the signal energy in the main lobe \citep{Richards:2005}.
 The challenge now becomes to design a waveform that has the needed SNR and at the same time good range resolution, 
-all the while keeping down sidelobes. It is a procedure of many trade-offs.
+all the while keeping down sidelobes, and is a procedure of many trade-offs.

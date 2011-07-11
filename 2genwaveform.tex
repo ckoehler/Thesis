@@ -25,7 +25,7 @@ While the unambiguous range is proportional to the PRT, unambiguous velocity is 
   v_a = \pm \frac{\lambda}{4 T_s},
 \end{equation}
 where $\lambda$ is the wavelength of the radar.
-That means for a large PRT, the unambiguous velocity will be low and velocity aliasing will become more likely.
+That means that, for a large PRT, the unambiguous velocity will be low and velocity aliasing will become more likely.
 The resulting problem is called the Doppler dilemma, which states that one can either achieve high unambiguous
 range or high unambiguous velocity, but not both \citep[p. 60f]{Doviak:2006}
 
@@ -52,23 +52,25 @@ TODO: Loss of sensitivity?
 \section{Inter-pulse Coding}
 A coded pulse is in some way modulated, so it is not just rectangular. The idea is to code subsequent pulses
 differently, such that the received echoes can be paired up with a certain pulse. That way, an echo from the first
-pulse that is received after the second pulse has already been transmitted can be seen to belong to the first pulse
+pulse that is received after the second pulse has already been transmitted can be identified to belong to the first pulse
 and thus distinguished from echoes caused by the second pulse.
 
 This allows the use of a small PRT, resulting in good unambiguous velocity, but also the ability to unfold second, third,
 or even fourth trip echoes correctly. For one such implementation, called SZ phase codes, see \cite{Sachidananda:1999}.
 
 \section{Pulse Length}
-The previous techniques were independent of the pulse length. However, the pulse length of a 
-rectangular pulse determines the bandwidth of the signal. For a simple pulse, the bandwidth $B$ is generally the inverse of
-the pulse length $\tau$. Intuitively, by using a longer pulse, the target is illuminated by more energy, thus increasing
-the sensitivity of the radar. However, a longer pulse
-also decreases range resolution. Depending on the application, such a solution may not be desirable.
+The previous techniques were independent of the pulse length. However, pulse length does affect the performance of the
+radar.
+For example, by using a longer pulse, the target is illuminated by more energy, thus increasing
+the sensitivity of the radar. On the other hand, a longer pulse will
+also decrease range resolution. Depending on the application, simply increasing the pulse length to increase 
+sensitivity may not be a desirable solution.
 
-\section{Amplifiers}
-The amplifier will influence what kind of pulse lengths and pulse repetition times are possible and determine
-how much power is put out. The radar's average power is an important metric that relates amplifier peak power, pulse
-length, and pulse repetition time, as shown in \cite[p. 74]{Skolnik:2001} and shown as Equation \ref{eq:avgpower}.
+\section{Amplitude}
+Together with the pulse length, the amplitude of the pulse determines how much energy is transmitted on target.
+It depends on the amplifier, which will also affect what kind of pulse lengths and pulse repetition times are possible.
+The radar's average power is an important metric that relates amplifier peak power, pulse
+length, and pulse repetition time, as described in \cite[p. 74]{Skolnik:2001} and shown as Equation \ref{eq:avgpower}.
 
 \begin{equation}
   \label{eq:avgpower}
@@ -77,28 +79,42 @@ length, and pulse repetition time, as shown in \cite[p. 74]{Skolnik:2001} and sh
 
 The goal is to output as much power as possible to improve the maximum range of the radar and signal-to-noise ratio.
 
-Another kind of amplifier, the low-noise amplifier (LNA) in the receive chain, also influences the sensitivity of the
-radar by amplifying the return signal while at the same time adding as little additional noise as possible.
+Another important component is the low-noise amplifier (LNA) in the receive chain, which also influences the sensitivity of the
+radar by amplifying the return signal while at the same time adding as little additional noise as possible. Using better
+quality amplifiers in a system increases it price together with its performance, but is not always an option, e.g. for legacy
+systems that are already operational or simply budget reasons for new systems.
 
 
 \section{Pulse Compression}
 At the heart of pulse compression is the matched filter. It is called that because its response is matched to the transmitted
 waveform. As the waveform passes through the filter, it is compressed in range and will ideally concentrate most of the energy
 in a narrow mainlobe with no or low sidelobes. The process of the return waveform passing through the matched filter can be 
-described by the cross correlation function of the filter response, i.e. the original waveform shape, and the return signal
-received back at the radar. Ideally, this should be identical to the autocorrelation function, i.e. the matched filter response
-and the return signal will be identical. Although this is almost never the case, this work will only refer to autocorrelation
-function (ACF).
+described by the cross correlation function of the filter and the return signal
+received back at the radar. Ideally this will be identical to the autocorrelation function, i.e. the matched filter response
+and the return signal will be identical. Although this is almost never the case, leading to so-called mismatch loss,
+this work will only refer to autocorrelation function (ACF).
 
-More formally, then, the ACF is defined as the convolution between the signal $u(t)$ and the impulse response of the matched filter, 
+More formally, then, the matched filter response is defined as the convolution between the signal $u(t)$ and its impulse response,
 $h(t)$ \citep{Levanon:2004}.
 
 \begin{equation}
-  \label{eq:acf}
-  \text{ACF}(\tau) = u(t) \star h(t) = \int_{-\infty}^{\infty}{u(t) u^*(t-\tau) dt}.
+  \label{eq:filterresponse}
+  \text{Output} = u(t) \star h(t) = \int_{-\infty}^{\infty}{u(\tau) h(t-\tau) d\tau}.
 \end{equation}
 
-This is an important function that is the basis of analysing the performance of radar signals.
+Furthermore, since the filter is matched, and maximizing the SNR, the impulse response becomes
+
+\begin{equation}
+  h(t) = K u^*(t_0-t),j
+\end{equation}
+where K is an arbitrary constant. Choosing $t_0=0, K=1$ and substituting back into Equation \eqref{eq:filterresponse} yields
+the autocorrelation function.
+\begin{equation}
+  \label{eq:acf}
+  \text{ACF}(t) = \int_{-\infty}^{\infty}{u(\tau) u^*(\tau-t) d\tau}.
+\end{equation}
+
+This is an important function that is the basis of analyzing the performance of radar signals in this work.
 
 
 
