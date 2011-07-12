@@ -59,9 +59,9 @@ It is defined as:
 
 \begin{equation}
 \label{eq:LFM}
-x(t) = e^{-j \pi k t^2 } ,\ \ 0 \leq t \leq T,
+x(t) = e^{-j \pi k t^2 } ,\ \ 0 \leq t \leq \tau,
 \end{equation}
-where $k= \pm \frac{B}{T}$ \citep[p.57]{Levanon:2004}.
+where $k= \pm \frac{B}{\tau}$ \citep[p.57]{Levanon:2004}.
 
 The LFM effect is a consequence of a property of the ambiguity function which will be more closely examined in
 Section \ref{s:af}. This property states that given a signal $u(t)$, 
@@ -84,7 +84,7 @@ for radar applications that have to deal with targets whose velocity is unknown.
 is called \emph{range-doppler coupling} and can be corrected by alternating between an up and a down-chirp and averaging the
 resulting range of both to get the true range \citep[p. 343]{Skolnik:2001}.
 
-The maximum range resolution of a LFM waveform is now only dependent on the bandwidth $B$, not the pulse length $T$. 
+The maximum range resolution of a LFM waveform is now only dependent on the bandwidth $B$, not the pulse length $\tau$. 
 It is expressed as \citep[p. 196]{Richards:2005}
 \begin{equation}
   \label{eq:lfm-rangeres}
@@ -113,7 +113,7 @@ waveform is
 
 \begin{equation}
 \label{eq:NLFM}
-x(t) =  e^{-j \Phi(t)} = e^{-j 2 \pi \int_0^t{f(x) dx}} ,\ \ 0 \leq t \leq T,
+x(t) =  e^{-j \Phi(t)} = e^{-j 2 \pi \int_0^t{f(x) dx}} ,\ \ 0 \leq t \leq \tau,
 \end{equation}
 
 where $f(x)$ defines the function of the frequency sweep \citep[p. 88]{Levanon:2004}. 
@@ -139,7 +139,7 @@ systems.
 
 
 \section{Phase Modulation}
-Similar to amplitude modulation and frequency modulation, waveforms can be modulated in phase as well. A pulse $u(t)$ of length $T$ is
+Similar to amplitude modulation and frequency modulation, waveforms can be modulated in phase as well. A pulse $u(t)$ of length $\tau$ is
 divided up into $M$ different parts, and each part is assigned a different phase \citep[ch. 6]{Levanon:2004}. The set of phases 
 associated with the different parts of the pulse is called the \emph{phase code} of $u(t)$. There is an unlimited amount of phase codes
 and much work has gone into finding codes that improve the performance of waveform. Only a few different types will be discussed here.
@@ -170,7 +170,7 @@ from sampling the phase of a LFM waveform and thus called \emph{chirplike}.
 
 \subsection{Bandwidth for Phase Codes}
 The bandwidth of a phase-modulated waveform is approximately the inverse of the length of a subpulse \citep[p. 350]{Skolnik:2001}. Given a
-pulse with length $T$ and $n$ subpulses, the length of a subpulse is $T_{sub} = \frac{T}{n}$, the bandwidth
-of the whole pulse will be approximately $B = \frac{1}{T_{sub}}$ Hz. This is a great example of how pulse compression 
+pulse with length $\tau$ and $n$ subpulses, the length of a subpulse is $T = \frac{\tau}{n}$, the bandwidth
+of the whole pulse will be about $B = \frac{1}{T}$ Hz. This is a great example about how pulse compression 
 allows the decoupling of pulse length and signal bandwidth.
 
