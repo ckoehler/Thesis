@@ -1,31 +1,42 @@
 Before going into more detail about pulse compression, the general components of waveforms and their design
-will be discussed.
+will be discussed. The basic elements of a waveform that can be manipulated are its amplitude, phase,
+frequency, and timing. Each of these components can be designed to adhere to the required specifications, and
+will be described in more detail in this chapter.
 
 \section{Pulse Repetition Time}
 
-The pulse repetition time (PRT) is the time between two consecutive pulses and determines the unambiguous
-range of the radar which is defined as
+The pulse repetition time (PRT) is the time between two consecutive pulses and is often denoted as $T_s$.
+Another way to describe the timing of consecutive
+pulses is the pulse repetition frequency (PRF), which is simply the inverse of the PRT. Both are used in literature
+to describe the same concept.
+
+The PRT determines two very important aspects of a radar, the \emph{unambiguous range} $r_a$ and the \emph{unambiguous velocity}
+$v_a$. They are given by the following equations \citep[p. 60f]{Doviak:2006}.
 
 \begin{equation}
 \label{eq:unambrange}
 r_a = \frac{c T_s}{2},
 \end{equation}
 
-where $c$ is the speed of light and $T_s$ the PRT \citep[p. 60f]{Doviak:2006}.
-
-The higher the PRT, the longer the radar waits in receive mode to listen for echoes.
-A low PRT can lead to aliasing of second trip echoes, i.e. echoes that are caused by the first pulse, but
-are received after the second pulse has already been sent. In order to scan out to long range, a long PRT
-is needed.
-
-While the unambiguous range is proportional to the PRT, unambiguous velocity is inversely proportional to it, i.e.
-
 \begin{equation}
   \label{eq:unambvelocity}
   v_a = \pm \frac{\lambda}{4 T_s},
 \end{equation}
 where $\lambda$ is the wavelength of the radar.
-That means that, for a large PRT, the unambiguous velocity will be low and velocity aliasing will become more likely.
+
+The unambiguous range describes the maximum range of the radar up to which no second trip echoes occur.
+A second trip echo is the return signal caused by the first pulse, but is received after the second pulse
+has already been sent. For example, if $r_a = \SI{100}{\kilo\metre}$, and there is a target at a distance
+\SI{150}{\kilo\metre} from the radar, it will appear to the radar to be only \SI{50}{\kilo\metre} away.
+To increase the unambiguous range, then, a long PRT is needed.
+
+The unambiguous velocity is measure of the maximum velocity that the radar can determine without velocity aliasing
+to occur. The principle is similar to that of unambiguous range. Velocities ``wrap around'', so with $v_a= \SI{50}{\metre\per\second}$, 
+a target moving at \SI{75}{\metre\per\second} will appear to only be moving at \SI{25}{\metre\per\second}.
+
+However, while the unambiguous range is proportional to the PRT, unambiguous velocity is inversely proportional to it.  
+That means that, if the PRT is large, the unambiguous velocity will be low and velocity aliasing will become more likely, but
+if the PRT is low, unambiguous range is low as well.
 The resulting problem is called the Doppler dilemma, which states that one can either achieve high unambiguous
 range or high unambiguous velocity, but not both \citep[p. 60f]{Doviak:2006}
 
@@ -91,7 +102,7 @@ At the heart of pulse compression is the matched filter. It is called that becau
 waveform. As the waveform passes through the filter, it is compressed in range and will ideally concentrate most of the energy
 in a narrow mainlobe with no or low sidelobes. The process of the return waveform passing through the matched filter can be 
 described by the cross correlation function of the filter and the return signal
-received back at the radar. Ideally this will be identical to the autocorrelation function, i.e. the matched filter response
+received back at the radar. Ideally this will be identical to the autocorrelation function, i.e., the matched filter response
 and the return signal will be identical. Although this is almost never the case, leading to so-called mismatch loss,
 this work will only refer to autocorrelation function (ACF).
 
