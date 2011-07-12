@@ -17,8 +17,7 @@ The main metric to determine waveform performance is the Ambiguity Function (AF)
   |\chi(\tau,f_d)| = \left| \int_{-\infty}^\infty{u(t) u^*(t+\tau) e^{-j2\pi f_d t} dt}\right|,
 \end{equation}
 
-where $u(t)$ is the complex envelope of the signal, $\tau$ is the delay due to propagation, not to be confused with the pulse
-length used in other places, and $f_d$ is the Doppler frequency in the Doppler axis.
+where $u(t)$ is the complex envelope of the signal, $\tau$ is the delay due to propagation and $f_d$ is the Doppler frequency in the Doppler axis.
 It can clearly be be be seen that, for $f_d = 0$, the AF reduces to the ACF, presented in Section \ref{s:2pc}.
 
 
@@ -86,9 +85,9 @@ power is transmitted. For a amplitude-tapered pulse, however, that is not the ca
 
 \begin{equation}
 \label{PPR}
-\text{PPR} = \frac{\int_{\tau} w(t)dt}{A_p \tau}, 
+\text{PPR} = \frac{\int_{T} w(t)dt}{A_p T}, 
 \end{equation}
-where $w(t)$ is the tapering function applied to the pulse, integrated over the pulse length $\tau$, and $A_p$ is the original amplitude.
+where $w(t)$ is the tapering function applied to the pulse, integrated over the pulse length $T$, and $A_p$ is the original amplitude.
 This metric represents the fraction of energy that is utilized when amplitude tapering is applied and can help quantify the loss in sensitivity
 caused by tapering.
 
