@@ -17,6 +17,7 @@ $v_a$. They are given by the following equations \citep[p. 60f]{Doviak:2006}.
 \label{eq:unambrange}
 r_a = \frac{c T_s}{2},
 \end{equation}
+where $ c = \SI{3e8}{\metre\per\second}$ is the speed of light, and
 
 \begin{equation}
   \label{eq:unambvelocity}
@@ -45,7 +46,7 @@ range or high unambiguous velocity, but not both \citep[p. 60f]{Doviak:2006}
 As mentioned earlier, the problem with a single PRT is the so-called Doppler dilemma. A short PRT provides high
 unambiguous Doppler
 velocity, while a long PRT gives us a long unambiguous range. Neither gives us both.
-To fix this problem, some radars will use two different PRTs, a long and a short one, and combine measurements of 
+To fix this problem, some radars use two different PRTs, a long and a short one, and combine measurements of 
 both to increase unambiguous velocity.
 Typically, the long PRT is chosen based on the desired unambiguous range, while at the same time maximizing
 the unambiguous velocity of the combination of both, defined as \citep[p. 173]{Doviak:2006}
@@ -58,24 +59,31 @@ The disadvantage is a longer scan time, since every radial now has to be scanned
 and once with the long pulse, doubling the time between sweeps. For some applications, this is not an acceptable
 trade-off.
 
-TODO: Loss of sensitivity?
+\section{Clutter Filtering}
+
 
 \section{Inter-pulse Coding}
 A coded pulse is in some way modulated, so it is not just rectangular. The idea is to code subsequent pulses
-differently, such that the received echoes can be paired up with a certain pulse. That way, an echo from the first
+with a different phase, such that the received echoes can be paired up with a certain pulse. That way, an echo from the first
 pulse that is received after the second pulse has already been transmitted can be identified to belong to the first pulse
 and thus distinguished from echoes caused by the second pulse.
 
 This allows the use of a small PRT, resulting in good unambiguous velocity, but also the ability to unfold second, third,
-or even fourth trip echoes correctly. For one such implementation, called SZ phase codes, see \cite{Sachidananda:1999}.
+or even fourth trip echoes correctly. One such implementation is called SZ phase codes.
+For this technique, every other pulse is phase shifted by a certain sequence $a_k = e^{j \Psi_k}$. On receive, the signal
+can be decoded by multiplying it with the complex conjugate of the coding sequence, $a^*_k$. For more details, refer to \cite{Sachidananda:1999}.
 
 \section{Pulse Length}
-The previous techniques were independent of the pulse length. However, pulse length does affect the performance of the
-radar.
+The previous techniques were independent of the pulse length. However, pulse length, usually denoted by $\tau$, does affect
+the performance of the radar.
 For example, by using a longer pulse, the target is illuminated by more energy, thus increasing
 the sensitivity of the radar. On the other hand, a longer pulse will
-also decrease range resolution. Depending on the application, simply increasing the pulse length to increase 
-sensitivity may not be a desirable solution.
+also decrease range resolution, which is defined as
+\begin{equation}
+\label{eq:rangeres}
+\Delta r = \frac{c \tau}{2}.
+\end{equation}
+However, depending on the application, simply increasing the pulse length to increase sensitivity may not be a desirable solution.
 
 \section{Amplitude}
 Together with the pulse length, the amplitude of the pulse determines how much energy is transmitted on target.
