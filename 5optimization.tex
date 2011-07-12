@@ -116,7 +116,7 @@ The sidelobes of the Barker 13 coded signal are not suited for weather radar app
 tapering is applied.
 However, simulations show that it does not improve the signal. Due to the Barker codes being
 perfect this is not surprising. Specifically, Figure \ref{fig:barker13-15us-opti} shows the optimization results of applying a 
-Kaiser window with different values of $\beta$ to the Barker 13 signal. It shows that both ISL and MSL generally become worse with increased
+Kaiser window with different values of $\beta$ to the Barker 13 signal. It shows that both ISL and PSL generally become worse with increased
 tapering, while range resolution stays constant. This means that the mainlobe width is not affected at all by amplitude tapering.
 As expected, the PPR shape is consistent with other results since it only depends on the Kaiser window.
 
@@ -198,7 +198,7 @@ Based on Equation \eqref{eq:kaiser2}, the parameter $\beta$ is
 varied from 0 to 50, and the AF generated and evaluated for each by quantifiying its performance according to the metrics
 described in Section \ref{s:quantifications}. The results are shown in Figure \ref{fig:lfm-isl-15us-opti}.
 
-As expected, the ISL dramatically decreases, as does the MSL. At the same time, the range resolution decreases from
+As expected, the ISL dramatically decreases, as does the PSL. At the same time, the range resolution decreases from
 an initial \SI{40}{\metre} to about \SI{200}{\metre}. The PPR may be the limiting metric here because the tapered signal quickly
 loses half of its energy with only minor amplitude tapering and eventually decreases to about \SI{20}{\percent} of
 the original amplitude, which means the signal loses \SI{80}{\percent} of its energy. This, in turn, means reduced sensitivity.
@@ -213,7 +213,7 @@ the original amplitude, which means the signal loses \SI{80}{\percent} of its en
 
 
 Clearly, a tradeoff must be made. If the half power point is selected, the waveform would have an ISL of about \SI{-20}{\decibel}, 
-MSL of \SI{-33}{\decibel}, and a range resolution of \SI{68}{\metre}.
+PSL of \SI{-33}{\decibel}, and a range resolution of \SI{68}{\metre}.
 
 The corresponding zero Doppler cut of the AF at this point is shown in figure \ref{fig:lfm-isl-15us-opti-slice13}. It 
 clearly shows the sidelobes at about \SI{-70}{\decibel}, which means this waveform would be adequate for typical weather observations if the 
@@ -256,12 +256,12 @@ and further changes to the setup are made to combine it with amplitude tapering 
 
 \subsection{Parameterized NLFM Results}
 \label{s:nlfm-only-results}
-Figure \ref{fig:nlfm-side-15us-opti} shows the results for varying NLFM waveforms in regards to ISL, MSL, and range resolution.
+Figure \ref{fig:nlfm-side-15us-opti} shows the results for varying NLFM waveforms in regards to ISL, PSL, and range resolution.
 The closer the frequency modulation function approaches an S-curve, the better the ISL becomes, though it is never
-fantastic. The maximum ISL is around \SI{-15}{\decibel}. The MSL decreases rapidly first to about 
+fantastic. The maximum ISL is around \SI{-15}{\decibel}. The PSL decreases rapidly first to about 
 \SI{-13}{\decibel} and then slowly decreases to about \SI{-20}{\decibel}, where it stays fairly constant. The range resolution
 gets progressively worse, starting at about \SI{30}{\metre} and increasing to about \SI{220}{\metre}, meaning the mainlobe broadens.
-This also explains the decreasing and eventually constant MSL, because the whole AF is one big mainlobe with only minimal sidelobes.
+This also explains the decreasing and eventually constant PSL, because the whole AF is one big mainlobe with only minimal sidelobes.
 
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/nlfm-side-15us-opti.png}
@@ -297,16 +297,16 @@ The results are presented in Figures \ref{fig:nlfm-kaiser-15us-opti-isl}-\ref{fi
 
 Looking at the ISL in figure \ref{fig:nlfm-kaiser-15us-opti-isl}, it can be seen that the waveform that is most aggressively 
 tapered generally has better ISL performance. The same is true for the NLFM parameter $a$, i.e. for higher $a$, ISL is lower.
-Next, the MSL shown in figure \ref{fig:nlfm-kaiser-15us-opti-msl} closely mirrors the shape of the ISL optimization,
+Next, the PSL shown in figure \ref{fig:nlfm-kaiser-15us-opti-psl} closely mirrors the shape of the ISL optimization,
 so the same discussion applies to it.
 
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/nlfm-kaiser-15us-opti-isl.png}
 \caption{ISL optimization results for NLFM combined with Kaiser amplitude tapering}
 \label{fig:nlfm-kaiser-15us-opti-isl}
-\includegraphics[width=\imgsize]{figures/nlfm-kaiser-15us-opti-msl.png}
-\caption{MSL optimization results for NLFM combined with Kaiser amplitude tapering}
-\label{fig:nlfm-kaiser-15us-opti-msl}
+\includegraphics[width=\imgsize]{figures/nlfm-kaiser-15us-opti-psl.png}
+\caption{PSL optimization results for NLFM combined with Kaiser amplitude tapering}
+\label{fig:nlfm-kaiser-15us-opti-psl}
 \end{figure}
 
 

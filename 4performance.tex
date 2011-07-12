@@ -10,7 +10,7 @@ perform optimally for weather radars.
 
 \subsection{Ambiguity Function}
 \label{s:af}
-The main metric to determine waveform performance is the Ambiguity Function (AF) \citep{Levanon:2004}. It is defined as:
+The main metric to determine waveform performance is the Ambiguity Function (AF) \citep{Rihaczek:1968}. It is defined as:
 
 \begin{equation}
 \label{eq:AF}
@@ -71,11 +71,17 @@ as the main focus is weather application. As such, the ISL gives the power ratio
 better.
 
 
-\subsection{Maximum Sidelobe Level}
+\subsection{Peak Sidelobe Level}
 Although the ISL is a good way to quantify waveform performance, it can be misleading. Sidelobes are very undesirable, so a waveform
 that has overall low sidelobes except for one very dominant one may have a low ISL, but may not be performing well enough for actual use due
 to the outlier sidelobe.
-This metric determines the highest sidelobe level in the plane of the ambiguity function and so complements the ISL.
+The Peak Sidelobe Level (PSL) is the ratio between the highest sidelobe and the mainlobe in the plane of the ambiguity function and so complements
+the ISL. It is given by \citep{Keeler:1999}
+
+\begin{equation}
+\label{PSL1}
+\text{PSL} = 20 \log \left(\frac{\max(s_j)}{\max(m_k)}\right).
+\end{equation}
 
 
 \subsection{Pulse Power Ratio}
