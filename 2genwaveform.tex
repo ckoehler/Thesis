@@ -1,7 +1,14 @@
 Before going into more detail about pulse compression, the general components of waveforms and their design will be
 discussed. The basic elements of a waveform that can be manipulated are its amplitude, phase, frequency, and timing.
 Each of these components can be designed to adhere to the required specifications, and will be described in more detail
-in this chapter.
+in this chapter. Figure \ref{fig:basic_waveform} can be used as a reference.
+
+\begin{figure}[h]
+\includegraphics[width=\imgsize]{figures/basic_waveform_f.png}
+\caption{A basic waveform showing amplitude, period, phase, and PRT. Each component is explained in
+more detail in this chapter.}
+\label{fig:basic_waveform}
+\end{figure}
 
 \section{Pulse Repetition Time}
 The pulse repetition time (PRT) is the time between two consecutive pulses and is often denoted as $T_s$.  Another way
@@ -119,7 +126,7 @@ discussed.
 Another important component is the low-noise amplifier (LNA) in the receive chain, which also influences the sensitivity
 of the radar by amplifying the return signal while at the same time adding as little additional noise as possible. Using
 better quality amplifiers in a system increases it price together with its performance, but is not always an option,
-e.g. for legacy systems that are already operational or simply budget reasons for new systems.
+e.g., for legacy systems that are already operational or simply budget reasons for new systems.
 
 
 \section{Pulse Compression}
