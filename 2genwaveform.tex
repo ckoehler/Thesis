@@ -124,35 +124,141 @@ e.g. for legacy systems that are already operational or simply budget reasons fo
 
 \section{Pulse Compression}
 \label{s:2pc}
-At the heart of pulse compression is the matched filter. It is called that because its response is matched to the
+At the heart of pulse compression is the matched filter, which draws its name due to the fact that it is matched to the
 transmitted waveform. As the waveform passes through the filter, it is compressed in range and will ideally concentrate
-most of the energy in a narrow mainlobe with no or low sidelobes. The process of the return waveform passing through the
-matched filter can be described by the cross correlation function of the filter and the return signal received back at
-the radar. Ideally this will be identical to the autocorrelation function, i.e., the matched filter response and the
-return signal will be identical. Although this is almost never the case, leading to so-called mismatch loss, this work
-will only refer to autocorrelation function (ACF).
+most of the energy in a narrow mainlobe with no or low sidelobes. 
+The matched filter is designed based on the maximization of the SNR. The following derivation traces the discussion
+given in \cite[ch. 2]{Levanon:2004}.
 
-More formally, then, the matched filter response is defined as the convolution between the signal $u(t)$ and its impulse
-response, $h(t)$ \citep{Levanon:2004}.
+Specifically, the SNR to be maximized is given by
 
+\begin{equation}
+  \label{eq:mfsnr}
+  \left(\frac{S}{N}\right)_{out} = \frac{|s_o(t_0)|^2}{\overline{n_o^2(t)}},
+\end{equation}
+where $s_o$ is the output signal of the filter at a certain delay $t_0$, and $n_o$ is the Gaussian output noise, with
+the $\overline{\text{bar}}$ denoting the mean-squared value. The
+inputs to the matched filter are the original signal $s$ and some predetermined delay $t_0$. The whole output signal is
+then given by
+
+\begin{equation}
+  \label{eq:mfso}
+  s_o(t_0) = \frac{1}{2 \pi} \int_{-\infty}^{\infty} H(\omega) S(\omega) \exp(j \omega t_0) d\omega,
+\end{equation}
+where $S(\omega)$ is the Fourier transform of $s(t)$. The output noise $N$ is described by
+
+\begin{equation}
+  \label{eq:mfnoise}
+  \overline{n_o^2(t)} = \frac{N_0}{4 \pi} \int_{-\infty}^{\infty} |H(\omega)|^2 d\omega.
+\end{equation}
+
+Before continuing this derivation, the \emph{Schwarz inequality} must be mentioned. It states that
+
+\begin{equation}
+  \label{eq:schwarz}
+  \left|\int_{-\infty}^{\infty} A(\omega) B(\omega) d\omega \right|^2 \leq 
+    \int_{-\infty}^{\infty} |A(\omega)|^2 d\omega \int_{-\infty}^{\infty} |B(\omega)|^2 d\omega,
+\end{equation}
+for two complex signals $A(\omega)$ and $B(\omega)$. The two sides are exactly equal if and only if they are linearly
+dependant:
+
+\begin{equation}
+  \label{eq:schwarzcond}
+  A(\omega) = K B^*(\omega),
+\end{equation}
+where $K$ is an arbitrary constant.
+Substituting Equations \eqref{eq:mfso} and \eqref{eq:mfnoise} back into Equation \eqref{eq:mfsnr} and applying the
+Schwarz inequality with 
+
+\begin{equation}
+  \label{eq:schwarzsubst}
+  A(\omega) = H(\omega) , B(\omega) = S(\omega)\exp(j \omega t_0), 
+\end{equation}
+yields
+
+\begin{equation}
+  \left(\frac{S}{N}\right)_{out} \leq \frac{1}{\pi N_0} \int_{-\infty}^{\infty} |S(\omega)|^2 d\omega = \frac{2E}{N_0},
+\end{equation}
+where $E$ is the energy of the signal.
+
+Substituting \eqref{eq:schwarzsubst} into \eqref{eq:schwarzcond} shows that the maximum output SNR is achieved when 
+\begin{equation}
+  \label{eq:mffr}
+  H(\omega) = K S^*(\omega) \exp(-j \omega t_0).
+\end{equation}
+
+Taking the inverse Fourier transform produces the impulse response of the matched filter:
+\begin{equation}
+  \label{eq:mfir}
+  h(t) = K s^*(t_0-t)
+\end{equation}
+This reveals that the impulse response of the matched filter is the delayed mirror image of the conjugate of the
+original signal $s(t)$. When the signal and filter are matched in this way, the condition of the Schwarz inequality
+(Equation \eqref{eq:schwarzcond}) is fulfilled and the SNR at $t=t_0$ is maximized with $\text{SNR}=\frac{2E}{N_0}$.
+
+With $h(t)$ known, the output of the matched filter is then 
 \begin{equation}
   \label{eq:filterresponse}
-  \text{Output} = u(t) \star h(t) = \int_{-\infty}^{\infty}{u(\tau) h(t-\tau) d\tau}.
+  s_o(t_0) = s(t) \star h(t) = \int_{-\infty}^{\infty}{s(\tau) K s^*[t_0 - (t - \tau)] d\tau}.
 \end{equation}
-
-Furthermore, since the filter is matched, and maximizing the SNR, the impulse response becomes
-
-\begin{equation}
-  h(t) = K u^*(t_0-t),j
-\end{equation}
-where K is an arbitrary constant. Choosing $t_0=0, K=1$ and substituting back into Equation \eqref{eq:filterresponse}
-yields the autocorrelation function.
+Choosing the arbitrary gain constant $K=1$ and the predetermined delay $t_0=0$, the output can be recognized as the
+autocorrelation function (ACF) of $s(t)$:
 \begin{equation}
   \label{eq:acf}
-  \text{ACF}(t) = \int_{-\infty}^{\infty}{u(\tau) u^*(\tau-t) d\tau}.
+  s_o(0) = \text{ACF}(s(t)) = \int_{-\infty}^{\infty}{s(\tau) s^*(\tau-t) d\tau}.
+\end{equation}
+This is an important function because it describes the output of the radar depending on the waveform $s(t)$ used. It is
+the basis of analyzing the performance of radar signals in this work. As discussed before, the best result is achieved
+when the filter matches the waveform exactly. If that is not the case and there is a mismatch between the filter and the
+signal, there will be some loss called \emph{mismatch loss}. One reason for mismatch loss is the Doppler phase shift applied
+to the return signal by a moving target. Adding that phase shift, given by $e^{-j 2 \pi f_d t}$, where $f_d$ is the
+Doppler frequency, provides the basis for the main tool of evaluating waveforms in this work, the \emph{Ambiguity
+Function}, or AF.
+
+TODO: add graph for ACF
+
+
+\section{Ambiguity Function}
+\label{s:af}
+In \cite{Rihaczek:1968}, the AF is defined as:
+
+\begin{equation}
+\label{eq:AF}
+  |\chi(\tau,f_d)| = \left| \int_{-\infty}^\infty{u(t) u^*(t+\tau) e^{-j2\pi f_d t} dt}\right|,
+\end{equation}
+where $u(t)$ is the complex envelope of the signal, $\tau$ is the delay due to propagation, not to be confused with the
+pulse length used in other places, and $f_d$ is the Doppler frequency.  It can clearly be seen that, for $f_d = 0$, the
+AF reduces to the ACF, presented in Section \ref{s:2pc}.
+
+
+For a simple rectangular pulse of the form $u(t)=\frac{1}{\sqrt{T}} rect(\frac{t}{T})$, the AF is \citep{Levanon:2004}:
+
+\begin{align*}
+  |\chi(\tau,f_d)| &= \left| \int_{-\infty}^\infty{u(t) u^*(t+\tau) e^{j2\pi f_d t} dt}\right| \\ 
+  &= 
+  \begin{cases}
+    \frac{1}{T} \int_{-\frac{T}{2} + \tau}^{\frac{T}{2}}{e^{j2\pi f_d t}dt} & \text{for $0 \leq \tau \leq T$}, \\
+    \frac{1}{T} \int_{-\frac{T}{2}}^{\frac{T}{2} + \tau}{e^{j2\pi f_d t}dt} & \text{for $-T \leq \tau < 0$}, \\
+    0 & \text{otherwise}. \\
+  \end{cases}
+\end{align*}
+
+Evaluate the integrals to get:
+
+\begin{equation}
+  |\chi(\tau,v)| = \left|\left(1-\frac{|\tau|}{T}\right) \frac{\sin[\pi T v(1- \frac{|\tau|}{T})]}{\pi T v(1- \frac{|\tau|}{T})}\right|, |\tau| \leq T, \text{zero elsewhere}
 \end{equation}
 
-This is an important function that is the basis of analyzing the performance of radar signals in this work.
+For $\tau=0$, the result is the sinc function, for $v=0$ it is simply the autocorrelation function of a pulse, which is
+a triangle.
+
+The ideal AF shape depends on the application. One useful AF looks like a thumbtack and provides good range and Doppler
+resolution.  However, this also means that any kind of Doppler shift will result in a weak or, for the ideal case, no
+return signal. This waveform can be used to detect targets whose velocity is already known, or is in a known, narrow
+range, as is the case for weather applications.  Thumbtack shaped AFs can be used for different Doppler shifts by using
+several different filters, each matched to a different Doppler shift.  The reader is referred to Chapter 7.2 of
+\citep{Levanon:2004} for more information.
+
 
 
 

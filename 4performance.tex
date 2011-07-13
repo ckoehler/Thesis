@@ -7,50 +7,6 @@ In order to evaluate the pulse compression techniques examined in this work, sev
 quantify their performance. Together they can assist in creating and evaluating waveforms that perform optimally for
 weather radars.
 
-\subsection{Ambiguity Function}
-\label{s:af}
-The main metric to determine waveform performance is the Ambiguity Function (AF) \citep{Rihaczek:1968}. It is defined
-as:
-
-\begin{equation}
-\label{eq:AF}
-  |\chi(\tau,f_d)| = \left| \int_{-\infty}^\infty{u(t) u^*(t+\tau) e^{-j2\pi f_d t} dt}\right|,
-\end{equation}
-
-where $u(t)$ is the complex envelope of the signal, $\tau$ is the delay due to propagation, not to be confused with the
-pulse length used in other places, and $f_d$ is the Doppler frequency in the Doppler axis.  It can clearly be be be seen
-that, for $f_d = 0$, the AF reduces to the ACF, presented in Section \ref{s:2pc}.
-
-
-For a simple rectangular pulse of the form $u(t)=\frac{1}{\sqrt{T}} rect(\frac{t}{T})$, the AF is \citep{Levanon:2004}:
-
-\begin{align*}
-  |\chi(\tau,f_d)| &= \left| \int_{-\infty}^\infty{u(t) u^*(t+\tau) e^{j2\pi f_d t} dt}\right| \\ 
-  &= 
-  \begin{cases}
-    \frac{1}{T} \int_{-\frac{T}{2} + \tau}^{\frac{T}{2}}{e^{j2\pi f_d t}dt} & \text{for $0 \leq \tau \leq T$}, \\
-    \frac{1}{T} \int_{-\frac{T}{2}}^{\frac{T}{2} + \tau}{e^{j2\pi f_d t}dt} & \text{for $-T \leq \tau < 0$}, \\
-    0 & \text{otherwise}. \\
-  \end{cases}
-\end{align*}
-
-Evaluate the integral to get:
-
-\begin{equation}
-  |\chi(\tau,v)| = \left|\left(1-\frac{|\tau|}{T}\right) \frac{\sin[\pi T v(1- \frac{|\tau|}{T})]}{\pi T v(1- \frac{|\tau|}{T})}\right|, |\tau| \leq T, \text{zero elsewhere}
-\end{equation}
-
-For $\tau=0$, the result is the sinc function, for $v=0$ it is simply the autocorrelation function of a pulse, which is
-a triangle.
-
-The ideal AF shape depends on the application. One useful AF looks like a thumbtack and provides good range and Doppler
-resolution.  However, this also means that any kind of Doppler shift will result in a weak or, for the ideal case, no
-return signal. This waveform can be used to detect targets whose velocity is already known, or is in a known, narrow
-range, as is the case for weather applications.  Thumbtack shaped AFs can be used for different Doppler shifts by using
-several different filters, each matched to a different Doppler shift.  The reader is referred to Chapter 7.2 of
-\citep{Levanon:2004} for more information.
-
-
 \subsection{3dB Range Resolution}
 Another metric to evaluate the performance of a waveform is the 3dB range resolution in units of meters.  Lower value
 means finer resolution of the waveform. The factors that influence range resolution are mainly pulse length and
