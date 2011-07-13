@@ -1,25 +1,25 @@
-This chapter examines the different approaches to quantifying waveform performance in the context of
-weather radar applications, as well as limitations associated with them.
+This chapter examines the different approaches to quantifying waveform performance in the context of weather radar
+applications, as well as limitations associated with them.
 
 \section{Quantifications}
 \label{s:quantifications}
-
-In order to evaluate the pulse compression techniques examined in this work, several different
-metrics are used to quantify their performance. Together they can assist in creating and evaluating waveforms that
-perform optimally for weather radars.
+In order to evaluate the pulse compression techniques examined in this work, several different metrics are used to
+quantify their performance. Together they can assist in creating and evaluating waveforms that perform optimally for
+weather radars.
 
 \subsection{Ambiguity Function}
 \label{s:af}
-The main metric to determine waveform performance is the Ambiguity Function (AF) \citep{Rihaczek:1968}. It is defined as:
+The main metric to determine waveform performance is the Ambiguity Function (AF) \citep{Rihaczek:1968}. It is defined
+as:
 
 \begin{equation}
 \label{eq:AF}
   |\chi(\tau,f_d)| = \left| \int_{-\infty}^\infty{u(t) u^*(t+\tau) e^{-j2\pi f_d t} dt}\right|,
 \end{equation}
 
-where $u(t)$ is the complex envelope of the signal, $\tau$ is the delay due to propagation, not to be confused with the pulse
-length used in other places, and $f_d$ is the Doppler frequency in the Doppler axis.
-It can clearly be be be seen that, for $f_d = 0$, the AF reduces to the ACF, presented in Section \ref{s:2pc}.
+where $u(t)$ is the complex envelope of the signal, $\tau$ is the delay due to propagation, not to be confused with the
+pulse length used in other places, and $f_d$ is the Doppler frequency in the Doppler axis.  It can clearly be be be seen
+that, for $f_d = 0$, the AF reduces to the ACF, presented in Section \ref{s:2pc}.
 
 
 For a simple rectangular pulse of the form $u(t)=\frac{1}{\sqrt{T}} rect(\frac{t}{T})$, the AF is \citep{Levanon:2004}:
@@ -40,26 +40,28 @@ Evaluate the integral to get:
   |\chi(\tau,v)| = \left|\left(1-\frac{|\tau|}{T}\right) \frac{\sin[\pi T v(1- \frac{|\tau|}{T})]}{\pi T v(1- \frac{|\tau|}{T})}\right|, |\tau| \leq T, \text{zero elsewhere}
 \end{equation}
 
-For $\tau=0$, the result is the sinc function, for $v=0$ it is simply the autocorrelation function of a pulse, which is a triangle.
+For $\tau=0$, the result is the sinc function, for $v=0$ it is simply the autocorrelation function of a pulse, which is
+a triangle.
 
-
-The ideal AF shape depends on the application. One useful AF looks like a thumbtack and provides good range and Doppler resolution.
-However, this also means that any kind of Doppler shift will result in a weak or, for the ideal case, no return signal. This waveform
-can be used to detect targets whose velocity is already known, or is in a known, narrow range, as is the case for weather applications.
-Thumbtack shaped AFs can be used for different Doppler shifts by using several different filters, each matched to a different Doppler shift.
-The reader is referred to Chapter 7.2 of \citep{Levanon:2004} for more information.
+The ideal AF shape depends on the application. One useful AF looks like a thumbtack and provides good range and Doppler
+resolution.  However, this also means that any kind of Doppler shift will result in a weak or, for the ideal case, no
+return signal. This waveform can be used to detect targets whose velocity is already known, or is in a known, narrow
+range, as is the case for weather applications.  Thumbtack shaped AFs can be used for different Doppler shifts by using
+several different filters, each matched to a different Doppler shift.  The reader is referred to Chapter 7.2 of
+\citep{Levanon:2004} for more information.
 
 
 \subsection{3dB Range Resolution}
-Another metric to evaluate the performance of a waveform is the 3dB range resolution in units of meters.
-Lower value means finer resolution of the waveform. The factors that influence range resolution are mainly pulse
-length and amplitude tapering. For pulse length, the shorter the pulse, the better the resolution. 
-Amplitude tapering or non-linear frequency modulation can also change the resolution.
+Another metric to evaluate the performance of a waveform is the 3dB range resolution in units of meters.  Lower value
+means finer resolution of the waveform. The factors that influence range resolution are mainly pulse length and
+amplitude tapering. For pulse length, the shorter the pulse, the better the resolution.  Amplitude tapering or
+non-linear frequency modulation can also change the resolution.
 
 
 
 \subsection{Integrated Sidelobe Level}
-The performance of each code is measured by calculating the Integrated Sidelobe Level (ISL), which is defined as \citep{Keeler:1999}:
+The performance of each code is measured by calculating the Integrated Sidelobe Level (ISL), which is defined as
+\citep{Keeler:1999}:
 
 \begin{equation}
 \label{ISL}
@@ -67,17 +69,17 @@ The performance of each code is measured by calculating the Integrated Sidelobe 
 \end{equation}
 where $s_j$ is the power of the $j^{th}$ sidelobe, and $m_k$ the power of the $k^{th}$ mainlobe.
 
-Lower ISL means better performance of the code. In this work, the ISL is only calculated with $v \in \left[-50, +50\right]\ \si{\metre\per\second}$
-as the main focus is weather application. As such, the ISL gives the power ratio of sidelobes to mainlobe across the whole AF, with lower being
-better.
+Lower ISL means better performance of the code. In this work, the ISL is only calculated with $v \in \left[-50,
++50\right]\ \si{\metre\per\second}$ as the main focus is weather application. As such, the ISL gives the power ratio of
+sidelobes to mainlobe across the whole AF, with lower being better.
 
 
 \subsection{Peak Sidelobe Level}
-Although the ISL is a good way to quantify waveform performance, it can be misleading. Sidelobes are very undesirable, so a waveform
-that has overall low sidelobes except for one very dominant one may have a low ISL, but may not be performing well enough for actual use due
-to the outlier sidelobe.
-The Peak Sidelobe Level (PSL) is the ratio between the highest sidelobe and the mainlobe in the plane of the ambiguity function and so complements
-the ISL. It is given by \citep{Keeler:1999}
+Although the ISL is a good way to quantify waveform performance, it can be misleading. Sidelobes are very undesirable,
+so a waveform that has overall low sidelobes except for one very dominant one may have a low ISL, but may not be
+performing well enough for actual use due to the outlier sidelobe.  The Peak Sidelobe Level (PSL) is the ratio between
+the highest sidelobe and the mainlobe in the plane of the ambiguity function and so complements the ISL. It is given by
+\citep{Keeler:1999}
 
 \begin{equation}
 \label{PSL1}
@@ -86,55 +88,55 @@ the ISL. It is given by \citep{Keeler:1999}
 
 
 \subsection{Pulse Power Ratio}
-For amplitude tapering, another factor needs to be taken into consideration, i.e., the Pulse Power Ratio (PPR). For a rectangular pulse, \SI{100}{\percent} of the signal
-power is transmitted. For a amplitude-tapered pulse, however, that is not the case. The Pulse Power Ratio is defined as follows:
+For amplitude tapering, another factor needs to be taken into consideration, i.e., the Pulse Power Ratio (PPR). For a
+rectangular pulse, \SI{100}{\percent} of the signal power is transmitted. For a amplitude-tapered pulse, however, that
+is not the case. The Pulse Power Ratio is defined as follows:
 
 
 \begin{equation}
 \label{PPR}
 \text{PPR} = \frac{\int_{\tau} w(t)dt}{A_p \tau}, 
 \end{equation}
-where $w(t)$ is the tapering function applied to the pulse, integrated over the pulse length $\tau$, and $A_p$ is the original amplitude.
-This metric represents the fraction of energy that is utilized when amplitude tapering is applied and can help quantify the loss in sensitivity
-caused by tapering.
+where $w(t)$ is the tapering function applied to the pulse, integrated over the pulse length $\tau$, and $A_p$ is the
+original amplitude.  This metric represents the fraction of energy that is utilized when amplitude tapering is applied
+and can help quantify the loss in sensitivity caused by tapering.
 
 
 \section{Limitations}
-There are a some limitations that need to be taken into consideration, e.g. whether 
-waveforms used in weather radar need to be very Doppler tolerant. This is highly specific to weather radars and can simplify the task 
-of waveform design. Another limitation is the effect of the amplifier impulse response on the signal.
+There are a some limitations that need to be taken into consideration, e.g. whether waveforms used in weather radar need
+to be very Doppler tolerant. This is highly specific to weather radars and can simplify the task of waveform design.
+Another limitation is the effect of the amplifier impulse response on the signal.
 
 
 \subsection{Doppler Effect for Weather Radars}
 \label{s:dopplereffect}
 One concern for pulse compression performance is the effect of a Doppler shift on matched filter in the receiver. A
-received signal that has been affected by a Doppler shift causes a mismatch in the matched filter processing of the receiver.
-This is especially pronounced at high target velocities. For atmospheric weather radars, such as the WSR-88D, the maximum
-unambiguous velocity is \SI{32.5}{\metre\per\second}, based on $\lambda = \SI{0.1}{\metre}$ and a maximum PRT $T_s = \SI{1300}{\hertz}$,
-not taking into account any signal processing techniques described previously \citep[p. 47]{Doviak:2006}.
-At that velocity, a Doppler frequency of $f_d = \frac{2v}{\lambda} = \frac{65}{0.1} = \SI{650}{Hz}$ is
-observed.
+received signal that has been affected by a Doppler shift causes a mismatch in the matched filter processing of the
+receiver.  This is especially pronounced at high target velocities. For atmospheric weather radars, such as the WSR-88D,
+the maximum unambiguous velocity is \SI{32.5}{\metre\per\second}, based on $\lambda = \SI{0.1}{\metre}$ and a maximum
+PRT $T_s = \SI{1300}{\hertz}$, not taking into account any signal processing techniques described previously \citep[p.
+47]{Doviak:2006}.  At that velocity, a Doppler frequency of $f_d = \frac{2v}{\lambda} = \frac{65}{0.1} = \SI{650}{Hz}$
+is observed.
 
-This mismatch effect on the matched filter has been quantified by Kelly and Wishner as follows \citep{Kelly:1965}.
-For a signal of length $T$, a target of velocity $v$, and signal bandwidth $B$, the return Doppler-shifted signal can be expressed 
-as 
+This mismatch effect on the matched filter has been quantified by Kelly and Wishner as follows \citep{Kelly:1965}.  For
+a signal of length $T$, a target of velocity $v$, and signal bandwidth $B$, the return Doppler-shifted signal can be
+expressed as 
 \begin{equation}
   T(1-\frac{2v}{c})=T-\Delta T
 \end{equation}
-If $\Delta T$ is much smaller than $T$, i.e.,  $\Delta T \ll \frac{1}{B}$, the mismatch 
-due to the Doppler effect can be neglected. In other words, $\frac{2v}{c}BT \ll 1$. For a \SI{1}{\micro\second} pulse at \SI{5}{\mega\hertz} bandwidth 
-moving at \SI{30}{\metre\per\second}, $0.001 \ll 1$ is true, so the Doppler effect can be ignored.
-The higher the pulse compression ratio $BT$ is, the more mismatch will be caused by the Doppler shift.
+If $\Delta T$ is much smaller than $T$, i.e.,  $\Delta T \ll \frac{1}{B}$, the mismatch due to the Doppler effect can be
+neglected. In other words, $\frac{2v}{c}BT \ll 1$. For a \SI{1}{\micro\second} pulse at \SI{5}{\mega\hertz} bandwidth
+moving at \SI{30}{\metre\per\second}, $0.001 \ll 1$ is true, so the Doppler effect can be ignored.  The higher the pulse
+compression ratio $BT$ is, the more mismatch will be caused by the Doppler shift.
 
-All this said, the simulations in this work will show in Chapter \ref{chap:optimization} that for weather radar applications, the Doppler mismatch
-can be safely ignored for the low velocities of most observed weather phenomena.
+All this said, the simulations in this work will show in Chapter \ref{chap:optimization} that for weather radar
+applications, the Doppler mismatch can be safely ignored for the low velocities of most observed weather phenomena.
 
 \subsection{Effects of Amplifier Impulse Response on the Ambiguity Function}
 \label{s:ireffects}
 
-Next, the effects of the amplifier in the receive chain on the pulse will be examined.
-Starting with Equation \eqref{eq:AF}, convolve the return signal with $h(t)$, the impulse
-response of the system. The AF then becomes
+Next, the effects of the amplifier in the receive chain on the pulse will be examined.  Starting with Equation
+\eqref{eq:AF}, convolve the return signal with $h(t)$, the impulse response of the system. The AF then becomes
 
 \begin{align*}
    \chi(\tau,f_d) &= \left|\int_{-\infty}^\infty{u(t) \left[(u^*(t+\tau) e^{-j2\pi f_d t})*h(t)\right]\ dt}\right| \\
@@ -142,19 +144,21 @@ response of the system. The AF then becomes
    &= \left|\int_{-\infty}^\infty{u^*(t'+\tau) e^{-j2\pi f_d t'}\int_{-\infty}^{\infty}{u(t) h^*(t'-t) dt}\ dt'}\right| 
 \end{align*}
 
-It can be seen that applying the impulse response to the return signal is equivalent to applying it to the original pulse $u(t)$. 
-This makes it easy in simulation to apply an impulse response to the calculations in order to evaluate the its effects on the AF.
-The results of a Rayleigh-shaped impulse response on a rectangular pulse are presented in Section \ref{s:ireffects}.
+It can be seen that applying the impulse response to the return signal is equivalent to applying it to the original
+pulse $u(t)$.  This makes it easy in simulation to apply an impulse response to the calculations in order to evaluate
+the its effects on the AF.  The results of a Rayleigh-shaped impulse response on a rectangular pulse are presented in
+Section \ref{s:ireffects}.
 
 \subsection{Quantization}
 Once the signal is received through the antenna, it is eventually converted into a digital form for further processing.
 The first step in that process is to sample the signal in time. The second is called quantization, in which the
-amplitude of each sample is converted to one of a finite possible values for the amplitude \citep[p. 140]{Richards:2005}.
+amplitude of each sample is converted to one of a finite possible values for the amplitude \citep[p.
+140]{Richards:2005}.
 
-For $b$ available bits there are $2^b$ possible values to represent the amplitude of the signal. These $b$ bits need to be able
-to contain the whole dynamic range of possible return signals. For the WSR-88D network radars, the dynamic range at the receiver
-is \SI{93}{\decibel} \citep[p. 47]{Doviak:2006}. However, that means that weaker return signals must have a sufficient number of bits available to adequately
-quantize any possible return signal.
-For every additional bit, the dynamic range increases about \SI{6}{\decibel}, so 16 bits are needed to represent the whole
-dynamic range \citep[p. 142]{Richards:2005}.
+For $b$ available bits there are $2^b$ possible values to represent the amplitude of the signal. These $b$ bits need to
+be able to contain the whole dynamic range of possible return signals. For the WSR-88D network radars, the dynamic range
+at the receiver is \SI{93}{\decibel} \citep[p. 47]{Doviak:2006}. However, that means that weaker return signals must
+have a sufficient number of bits available to adequately quantize any possible return signal.  For every additional bit,
+the dynamic range increases about \SI{6}{\decibel}, so 16 bits are needed to represent the whole dynamic range \citep[p.
+142]{Richards:2005}.
 

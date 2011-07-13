@@ -1,26 +1,24 @@
-In this section the setup and results of the simulations will be presented. First, the way the 
-simulations were conducted is explained. After that, the results for various waveforms will be 
-shown.
+In this section the setup and results of the simulations will be presented. First, the way the simulations were
+conducted is explained. After that, the results for various waveforms will be shown.
 
 \section{Setup and Configuration}
-All simulations were performed with the MATLAB\textsuperscript{\textregistered} software package.
-The general algorithm to compute the ambiguity function is presented, with the complete code
-given in Appendix \ref{app:code}.
+All simulations were performed with the MATLAB\textsuperscript{\textregistered} software package.  The general algorithm
+to compute the ambiguity function is presented, with the complete code given in Appendix \ref{app:code}.
 
 
 \subsection{Generating Waveforms}
-The simulations are done in multiple parts. First, a waveform is generated based on a given
-amplitude, phase, frequency modulation, and impulse response that is applied to the signal.
-The returned waveform is generated at a proper sampling frequency in order to avoid aliasing.
+The simulations are done in multiple parts. First, a waveform is generated based on a given amplitude, phase, frequency
+modulation, and impulse response that is applied to the signal.  The returned waveform is generated at a proper sampling
+frequency in order to avoid aliasing.
 
-If an impulse response was supplied, both the distorted and clean waveform will be returned, as well as
-the new pulse length $\tau$ which will be approximately twice the original $\tau$. That lengthening
-is due to the convolution of the original waveform $u(t)$ with the impulse response $h(t)$.
+If an impulse response was supplied, both the distorted and clean waveform will be returned, as well as the new pulse
+length $\tau$ which will be approximately twice the original $\tau$. That lengthening is due to the convolution of the
+original waveform $u(t)$ with the impulse response $h(t)$.
 
 \subsection{Calculating the Ambiguity Function}
-Once the waveform has been returned, the AF is generated and plotted in a surface plot. 
-In pseudo-code, given the complex waveform \emph{signal} and an array of Doppler frequencies \emph{doppler\_frequencies},
-the normalized AF is computed as follows.
+Once the waveform has been returned, the AF is generated and plotted in a surface plot.  In pseudo-code, given the
+complex waveform \emph{signal} and an array of Doppler frequencies \emph{doppler\_frequencies}, the normalized AF is
+computed as follows.
 
 \lstset{
   basicstyle=\footnotesize
@@ -40,22 +38,18 @@ return (af / max(af))
 
 
 
-
-
-
-
 \section{Rectangular Pulse}
-A rectangular pulse is the simplest waveform for a radar. The following figures show the AF for pulses of varying lengths so 
-that the effect of pulse length on Doppler resistance can be examined. Figure \ref{fig:simplepulse-1us} shows the AF
-of a \SI{1}{\micro\second} pulse. 
-There is no visible change in the AF across the Doppler axis, so the different Doppler cuts are identical, which means that for weather radar 
-applications, the commonly encountered Doppler shifts do not cause any distortion to the signal for short pulses.
+A rectangular pulse is the simplest waveform for a radar. The following figures show the AF for pulses of varying
+lengths so that the effect of pulse length on Doppler resistance can be examined. Figure \ref{fig:simplepulse-1us} shows
+the AF of a \SI{1}{\micro\second} pulse.  There is no visible change in the AF across the Doppler axis, so the different
+Doppler cuts are identical, which means that for weather radar applications, the commonly encountered Doppler shifts do
+not cause any distortion to the signal for short pulses.
 
-Similarly, Figure \ref{fig:simplepulse-200us} shows the AF of a much longer \SI{200}{\micro\second} pulse. Comparing
-it to the shorter pulse, it looks identical. There is some distortion at higher
-Doppler velocities for the longer pulse, but it is so minimal that it is not visible, making the impact on weather radar application negligible.
-Additionally, pulse lengths of \SI{200}{\micro\second} are not common. For comparison, the two pulse lengths used in the WSR-88D radar network are
-\SI{1.57}{\micro\second} and \SI{4.57}{\micro\second} \citep[p. 47]{Doviak:2006}.
+Similarly, Figure \ref{fig:simplepulse-200us} shows the AF of a much longer \SI{200}{\micro\second} pulse. Comparing it
+to the shorter pulse, it looks identical. There is some distortion at higher Doppler velocities for the longer pulse,
+but it is so minimal that it is not visible, making the impact on weather radar application negligible.  Additionally,
+pulse lengths of \SI{200}{\micro\second} are not common. For comparison, the two pulse lengths used in the WSR-88D radar
+network are \SI{1.57}{\micro\second} and \SI{4.57}{\micro\second} \citep[p. 47]{Doviak:2006}.
 
 
 
@@ -82,15 +76,14 @@ Additionally, pulse lengths of \SI{200}{\micro\second} are not common. For compa
 
 \section{Barker Code}
 Next, a length 13 Barker code of different pulse lengths will be examined. Figures \ref{fig:barker13-1us} and
-\ref{fig:barker13-1us-0D} show a \SI{1}{\micro\second} pulse that has been phase coded with a length 13 Barker 
-code. As for a rectangular pulse, there is no visible degradation of the signal with increasing Doppler shifts,
-confirming again that for weather radar applications, the Doppler distortions can be neglected.
-The zero-Doppler cut shows the typical shape of the Barker code and sidelobes of about
-\SI{-22}{\decibel} \citep[p. 351]{Skolnik:2001}.
+\ref{fig:barker13-1us-0D} show a \SI{1}{\micro\second} pulse that has been phase coded with a length 13 Barker code. As
+for a rectangular pulse, there is no visible degradation of the signal with increasing Doppler shifts, confirming again
+that for weather radar applications, the Doppler distortions can be neglected.  The zero-Doppler cut shows the typical
+shape of the Barker code and sidelobes of about \SI{-22}{\decibel} \citep[p. 351]{Skolnik:2001}.
 
-Comparing these images to Figures \ref{fig:barker13-200us} and \ref{fig:barker13-200us-0D} again shows no visible difference
-in the Doppler dimension, so the pulse length has no effect on the shape of the AF for a Barker 13 code, besides
-the expected loss of range resolution caused by the longer pulse.
+Comparing these images to Figures \ref{fig:barker13-200us} and \ref{fig:barker13-200us-0D} again shows no visible
+difference in the Doppler dimension, so the pulse length has no effect on the shape of the AF for a Barker 13 code,
+besides the expected loss of range resolution caused by the longer pulse.
 
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/barker-1us.png}
@@ -112,18 +105,18 @@ the expected loss of range resolution caused by the longer pulse.
 
 
 \section{Barker Code with Amplitude Tapering}
-The sidelobes of the Barker 13 coded signal are not suited for weather radar applications. To try and mitigate those, amplitude
-tapering is applied.
-However, simulations show that it does not improve the signal. Due to the Barker codes being
-perfect this is not surprising. Specifically, Figure \ref{fig:barker13-15us-opti} shows the optimization results of applying a 
-Kaiser window with different values of $\beta$ to the Barker 13 signal. It shows that both ISL and PSL generally become worse with increased
-tapering, while range resolution stays constant. This means that the mainlobe width is not affected at all by amplitude tapering.
-As expected, the PPR shape is consistent with other results since it only depends on the Kaiser window.
+The sidelobes of the Barker 13 coded signal are not suited for weather radar applications. To try and mitigate those,
+amplitude tapering is applied.  However, simulations show that it does not improve the signal. Due to the Barker codes
+being perfect this is not surprising. Specifically, Figure \ref{fig:barker13-15us-opti} shows the optimization results
+of applying a Kaiser window with different values of $\beta$ to the Barker 13 signal. It shows that both ISL and PSL
+generally become worse with increased tapering, while range resolution stays constant. This means that the mainlobe
+width is not affected at all by amplitude tapering.  As expected, the PPR shape is consistent with other results since
+it only depends on the Kaiser window.
 
-The ISL does become slightly better with very light tapering, with the minimum ISL occuring with $\beta = 1.026$. The zero-Doppler cut of
-the AF at this point is shown in Figure \ref{fig:barker13-15us-opti-slice3}. Unfortunately, sidelobes still occur at around \SI{-22}{\decibel},
-so there is no improvement. These results show that a Barker coded signal is not very useful for weather radar applications, even with amplitude
-tapering.
+The ISL does become slightly better with very light tapering, with the minimum ISL occuring with $\beta = 1.026$. The
+zero-Doppler cut of the AF at this point is shown in Figure \ref{fig:barker13-15us-opti-slice3}. Unfortunately,
+sidelobes still occur at around \SI{-22}{\decibel}, so there is no improvement. These results show that a Barker coded
+signal is not very useful for weather radar applications, even with amplitude tapering.
 
 
 
@@ -143,14 +136,14 @@ tapering.
 
 
 \section{Linear Frequency Modulation}
-Here the results of different variations of linear frequency modulation will be presented, specifically LFM with
-and without amplitude tapering.
+Here the results of different variations of linear frequency modulation will be presented, specifically LFM with and
+without amplitude tapering.
 
 \subsection{Linear Frequency Modulation}
 In this section the performance results of a linearly frequency modulated waveform will be presented.
 
-The frequency modulation function is shown in figure \ref{fig:lfm-fmf}. It is a linear sweep from \SI{-2.5}{\mega\hertz} to
-\SI{2.5}{\mega\hertz}, over a total of \SI{5}{\mega\hertz}.
+The frequency modulation function is shown in figure \ref{fig:lfm-fmf}. It is a linear sweep from \SI{-2.5}{\mega\hertz}
+to \SI{2.5}{\mega\hertz}, over a total of \SI{5}{\mega\hertz}.
 
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/lfm-fmf.png}
@@ -159,10 +152,9 @@ The frequency modulation function is shown in figure \ref{fig:lfm-fmf}. It is a 
 \end{figure}
 
 
-Figures \ref{fig:lfm-15us} and \ref{fig:lfm-200us} show the AFs of two LFM waveforms, with pulse lengths of \SI{15}{\micro\second} and
-\SI{200}{\micro\second}, respectively.
-Comparing the two for differences shows once again that in the Doppler dimension, the pulse length has
-little effect for weather radar applications. 
+Figures \ref{fig:lfm-15us} and \ref{fig:lfm-200us} show the AFs of two LFM waveforms, with pulse lengths of
+\SI{15}{\micro\second} and \SI{200}{\micro\second}, respectively.  Comparing the two for differences shows once again
+that in the Doppler dimension, the pulse length has little effect for weather radar applications. 
 
 
 \begin{figure}[H]
@@ -175,11 +167,11 @@ little effect for weather radar applications.
 \end{figure}
 
 
-One observation of significance is the range resolution of both signals.
-Figures \ref{fig:lfm-15us-0d} and \ref{fig:lfm-200us-0d} show the zero-Doppler cut of both signals.
-As expected, the sidelobes are around \SI{-13}{\decibel} in both AFs, but also, the shapes are approximately the same
-for each case, which means that the pulse length has little effect on the range resolution. Instead, range
-resolution is determined by the sweep bandwidth, not the pulse length, as is expressed in Equation \eqref{eq:lfm-rangeres}.
+One observation of significance is the range resolution of both signals.  Figures \ref{fig:lfm-15us-0d} and
+\ref{fig:lfm-200us-0d} show the zero-Doppler cut of both signals.  As expected, the sidelobes are around
+\SI{-13}{\decibel} in both AFs, but also, the shapes are approximately the same for each case, which means that the
+pulse length has little effect on the range resolution. Instead, range resolution is determined by the sweep bandwidth,
+not the pulse length, as is expressed in Equation \eqref{eq:lfm-rangeres}.
 
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/lfm-15us-0D.png}
@@ -192,16 +184,16 @@ resolution is determined by the sweep bandwidth, not the pulse length, as is exp
 
 
 \subsection{Linear Frequency Modulation with Amplitude Tapering}
-LFM has the disadvantage of very high sidelobes at about \SI{-13}{\decibel}.  
-These can be mitigate with amplitude tapering, so a Kaiser window is applied to the amplitude. 
-Based on Equation \eqref{eq:kaiser2}, the parameter $\beta$ is
-varied from 0 to 50, and the AF generated and evaluated for each by quantifiying its performance according to the metrics
-described in Section \ref{s:quantifications}. The results are shown in Figure \ref{fig:lfm-isl-15us-opti}.
+LFM has the disadvantage of very high sidelobes at about \SI{-13}{\decibel}.  These can be mitigate with amplitude
+tapering, so a Kaiser window is applied to the amplitude.  Based on Equation \eqref{eq:kaiser2}, the parameter $\beta$
+is varied from 0 to 50, and the AF generated and evaluated for each by quantifiying its performance according to the
+metrics described in Section \ref{s:quantifications}. The results are shown in Figure \ref{fig:lfm-isl-15us-opti}.
 
-As expected, the ISL dramatically decreases, as does the PSL. At the same time, the range resolution decreases from
-an initial \SI{40}{\metre} to about \SI{200}{\metre}. The PPR may be the limiting metric here because the tapered signal quickly
-loses half of its energy with only minor amplitude tapering and eventually decreases to about \SI{20}{\percent} of
-the original amplitude, which means the signal loses \SI{80}{\percent} of its energy. This, in turn, means reduced sensitivity.
+As expected, the ISL dramatically decreases, as does the PSL. At the same time, the range resolution decreases from an
+initial \SI{40}{\metre} to about \SI{200}{\metre}. The PPR may be the limiting metric here because the tapered signal
+quickly loses half of its energy with only minor amplitude tapering and eventually decreases to about \SI{20}{\percent}
+of the original amplitude, which means the signal loses \SI{80}{\percent} of its energy. This, in turn, means reduced
+sensitivity.
 
 
 
@@ -212,12 +204,12 @@ the original amplitude, which means the signal loses \SI{80}{\percent} of its en
 \end{figure}
 
 
-Clearly, a tradeoff must be made. If the half power point is selected, the waveform would have an ISL of about \SI{-20}{\decibel}, 
-PSL of \SI{-33}{\decibel}, and a range resolution of \SI{68}{\metre}.
+Clearly, a tradeoff must be made. If the half power point is selected, the waveform would have an ISL of about
+\SI{-20}{\decibel}, PSL of \SI{-33}{\decibel}, and a range resolution of \SI{68}{\metre}.
 
-The corresponding zero Doppler cut of the AF at this point is shown in figure \ref{fig:lfm-isl-15us-opti-slice13}. It 
-clearly shows the sidelobes at about \SI{-70}{\decibel}, which means this waveform would be adequate for typical weather observations if the 
-\SI{3}{\decibel} loss in power can be accepted.
+The corresponding zero Doppler cut of the AF at this point is shown in figure \ref{fig:lfm-isl-15us-opti-slice13}. It
+clearly shows the sidelobes at about \SI{-70}{\decibel}, which means this waveform would be adequate for typical weather
+observations if the \SI{3}{\decibel} loss in power can be accepted.
 
 
 \begin{figure}[H]
@@ -232,15 +224,15 @@ clearly shows the sidelobes at about \SI{-70}{\decibel}, which means this wavefo
 
 
 \section{Non-Linear Frequency Modulation}
-As described in Section \ref{s:nlfm}, the frequency of a frequency modulated signal can be swept non-linearly as well. In
-order to find more useful waveforms for weather radar applications, this work evaluates several different sweep functions 
-described by Equation \eqref{eq:nlfm-sweep} below. The general form is
+As described in Section \ref{s:nlfm}, the frequency of a frequency modulated signal can be swept non-linearly as well.
+In order to find more useful waveforms for weather radar applications, this work evaluates several different sweep
+functions described by Equation \eqref{eq:nlfm-sweep} below. The general form is
 
 \begin{equation}
 \label{eq:nlfm-sweep}
   f(t) = a t^7 + t,
 \end{equation}
-where $a$ varies from 0 to 10. Whole functions for different values of $a$ are shown in figure \ref{fig:nlfm-functions}. 
+where $a$ varies from 0 to 10. Whole functions for different values of $a$ are shown in figure \ref{fig:nlfm-functions}.
 Each function is applied over the pulse length $\tau$ of the signal.
 
 \begin{figure}[H]
@@ -249,19 +241,21 @@ Each function is applied over the pulse length $\tau$ of the signal.
 \label{fig:nlfm-functions}
 \end{figure}
 
-For each function, a waveform and ambiguity functions are generated and then evaluated according to the optimizations described
-in Section \ref{s:quantifications}. It is then determined which sweep function is best suited for weather radar applications, 
-and further changes to the setup are made to combine it with amplitude tapering to try and achieve even better performance.
+For each function, a waveform and ambiguity functions are generated and then evaluated according to the optimizations
+described in Section \ref{s:quantifications}. It is then determined which sweep function is best suited for weather
+radar applications, and further changes to the setup are made to combine it with amplitude tapering to try and achieve
+even better performance.
 
 
 \subsection{Parameterized NLFM Results}
 \label{s:nlfm-only-results}
-Figure \ref{fig:nlfm-side-15us-opti} shows the results for varying NLFM waveforms in regards to ISL, PSL, and range resolution.
-The closer the frequency modulation function approaches an S-curve, the better the ISL becomes, though it is never
-fantastic. The maximum ISL is around \SI{-15}{\decibel}. The PSL decreases rapidly first to about 
-\SI{-13}{\decibel} and then slowly decreases to about \SI{-20}{\decibel}, where it stays fairly constant. The range resolution
-gets progressively worse, starting at about \SI{30}{\metre} and increasing to about \SI{220}{\metre}, meaning the mainlobe broadens.
-This also explains the decreasing and eventually constant PSL, because the whole AF is one big mainlobe with only minimal sidelobes.
+Figure \ref{fig:nlfm-side-15us-opti} shows the results for varying NLFM waveforms in regards to ISL, PSL, and range
+resolution.  The closer the frequency modulation function approaches an S-curve, the better the ISL becomes, though it
+is never fantastic. The maximum ISL is around \SI{-15}{\decibel}. The PSL decreases rapidly first to about
+\SI{-13}{\decibel} and then slowly decreases to about \SI{-20}{\decibel}, where it stays fairly constant. The range
+resolution gets progressively worse, starting at about \SI{30}{\metre} and increasing to about \SI{220}{\metre}, meaning
+the mainlobe broadens.  This also explains the decreasing and eventually constant PSL, because the whole AF is one big
+mainlobe with only minimal sidelobes.
 
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/nlfm-side-15us-opti.png}
@@ -269,12 +263,13 @@ This also explains the decreasing and eventually constant PSL, because the whole
 \label{fig:nlfm-side-15us-opti}
 \end{figure}
 
-To get a better picture of the NLFM waveforms, consider Figure \ref{fig:nlfm-side-15us-0D-1}, showing the zero-Doppler slice of
-the NLFM waveform generated with the sweep function with $a=2.9293$. The mainlobe is fairly wide, though only about \SI{50}{\metre}
-at the \SI{3}{\decibel} point. The sidelobes are better than those of the LFM waveform at slightly higher than \SI{-30}{\decibel}.
-In comparison, Figure \ref{fig:nlfm-side-15us-0D-2} shows the NLFM waveform generated with the sweep function with $a=6.46$. 
-Altough the sidelobes are a little lower at \SI{-40}{\decibel} and the range resolution at the \SI{3}{\decibel} point is still 
-only about \SI{70}{\metre}, the mainlobe quickly becomes very wide, making it not ideal for weather radar applications.
+To get a better picture of the NLFM waveforms, consider Figure \ref{fig:nlfm-side-15us-0D-1}, showing the zero-Doppler
+slice of the NLFM waveform generated with the sweep function with $a=2.9293$. The mainlobe is fairly wide, though only
+about \SI{50}{\metre} at the \SI{3}{\decibel} point. The sidelobes are better than those of the LFM waveform at slightly
+higher than \SI{-30}{\decibel}.  In comparison, Figure \ref{fig:nlfm-side-15us-0D-2} shows the NLFM waveform generated
+with the sweep function with $a=6.46$.  Altough the sidelobes are a little lower at \SI{-40}{\decibel} and the range
+resolution at the \SI{3}{\decibel} point is still only about \SI{70}{\metre}, the mainlobe quickly becomes very wide,
+making it not ideal for weather radar applications.
 
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/nlfm-side-15us-0D-1.png}
@@ -290,15 +285,14 @@ only about \SI{70}{\metre}, the mainlobe quickly becomes very wide, making it no
 
 \subsection{Parameterized NLFM with Amplitude Tapering}
 In order to improve the performance of the varying NLFM waveforms, Kaiser windows are applied to taper the amplitude.
-The X and Y axes of the following figures
-show the parameters of the Kaiser window, $\beta$, and NLFM sweep function, $a$, respectively. For each combination of $\beta$ and $a$,
-a waveform and AF are generated and then evaluated.
-The results are presented in Figures \ref{fig:nlfm-kaiser-15us-opti-isl}-\ref{fig:nlfm-kaiser-15us-opti-res}.
+The X and Y axes of the following figures show the parameters of the Kaiser window, $\beta$, and NLFM sweep function,
+$a$, respectively. For each combination of $\beta$ and $a$, a waveform and AF are generated and then evaluated.  The
+results are presented in Figures \ref{fig:nlfm-kaiser-15us-opti-isl}-\ref{fig:nlfm-kaiser-15us-opti-res}.
 
-Looking at the ISL in figure \ref{fig:nlfm-kaiser-15us-opti-isl}, it can be seen that the waveform that is most aggressively 
-tapered generally has better ISL performance. The same is true for the NLFM parameter $a$, i.e., for higher $a$, ISL is lower.
-Next, the PSL shown in figure \ref{fig:nlfm-kaiser-15us-opti-psl} closely mirrors the shape of the ISL optimization,
-so the same discussion applies to it.
+Looking at the ISL in figure \ref{fig:nlfm-kaiser-15us-opti-isl}, it can be seen that the waveform that is most
+aggressively tapered generally has better ISL performance. The same is true for the NLFM parameter $a$, i.e., for higher
+$a$, ISL is lower.  Next, the PSL shown in figure \ref{fig:nlfm-kaiser-15us-opti-psl} closely mirrors the shape of the
+ISL optimization, so the same discussion applies to it.
 
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/nlfm-kaiser-15us-opti-isl.png}
@@ -310,14 +304,14 @@ so the same discussion applies to it.
 \end{figure}
 
 
-The PPR in Figure \ref{fig:nlfm-kaiser-15us-opti-ppr} is the same for each waveform, because it only depends on 
-the shape of the amplitude tapering function determined by the Kaiser parameter. As described previously, the power decreases rapidly
-as $\beta$ in the Kaiser window function increases.
+The PPR in Figure \ref{fig:nlfm-kaiser-15us-opti-ppr} is the same for each waveform, because it only depends on the
+shape of the amplitude tapering function determined by the Kaiser parameter. As described previously, the power
+decreases rapidly as $\beta$ in the Kaiser window function increases.
 
-Similar to the NLFM-only case in Section \ref{s:nlfm-only-results}, the range resolution
-decreases slightly as the NLFM parameter $a$ increases. The same happens for an increasing Kaiser parameter $\beta$.
-The effect of both together, however, is compounded such that a large $\beta$ and large $a$ result in a decrease in range
-resolution that is much larger than a mere linear superposition of both individually.
+Similar to the NLFM-only case in Section \ref{s:nlfm-only-results}, the range resolution decreases slightly as the NLFM
+parameter $a$ increases. The same happens for an increasing Kaiser parameter $\beta$.  The effect of both together,
+however, is compounded such that a large $\beta$ and large $a$ result in a decrease in range resolution that is much
+larger than a mere linear superposition of both individually.
 
 
 \begin{figure}[H]
@@ -331,15 +325,15 @@ resolution that is much larger than a mere linear superposition of both individu
 
 
 
-To give some examples, Figure \ref{fig:nlfm-kaiser-slices-15us} shows zero-Doppler cuts of a few waveforms with
-varying values for $a$ and $\beta$. Similar to the untapered NLFM waveforms, the top left figure shows sidelobes of about
-\SI{-40}{\decibel} with only mild tapering, with range resolution of about \SI{180}{\metre}. 
-With more aggressive tapering, sidelobes decrease to about \SI{-70}{\decibel}
-while sacrificing range resolution, which is about \SI{280}{\metre}, shown on the top right,
+To give some examples, Figure \ref{fig:nlfm-kaiser-slices-15us} shows zero-Doppler cuts of a few waveforms with varying
+values for $a$ and $\beta$. Similar to the untapered NLFM waveforms, the top left figure shows sidelobes of about
+\SI{-40}{\decibel} with only mild tapering, with range resolution of about \SI{180}{\metre}.  With more aggressive
+tapering, sidelobes decrease to about \SI{-70}{\decibel} while sacrificing range resolution, which is about
+\SI{280}{\metre}, shown on the top right,
 
-The bottom two figures show very low sidelobes, but fairly low range resolution at \SI{300}{\metre} and \SI{400}{\metre} on 
-the left and right, respectively. These are not ideal for weather radar applications because even though the sidelobes are
-sufficiently low, range resolution is not fine enough.
+The bottom two figures show very low sidelobes, but fairly low range resolution at \SI{300}{\metre} and \SI{400}{\metre}
+on the left and right, respectively. These are not ideal for weather radar applications because even though the
+sidelobes are sufficiently low, range resolution is not fine enough.
 
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/nlfm-kaiser-slices-15us.png}
@@ -352,9 +346,9 @@ sufficiently low, range resolution is not fine enough.
 
 
 \section{Effects of Impulse Response on the Ambiguity Function}
-As discussed in Section \ref{s:ireffects}, as the return signal passes through the receive chain, it will be distorted by the
-impulse response of the amplifier. The effects of that on the waveform are presented here.
-To provide a baseline, Figure \ref{fig:pulsewoir-15us} shows a rectangular pulse that is undistorted as a reference again.
+As discussed in Section \ref{s:ireffects}, as the return signal passes through the receive chain, it will be distorted
+by the impulse response of the amplifier. The effects of that on the waveform are presented here.  To provide a
+baseline, Figure \ref{fig:pulsewoir-15us} shows a rectangular pulse that is undistorted as a reference again.
 
 \begin{figure}[!ht]
 \includegraphics[width=\imgsize]{figures/pulsewoir-15us.png}
@@ -363,9 +357,9 @@ To provide a baseline, Figure \ref{fig:pulsewoir-15us} shows a rectangular pulse
 \end{figure}
 
 
-Figure \ref{fig:pulsewir-15us} shows the AF for a pulse that
-has been distorted by the transfer function shown in figure \ref{fig:tf1}. Since the exact shape of the impulse response of 
-the PX1000 mobile radar is still unknown, it is approximated with a Rayleigh-shaped function.
+Figure \ref{fig:pulsewir-15us} shows the AF for a pulse that has been distorted by the transfer function shown in figure
+\ref{fig:tf1}. Since the exact shape of the impulse response of the PX1000 mobile radar is still unknown, it is
+approximated with a Rayleigh-shaped function.
 
 \begin{figure}[!ht]
 \includegraphics[width=\imgsize]{figures/tf1.png}
@@ -380,9 +374,8 @@ the PX1000 mobile radar is still unknown, it is approximated with a Rayleigh-sha
 \end{figure}
 
 
-The result is not unexpected. First, there is again
-no visible distortion in the Doppler dimension, which is the same as the simple rectangular pulse. The only effect is in the 
-range delay dimension. There, the asymmetric shape of the impulse response is reflected in the range delay of the AF. This
-distortion is not desirable and should be corrected.
+The result is not unexpected. First, there is again no visible distortion in the Doppler dimension, which is the same as
+the simple rectangular pulse. The only effect is in the range delay dimension. There, the asymmetric shape of the
+impulse response is reflected in the range delay of the AF. This distortion is not desirable and should be corrected.
 
 

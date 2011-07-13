@@ -1,17 +1,15 @@
-Before going into more detail about pulse compression, the general components of waveforms and their design
-will be discussed. The basic elements of a waveform that can be manipulated are its amplitude, phase,
-frequency, and timing. Each of these components can be designed to adhere to the required specifications, and
-will be described in more detail in this chapter.
+Before going into more detail about pulse compression, the general components of waveforms and their design will be
+discussed. The basic elements of a waveform that can be manipulated are its amplitude, phase, frequency, and timing.
+Each of these components can be designed to adhere to the required specifications, and will be described in more detail
+in this chapter.
 
 \section{Pulse Repetition Time}
+The pulse repetition time (PRT) is the time between two consecutive pulses and is often denoted as $T_s$.  Another way
+to describe the timing of consecutive pulses is the pulse repetition frequency (PRF), which is simply the inverse of the
+PRT. Both are used in literature to describe the same concept.
 
-The pulse repetition time (PRT) is the time between two consecutive pulses and is often denoted as $T_s$.
-Another way to describe the timing of consecutive
-pulses is the pulse repetition frequency (PRF), which is simply the inverse of the PRT. Both are used in literature
-to describe the same concept.
-
-The PRT determines two very important aspects of a radar, the \emph{unambiguous range} $r_a$ and the \emph{unambiguous velocity}
-$v_a$. They are given by the following equations \citep[p. 60f]{Doviak:2006}.
+The PRT determines two very important aspects of a radar, the \emph{unambiguous range} $r_a$ and the \emph{unambiguous
+velocity} $v_a$. They are given by the following equations \citep[p. 60f]{Doviak:2006}.
 
 \begin{equation}
 \label{eq:unambrange}
@@ -25,97 +23,117 @@ where $ c = \SI{3e8}{\metre\per\second}$ is the speed of light, and
 \end{equation}
 where $\lambda$ is the wavelength of the radar.
 
-The unambiguous range describes the maximum range of the radar up to which no second trip echoes occur.
-A second trip echo is the return signal caused by the first pulse, but is received after the second pulse
-has already been sent. For example, if $r_a = \SI{100}{\kilo\metre}$, and there is a target at a distance
-\SI{150}{\kilo\metre} from the radar, it will appear to the radar to be only \SI{50}{\kilo\metre} away.
-To increase the unambiguous range, then, a long PRT is needed.
+The unambiguous range describes the maximum range of the radar up to which no second trip echoes occur.  A second trip
+echo is the return signal caused by the first pulse, but is received after the second pulse has already been sent. For
+example, if $r_a = \SI{100}{\kilo\metre}$, and there is a target at a distance \SI{150}{\kilo\metre} from the radar, it
+will appear to the radar to be only \SI{50}{\kilo\metre} away.  To increase the unambiguous range, then, a long PRT is
+needed.
 
-The unambiguous velocity is measure of the maximum velocity that the radar can determine without velocity aliasing
-to occur. The principle is similar to that of unambiguous range. Velocities ``wrap around'', so with $v_a= \SI{50}{\metre\per\second}$, 
-a target moving at \SI{75}{\metre\per\second} will appear to only be moving at \SI{25}{\metre\per\second}.
+The unambiguous velocity is measure of the maximum velocity that the radar can determine without velocity aliasing to
+occur. The principle is similar to that of unambiguous range. Velocities ``wrap around'', so with $v_a=
+\SI{50}{\metre\per\second}$, a target moving at \SI{75}{\metre\per\second} will appear to only be moving at
+\SI{25}{\metre\per\second}.
 
-However, while the unambiguous range is proportional to the PRT, unambiguous velocity is inversely proportional to it.  
-That means that, if the PRT is large, the unambiguous velocity will be low and velocity aliasing will become more likely, but
-if the PRT is low, unambiguous range is low as well.
-The resulting problem is called the Doppler dilemma, which states that one can either achieve high unambiguous
-range or high unambiguous velocity, but not both \citep[p. 60f]{Doviak:2006}
+However, while the unambiguous range is proportional to the PRT, unambiguous velocity is inversely proportional to it.
+That means that, if the PRT is large, the unambiguous velocity will be low and velocity aliasing will become more
+likely, but if the PRT is low, unambiguous range is low as well.  The resulting problem is called the Doppler dilemma,
+which states that one can either achieve high unambiguous range or high unambiguous velocity, but not both \citep[p.
+60f]{Doviak:2006}
 
 
 \section{Staggered PRT}
-As mentioned earlier, the problem with a single PRT is the so-called Doppler dilemma. A short PRT provides high
-unambiguous Doppler
-velocity, while a long PRT gives us a long unambiguous range. Neither gives us both.
-To fix this problem, some radars use two different PRTs, a long and a short one, and combine measurements of 
-both to increase unambiguous velocity.
-Typically, the long PRT is chosen based on the desired unambiguous range, while at the same time maximizing
-the unambiguous velocity of the combination of both, defined as \citep[p. 173]{Doviak:2006}
+As mentioned earlier, the problem with a single PRT is the so-called Doppler dilemma. A short
+PRT provides high unambiguous Doppler velocity, while a long PRT gives us a long unambiguous range. Neither gives us
+both.  To fix this problem, some radars use two different PRTs, a long and a short one, and combine measurements of both
+to increase unambiguous velocity.  Typically, the long PRT is chosen based on the desired unambiguous range, while at
+the same time maximizing the unambiguous velocity of the combination of both, defined as \citep[p. 173]{Doviak:2006}
+
 \begin{equation}
   \label{eq:vm}
   v_m = \pm \frac{\lambda}{4(T_{s2} - T_{s1})}
 \end{equation}
 
-The disadvantage is a longer scan time, since every radial now has to be scanned twice, once with the short
-and once with the long pulse, doubling the time between sweeps. For some applications, this is not an acceptable
-trade-off.
+The disadvantage is a longer scan time, since every radial now has to be scanned twice, once with the short and once
+with the long pulse, doubling the time between sweeps. For some applications, this is not an acceptable trade-off.
 
 \section{Clutter Filtering}
 
 
 \section{Inter-pulse Coding}
-A coded pulse is in some way modulated, so it is not just rectangular. The idea is to code subsequent pulses
-with a different phase, such that the received echoes can be paired up with a certain pulse. That way, an echo from the first
-pulse that is received after the second pulse has already been transmitted can be identified to belong to the first pulse
-and thus distinguished from echoes caused by the second pulse.
+A coded pulse is in some way modulated, so it is not just rectangular. The idea is to code subsequent pulses with a
+different phase, such that the received echoes can be paired up with a certain pulse. That way, an echo from the first
+pulse that is received after the second pulse has already been transmitted can be identified to belong to the first
+pulse and thus distinguished from echoes caused by the second pulse.
 
-This allows the use of a small PRT, resulting in good unambiguous velocity, but also the ability to unfold second, third,
-or even fourth trip echoes correctly. One such implementation is called SZ phase codes.
-For this technique, every other pulse is phase shifted by a certain sequence $a_k = e^{j \Psi_k}$. On receive, the signal
-can be decoded by multiplying it with the complex conjugate of the coding sequence, $a^*_k$. For more details, refer to \cite{Sachidananda:1999}.
+This allows the use of a small PRT, resulting in good unambiguous velocity, but also the ability to unfold second,
+third, or even fourth trip echoes correctly. One such implementation is called SZ phase codes.  For this technique,
+every other pulse is phase shifted by a certain sequence $a_k = e^{j \Psi_k}$. On receive, the signal can be decoded by
+multiplying it with the complex conjugate of the coding sequence, $a^*_k$. For more details, refer to
+\cite{Sachidananda:1999}.
 
 \section{Pulse Length}
-The previous techniques were independent of the pulse length. However, pulse length, usually denoted by $\tau$, does affect
-the performance of the radar.
-For example, by using a longer pulse, the target is illuminated by more energy, thus increasing
-the sensitivity of the radar. On the other hand, a longer pulse will
-also decrease range resolution, which is defined as
+The previous techniques were independent of the pulse length. However, pulse length, usually
+denoted by $\tau$, does affect the performance of the radar.  For example, by using a longer pulse, the target is
+illuminated by more energy, thus increasing the sensitivity of the radar. On the other hand, a longer pulse will also
+decrease range resolution, which is defined as
+
 \begin{equation}
 \label{eq:rangeres}
 \Delta r = \frac{c \tau}{2}.
 \end{equation}
-However, depending on the application, simply increasing the pulse length to increase sensitivity may not be a desirable solution.
+However, depending on the application, simply increasing the pulse length to increase sensitivity may not be a desirable
+solution.
 
-\section{Amplitude}
-Together with the pulse length, the amplitude of the pulse determines how much energy is transmitted on target.
-It depends on the amplifier, which will also affect what kind of pulse lengths and pulse repetition times are possible.
-The radar's average power is an important metric that relates amplifier peak power, pulse
-length, and pulse repetition time, as described in \cite[p. 74]{Skolnik:2001} and shown as Equation \ref{eq:avgpower}.
+The bandwidth of pulse is determined by its shape. Taking the Fourier transform of the pulse yields its frequency
+spectrum. A perfectly rectangular pulse will have infinite bandwidth, so it's impossible to generate such a pulse. 
+
+\section{Transmitters}
+The transmitter affects the amplitude and length of the pulse, determining the energy that is
+transmitted onto the target.  This energy is usually expressed in terms of the radar's average power,which is an
+important metric that relates amplifier peak power, pulse length, and pulse repetition time, as described in \cite[p.
+74]{Skolnik:2001} and shown as Equation \ref{eq:avgpower}.
 
 \begin{equation}
   \label{eq:avgpower}
   P_{av} = \frac{P_t \tau}{T_s},
 \end{equation}
+The goal is to output as much power as possible to improve the maximum range and SNR of the radar .
 
-The goal is to output as much power as possible to improve the maximum range of the radar and signal-to-noise ratio.
+The most commonly used transmitters are Klystrons, Magnetrons, Traveling Wave Tubes (TWT), and Solid-State Transistor
+Amplifiers.  Klystrons are capable of high average and peak power with good gain and efficiency, and wide bandwidth
+\citep[p. 692]{Skolnik:2001}.  However, to achieve large peak powers, high voltages and X-ray shielding are required,
+limiting klystrons to mostly stationary radars that have access to a high voltage power source. Klystrons are
+\emph{Linear-Beam Power Tubes} in which electrons are emitted from a cathode, formed into a beam and shot towards a
+collector. Between the cathode and the collector are RF cavities at which the electrons interact with an input signal,
+amplifying it. The amplified signal is then delivered to the output cavity and further down the transmit chain of the
+radar.  TWTs are similar to klystrons in terms of architecture, but power and bandwidth are not as high as those of a
+klystron.  Magnetrons are not technically amplifiers but oscillators. They are smaller than klystrons and operate at
+lower voltages, but have poor noise and stability performance \citep[p. 693]{Skolnik:2001}.  Lastly, Solid-State
+Transistor Amplifiers were already described briefly in Section \ref{s:par}, where they are said to operate at lower
+voltages and have much lower gain than klystrons or magnetrons. On the other hand, they are very reliable, easy to
+maintain, and have long life. They are also capable of wider bandwidth than klystrons or magnetrons \citep[p.
+702]{Skolnik:2001}. If the long duty cycles and related need for longer pulses is acceptable, they are a good choice for
+powering radars, especially in situations where size restricts the use of the other transmitters that have been
+discussed.
 
-Another important component is the low-noise amplifier (LNA) in the receive chain, which also influences the sensitivity of the
-radar by amplifying the return signal while at the same time adding as little additional noise as possible. Using better
-quality amplifiers in a system increases it price together with its performance, but is not always an option, e.g. for legacy
-systems that are already operational or simply budget reasons for new systems.
+Another important component is the low-noise amplifier (LNA) in the receive chain, which also influences the sensitivity
+of the radar by amplifying the return signal while at the same time adding as little additional noise as possible. Using
+better quality amplifiers in a system increases it price together with its performance, but is not always an option,
+e.g. for legacy systems that are already operational or simply budget reasons for new systems.
 
 
 \section{Pulse Compression}
 \label{s:2pc}
-At the heart of pulse compression is the matched filter. It is called that because its response is matched to the transmitted
-waveform. As the waveform passes through the filter, it is compressed in range and will ideally concentrate most of the energy
-in a narrow mainlobe with no or low sidelobes. The process of the return waveform passing through the matched filter can be 
-described by the cross correlation function of the filter and the return signal
-received back at the radar. Ideally this will be identical to the autocorrelation function, i.e., the matched filter response
-and the return signal will be identical. Although this is almost never the case, leading to so-called mismatch loss,
-this work will only refer to autocorrelation function (ACF).
+At the heart of pulse compression is the matched filter. It is called that because its response is matched to the
+transmitted waveform. As the waveform passes through the filter, it is compressed in range and will ideally concentrate
+most of the energy in a narrow mainlobe with no or low sidelobes. The process of the return waveform passing through the
+matched filter can be described by the cross correlation function of the filter and the return signal received back at
+the radar. Ideally this will be identical to the autocorrelation function, i.e., the matched filter response and the
+return signal will be identical. Although this is almost never the case, leading to so-called mismatch loss, this work
+will only refer to autocorrelation function (ACF).
 
-More formally, then, the matched filter response is defined as the convolution between the signal $u(t)$ and its impulse response,
-$h(t)$ \citep{Levanon:2004}.
+More formally, then, the matched filter response is defined as the convolution between the signal $u(t)$ and its impulse
+response, $h(t)$ \citep{Levanon:2004}.
 
 \begin{equation}
   \label{eq:filterresponse}
@@ -127,8 +145,8 @@ Furthermore, since the filter is matched, and maximizing the SNR, the impulse re
 \begin{equation}
   h(t) = K u^*(t_0-t),j
 \end{equation}
-where K is an arbitrary constant. Choosing $t_0=0, K=1$ and substituting back into Equation \eqref{eq:filterresponse} yields
-the autocorrelation function.
+where K is an arbitrary constant. Choosing $t_0=0, K=1$ and substituting back into Equation \eqref{eq:filterresponse}
+yields the autocorrelation function.
 \begin{equation}
   \label{eq:acf}
   \text{ACF}(t) = \int_{-\infty}^{\infty}{u(\tau) u^*(\tau-t) d\tau}.
