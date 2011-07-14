@@ -31,15 +31,32 @@ where $ c = \SI{3e8}{\metre\per\second}$ is the speed of light, and
 where $\lambda$ is the wavelength of the radar.
 
 The unambiguous range describes the maximum range of the radar up to which no second trip echoes occur.  A second trip
-echo is the return signal caused by the first pulse, but is received after the second pulse has already been sent. For
+echo is the return signal caused by the first pulse, but is received after the second pulse has already been sent.
+Referring to Figure \ref{fig:rangealiasing}, for
 example, if $r_a = \SI{100}{\kilo\metre}$, and there is a target at a distance \SI{150}{\kilo\metre} from the radar, it
 will appear to the radar to be only \SI{50}{\kilo\metre} away.  To increase the unambiguous range, then, a long PRT is
 needed.
 
+\begin{figure}[H]
+\includegraphics[width=\imgsizes]{figures/rangealiasing.png}
+\caption{Diagram explaining the unambiguous range. Targets that are outside the unambiguous range will fold over and
+appear at the wrong location. }
+\label{fig:rangealiasing}
+
+\includegraphics[width=\imgsizes]{figures/velocityaliasing.png}
+\caption{Diagram explaining the unambiguous velocity. Targets that move at velocities outside the unambiguous velocity will fold over and
+appear to move slower or faster than they actually do. }
+\label{fig:velocityaliasing}
+\end{figure}
+
 The unambiguous velocity is measure of the maximum velocity that the radar can determine without velocity aliasing to
-occur. The principle is similar to that of unambiguous range. Velocities ``wrap around'', so with $v_a=
+occur. The principle is similar to that of unambiguous range. Velocities ``wrap around'', so looking at Figure
+\ref{fig:velocityaliasing}, e.g.,  with $v_a=
 \SI{50}{\metre\per\second}$, a target moving at \SI{75}{\metre\per\second} will appear to only be moving at
-\SI{25}{\metre\per\second}.
+\SI{25}{\metre\per\second} in the opposite direction.
+
+
+
 
 However, while the unambiguous range is proportional to the PRT, unambiguous velocity is inversely proportional to it.
 That means that, if the PRT is large, the unambiguous velocity will be low and velocity aliasing will become more
@@ -214,6 +231,8 @@ autocorrelation function (ACF) of $s(t)$:
   \label{eq:acf}
   s_o(0) = \text{ACF}(s(t)) = \int_{-\infty}^{\infty}{s(\tau) s^*(\tau-t) d\tau}.
 \end{equation}
+
+An example ACF for a rectangular pulse is shown in Figure \ref{fig:acf}.
 This is an important function because it describes the output of the radar depending on the waveform $s(t)$ used. It is
 the basis of analyzing the performance of radar signals in this work. As discussed before, the best result is achieved
 when the filter matches the waveform exactly. If that is not the case and there is a mismatch between the filter and the
@@ -222,7 +241,13 @@ to the return signal by a moving target. Adding that phase shift, given by $e^{-
 Doppler frequency, provides the basis for the main tool of evaluating waveforms in this work, the \emph{Ambiguity
 Function}, or AF.
 
-TODO: add graph for ACF
+
+\begin{figure}[h]
+\includegraphics[width=\imgsize]{figures/acf.png}
+\caption{DRAFT: ACF of a rectangular pulse. Similar to the convolution, the output of the matched filter of a
+rectangular pulse is a triangle.}
+\label{fig:acf}
+\end{figure}
 
 
 \section{Ambiguity Function}
