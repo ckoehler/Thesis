@@ -164,12 +164,12 @@ performance of waveform. Only a few different types will be discussed here.  The
 \subsection{Binary Codes}
 Binary codes vary the phase of the signal in increments of $\pi$.  The most commonly known phase code is the Barker
 code, which is believed to exist up to a length of 13 \citep[p. 106]{Levanon:2004}.  The Barker 13 code looks like +1 +1
-+1 +1 +1 -1 -1 +1 +1 -1 +1 -1 +1. It is called a ``perfect" code because its autocorrelation has a main lobe of 13 and
++1 +1 +1 -1 -1 +1 +1 -1 +1 -1 +1. It is called a ``perfect" code because its ACF has a main lobe of 13 and
 sidelobes of no more than 1, as depicted in Figure \ref{fig:barker13-acf}.
 
 \begin{figure}[h]
 \includegraphics[width=\imgsize]{figures/barker13-acf.png}
-\caption{Autocorrelation function of the Barker code with length 13. Barker codes are ``perfect'', meaning they have minimal
+\caption{ACF of the Barker code with length 13. Barker codes are ``perfect'', meaning they have minimal
 sidelobes.}
 \label{fig:barker13-acf}
 \end{figure}

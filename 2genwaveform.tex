@@ -16,7 +16,7 @@ to describe the timing of consecutive pulses is the pulse repetition frequency (
 PRT. Both are used in literature to describe the same concept.
 
 The PRT determines two very important aspects of a radar, the \emph{unambiguous range} $r_a$ and the \emph{unambiguous
-velocity} $v_a$. They are given by the following equations \citep[p. 60f]{Doviak:2006}.
+velocity} $v_a$. They are given by the following equations \citep[p. 60-61]{Doviak:2006}.
 
 \begin{equation}
 \label{eq:unambrange}
@@ -45,7 +45,7 @@ appear at the wrong location. }
 
 \includegraphics[width=\imgsizes]{figures/velocityaliasing.png}
 \caption{Diagram explaining the unambiguous velocity. Targets that move at velocities outside the unambiguous velocity will fold over and
-appear to move slower or faster than they actually do. }
+appear to move more slowly than they actually do. }
 \label{fig:velocityaliasing}
 \end{figure}
 
@@ -62,7 +62,7 @@ However, while the unambiguous range is proportional to the PRT, unambiguous vel
 That means that, if the PRT is large, the unambiguous velocity will be low and velocity aliasing will become more
 likely, but if the PRT is low, unambiguous range is low as well.  The resulting problem is called the Doppler dilemma,
 which states that one can either achieve high unambiguous range or high unambiguous velocity, but not both \citep[p.
-60f]{Doviak:2006}
+60-61]{Doviak:2006}
 
 
 \section{Staggered PRT}
@@ -146,7 +146,7 @@ better quality amplifiers in a system increases it price together with its perfo
 e.g., for legacy systems that are already operational or simply budget reasons for new systems.
 
 
-\section{Pulse Compression}
+\section{Matched Filter}
 \label{s:2pc}
 At the heart of pulse compression is the matched filter, which draws its name due to the fact that it is matched to the
 transmitted waveform. As the waveform passes through the filter, it is compressed in range and will ideally concentrate
@@ -244,7 +244,7 @@ Function}, or AF.
 
 \begin{figure}[h]
 \includegraphics[width=\imgsize]{figures/acf.png}
-\caption{DRAFT: ACF of a rectangular pulse. Similar to the convolution, the output of the matched filter of a
+\caption{ACF of a rectangular pulse. Similar to the convolution, the output of the matched filter of a
 rectangular pulse is a triangle.}
 \label{fig:acf}
 \end{figure}
@@ -280,8 +280,7 @@ Evaluate the integrals to get:
 \begin{equation}
   |\chi(\tau,v)| = \left|\left(1-\frac{|\tau|}{T}\right) \frac{\sin[\pi T v(1- \frac{|\tau|}{T})]}{\pi T v(1- \frac{|\tau|}{T})}\right|, |\tau| \leq T, \text{zero elsewhere}
 \end{equation}
-
-For $\tau=0$, the result is the sinc function, for $v=0$ it is simply the autocorrelation function of a pulse, which is
+For $\tau=0$, the result is the sinc function, for $v=0$ it is simply the ACF of a pulse, which is
 a triangle.
 
 The ideal AF shape depends on the application. One useful AF looks like a thumbtack and provides good range and Doppler
