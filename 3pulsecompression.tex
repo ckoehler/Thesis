@@ -10,9 +10,9 @@ One way to suppress the sidelobes is to taper the amplitude of the signal such t
 the edges of the signal in order to reduce so-called \emph{spectral leakage} caused by working with finite sequences of
 signal data \citep{Harris:1978}. In terms of bandwidth, discontinuities introduce sharp edges that, similar to a
 perfectly rectangular pulse, increase the bandwidth needed to properly process the signal. Since the bandwidth of any
-system is limited, amplitude tapering can help condition the signal to be properly processed. However, this has at least
+system is limited, amplitude tapering can help condition the signal to match the bandwidth requirements of the system. However, this has at least
 two disadvantages.  First, less energy is illuminating the target because the amplifier does not transmit as much power
-for an amplitude-tapered waveform compared to a rectangular pulse. This results in a lower SNR, which has a negative
+for an amplitude-tapered waveform as a rectangular pulse. This results in a lower SNR, which has a negative
 impact on detection. Second, the mainlobe is broadened, resulting in a decrease in spatial resolution.
 
 In this work, the Kaiser window is chosen because its shape can be changed based on only one parameter $\alpha$.
@@ -48,13 +48,13 @@ of a rectangular pulse is given as a reference.}
 
 Figure \ref{fig:fftspec} shows the frequency spectrum of a rectangular pulse compared to pulses that have been tapered
 with different Kaiser windows. The spectrum of the rectangular pulse is a sinc function with sidelobes extending into
-infinity. Applying a window lowers and finally removes the sidelobes with sufficiently aggressive tapering and broadens the
-mainlobe. As mentioned previously, tapering also limits the bandwidth of the signal.
+infinity. Applying a window lowers the sidelobes and, with sufficiently aggressive tapering, removes them completely. It
+also broadens the mainlobe. As mentioned previously, tapering can also limit the bandwidth of the signal.
 
-One important consideration is the choice of amplifier used in the system. Most transmitters operate most efficiently in
-saturation, i.e., completely on \citep[p. 692]{Skolnik:2001}. For amplitude tapering to work, the transmitter must
-operate linearly, which means it is not operating at peak efficiency. This loss in power will result in decreased
-sensitivity, so again the trade-offs of this method must be considered.
+To make use of amplitude tapering, one important consideration is the choice of amplifier used in the system. Most
+transmitters operate most efficiently in saturation, i.e., completely on \citep[p. 692]{Skolnik:2001}. For amplitude
+tapering to work, the transmitter must operate linearly, which means it is not operating at peak efficiency. This loss
+in power will result in decreased sensitivity, so again the trade-offs of this method must be considered.
 
 
 
@@ -67,7 +67,7 @@ examine how both schemes work by comparing them to amplitude modulation, discuss
 \subsection{Linear Frequency Modulation}
 \label{s:lfm}
 For LFM, the frequency of the pulse is simply modulated linearly
-over a certain bandwidth $B$, called a chirp.  It is defined by:
+over a certain bandwidth $B$. This called a chirp and defined by:
 
 \begin{equation}
 \label{eq:LFM}
@@ -85,9 +85,9 @@ Frequency Modulation and results in a waveform like this.}
 
 The LFM effect is a consequence of a property of the AF.
 This property states that given a signal $u(t)$, if $u(t)$ has an added phase that changes quadratically,
-i.e., $u^{'}(t) = u(t) e^{-j\pi k t^2}$, caused by a certain Doppler shift of frequency $f_d$, this phase change is
+i.e., $u'(t) = u(t) e^{-j\pi k t^2}$, caused by a certain Doppler shift of frequency $f_d$, this phase change is
 equivalent to a linear frequency modulation because the instantaneous frequency $\omega(t)$ is related to the derivative of the
-instantaneous phase $\phi(t)$ like  $\omega(t) = \frac{1}{2 \pi}\frac{d}{dt}\phi(t)$. The resulting AF
+instantaneous phase $\phi(t)$ like  $\omega(t) = \frac{1}{2 \pi}\frac{d}{dt}\phi(t)$. The AF of $u'(t)$
 is $|\chi(\tau,f_d-k\tau)|$ \citep[p. 38]{Levanon:2004}.
 
 
@@ -111,7 +111,6 @@ which is expressed as \citep[p. 196]{Richards:2005}:
   \label{eq:lfm-rangeres}
   \Delta r = \frac{c}{2 B}.
 \end{equation}
-
 This result will be confirmed in the simulation later, where it is shown that the pulse length does not change the shape
 of the mainlobe in the AF.
 
@@ -126,15 +125,17 @@ x(t) =  e^{-j \Phi(t)} = e^{-j 2 \pi \int_0^t{f(x) dx}} ,\ \ 0 \leq t \leq \tau,
 \end{equation}
 where $f(x)$ defines the function of the frequency sweep \citep[p. 88]{Levanon:2004}. 
 
-In the LFM case, $f(x)=kx$, which simplifies Equation \eqref{eq:NLFM} to
+In the LFM case, $f(x)=kx$, which simplifies Equation \eqref{eq:NLFM} to:
 
 \begin{equation}
 \label{eq:NLFM_simp}
 x(t) = e^{j 2 \pi \int_0^t{f(x) dx}} =  e^{j 2 \pi \frac{k t^2}{2}} = e^{j \pi k t^2},
 \end{equation}
-which indicates that a quadratic phase modulation corresponds to a linear frequency change.  In this case, $f(t)$ can be
-any desired function that describes the sweep pattern within the frequency band.  In this work, various sweep patterns
-have been investigated and the results will be presented in Chapter \ref{chap:optimization}.
+which indicates that a quadratic phase modulation corresponds to a linear frequency change.  
+
+However, $f(x)$ can be any function that describes the sweep pattern within the frequency band.  In this work, various
+sweep patterns are investigated and their performance evaluated. The results are presented in Chapter
+\ref{chap:optimization}.
 
 \subsection{Amplitude Tapering Compared to Frequency Modulation}
 Tapering the amplitude of a signal to reduce sidelobes
@@ -142,9 +143,9 @@ delivers the same result as simply sweeping the frequency non-linearly. This rel
 considering the ACF of the signal. The sidelobes appear in the ACF, which is the inverse Fourier transform of the power
 spectrum. Thus modifying the power spectrum, e.g., by amplitude tapering, will likewise change the shape of the ACF.
 
-From this follows that alternatively, the spectrum can be shaped by varying the frequency sweep in a non-linear fashion
-to spend more time at frequencies that should be enhanced \citep[p. 87]{Levanon:2004}. This is called Non-Linear
-Frequency Modulation, or NLFM, which will be considered next.
+From this follows that alternatively, the spectrum can be shaped by varying the frequency sweep non-linearly 
+to spend more time at frequencies that should be enhanced \citep[p. 87]{Levanon:2004}. This is the concept of 
+NLFM and will be considered in the next section.
 
 
 \begin{figure}[h]
@@ -155,9 +156,9 @@ has a similar effect to chirping the frequency of the pulse non-linearly.}
 \end{figure}
 
 
-Figure \ref{fig:nlfmbwspectrum} shows a NLFM pulse and a tapered LFM pulse. An untapered LFM pulse is given for
-comparison. Both NLFM and tapering changes the shape of the mainlobe and sidelobes. Optimizing the shape of the NLFM is
-one of the challenges of waveform design.
+Figure \ref{fig:nlfmbwspectrum} shows the results of a NLFM pulse and a tapered LFM pulse. An untapered LFM pulse
+is given for comparison. Both NLFM and tapering changes the shape of the mainlobe and sidelobes. Optimizing the shape of
+the NLFM is one of the challenges of waveform design.
 
 
 \subsection{Early Use of Frequency Modulation} 

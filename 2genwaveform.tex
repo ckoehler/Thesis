@@ -121,9 +121,10 @@ infinity.}
 \end{figure}
 
 \section{Transmitters}
+\label{s:transmitters}
 The transmitter affects the amplitude and length of the pulse, determining the energy that is
 transmitted onto the target.  This energy is usually expressed in terms of the radar's average power,which is an
-important metric that relates amplifier peak power, pulse length, and pulse repetition time, as described in \cite[p.
+important metric that relates the amplifier's peak power, pulse length, and pulse repetition time, as described in \cite[p.
 74]{Skolnik:2001} and shown as Equation \eqref{eq:avgpower}.
 
 \begin{equation}
@@ -136,13 +137,15 @@ The most commonly used transmitters are Klystrons, Magnetrons, Traveling Wave Tu
 Amplifiers.  Klystrons are capable of high average and peak power with good gain and efficiency, and wide bandwidth
 \citep[p. 692]{Skolnik:2001}.  However, to achieve large peak powers, high voltages and X-ray shielding are required,
 limiting klystrons to mostly stationary radars that have access to a high voltage power source. Klystrons are
-\emph{Linear-Beam Power Tubes} in which electrons are emitted from a cathode, formed into a beam and shot towards a
-collector. Between the cathode and the collector are RF cavities at which the electrons interact with an input signal,
+Linear-Beam Power Tubes in which electrons are emitted from a cathode, formed into a beam, and shot towards a
+collector. Between the cathode and the collector are RF cavities at which the electrons interact with an input signal by
 amplifying it. The amplified signal is then delivered to the output cavity and further down the transmit chain of the
-radar.  TWTs are similar to klystrons in terms of architecture, but power and bandwidth are not as high as those of a
+radar.
+
+TWTs are similar to klystrons in terms of architecture, but power and bandwidth are not as high as those of a
 klystron.  Magnetrons are not technically amplifiers but oscillators. They are smaller than klystrons and operate at
 lower voltages, but have poor noise and stability performance \citep[p. 693]{Skolnik:2001}.  Lastly, Solid-State
-Transistor Amplifiers were already described briefly in Section \ref{s:par}, where they are said to operate at lower
+Transistor Amplifiers were already described briefly in Section \ref{s:par}, which mentioned that they operate at lower
 voltages and have much lower gain than klystrons or magnetrons. On the other hand, they are very reliable, easy to
 maintain, and have long life. They are also capable of wider bandwidth than klystrons or magnetrons \citep[p.
 702]{Skolnik:2001}. If the long duty cycles and related need for longer pulses is acceptable, they are a good choice for
@@ -157,7 +160,7 @@ e.g., for legacy systems that are already operational or simply budget reasons f
 
 \section{Matched Filter}
 \label{s:2pc}
-At the heart of pulse compression is the matched filter, which draws its name due to the fact that it is matched to the
+At the heart of pulse compression is the matched filter, which draws its name from the fact that it is matched to the
 transmitted waveform. As the waveform passes through the filter, it is compressed in range and will ideally concentrate
 most of the energy in a narrow mainlobe with no or low sidelobes. 
 The matched filter is designed based on the maximization of the SNR. The following derivation traces the discussion
@@ -170,22 +173,23 @@ Specifically, the SNR to be maximized is given by
   \left(\frac{S}{N}\right)_{out} = \frac{|s_o(t_0)|^2}{\overline{n_o^2(t)}},
 \end{equation}
 where $s_o$ is the output signal of the filter at a certain delay $t_0$, and $n_o$ is the Gaussian output noise, with
-the $\overline{\text{bar}}$ denoting the mean-squared value. The
-inputs to the matched filter are the original signal $s$ and some predetermined delay $t_0$. The whole output signal is
-then given by
+the $\overline{\text{bar}}$ denoting the mean-squared value. The variables influencing the output signal are the
+original signal $s$ and some predetermined delay $t_0$. The whole output signal is then given by:
 
 \begin{equation}
   \label{eq:mfso}
   s_o(t_0) = \frac{1}{2 \pi} \int_{-\infty}^{\infty} H(\omega) S(\omega) \exp(j \omega t_0) d\omega,
 \end{equation}
-where $S(\omega)$ is the Fourier transform of $s(t)$. The output noise $N$ is described by
+where $S(\omega)$ is the Fourier transform of $s(t)$ and $H(\omega)$ the Fourier transform of $h(t)$, the impulse response
+of the matched filter that needs to be derived. The exponential describes the delay $t_0$ in the frequency domain.
+The output noise $N$ is described by:
 
 \begin{equation}
   \label{eq:mfnoise}
   \overline{n_o^2(t)} = \frac{N_0}{4 \pi} \int_{-\infty}^{\infty} |H(\omega)|^2 d\omega.
 \end{equation}
 
-Before continuing this derivation, the \emph{Schwarz inequality} must be mentioned. It states that
+Before continuing this derivation, the \emph{Schwarz inequality} must be mentioned. It states that:
 
 \begin{equation}
   \label{eq:schwarz}
@@ -210,16 +214,17 @@ Schwarz inequality with
 yields
 
 \begin{equation}
+\label{eq:mfsnrmax}
   \left(\frac{S}{N}\right)_{out} \leq \frac{1}{\pi N_0} \int_{-\infty}^{\infty} |S(\omega)|^2 d\omega = \frac{2E}{N_0},
 \end{equation}
 where $E$ is the energy of the signal.
 
-Substituting \eqref{eq:schwarzsubst} into \eqref{eq:schwarzcond} shows that the maximum output SNR is achieved when 
+Substituting \eqref{eq:schwarzsubst} into \eqref{eq:schwarzcond} shows that the maximum output SNR is achieved when the
+two sides of Equation \eqref{eq:mfsnrmax} are equal, i.e.:
 \begin{equation}
   \label{eq:mffr}
   H(\omega) = K S^*(\omega) \exp(-j \omega t_0).
 \end{equation}
-
 Taking the inverse Fourier transform produces the impulse response of the matched filter:
 \begin{equation}
   \label{eq:mfir}
@@ -227,7 +232,7 @@ Taking the inverse Fourier transform produces the impulse response of the matche
 \end{equation}
 This reveals that the impulse response of the matched filter is the delayed mirror image of the conjugate of the
 original signal $s(t)$. When the signal and filter are matched in this way, the condition of the Schwarz inequality
-(Equation \eqref{eq:schwarzcond}) is fulfilled and the SNR at $t=t_0$ is maximized with $\text{SNR}=\frac{2E}{N_0}$.
+in Equation \eqref{eq:schwarzcond} is fulfilled and the SNR at $t=t_0$ is maximized with $\text{SNR}=\frac{2E}{N_0}$.
 
 With $h(t)$ known, the output of the matched filter is then 
 \begin{equation}
@@ -241,13 +246,13 @@ autocorrelation function (ACF) of $s(t)$:
   s_o(0) = \text{ACF}(s(t)) = \int_{-\infty}^{\infty}{s(\tau) s^*(\tau-t) d\tau}.
 \end{equation}
 
-An example ACF for a rectangular pulse is shown in Figure \ref{fig:acf}.
+The concept of the ACF for a rectangular pulse is shown in Figure \ref{fig:acf}.
 This is an important function because it describes the output of the radar depending on the waveform $s(t)$ used. It is
 the basis of analyzing the performance of radar signals in this work. As discussed before, the best result is achieved
 when the filter matches the waveform exactly. If that is not the case and there is a mismatch between the filter and the
 signal, there will be some loss called \emph{mismatch loss}. One reason for mismatch loss is the Doppler phase shift applied
 to the return signal by a moving target. Adding that phase shift, given by $e^{-j 2 \pi f_d t}$, where $f_d$ is the
-Doppler frequency, provides the basis for the main tool of evaluating waveforms in this work, the \emph{Ambiguity
+Doppler frequency, leads to the main tool of evaluating waveforms in this work, the \emph{Ambiguity
 Function}, or AF.
 
 
@@ -267,8 +272,8 @@ In \cite{Rihaczek:1968}, the AF is defined as:
 \label{eq:AF}
   |\chi(\tau,f_d)| = \left| \int_{-\infty}^\infty{u(t) u^*(t+\tau) e^{-j2\pi f_d t} dt}\right|,
 \end{equation}
-where $u(t)$ is the complex envelope of the signal, $\tau$ is the delay due to propagation, not to be confused with the
-pulse length used in other places, and $f_d$ is the Doppler frequency.  It can clearly be seen that, for $f_d = 0$, the
+where $u(t)$ is the complex envelope of the signal and $\tau$ is the delay due to propagation, not to be confused with the
+pulse length used in other places. It can clearly be seen that, for $f_d = 0$, the
 AF reduces to the ACF, presented in Section \ref{s:2pc}.
 
 
@@ -292,13 +297,17 @@ Evaluate the integrals to get:
 For $\tau=0$, the result is the sinc function, for $f_d=0$ it is simply the ACF of a pulse, which is
 a triangle.
 
-The ideal AF shape depends on the application. One useful AF looks like a thumbtack and provides good range and Doppler
-resolution.  However, this also means that any kind of Doppler velocity will result in a weak or, for the ideal case, no
-return signal. This waveform can be used to detect targets whose velocity is already known, since even narrowly focused 
-AFs cover a certain range of Doppler velocities without much loss. As will be shown in the simulations, this is the case
-for weather radar applications.  If a wider range of velocities has to be covered, several different matched filters can
-be used, with each one matched to a different Doppler velocity range.  The reader is referred to Chapter 7.2 of
-\citep{Levanon:2004} for more information.
+The ideal shape of the AF depends on the application. One useful AF looks like a thumbtack and thus provides good range
+and Doppler resolution.  However, this also means that any moving target will result in a weak or, for the ideal case,
+no return signal due to the Doppler shift. A waveform with this characteristic can be used to detect targets whose velocity is already known,
+since even a narrowly focused AF covers a certain range of Doppler velocities without much loss. As will be shown in the
+simulations, this is the case for weather radar applications.
+
+If a wider range of velocities has to be covered, several
+different matched filters can be used, with each one matched to a different Doppler velocity range.  The reader is
+referred to Chapter 7.2 of \citep{Levanon:2004} for more information. Alternatively, the AFs of some waveforms are
+shaped like a ridge, so there will be a return signal no matter the Doppler shift. Chapter \ref{chap:pulsecompression} will
+introduce one such waveform.
 
 
 
