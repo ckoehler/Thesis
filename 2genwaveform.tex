@@ -5,7 +5,7 @@ in this chapter. Figure \ref{fig:basic_waveform} can be used as a reference.
 
 \begin{figure}[h]
 \includegraphics[width=\imgsize]{figures/basic_waveform_f.png}
-\caption{A basic waveform showing amplitude, period, phase, and PRT. Each component is explained in
+\caption{A basic waveform showing amplitude, period, phase, pulse length, and PRT. Each component is explained in
 more detail in this chapter.}
 \label{fig:basic_waveform}
 \end{figure}
@@ -34,7 +34,7 @@ The unambiguous range describes the maximum range of the radar up to which no se
 echo is the return signal caused by the first pulse, but is received after the second pulse has already been sent.
 Referring to Figure \ref{fig:rangealiasing}, for
 example, if $r_a = \SI{100}{\kilo\metre}$, and there is a target at a distance \SI{150}{\kilo\metre} from the radar, it
-will appear to the radar to be only \SI{50}{\kilo\metre} away.  To increase the unambiguous range, then, a long PRT is
+will appear to the radar to be only \SI{50}{\kilo\metre} away.  To increase the unambiguous range, a long PRT is
 needed.
 
 \begin{figure}[H]
@@ -53,31 +53,31 @@ The unambiguous velocity is measure of the maximum velocity that the radar can d
 occur. The principle is similar to that of unambiguous range. Velocities ``wrap around'', so looking at Figure
 \ref{fig:velocityaliasing}, e.g.,  with $v_a=
 \SI{50}{\metre\per\second}$, a target moving at \SI{75}{\metre\per\second} will appear to only be moving at
-\SI{25}{\metre\per\second} in the opposite direction.
+\SI{25}{\metre\per\second} in the opposite direction. The reversal of the target's direction alone is an indicator of
+how undesirable velocity aliasing is.
 
 
-
-
-However, while the unambiguous range is proportional to the PRT, unambiguous velocity is inversely proportional to it.
-That means that, if the PRT is large, the unambiguous velocity will be low and velocity aliasing will become more
-likely, but if the PRT is low, unambiguous range is low as well.  The resulting problem is called the Doppler dilemma,
-which states that one can either achieve high unambiguous range or high unambiguous velocity, but not both \citep[p.
-60-61]{Doviak:2006}
+One important thing to notice is that, while the unambiguous range is proportional to the PRT, unambiguous velocity is
+inversely proportional to it.  That means that, if the PRT is large, the unambiguous velocity will be low and velocity
+aliasing will become more likely, but if the PRT is low, unambiguous range is low as well.  The resulting problem is
+called the Doppler dilemma, which states that, for a given PRT, one can either achieve high unambiguous range or high
+unambiguous velocity, but not both \citep[p.  60-61]{Doviak:2006}
 
 
 \section{Staggered PRT}
 As mentioned earlier, the problem with a single PRT is the so-called Doppler dilemma. A short
 PRT provides high unambiguous Doppler velocity, while a long PRT gives us a long unambiguous range. Neither gives us
 both.  To fix this problem, some radars use two different PRTs, a long and a short one, and combine measurements of both
-to increase unambiguous velocity.  Typically, the long PRT is chosen based on the desired unambiguous range, while at
-the same time maximizing the unambiguous velocity of the combination of both, defined as \citep[p. 173]{Doviak:2006}
+to increase unambiguous velocity.  Typically, the long PRT is chosen based on the desired unambiguous range, while the
+short PRT is chosen such that their combination maximizes the unambiguous velocity. The unambiguous velocity of two
+staggered pulses of different lengths is defined as \citep[p. 173]{Doviak:2006}:
 
 \begin{equation}
   \label{eq:vm}
   v_m = \pm \frac{\lambda}{4(T_{s2} - T_{s1})}
 \end{equation}
 
-The disadvantage is a longer scan time, since every radial now has to be scanned twice, once with the short and once
+The disadvantage of this method is a longer scan time, since every radial now has to be scanned twice, once with the short and once
 with the long pulse, doubling the time between sweeps. For some applications, this is not an acceptable trade-off.
 
 \section{Clutter Filtering}
@@ -109,7 +109,16 @@ However, depending on the application, simply increasing the pulse length to inc
 solution.
 
 The bandwidth of pulse is determined by its shape. Taking the Fourier transform of the pulse yields its frequency
-spectrum. A perfectly rectangular pulse will have infinite bandwidth, so it's impossible to generate such a pulse. 
+spectrum. The spectrum of a perfectly rectangular pulse, shown in Figure \ref{fig:pulsespectrum}, looks like a sinc
+function with sidelobes that extend into infinity, so its bandwidth is infinite bandwidth, making it impossible to
+generate in a real system. 
+
+\begin{figure}[h]
+\includegraphics[width=\imgsize]{figures/pulsespectrum.png}
+\caption{The frequency spectrum of a rectangular pulse. The sidelobes are cut off in the figure, but extend into
+infinity.}
+\label{fig:pulsespectrum}
+\end{figure}
 
 \section{Transmitters}
 The transmitter affects the amplitude and length of the pulse, determining the energy that is
@@ -278,16 +287,17 @@ For a simple rectangular pulse of the form $u(t)=\frac{1}{\sqrt{T}} rect(\frac{t
 Evaluate the integrals to get:
 
 \begin{equation}
-  |\chi(\tau,v)| = \left|\left(1-\frac{|\tau|}{T}\right) \frac{\sin[\pi T v(1- \frac{|\tau|}{T})]}{\pi T v(1- \frac{|\tau|}{T})}\right|, |\tau| \leq T, \text{zero elsewhere}
+  |\chi(\tau,f_d)| = \left|\left(1-\frac{|\tau|}{T}\right) \frac{\sin[\pi T f_d(1- \frac{|\tau|}{T})]}{\pi T f_d(1- \frac{|\tau|}{T})}\right|, |\tau| \leq T, \text{zero elsewhere}
 \end{equation}
-For $\tau=0$, the result is the sinc function, for $v=0$ it is simply the ACF of a pulse, which is
+For $\tau=0$, the result is the sinc function, for $f_d=0$ it is simply the ACF of a pulse, which is
 a triangle.
 
 The ideal AF shape depends on the application. One useful AF looks like a thumbtack and provides good range and Doppler
-resolution.  However, this also means that any kind of Doppler shift will result in a weak or, for the ideal case, no
-return signal. This waveform can be used to detect targets whose velocity is already known, or is in a known, narrow
-range, as is the case for weather applications.  Thumbtack shaped AFs can be used for different Doppler shifts by using
-several different filters, each matched to a different Doppler shift.  The reader is referred to Chapter 7.2 of
+resolution.  However, this also means that any kind of Doppler velocity will result in a weak or, for the ideal case, no
+return signal. This waveform can be used to detect targets whose velocity is already known, since even narrowly focused 
+AFs cover a certain range of Doppler velocities without much loss. As will be shown in the simulations, this is the case
+for weather radar applications.  If a wider range of velocities has to be covered, several different matched filters can
+be used, with each one matched to a different Doppler velocity range.  The reader is referred to Chapter 7.2 of
 \citep{Levanon:2004} for more information.
 
 
