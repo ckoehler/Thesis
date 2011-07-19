@@ -52,9 +52,9 @@ is not the case. The Pulse Power Ratio is defined as follows:
 
 \begin{equation}
 \label{PPR}
-\text{PPR} = 10 \log \left(\frac{\int_{\tau} w^2(t)dt}{A_p^2 \tau}\right), 
+\mathrm{PPR} = 10 \log \left(\frac{\int_{\tau} w^2(t)dt}{A_\mathrm{p}^2 \tau}\right), 
 \end{equation}
-where $w(t)$ is the tapering function applied to the pulse, integrated over the pulse length $\tau$, and $A_p$ is the
+where $w(t)$ is the tapering function applied to the pulse, integrated over the pulse length $\tau$, and $A_\mathrm{p}$ is the
 original amplitude.  This metric represents the fraction of energy that is utilized when amplitude tapering is applied
 and can help quantify the loss in sensitivity caused by tapering.
 
@@ -73,8 +73,8 @@ One concern for pulse compression performance is the effect of a Doppler shift o
 received signal that has been affected by a Doppler shift causes a mismatch in the matched filter processing of the
 receiver.  This is especially pronounced at high target velocities. For atmospheric weather radars, such as the WSR-88D,
 the aliasing velocity is \SI{32.5}{\metre\per\second}, based on $\lambda = \SI{0.1}{\metre}$ and a maximum
-PRT $T_s = \SI{1300}{\hertz}$, not taking into account any signal processing techniques described previously \citep[p.
-47]{Doviak:2006}.  At that velocity, a Doppler frequency of $f_d = \frac{2v}{\lambda} = \frac{65}{0.1} = \SI{650}{Hz}$
+PRT $T_\mathrm{s} = \SI{1300}{\hertz}$, not taking into account any signal processing techniques described previously \citep[p.
+47]{Doviak:2006}.  At that velocity, a Doppler frequency of $f_\mathrm{d} = \frac{2v}{\lambda} = \frac{65}{0.1} = \SI{650}{Hz}$
 is observed.
 
 This mismatch effect on the matched filter has been quantified by Kelly and Wishner as follows \citep{Kelly:1965}.  For
@@ -96,13 +96,13 @@ Next, the effects of the amplifier in the receive chain on the pulse will be exa
 \eqref{eq:AF}, convolve the return signal with $h(t)$, the impulse response of the system. The AF then becomes
 
 \begin{align*}
-   \chi(\tau,f_d) &= \left|\int_{-\infty}^\infty{u(t) \left[(u^*(t+\tau) e^{-j2\pi f_d t})*h(t)\right]\ dt}\right| \\
-   &= \left|\int_{-\infty}^\infty{u(t) \int_{-\infty}^{\infty}{u^*(t'+\tau) e^{-j2\pi f_d t'}h^*(t'-t) dt'}\ dt}\right| \\
-   &= \left|\int_{-\infty}^\infty{u^*(t'+\tau) e^{-j2\pi f_d t'}\int_{-\infty}^{\infty}{u(t) h^*(t'-t) dt}\ dt'}\right| 
+   \chi(\tau,f_\mathrm{d}) &= \left|\int_{-\infty}^\infty{s(t) \left[(s^*(t+\tau) e^{-j2\pi f_\mathrm{d} t})*h(t)\right]\ dt}\right| \\
+   &= \left|\int_{-\infty}^\infty{s(t) \int_{-\infty}^{\infty}{s^*(t'+\tau) e^{-j2\pi f_\mathrm{d} t'}h^*(t'-t) dt'}\ dt}\right| \\
+   &= \left|\int_{-\infty}^\infty{s^*(t'+\tau) e^{-j2\pi f_\mathrm{d} t'}\int_{-\infty}^{\infty}{s(t) h^*(t'-t) dt}\ dt'}\right| 
 \end{align*}
 
 It can be seen that applying the impulse response to the return signal is equivalent to applying it to the original
-pulse $u(t)$.  This makes it easy in simulation to apply an impulse response to the calculations in order to evaluate
+pulse $s(t)$.  This makes it easy in simulation to apply an impulse response to the calculations in order to evaluate
 the its effects on the AF.  The results of a Rayleigh-shaped impulse response on a rectangular pulse are presented in
 Section \ref{s:ireffects}.
 

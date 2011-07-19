@@ -84,15 +84,15 @@ Frequency Modulation and results in a waveform like this.}
 \label{fig:lfm-waveform}
 \end{figure}
 
-The LFM effect is a consequence of a property of the AF.  This property states that given a signal $u(t)$, if $u(t)$ has
-an added phase that changes quadratically, i.e., $u'(t) = u(t) e^{-j\pi k t^2}$, this phase change is equivalent to a
+The LFM effect is a consequence of a property of the AF.  This property states that given a signal $s(t)$, if $s(t)$ has
+an added phase that changes quadratically, i.e., $s'(t) = s(t) e^{-j\pi k t^2}$, this phase change is equivalent to a
 linear frequency modulation because the instantaneous frequency $\omega(t)$ is related to the derivative of the
 instantaneous phase $\phi(t)$ such that: 
 
 \begin{equation}
 \omega(t) = \frac{1}{2 \pi}\frac{d\phi(t)}{dt}.
 \end{equation}
-The AF of $u'(t)$ is $|\chi(\tau,f_d-k\tau)|$ \citep[p. 38]{Levanon:2004}.
+The AF of $s'(t)$ is $|\chi(\tau,f_\mathrm{d}-k\tau)|$ \citep[p. 38]{Levanon:2004}.
 
 
 \begin{figure}[H]
@@ -173,10 +173,10 @@ digital systems.
 
 
 \section{Phase Modulation}
-Similar to amplitude modulation and frequency modulation, waveforms can be modulated in phase as well. A pulse $u(t)$ of
+Similar to amplitude modulation and frequency modulation, waveforms can be modulated in phase as well. A pulse $s(t)$ of
 length $\tau$ is divided up into $M$ different parts, and each part is assigned a different phase \citep[ch.
 6]{Levanon:2004}. The set of phases associated with the different parts of the pulse is called the \emph{phase code} of
-$u(t)$. There is an unlimited amount of phase codes and much work has gone into finding codes that improve the
+$s(t)$. There is an unlimited amount of phase codes and much work has gone into finding codes that improve the
 performance of waveform. Only a few different types will be discussed here.  The reader is encouraged to refer to
 \cite{Levanon:2004} for a much more comprehensive treatment of phase codes.
 
