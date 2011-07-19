@@ -1,12 +1,11 @@
-Before going into more detail about pulse compression, the general components of waveforms and their design will be
-discussed. The basic elements of a waveform that can be manipulated are its amplitude, phase, frequency, and timing.
-Each of these components can be designed to adhere to the required specifications, and will be described in more detail
-in this chapter. Figure \ref{fig:basic_waveform} can be used as a reference.
+The basic elements of a waveform that can be manipulated are its amplitude, phase, frequency, and timing.  Each of these
+components can be designed to adhere to the required specifications, e.g., duty cycle, aliasing velocity and
+range, resolution, sensitivity, etc.,  and will be described in more detail in this chapter. Figure \ref{fig:basic_waveform} can be used as a reference.
 
 \begin{figure}[h]
 \includegraphics[width=\imgsize]{figures/basic_waveform_f.png}
-\caption{A basic waveform showing amplitude, period, phase, pulse length, and PRT. Each component is explained in
-more detail in this chapter.}
+\caption{A basic waveform showing amplitude, period, phase, pulse length, and PRT. Each component will be explained in
+this chapter.}
 \label{fig:basic_waveform}
 \end{figure}
 
@@ -15,7 +14,7 @@ The pulse repetition time (PRT) is the time between two consecutive pulses and i
 to describe the timing of consecutive pulses is the pulse repetition frequency (PRF), which is simply the inverse of the
 PRT. Both are used in literature to describe the same concept.
 
-The PRT determines two very important aspects of a radar, the \emph{unambiguous range} $r_a$ and the \emph{unambiguous
+The PRT determines two very important aspects of a radar, the \emph{aliasing range} $r_a$ and the \emph{aliasing
 velocity} $v_a$. They are given by the following equations \citep[p. 60-61]{Doviak:2006}.
 
 \begin{equation}
@@ -30,46 +29,46 @@ where $ c = \SI{3e8}{\metre\per\second}$ is the speed of light, and
 \end{equation}
 where $\lambda$ is the wavelength of the radar.
 
-The unambiguous range describes the maximum range of the radar up to which no second trip echoes occur.  A second trip
-echo is the return signal caused by the first pulse, but is received after the second pulse has already been sent.
-Referring to Figure \ref{fig:rangealiasing}, for
-example, if $r_a = \SI{100}{\kilo\metre}$, and there is a target at a distance \SI{150}{\kilo\metre} from the radar, it
-will appear to the radar to be only \SI{50}{\kilo\metre} away.  To increase the unambiguous range, a long PRT is
-needed.
+The aliasing range describes the maximum range of the radar after which range aliasing occurs, i.e., targets that are
+farther away than the aliasing range will appear to be closer to the radar than they truly are. Referring to
+Figure \ref{fig:rangealiasing}, for example, if $r_a = \SI{100}{\kilo\metre}$, and there is a target at a distance of
+\SI{150}{\kilo\metre} from the radar, it will appear to the radar to be only \SI{50}{\kilo\metre} away.  To increase
+$r_a$, a longer PRT is needed.
 
 \begin{figure}[H]
 \includegraphics[width=\imgsizes]{figures/rangealiasing.png}
-\caption{Diagram explaining the unambiguous range. Targets that are outside the unambiguous range will fold over and
-appear at the wrong location. }
+\caption{Diagram explaining the aliasing range. Returned signals from a target at \SI{150}{\kilo\metre}, which is
+outside the aliasing range, fold over ambiguously and appear as a target at \SI{50}{\kilo\metre} w.r.t. the second pulse. }
 \label{fig:rangealiasing}
 
 \includegraphics[width=\imgsizes]{figures/velocityaliasing.png}
-\caption{Diagram explaining the unambiguous velocity. Targets that move at velocities outside the unambiguous velocity will fold over and
-appear to move more slowly than they actually do. }
+\caption{Diagram explaining the detected velocity. Targets that move at velocities outside the aliasing velocity will fold over
+and cause ambiguity, which may be slower and/or in opposite direction. }
 \label{fig:velocityaliasing}
 \end{figure}
 
-The unambiguous velocity is measure of the maximum velocity that the radar can determine without velocity aliasing to
-occur. The principle is similar to that of unambiguous range. Velocities ``wrap around'', so looking at Figure
-\ref{fig:velocityaliasing}, e.g.,  with $v_a=
-\SI{50}{\metre\per\second}$, a target moving at \SI{75}{\metre\per\second} will appear to only be moving at
-\SI{25}{\metre\per\second} in the opposite direction. The reversal of the target's direction alone is an indicator of
-how undesirable velocity aliasing is.
+The aliasing velocity is the maximum velocity of a target that the radar can determine without aliasing to occur. The
+principle is similar to that of aliasing range. Figure \ref{fig:velocityaliasing} illustrates an example of a target's
+velocity ``wrapping around'' and being detected wrongly. With $v_a= \SI{50}{\metre\per\second}$, a target moving at
+\SI{75}{\metre\per\second} will appear to only be moving at \SI{25}{\metre\per\second} in the opposite direction. The
+reversal of the target's direction alone is an indicator of how undesirable velocity aliasing is.
 
 
-One important thing to notice is that, while the unambiguous range is proportional to the PRT, unambiguous velocity is
-inversely proportional to it.  That means that, if the PRT is large, the unambiguous velocity will be low and velocity
-aliasing will become more likely, but if the PRT is low, unambiguous range is low as well.  The resulting problem is
-called the Doppler dilemma, which states that, for a given PRT, one can either achieve high unambiguous range or high
-unambiguous velocity, but not both \citep[p.  60-61]{Doviak:2006}
+One important thing to notice is that, while the aliasing range is proportional to the PRT, aliasing velocity is
+inversely proportional to it.  That means that, if the PRT is long, the aliasing velocity will be low and velocity
+aliasing will be more likely. On the other hand, if the PRT is short, the aliasing range will be low as well.  The
+resulting trade-off is called the \emph{Doppler dilemma}, which states that, for a given PRT, one can either achieve high
+aliasing range or high aliasing velocity, but not both \citep[p.  60-61]{Doviak:2006}
+
+TODO: describe dual prf, s-z coding. add subsection for these.
 
 
 \section{Staggered PRT}
 As mentioned earlier, the problem with a single PRT is the so-called Doppler dilemma. A short
-PRT provides high unambiguous Doppler velocity, while a long PRT gives us a long unambiguous range. Neither gives us
-both.  To fix this problem, some radars use two different PRTs, a long and a short one, and combine measurements of both
-to increase unambiguous velocity.  Typically, the long PRT is chosen based on the desired unambiguous range, while the
-short PRT is chosen such that their combination maximizes the unambiguous velocity. The unambiguous velocity of two
+PRT provides high aliasing velocity, while a long PRT gives us a long aliasing range. Neither gives us
+both.  One way around this limitation is by using two different PRTs, a long and a short one, and combine measurements of both
+to increase aliasing velocity.  Typically, the long PRT is chosen based on the desired aliasing range, while the
+short PRT is chosen such that their combination maximizes the aliasing velocity. The aliasing velocity of two
 staggered pulses of different lengths is defined as \citep[p. 173]{Doviak:2006}:
 
 \begin{equation}
@@ -80,17 +79,20 @@ staggered pulses of different lengths is defined as \citep[p. 173]{Doviak:2006}:
 The disadvantage of this method is a longer scan time, since every radial now has to be scanned twice, once with the short and once
 with the long pulse, doubling the time between sweeps. For some applications, this is not an acceptable trade-off.
 
-\section{Inter-pulse Coding}
-A coded pulse is in some way modulated, so it is not just rectangular. The idea is to code subsequent pulses with a
-different phase, such that the received echoes can be paired up with a certain pulse. That way, an echo from the first
-pulse that is received after the second pulse has already been transmitted can be identified to belong to the first
-pulse and thus distinguished from echoes caused by the second pulse.
+TODO: is this dual prf or staggered prf?
+TODO: add figure for Ts1 and Ts2
 
-This allows the use of a small PRT, resulting in good unambiguous velocity, but also the ability to unfold second,
-third, or even fourth trip echoes correctly. One such implementation is called SZ phase codes.  For this technique,
-every other pulse is phase shifted by a certain sequence $a_k = e^{j \Psi_k}$. On receive, the signal can be decoded by
-multiplying it with the complex conjugate of the coding sequence, $a^*_k$. For more details, refer to
-\cite{Sachidananda:1999}.
+\section{Inter-pulse Coding}
+In order to distinguish return signals from differetn pulses, one can encode the transmit phase of each pulse. That way,
+an echo from the first pulse that is received after the second pulse has already been transmitted can be identified to
+belong to the first pulse and thus distinguished from echoes caused by the second pulse.
+
+This allows the use of a small PRT, resulting in good aliasing velocity, but also the ability to unfold second, third,
+or even fourth trip echoes correctly. One such implementation is called SZ phase codes.  For this technique, every other
+pulse is phase shifted by a certain sequence $a_k = e^{j \Psi_k}$. On receive, the signal can be decoded by multiplying
+it with the complex conjugate of the coding sequence, $a^*_k$. For more details, refer to \cite{Sachidananda:1999}.
+
+TODO: add more detail on s-z coding.
 
 \section{Pulse Length}
 The previous techniques were independent of the pulse length. However, pulse length, usually
@@ -105,10 +107,17 @@ decrease range resolution, which is defined as
 However, depending on the application, simply increasing the pulse length to increase sensitivity may not be a desirable
 solution.
 
-The bandwidth of pulse is determined by its shape. Taking the Fourier transform of the pulse yields its frequency
+The bandwidth of pulse is partiallly determined by its shape. Taking the Fourier transform of the pulse yields its frequency
 spectrum. The spectrum of a perfectly rectangular pulse, shown in Figure \ref{fig:pulsespectrum}, looks like a sinc
 function with sidelobes that extend into infinity, so its bandwidth is infinite bandwidth, making it impossible to
-generate in a real system. 
+generate in a real system. In practice, Gaussian pulse shapes are used because they can be created more easily and still
+have the correct bandwidth requirement. For such a pulse, bandwidth and pulse length are inverses of each other such
+that $B=\frac{1}{\tau}$. In this case, then, the aliasing range given in Equation \eqref{eq:rangeres} can be
+rewritten as:
+
+\begin{equation}
+  \Delta r = \frac{c}{2B}
+\end{equation}
 
 \begin{figure}[h]
 \includegraphics[width=\imgsize]{figures/pulsespectrum.png}
@@ -119,7 +128,7 @@ infinity.}
 
 \section{Transmitters}
 \label{s:transmitters}
-The transmitter affects the amplitude and length of the pulse, determining the energy that is
+The transmitter dictates the amplitude and length of the pulse, determining the energy that is
 transmitted onto the target.  This energy is usually expressed in terms of the radar's average power,which is an
 important metric that relates the amplifier's peak power, pulse length, and pulse repetition time, as described in \cite[p.
 74]{Skolnik:2001} and shown as Equation \eqref{eq:avgpower}.
@@ -128,31 +137,25 @@ important metric that relates the amplifier's peak power, pulse length, and puls
   \label{eq:avgpower}
   P_{av} = \frac{P_t \tau}{T_s},
 \end{equation}
-The goal is to output as much power as possible to improve the maximum range and SNR of the radar .
-
+The goal is to maximize $P_{av}$ while maintaining $T_s$ for a desired maximum range. 
 The most commonly used transmitters are Klystrons, Magnetrons, Traveling Wave Tubes (TWT), and Solid-State Transistor
 Amplifiers.  Klystrons are capable of high average and peak power with good gain and efficiency, and wide bandwidth
 \citep[p. 692]{Skolnik:2001}.  However, to achieve large peak powers, high voltages and X-ray shielding are required,
 limiting klystrons to mostly stationary radars that have access to a high voltage power source. Klystrons are
 Linear-Beam Power Tubes in which electrons are emitted from a cathode, formed into a beam, and shot towards a
 collector. Between the cathode and the collector are RF cavities at which the electrons interact with an input signal by
-amplifying it. The amplified signal is then delivered to the output cavity and further down the transmit chain of the
+amplifying it \citep[p. xxx]{Skolnik:2001}. The amplified signal is then delivered to the output cavity and further down the transmit chain of the
 radar.
 
 TWTs are similar to klystrons in terms of architecture, but power and bandwidth are not as high as those of a
 klystron.  Magnetrons are not technically amplifiers but oscillators. They are smaller than klystrons and operate at
 lower voltages, but have poor noise and stability performance \citep[p. 693]{Skolnik:2001}.  Lastly, Solid-State
-Transistor Amplifiers were already described briefly in Section \ref{s:par}, which mentioned that they operate at lower
+Transistor Amplifiers, which have been described briefly in Section \ref{s:par}, operate at lower
 voltages and have much lower gain than klystrons or magnetrons. On the other hand, they are very reliable, easy to
 maintain, and have long life. They are also capable of wider bandwidth than klystrons or magnetrons \citep[p.
 702]{Skolnik:2001}. If the long duty cycles and related need for longer pulses is acceptable, they are a good choice for
 powering radars, especially in situations where size restricts the use of the other transmitters that have been
 discussed.
-
-Another important component is the low-noise amplifier (LNA) in the receive chain, which also influences the sensitivity
-of the radar by amplifying the return signal while at the same time adding as little additional noise as possible. Using
-better quality amplifiers in a system increases it price together with its performance, but is not always an option,
-e.g., for legacy systems that are already operational or simply budget reasons for new systems.
 
 
 \section{Matched Filter}
@@ -167,11 +170,11 @@ Specifically, the SNR to be maximized is given by
 
 \begin{equation}
   \label{eq:mfsnr}
-  \left(\frac{S}{N}\right)_{out} = \frac{|s_o(t_0)|^2}{\overline{n_o^2(t)}},
+  \left(\frac{S}{N}\right)_{out} = \frac{|s_o(t_0)|^2}{n_o^2},
 \end{equation}
-where $s_o$ is the output signal of the filter at a certain delay $t_0$, and $n_o$ is the Gaussian output noise, with
-the $\overline{\text{bar}}$ denoting the mean-squared value. The variables influencing the output signal are the
-original signal $s$ and some predetermined delay $t_0$. The whole output signal is then given by:
+where $s_o$ is the output signal of the filter at a certain delay $t_0$, and $n_o$ is the Gaussian output noise. The
+variables influencing the output signal are the original signal $s$ and some predetermined delay $t_0$. The whole output
+signal is then given by:
 
 \begin{equation}
   \label{eq:mfso}
