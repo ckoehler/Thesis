@@ -3,22 +3,19 @@ This work examined several different techniques of pulse compression and evaluat
 in regards to weather radar applications. 
 
 A rectangular pulse still performs fairly well, with good range resolution and no sidelobes. Although much
-effort was put into finding well-performing NLFM waveforms, the simulations favor an amplitude tapered LFM waveform with
-sidelobes around \SI{-70}{\decibel}, with the only drawback being a \SI{3}{\decibel} loss in energy.
+effort was put into finding optimal NLFM waveforms, the performance evaluations suggest that amplitude tapered LFM
+waveform is desirable in terms of sidelobes around \SI{-70}{\decibel}, with the only drawback being a \SI{3}{\decibel} loss in energy.
 
 
 \section{Future Work}
 There are several ways to improve on this work in the future.
 
-First, other waveform can be evaluated based on the presented metrics, like more complex
-phase coded signals. Other sweeping functions than the one presented could be evaluated
-to perhaps find waveforms that perform better for weather radar applications than the examined NLFM sweep
-functions.
+First, other waveform can be evaluated based on the presented metrics, like more complex phase coded signals. Other
+sweeping functions for the NLFM waveform could be evaluated to perhaps find waveforms that perform better for weather
+radar applications. 
 
-Second, the effects of the amplifier impulse response and other system components
-chould be better quantified and the results compared with the theoretical
-results that are expected. Particularly, attempts to correct for the distortion caused by the
-impulse response could be presented. One possible candidate is pulse pre-distortion that will cancel
-out the distortion caused in the receive chain.
-
-
+Second, the effects of the amplifier impulse response and other system components could be better quantified and the
+results compared with the theoretical results that are expected. Particularly, attempts to correct for the distortion
+caused by the impulse response could be presented. One possibility is to pre-undo the distortions that are caused by the
+transmit \& receive chain. The anti-distortion filter is designed to equalize the system response of the subsequent
+chain in between the waveform generator and antenna feed horn, which includes up-converter and amplifier.

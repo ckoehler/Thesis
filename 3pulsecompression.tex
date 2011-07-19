@@ -87,32 +87,36 @@ Frequency Modulation and results in a waveform like this.}
 The LFM effect is a consequence of a property of the AF.  This property states that given a signal $u(t)$, if $u(t)$ has
 an added phase that changes quadratically, i.e., $u'(t) = u(t) e^{-j\pi k t^2}$, this phase change is equivalent to a
 linear frequency modulation because the instantaneous frequency $\omega(t)$ is related to the derivative of the
-instantaneous phase $\phi(t)$ such that $\omega(t) = \frac{1}{2 \pi}\frac{d\phi(t)}{dt}$. The AF of $u'(t)$ is
-$|\chi(\tau,f_d-k\tau)|$ \citep[p. 38]{Levanon:2004}.
+instantaneous phase $\phi(t)$ such that: 
+
+\begin{equation}
+\omega(t) = \frac{1}{2 \pi}\frac{d\phi(t)}{dt}.
+\end{equation}
+The AF of $u'(t)$ is $|\chi(\tau,f_d-k\tau)|$ \citep[p. 38]{Levanon:2004}.
 
 
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/lfm-full-15us.png}
-\caption{LFM waveforms are very Doppler tolerant as seen by the ridge. Notice the large radial velocities and the
-comparatively small range mismatch in the AF.}
+\caption{AF for $\tau=\SI{15}{\micro\second}$ for a \SI{9550}{\mega\hertz} radar. LFM waveforms are very Doppler
+tolerant as seen by the ridge. Notice the extreme radial velocities and the comparatively small range mismatch.}
 \label{fig:lfm-full}
 \end{figure}
 
 
 As seen in Figure \ref{fig:lfm-full}, the slow drop-off of the peak in the AF, also called a ridge, makes LFM pulse
 compression very Doppler tolerant and thus convenient for radar applications that have to deal with targets whose
-velocity is unknown. The mismatch in range caused by the shifted ridge is called \emph{range-doppler coupling} and can
+velocity is unknown. The mismatch in range caused by the shifted ridge is called \emph{range-Doppler coupling} and can
 be corrected by alternating between an up and a down-chirp and averaging the resulting range of both to get the true
 range \citep[p. 343]{Skolnik:2001}.
 
-The maximum range resolution of a LFM waveform is now only dependent on the bandwidth $B$, not the pulse length $\tau$,
+The maximum theoretical range resolution of an LFM waveform is now only dependent on the bandwidth $B$, not the pulse length $\tau$,
 and is expressed as \citep[p. 196]{Richards:2005}:
 \begin{equation}
   \label{eq:lfm-rangeres}
   \Delta r = \frac{c}{2 B}.
 \end{equation}
-This result will be confirmed in the simulation later, where it is shown that the pulse length does not change the shape
-of the mainlobe in the AF.
+If $B=\frac{1}{\tau}$, this result is consistent with a traditional pulsed radar, as shown in Equation
+\eqref{eq:rangeresbwpulse}.
 
 \subsection{Non-linear Frequency Modulation}
 \label{s:nlfm}
@@ -137,6 +141,7 @@ sweep patterns are investigated and their performance evaluated. The results are
 \ref{chap:optimization}.
 
 \subsection{Amplitude Tapering Compared to Frequency Modulation}
+\label{s:taperingandfm}
 Tapering the amplitude of a signal to reduce sidelobes delivers the same result as simply sweeping the frequency
 non-linearly. This relationship can be explained by considering the ACF of the signal. The sidelobes appear in the ACF,
 which is the inverse Fourier transform of the power spectrum. Thus modifying the power spectrum, e.g., by amplitude
@@ -160,11 +165,11 @@ Optimizing the shape of the NLFM is one of the challenges of waveform design.
 
 \subsection{Early Use of Frequency Modulation} 
 Since LFM is simply taking advantage of a property of the AF, as described in Section \ref{s:lfm}, it was one the
-earliest ways of improving sensitivity \citep[p. 57]{Levanon:2004}.  It is simple to implement in analog hardware
-by using a voltage controlled oscillator (VCO) and very Doppler tolerant due to the slow decrease in slope, making it a
-popular choice for early radars that had to detect fast moving targets. With the move of a lot of components into the
-digital domain, other forms of pulse compression are becoming increasingly more common because they are easier to
-implement in digital systems.
+earliest ways of improving sensitivity \citep[p. 57]{Levanon:2004}.  It is simple to implement in analog hardware by
+using a voltage controlled oscillator (VCO) and very Doppler tolerant due to the slow decrease in slope, making it a
+popular choice for early radars that had to detect fast moving targets. With more processing being done in digital
+systems, other forms of pulse compression are becoming increasingly more common because they are easier to implement in
+digital systems.
 
 
 \section{Phase Modulation}
@@ -179,7 +184,7 @@ performance of waveform. Only a few different types will be discussed here.  The
 \subsection{Binary Codes}
 Binary codes vary the phase of the signal in increments of $\pi$.  The most commonly known phase code is the Barker
 code, which is believed to exist up to a length of 13 \citep[p. 106]{Levanon:2004}.  The Barker 13 code looks like +1 +1
-+1 +1 +1 -1 -1 +1 +1 -1 +1 -1 +1. It is called a ``perfect" code because its ACF has a main lobe of 13 and
++1 +1 +1 -1 -1 +1 +1 -1 +1 -1 +1 \citep[p. 273]{Barker:1953}. It is called a ``perfect" code because its ACF has a main lobe of 13 and
 sidelobes of no more than 1, as depicted in Figure \ref{fig:barker13-acf}.
 
 \begin{figure}[h]
@@ -191,10 +196,10 @@ sidelobes.}
 
 \subsection{$n$-ary Codes}
 \label{s:narycodes}
-Instead of varying the phase of the signal between only 0 and $\pi$, they can be varied arbitrarily
+Instead of varying the phase of the signal between only 0 and $\pi$, they can be varied arbitrarily for any value
 between 0 and $2\pi$ in an attempt to gain a better performing code. These types of codes are also known as
-\emph{polyphase codes}. Examples, including a table of polyphase Barker codes up to length 45, are given in \cite[p.
-109ff]{Levanon:2004}.
+\emph{polyphase codes}. Examples, including a table of polyphase Barker codes up to length 45, are given in \cite[pp.
+110-112]{Levanon:2004}.
 
 Other polyphase codes include Frank codes and their derivatives, like P1, P2, and Px codes \citep{Levanon:2004}, which
 are derived from sampling the phase of a LFM waveform and thus called \emph{chirplike}.

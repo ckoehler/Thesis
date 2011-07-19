@@ -116,6 +116,7 @@ that $B=\frac{1}{\tau}$. In this case, then, the aliasing range given in Equatio
 rewritten as:
 
 \begin{equation}
+\label{eq:rangeresbwpulse}
   \Delta r = \frac{c}{2B}
 \end{equation}
 
@@ -166,6 +167,8 @@ most of the energy in a narrow mainlobe with no or low sidelobes.
 The matched filter is designed based on the maximization of the SNR. The following derivation traces the discussion
 given in \cite[pp. 24-27]{Levanon:2004}.
 
+TODO: improve flow here.
+
 Specifically, the SNR to be maximized is given by
 
 \begin{equation}
@@ -173,7 +176,7 @@ Specifically, the SNR to be maximized is given by
   \left(\frac{S}{N}\right)_{out} = \frac{|s_o(t_0)|^2}{n_o^2},
 \end{equation}
 where $s_o$ is the output signal of the filter at a certain delay $t_0$, and $n_o$ is the Gaussian output noise. The
-variables influencing the output signal are the original signal $s$ and some predetermined delay $t_0$. The whole output
+variables influencing the output signal are the original signal $s(t)$ with delay $t_0$. The whole output
 signal is then given by:
 
 \begin{equation}
@@ -182,11 +185,11 @@ signal is then given by:
 \end{equation}
 where $S(\omega)$ is the Fourier transform of $s(t)$ and $H(\omega)$ the Fourier transform of $h(t)$, the impulse response
 of the matched filter that needs to be derived. The exponential describes the delay $t_0$ in the frequency domain.
-The output noise $N$ is described by:
+The total output noise power $n_o^2$ for white noise interference with spectral density $N_0/2$ is described by:
 
 \begin{equation}
   \label{eq:mfnoise}
-  \overline{n_o^2(t)} = \frac{N_0}{4 \pi} \int_{-\infty}^{\infty} |H(\omega)|^2 d\omega.
+  n_o^2 = \frac{1}{2 \pi}\frac{N_0}{2} \int_{-\infty}^{\infty} |H(\omega)|^2 d\omega.
 \end{equation}
 
 Before continuing this derivation, the \emph{Schwarz inequality} must be mentioned. It states that:
@@ -196,8 +199,8 @@ Before continuing this derivation, the \emph{Schwarz inequality} must be mention
   \left|\int_{-\infty}^{\infty} A(\omega) B(\omega) d\omega \right|^2 \leq 
     \int_{-\infty}^{\infty} |A(\omega)|^2 d\omega \int_{-\infty}^{\infty} |B(\omega)|^2 d\omega,
 \end{equation}
-for two complex signals $A(\omega)$ and $B(\omega)$. The two sides are exactly equal if and only if they are linearly
-dependant:
+for two complex signals $A(\omega)$ and $B(\omega)$. The two sides are exactly equal if and only if the following holds
+true: 
 
 \begin{equation}
   \label{eq:schwarzcond}
@@ -205,13 +208,13 @@ dependant:
 \end{equation}
 where $K$ is an arbitrary constant.
 Substituting Equations \eqref{eq:mfso} and \eqref{eq:mfnoise} back into Equation \eqref{eq:mfsnr} and applying the
-Schwarz inequality with 
+Schwarz inequality with:
 
 \begin{equation}
   \label{eq:schwarzsubst}
   A(\omega) = H(\omega) , B(\omega) = S(\omega)\exp(j \omega t_0), 
 \end{equation}
-yields
+yields:
 
 \begin{equation}
 \label{eq:mfsnrmax}
@@ -259,7 +262,8 @@ Function}, or AF.
 \begin{figure}[h]
 \includegraphics[width=\imgsize]{figures/acf.png}
 \caption{ACF of a rectangular pulse. Similar to the convolution, the output of the matched filter of a
-rectangular pulse is a triangle.}
+rectangular pulse is a triangle. The height of the triangle at any given point is determined by the overlap of the
+signal with the matched filter response, so that it reaches its maximum when both fully overlap.}
 \label{fig:acf}
 \end{figure}
 
@@ -270,14 +274,14 @@ In \cite{Rihaczek:1968}, the AF is defined as:
 
 \begin{equation}
 \label{eq:AF}
-  |\chi(\tau,f_d)| = \left| \int_{-\infty}^\infty{u(t) u^*(t+\tau) e^{-j2\pi f_d t} dt}\right|,
+  |\chi(\tau,f_d)| = \left| \int_{-\infty}^\infty{s(t) s^*(t+\tau) e^{-j2\pi f_d t} dt}\right|,
 \end{equation}
 where $u(t)$ is the complex envelope of the signal and $\tau$ is the delay due to propagation, not to be confused with the
 pulse length used in other places. It can clearly be seen that, for $f_d = 0$, the
 AF reduces to the ACF, presented in Section \ref{s:2pc}.
 
 
-For a simple rectangular pulse of the form $u(t)=\frac{1}{\sqrt{T}} rect(\frac{t}{T})$, the AF is \citep{Levanon:2004}:
+For a simple rectangular pulse of the form $s(t)=\frac{1}{\sqrt{T}} \text{rect}(\frac{t}{T})$, the AF is \citep{Levanon:2004}:
 
 \begin{align*}
   |\chi(\tau,f_d)| &= \left| \int_{-\infty}^\infty{u(t) u^*(t+\tau) e^{j2\pi f_d t} dt}\right| \\ 
@@ -291,10 +295,15 @@ For a simple rectangular pulse of the form $u(t)=\frac{1}{\sqrt{T}} rect(\frac{t
 
 Evaluate the integrals to get:
 
-\begin{equation}
-  |\chi(\tau,f_d)| = \left|\left(1-\frac{|\tau|}{T}\right) \frac{\sin[\pi T f_d(1- \frac{|\tau|}{T})]}{\pi T f_d(1- \frac{|\tau|}{T})}\right|, |\tau| \leq T, \text{zero elsewhere}
-\end{equation}
-For $\tau=0$, the result is the sinc function, for $f_d=0$ it is simply the ACF of a pulse, which is
+\begin{align}
+  |\chi(\tau,f_d)| &= 
+  \begin{cases} 
+  \left|\left(1-\frac{|\tau|}{T}\right) \frac{\sin[\pi T f_d(1- \frac{|\tau|}{T})]}{\pi T f_d(1-
+  \frac{|\tau|}{T})}\right| & \text{for $|\tau| \leq T$}, \\
+  0 & \text{otherwise}.
+  \end{cases}
+\end{align}
+For $\tau=0$, the result is the $\mathrm{sinc}$ function, for $f_d=0$ it is simply the ACF of a pulse, which is
 a triangle.
 
 The ideal shape of the AF depends on the application. One useful AF looks like a thumbtack and thus provides good range
