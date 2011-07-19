@@ -377,10 +377,14 @@ sidelobes but widens the mainlobe. Increasing $a$ has the same effect.}
 
 \section{Effects of Impulse Response on the Ambiguity Function}
 As discussed in Section \ref{s:ireffects}, as the return signal passes through the receive chain, it will be distorted
-by the impulse response of the amplifier. The effects of that on the waveform are presented here.  To provide a
+by the impulse response of the amplifier. The effects of that on the waveform are presented here.  
+
+
+\subsection{Rectangular Pulse}
+To provide a
 baseline, Figure \ref{fig:pulsewoir-15us} shows a rectangular pulse that is undistorted as a reference again.
 
-\begin{figure}[!ht]
+\begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/pulsewoir-15us.png}
 \caption{ An ideal AF for a rectangular pulse of length $\tau = \SI{15}{\micro\second}$. }
 \label{fig:pulsewoir-15us}
@@ -389,7 +393,7 @@ baseline, Figure \ref{fig:pulsewoir-15us} shows a rectangular pulse that is undi
 
 Figure \ref{fig:pulsewir-15us} shows the AF of a waveform that has been distorted by a system with the impulse response shown in Figure
 \ref{fig:tf1}. The goal of this section is to study the effects of a non-linear response of the system to pulse compression.
-\begin{figure}[!ht]
+\begin{figure}[H]
 \includegraphics[width=\imgsizes]{figures/tf1.png}
 \caption{Rayleigh-shaped impulse response.}
 \label{fig:tf1}
@@ -406,6 +410,36 @@ is reflected in the range delay of the AF due to the waveform passing through th
 desirable and should be corrected.
 TODO: expand on the wave passing through system.
 
-TODO: add LFM and NLFM effects.
+\subsection{Barker Code}
+Figure \ref{fig:barkerwir-15us} shows the AF of a Barker 13 phase code with pulse length $\tau=\SI{15}{\micro\second}$.
+Similar to a rectangular pulse, the asymmetry of the impulse response is reflected in the AF. Unlike the rectangular
+pulse, the range delay is affected more by the distortion, severely impacting the range resolution.
+\begin{figure}[H]
+\includegraphics[width=\imgsizes]{figures/barkerwir-15us.png}
+\caption{ AF of a Barker 13 phase code with system distortion. The asymmetry of the impulse response is reflected
+in the asymmetric distortion in the pulse's AF. }
+\label{fig:barkerwir-15us}
+\end{figure}
 
 
+\subsection{Linear Frequency Modulation}
+Figure \ref{fig:lfmwir-15us} shows the AF of an LFM waveform with pulse length $\tau=\SI{15}{\micro\second}$. The
+distortion of the impulse response smoothes out the sidelobes on one side of the AF in the range delay direction.
+\begin{figure}[H]
+\includegraphics[width=\imgsizes]{figures/lfmwir-15us.png}
+\caption{ AF of an LFM waveform with system distortion. The asymmetry of the impulse response is reflected
+in the asymmetric distortion in the pulse's AF. }
+\label{fig:lfmwir-15us}
+\end{figure}
+
+
+\subsection{Non-linear Frequency Modulation}
+Figure \ref{fig:lfmwir-15us} shows the AF of an NLFM waveform with pulse length $\tau=\SI{15}{\micro\second}$. Compared
+to the LFM waveform discussed previously, the distortion of the impulse response does not smooth the sidelobes out
+completely on one side, although they are smoother than the other side.
+\begin{figure}[H]
+\includegraphics[width=\imgsizes]{figures/nlfmwir-15us.png}
+\caption{ AF of a NLFM waveform with system distortion. The asymmetry of the impulse response is reflected
+in the asymmetric distortion in the pulse's AF. }
+\label{fig:nlfmwir-15us}
+\end{figure}
