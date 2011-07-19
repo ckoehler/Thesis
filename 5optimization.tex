@@ -202,7 +202,7 @@ shorter pulse as expected.}
 \subsection{Linear Frequency Modulation with Amplitude Tapering}
 LFM has the disadvantage of very high sidelobes at about \SI{-13}{\decibel}.  These can be mitigate with amplitude
 tapering. In this work, a Kaiser window is applied to demonstrate the effects of amplitude tapering.  Based on Equation \eqref{eq:kaiser2}, the parameter $\beta$
-is varied from 0 to 50 in 1.0 increments, and the AF generated and evaluated for each by quantifying its performance according to the
+is varied from 0 to 20 in approximately 0.2 increments, and the AF generated and evaluated for each by quantifying its performance according to the
 metrics described in Section \ref{s:quantifications}. The results are shown in Figure \ref{fig:lfm-isl-15us-opti}.
 
 As expected, the ISL dramatically decreases, as does the PSL. At the same time, the range resolution decreases from an
@@ -225,16 +225,16 @@ sidelobe reduction, but loss in power and thus sensitivity becomes significant q
 
 Clearly, a trade-off is made. If the half power point is selected, the waveform would have an ISL of about
 \SI{-36}{\decibel}, PSL of \SI{-47}{\decibel}, and a range resolution of \SI{68}{\metre}.
-The corresponding zero Doppler cut of the AF at this point is shown in figure \ref{fig:lfm-isl-15us-opti-slice8}. It
+The corresponding zero Doppler cut of the AF at this point is shown in figure \ref{fig:lfm-isl-15us-opti-slice18}. It
 clearly shows the sidelobes at about \SI{-50}{\decibel}, which means this waveform would be adequate for typical weather
 observations for a \SI{3}{\decibel} loss in power. 
 
 
 \begin{figure}[H]
-\includegraphics[width=\imgsize]{figures/lfm-isl-15us-opti-slice8.png}
+\includegraphics[width=\imgsize]{figures/lfm-isl-15us-opti-slice18.png}
 \caption{Zero Doppler cut of the tapered LFM AF at the half power point. Sidelobes are reduced significantly while range
 resolution is reduced to \SI{68}{\metre}, which is well sufficient for typical storm observations.}
-\label{fig:lfm-isl-15us-opti-slice8}
+\label{fig:lfm-isl-15us-opti-slice18}
 \end{figure}
 
 
