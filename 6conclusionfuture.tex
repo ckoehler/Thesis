@@ -27,6 +27,13 @@ to \SI{-40}{\decibel} while maintaining a range resolution of about 100 m. The P
 tapering is applied yet, so while a tapered LFM waveform has better performance than NLFM, there is also a loss in
 sensitivity due to the tapering.
 
+Applying amplitude tapering to the NLFM reduces the ISL and PSL significantly, as it did for LFM waveforms. The decrease
+in sensitivity due to lower PPR has to be taken into account, as well as the loss in range resolution, which decreases
+rapidly with increased tapering and larger $a$. For $a=2.75$ and $\beta=12.31$, the range resolution is about 280 m,
+with PSL at \SI{-70}{\decibel}. However, the loss of sensitivity due to the PPR is unacceptable at about
+\SI{-6}{\decibel}.
+
+
 
 
 \section{Future Work}
@@ -41,5 +48,11 @@ results compared with the theoretical results that are expected. Particularly, a
 caused by the impulse response could be presented. One possibility is to pre-undo the distortions that are caused by the
 transmit and receive chain. The anti-distortion filter is designed to equalize the system response of the subsequent
 chain in between the waveform generator and antenna feed horn, which includes up-converter and amplifier.
+
+Third, the effects of volume scattering on the waveform should be examined. For weather radar applications, volumes of
+point scatterers are considered instead of simple point targets. E.g., in the case of rain, millions of raindrops will
+be present in a typical resolution volume of the radar, moving at different velocities and with different shapes. Both
+their size and velocity will be distributed over some probability density function, introducing a random element to the
+calculations. How exactly that affects the AF would be beneficial to determine.
 
 
