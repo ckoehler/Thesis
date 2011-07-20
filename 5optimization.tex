@@ -118,10 +118,9 @@ amplitude tapering is applied.  However, performance calculations show that it d
 being perfect this is not surprising. Specifically, Figure \ref{fig:barker13-15us-opti} shows the optimization results
 of applying a Kaiser window with different values of $\beta$ to the Barker 13 signal. It shows that both ISL and PSL
 generally become worse with increased $\beta$, while range resolution stays constant. This means that the mainlobe
-width is not affected at all by amplitude tapering. 
-TODO: contradicts windowing section that said it would affect.  Explain.
-As expected, the PPR shape is consistent with other results since
-it only depends on the Kaiser window.
+width is not affected at all by amplitude tapering. This is an interesting result, because a widening of the mainlobe is
+usually the case, as explained in Section \ref{s:ampmod} and shown for other waveforms in this chapter.
+As expected, the PPR shape is consistent with other results since it only depends on the Kaiser window.
 
 The ISL does become slightly better with very light tapering, with the minimum ISL occuring with $\beta = 1.026$. The
 zero-Doppler cut of the AF at this point is shown in Figure \ref{fig:barker13-15us-opti-slice3}. Unfortunately,
@@ -210,9 +209,6 @@ initial \SI{40}{\metre} to about \SI{200}{\metre}. The PPR may be the limiting m
 quickly loses half of its energy with only minor amplitude tapering and eventually decreases to about \SI{-9}{\decibel}
 of the original amplitude, which means the signal loses a significant amount of its energy. This, in turn, means reduced
 sensitivity.
-
-TODO: sensitivity vs $\beta$ plot.
-
 
 
 \begin{figure}[H]

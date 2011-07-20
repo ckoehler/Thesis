@@ -61,12 +61,12 @@ resulting trade-off is called the \emph{Doppler dilemma}, which states that, for
 aliasing range or high aliasing velocity, but not both \citep[p.  60-61]{Doviak:2006}
 
 \section{Staggered PRT}
-As mentioned earlier, the problem with a single PRT is the so-called Doppler dilemma. A short
-PRT provides high aliasing velocity, while a long PRT gives us a long aliasing range. Neither gives us
-both.  One way around this limitation is by using two different PRTs, a long and a short one, and combine measurements of both
-to increase aliasing velocity.  Typically, the long PRT is chosen based on the desired aliasing range, while the
-short PRT is chosen such that their combination maximizes the aliasing velocity. The aliasing velocity of two
-staggered pulses of different lengths is defined as \citep[p. 173]{Doviak:2006}:
+As mentioned earlier, the problem with a single PRT is the so-called Doppler dilemma. A short PRT provides high aliasing
+velocity, while a long PRT gives us a long aliasing range. Neither gives us both.  One way around this limitation is by
+using two different PRTs, a long and a short one, and combine measurements of both to increase aliasing velocity. The
+concept of using two PRTs is shown in Figure \ref{fig:sprt}.  Typically, the long PRT is chosen based on the desired
+aliasing range, while the short PRT is chosen such that their combination maximizes the aliasing velocity. The aliasing
+velocity of two staggered pulses of different lengths is defined as \citep[p. 173]{Doviak:2006}:
 
 \begin{equation}
   \label{eq:vm}
@@ -76,8 +76,11 @@ staggered pulses of different lengths is defined as \citep[p. 173]{Doviak:2006}:
 The disadvantage of this method is a longer scan time, since every radial now has to be scanned twice, once with the short and once
 with the long pulse, doubling the time between sweeps. For some applications, this is not an acceptable trade-off.
 
-TODO: is this dual prf or staggered prf?
-TODO: add figure for Ts1 and Ts2
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/sprt.png}
+\caption{For the Staggered PRT technique, two different PRTs are used to achieve sufficient aliasing range and velocity.}
+\label{fig:sprt}
+\end{figure}
 
 \section{Inter-pulse Coding}
 In order to distinguish return signals from differetn pulses, one can encode the transmit phase of each pulse. That way,
@@ -87,9 +90,12 @@ belong to the first pulse and thus distinguished from echoes caused by the secon
 This allows the use of a small PRT, resulting in good aliasing velocity, but also the ability to unfold second, third,
 or even fourth trip echoes correctly. One such implementation is called SZ phase codes.  For this technique, every other
 pulse is phase shifted by a certain sequence $a_k = e^{j \Psi_k}$. On receive, the signal can be decoded by multiplying
-it with the complex conjugate of the coding sequence, $a^*_k$. For more details, refer to \cite{Sachidananda:1999}.
+it with the complex conjugate of the coding sequence, $a^*_k$. This will make the first-trip signal coherent, leaving
+the rest of the signals with different phase shifts. To make the second-trip echos coherent, the return signal is
+multiplied by $a^*_{k-1}$, which will again leave the other trip signals encoded. This can be repeated for the other
+trip signals in the same way. In this manner, each trip signal can be made coherent and thus separated from the others.
+For more details, refer to \cite{Sachidananda:1999}.
 
-TODO: add more detail on s-z coding.
 
 \section{Pulse Length}
 The previous techniques were independent of the pulse length. However, pulse length, usually
