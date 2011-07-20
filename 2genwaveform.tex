@@ -224,7 +224,12 @@ yields:
   \left(\frac{S}{N}\right)_{\mathrm{out}} \leq \frac{1}{\pi N_\mathrm{0}} \int_{-\infty}^{\infty} |S(\omega)|^2 d\omega
   = \frac{2E}{N_\mathrm{0}},
 \end{equation}
-where $E$ is the energy of the signal.
+where $E$ is the energy of the signal, given by:
+
+\begin{equation}
+  \label{eq:energy}
+  E = \int_{-\infty}^{\infty} s^2(t) dt = \frac{1}{2 \pi} \int_{-\infty}^{\infty} S^2(\omega) d\omega.
+\end{equation}
 
 Substituting \eqref{eq:schwarzsubst} into \eqref{eq:schwarzcond} shows that the maximum output SNR is achieved when the
 two sides of Equation \eqref{eq:mfsnrmax} are equal, i.e.:
@@ -240,20 +245,23 @@ Taking the inverse Fourier transform produces the impulse response of the matche
 This reveals that the impulse response of the matched filter is the delayed mirror image of the conjugate of the
 original signal $s(t)$. When the signal and filter are matched in this way, the condition of the Schwarz inequality
 in Equation \eqref{eq:schwarzcond} is fulfilled and the SNR at $t=t_\mathrm{0}$ is maximized with
-$\mathrm{SNR}=\frac{2E}{N_\mathrm{0}}$.
+$\mathrm{SNR}=\frac{2E}{N_\mathrm{0}}$. This result shows that the ideal SNR is not dependent on any component of the
+pulse but its total energy.
 
 With $h(t)$ known, the output of the matched filter is then 
 \begin{equation}
   \label{eq:filterresponse}
-  s_\mathrm{o}(t_\mathrm{0}) = s(t) \star h(t) = \int_{-\infty}^{\infty}{s(\tau) K s^*[t_\mathrm{0} - (t - \tau)] d\tau}.
+  s_\mathrm{o}(t_\mathrm{0}) = s(t) \star h(t) = \int_{-\infty}^{\infty}{s(\tau_\mathrm{d}) K s^*[t_\mathrm{0} - (t -
+  \tau_\mathrm{d})] d\tau_\mathrm{d}},
 \end{equation}
+where $\tau_\mathrm{d}$ is the range delay due to propagation.
 Choosing the arbitrary gain constant $K=1$ and the predetermined delay $t_\mathrm{0}=0$, the output can be recognized as the
 autocorrelation function (ACF) of $s(t)$:
 \begin{equation}
   \label{eq:acf}
-  s_\mathrm{o}(0) = \mathrm{ACF}(s(t)) = \int_{-\infty}^{\infty}{s(\tau) s^*(\tau-t) d\tau}.
+  s_\mathrm{o}(0) = \mathrm{ACF}(s(t)) = \int_{-\infty}^{\infty}{s(\tau_\mathrm{d}) s^*(\tau_\mathrm{d}-t)
+  d\tau_\mathrm{d}}.
 \end{equation}
-
 The concept of the ACF for a rectangular pulse is shown in Figure \ref{fig:acf}.
 This is an important function because it describes the output of the radar depending on the waveform $s(t)$ used. It is
 the basis of analyzing the performance of radar signals in this work. As discussed before, the best result is achieved
@@ -280,21 +288,23 @@ In \cite{Rihaczek:1968}, the AF is defined as:
 
 \begin{equation}
 \label{eq:AF}
-  |\chi(\tau,f_\mathrm{d})| = \left| \int_{-\infty}^\infty{s(t) s^*(t+\tau) e^{-j2\pi f_\mathrm{d} t} dt}\right|,
+  |\chi(\tau_\mathrm{d},f_\mathrm{d})| = \left| \int_{-\infty}^\infty{s(t) s^*(t+\tau_\mathrm{d}) e^{-j2\pi f_\mathrm{d} t} dt}\right|,
 \end{equation}
-where $s(t)$ is the complex envelope of the signal and $\tau$ is the delay due to propagation, not to be confused with the
-pulse length used in other places. It can clearly be seen that, for $f_\mathrm{d} = 0$, the
+where $s(t)$ is the complex envelope of the signal. It can clearly be seen that, for $f_\mathrm{d} = 0$, the
 AF reduces to the ACF, presented in Section \ref{s:2pc}.
 
 
-For a simple rectangular pulse of the form $s(t)=\frac{1}{\sqrt{T}} \text{rect}(\frac{t}{T})$, the AF is \citep{Levanon:2004}:
+For a simple rectangular pulse of the form $s(t)=\frac{1}{\sqrt{\tau}} \text{rect}(\frac{t}{\tau})$, the AF is \citep{Levanon:2004}:
 
 \begin{align*}
-  |\chi(\tau,f_\mathrm{d})| &= \left| \int_{-\infty}^\infty{s(t) s^*(t+\tau) e^{j2\pi f_\mathrm{d} t} dt}\right| \\ 
+  |\chi(\tau_\mathrm{d},f_\mathrm{d})| &= \left| \int_{-\infty}^\infty{s(t) s^*(t+\tau_\mathrm{d}) e^{j2\pi f_\mathrm{d} t} dt}\right| \\ 
   &= 
   \begin{cases}
-    \frac{1}{T} \int_{-\frac{T}{2} + \tau}^{\frac{T}{2}}{e^{j2\pi f_\mathrm{d} t}dt} & \text{for $0 \leq \tau \leq T$}, \\
-    \frac{1}{T} \int_{-\frac{T}{2}}^{\frac{T}{2} + \tau}{e^{j2\pi f_\mathrm{d} t}dt} & \text{for $-T \leq \tau < 0$}, \\
+    \frac{1}{\tau} \int_{-\frac{\tau}{2} + \tau_\mathrm{d}}^{\frac{\tau}{2}}{e^{j2\pi f_\mathrm{d} t}dt} & \text{for $0
+    \leq \tau_\mathrm{d} \leq \tau$}, \\
+    \frac{1}{\tau} \int_{-\frac{\tau}{2}}^{\frac{\tau}{2} + \tau_\mathrm{d}}{e^{j2\pi f_\mathrm{d} t}dt} & \text{for
+    $-\tau
+    \leq \tau_\mathrm{d} < 0$}, \\
     0 & \text{otherwise}. \\
   \end{cases}
 \end{align*}
@@ -302,14 +312,15 @@ For a simple rectangular pulse of the form $s(t)=\frac{1}{\sqrt{T}} \text{rect}(
 Evaluate the integrals to get:
 
 \begin{align}
-  |\chi(\tau,f_\mathrm{d})| &= 
+  |\chi(\tau_\mathrm{d},f_\mathrm{d})| &= 
   \begin{cases} 
-  \left|\left(1-\frac{|\tau|}{T}\right) \frac{\sin[\pi T f_\mathrm{d}(1- \frac{|\tau|}{T})]}{\pi T f_\mathrm{d}(1-
-  \frac{|\tau|}{T})}\right| & \text{for $|\tau| \leq T$}, \\
+  \left|\left(1-\frac{|\tau_\mathrm{d}|}{\tau}\right) \frac{\sin[\pi \tau f_\mathrm{d}(1-
+  \frac{|\tau_\mathrm{d}|}{\tau})]}{\pi \tau f_\mathrm{d}(1-
+  \frac{|\tau_\mathrm{d}|}{\tau})}\right| & \text{for $|\tau_\mathrm{d}| \leq \tau$}, \\
   0 & \text{otherwise}.
   \end{cases}
 \end{align}
-For $\tau=0$, the result is the $\mathrm{sinc}$ function, for $f_\mathrm{d}=0$ it is simply the ACF of a pulse, which is
+For $\tau_\mathrm{d}=0$, the result is the $\mathrm{sinc}$ function, for $f_\mathrm{d}=0$ it is simply the ACF of a pulse, which is
 a triangle.
 
 The ideal shape of the AF depends on the application. One useful AF looks like a thumbtack and thus provides good range
