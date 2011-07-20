@@ -17,7 +17,8 @@ drastically lowering maintenance and operation expenses and increasing the area 
 The most basic pulsed radar is able to determine the reflectivity of the atmosphere by measuring the return signal of
 the radar beam. Additionally, coherent radars can measure the Doppler shift of the return signal and use it to find the
 radial velocity of the target, i.e., the velocity component of the target that is directed right towards or away from
-the radar. This is achieved with a stable local oscillator, which allows the phase different to be foo.
+the radar. This is achieved with a stable local oscillator (STALO), which allows the transmit phase to be determined
+accurately and the return signal phase to be compared to it. The difference in phase will be. 
 TODO: STALO explanation.
 
 Some wavelengths perform better for observing weather than others, especially with respect to attenuation through
@@ -71,16 +72,15 @@ produced and are often available commercially off the shelf (COTS).
 
 One way to compensate for the lower duty cycle and peak power of solid-state amplifiers is to use longer pulses
 \citep[p. 702]{Skolnik:2001}. However, a longer pulse decreases range resolution, so a method is needed to improve the
-signal-to-noise ratio (SNR) while keeping the range resolution acceptable.  That method is called pulse compression.
-
-TODO: find bell lab's paper on pulse compression.
+signal-to-noise ratio (SNR) while keeping the range resolution acceptable. That method is called pulse compression.
 
 
 \section{The Need for Pulse Compression}
 Pulse compression is a technique to increase the SNR by using waveforms that allow the duration and bandwidth to be
-controlled separately.
-Compression is achieved by using one or more matched filters, which will be introduced in Chapter \ref{genwaveform}.
-This allows the design of waveforms such that they are focused in a narrow main lobe, with low sidelobes to concentrate
-the signal energy in the main lobe \citep{Richards:2005}.  The challenge then becomes to design a waveform that has the
-needed SNR and at the same time good range resolution, while keeping down sidelobes. This is a procedure of many
-trade-offs.
+controlled separately.  A very early paper by Bell Labs introduces the concept of a Chirp, or a frequency modulated
+pulse, for exactly this purpose \citep{Klauder:1960}. Since then, other ways of achieving the same goal have been found
+and will be discussed in this work. Compression is achieved by using one or more matched filters,
+which will be introduced in Chapter \ref{genwaveform}.  This allows the design of waveforms such that they are focused
+in a narrow main lobe, with low sidelobes to concentrate the signal energy in the main lobe \citep{Richards:2005}.  The
+challenge then becomes to design a waveform that has the needed SNR and at the same time good range resolution, while
+keeping down sidelobes. This is a procedure of many trade-offs.
