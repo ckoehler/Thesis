@@ -2,9 +2,31 @@
 This work examined several different techniques of pulse compression and evaluated their performance 
 in regards to weather radar applications. 
 
-A rectangular pulse still performs fairly well, with good range resolution and no sidelobes. Although much
-effort was put into finding optimal NLFM waveforms, the performance evaluations suggest that amplitude tapered LFM
-waveform is desirable in terms of sidelobes around \SI{-70}{\decibel}, with the only drawback being a \SI{3}{\decibel} loss in energy.
+A rectangular pulse still performs fairly well, with good range resolution for very short pulses and no sidelobes. Even
+for pulse lengths up to \SI{200}{\micro\second}, there is no significant mismatch loss over the velocities commonly
+encountered in weather applications, although range resolution decreases as expected.
+
+Using a waveform that is phase coded with a Barker 13 code does increase the range resolution dramatically for the same
+pulse lengths to about 110 m for the same pulse length. However, the peak sidelobe level is only at about
+\SI{-22}{\decibel}, which makes this waveform unusable for typical storm observation. It could still be used in
+situations where a low PSL isn't necessary, like clear air measurements.
+
+Applying amplitude tapering to a Barker phase coded waveform has little benefit. The range resolution does not improve,
+and neither to ISL and PSL. Since a Barker 13 code is already ``perfect,'' this result is to be expected.
+
+An LFM waveform has much better range resolution than both a rectangular and Barker phase coded pulse at about 30 m.
+The PSL is higher at \SI{-13}{\decibel}, so the same discussion for the Barker code applies here. Sidelobe levels
+improved significantly with amplitude tapering, with range resolution decreasing only moderately. Sensitivity could be
+the limiting factor because the PPR decreases quickly with more aggressive tapering. With PPR at \SI{-3}{\decibel}, the
+ISL decreases to about \SI{-36}{\decibel} with the PSL decreasing to \SI{-47}{\decibel}. The range resolution with this
+degree of tapering is 68 m, which would make this waveform adequate for weather radar applications.
+
+Optimizing the frequency sweep for NLFM waveforms showed that it can improve performance even without amplitude
+tapering. Simulations indicated ISLs around \SI{-20}{\decibel} to \SI{-25}{\decibel} and PSLs around \SI{-20}{\decibel}
+to \SI{-40}{\decibel} while maintaining a range resolution of about 100 m. The PPR is \SI{0}{\decibel} because no
+tapering is applied yet, so while a tapered LFM waveform has better performance than NLFM, there is also a loss in
+sensitivity due to the tapering.
+
 
 
 \section{Future Work}
