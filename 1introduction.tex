@@ -80,12 +80,20 @@ signal-to-noise ratio (SNR) while keeping the range resolution acceptable. That 
 
 \section{The Need for Pulse Compression}
 Pulse compression is a technique to increase the SNR by using waveforms that allow the duration and bandwidth to be
-controlled separately.  A very early paper by Bell Labs introduces the concept of a Chirp, or a frequency modulated
-pulse, for exactly this purpose \citep{Klauder:1960}. Since then, other ways of achieving the same goal have been found
-and will be discussed in this work. Compression is achieved by using one or more matched filters,
-which will be introduced in Chapter \ref{genwaveform}.  This allows the design of waveforms such that they are focused
-in a narrow main lobe, with low sidelobes to concentrate the signal energy in the main lobe \citep{Richards:2005}.  The
-challenge then becomes to design a waveform that has the needed SNR and at the same time good range resolution, while
-keeping down sidelobes. This is a procedure of many trade-offs.
+controlled separately \citep[pp. 42-43]{Richards:2005}.  A very early paper by Bell Labs introduces the concept of a
+Chirp, or a frequency modulated pulse, for exactly this purpose \citep{Klauder:1960}. Since then, other ways of
+achieving the same goal have been found and will be discussed in this work. Compression is achieved by using one or more
+matched filters, which will be introduced in Chapter \ref{genwaveform}.  This allows the design of waveforms such that
+they are focused in a narrow main lobe, with low sidelobes to concentrate the signal energy in the main lobe
+\citep[p. 44]{Richards:2005}. 
 
-TODO: what is the need???
+As mentioned previously, solid-state amplifiers are economical, but have lower peak power and higher duty cycles, so
+long pulses are necessary to achieve the same sensitivity. On the one hand, range resolution is important to detect
+small features and would suffer severely from longer pulses.
+On the other hand, the SNR is directly related to probability of detection, so it is very important to maintain a sufficient SNR.
+Furthermore, since weather signals have a large dynamic range, required for detecting anything from light rain or even
+just clear air measurements, to heavy rain and hail, a high SNR is absolutely necessary.  
+
+These requirements for good range resolution and SNR make pulse compression necessary. The different ways of
+accomplishing pulse compression are discussed in this thesis.
+
