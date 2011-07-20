@@ -55,10 +55,10 @@ network are \SI{1.57}{\micro\second} and \SI{4.57}{\micro\second} \citep[p. 47]{
 
 
 \begin{figure}[H]
-\includegraphics[width=\imgsizes]{figures/pulse-1us.png}
-\caption{ AF of a rectangular pulse of length 1 $\mu s$. There is no significant Doppler mismatch for typical velocities of
+\includegraphics[width=\imgsizes]{figures/pulse-15us.png}
+\caption{ AF of a rectangular pulse of length 15 $\mu s$. There is no significant Doppler mismatch for typical velocities of
 weather phenomena.}
-\label{fig:simplepulse-1us}
+\label{fig:simplepulse-15us}
 \includegraphics[width=\imgsizes]{figures/pulse-200us.png}
 \caption{ AF of a rectangular pulse of length 200 $\mu s$. There is still no significant effect on Doppler
 performance for typical velocities of weather phenomena. }
@@ -74,8 +74,8 @@ performance for typical velocities of weather phenomena. }
 
 
 \section{Barker Code}
-In this section, a length 13 Barker code of different pulse lengths will be examined. Figures \ref{fig:barker13-1us} and
-\ref{fig:barker13-1us-0D} show a \SI{1}{\micro\second} pulse that has been phase coded with a length 13 Barker code. As
+In this section, a length 13 Barker code of different pulse lengths will be examined. Figures \ref{fig:barker13-15us} and
+\ref{fig:barker13-15us-0D} show a \SI{15}{\micro\second} pulse that has been phase coded with a length 13 Barker code. As
 for a rectangular pulse, there is no significant degradation of the signal with increasing Doppler shifts, so the
 Doppler distortions can be neglected.  The zero-Doppler cut shows the typical shape of the Barker code and sidelobes of
 about \SI{-22}{\decibel} \citep[p. 351]{Skolnik:2001}.
@@ -85,14 +85,14 @@ difference in the Doppler dimension, so the pulse length has no effect on the sh
 besides the expected loss of range resolution caused by the longer pulse.
 
 \begin{figure}[H]
-\includegraphics[width=\imgsizes]{figures/barker-1us.png}
-\caption{ AF of the Barker 13 code of length 1 $\mu s$. The sidelobes are all at the same level, which is too high to
+\includegraphics[width=\imgsizes]{figures/barker-15us.png}
+\caption{ AF of the Barker 13 code of length 15 $\mu s$. The sidelobes are all at the same level, which is too high to
 achieve sufficient sensitivity for typical weather applications. }
-\label{fig:barker13-1us}
-\includegraphics[width=\imgsizes]{figures/barker-1us-0D.png}
+\label{fig:barker13-15us}
+\includegraphics[width=\imgsizes]{figures/barker-15us-0D.png}
 \caption{Zero Doppler cut of the AF of a 13 element Barker code. PSL is at about \SI{-22}{\decibel}, which is too high
 for typical weather applications.}
-\label{fig:barker13-1us-0D}
+\label{fig:barker13-15us-0D}
 \end{figure}
 
 The high sidelobes of the Barker code make it not suitable for typical weather applications, although it could still
@@ -171,11 +171,11 @@ that in the Doppler dimension, the pulse length has little effect for weather ra
 
 \begin{figure}[H]
 \includegraphics[width=\imgsizes]{figures/lfm-15us.png}
-\caption{ AF of a LFM waveform of length 15 $\mu s$. Again, Doppler mismatch is negligible for typical weather-related
+\caption{ AF of an LFM waveform of length 15 $\mu s$. Again, Doppler mismatch is negligible for typical weather-related
 velocities.  }
 \label{fig:lfm-15us}
 \includegraphics[width=\imgsizes]{figures/lfm-200us.png}
-\caption{ AF of a LFM waveform of length 200 $\mu s$. Increasing the pulse length has no effect on either Doppler
+\caption{ AF of an LFM waveform of length 200 $\mu s$. Increasing the pulse length has no effect on either Doppler
 mismatch or range resolution. }
 \label{fig:lfm-200us}
 \end{figure}
@@ -189,10 +189,10 @@ not the pulse length, as is expressed in Equation \eqref{eq:lfm-rangeres}.
 
 \begin{figure}[H]
 \includegraphics[width=\imgsizes]{figures/lfm-15us-0D.png}
-\caption{ Zero-Doppler cut of a LFM waveform AF of length \SI{15}{\micro\second}. Typical PSL is about \SI{-13}{\decibel}. }
+\caption{ Zero-Doppler cut of an LFM waveform AF of length \SI{15}{\micro\second}. Typical PSL is about \SI{-13}{\decibel}. }
 \label{fig:lfm-15us-0d}
 \includegraphics[width=\imgsizes]{figures/lfm-200us-0D.png}
-\caption{ Zero-Doppler cut of a LFM waveform AF of length \SI{200}{\micro\second}. Range resolution is identical to the
+\caption{ Zero-Doppler cut of an LFM waveform AF of length \SI{200}{\micro\second}. Range resolution is identical to the
 shorter pulse as expected.}
 \label{fig:lfm-200us-0d}
 \end{figure}
@@ -404,7 +404,6 @@ As expected there is again no significant distortion in the Doppler dimension, w
 rectangular pulse. The only effect is in the range delay dimension. There, the asymmetric shape of the impulse response
 is reflected in the range delay of the AF due to the waveform passing through the system. This distortion is not
 desirable and should be corrected.
-TODO: expand on the wave passing through system.
 
 \subsection{Barker Code}
 Figure \ref{fig:barkerwir-15us} shows the AF of a Barker 13 phase code with pulse length $\tau=\SI{15}{\micro\second}$.
@@ -418,24 +417,27 @@ in the asymmetric distortion in the pulse's AF. }
 \end{figure}
 
 
-\subsection{Linear Frequency Modulation}
-Figure \ref{fig:lfmwir-15us} shows the AF of an LFM waveform with pulse length $\tau=\SI{15}{\micro\second}$. The
-distortion of the impulse response smoothes out the sidelobes on one side of the AF in the range delay direction.
+\subsection{Frequency Modulation}
+Figures \ref{fig:lfmwir-15us} and \ref{fig:lfmwir-15us} show the AFs of an LFM and NLFM waveform, respectively, both
+with pulse lengths $\tau=\SI{15}{\micro\second}$. The distortion of the impulse response smoothes out the sidelobes on
+one side of the AF in the range delay direction, due to the impulse response being asymmetric. The peak sidelobe level
+on either side of the mainlobes shows no significant difference, though they are lower than without impulse response
+distortion. For the LFM waveform, the smoothing almost eliminates the sidelobes, whereas they are still clearly visible
+for the NLFM waveform.
+
 \begin{figure}[H]
 \includegraphics[width=\imgsizes]{figures/lfmwir-15us.png}
 \caption{ AF of an LFM waveform with system distortion. The asymmetry of the impulse response is reflected
 in the asymmetric distortion in the pulse's AF. }
 \label{fig:lfmwir-15us}
-\end{figure}
-
-
-\subsection{Non-linear Frequency Modulation}
-Figure \ref{fig:lfmwir-15us} shows the AF of an NLFM waveform with pulse length $\tau=\SI{15}{\micro\second}$. Compared
-to the LFM waveform discussed previously, the distortion of the impulse response does not smooth the sidelobes out
-completely on one side, although they are smoother than the other side.
-\begin{figure}[H]
 \includegraphics[width=\imgsizes]{figures/nlfmwir-15us.png}
 \caption{ AF of a NLFM waveform with system distortion. The asymmetry of the impulse response is reflected
 in the asymmetric distortion in the pulse's AF. }
 \label{fig:nlfmwir-15us}
 \end{figure}
+
+Generally, then, a system impulse response has no significant effect on the Doppler distortion for weather radar
+applications. However, it does affect the range delay by smoothing out the waveform similar to amplitude tapering,
+lowering range resolution. The distortion is not symmetric because the system impulse response is not, either, which is
+the most significant result presented here. Despite the benefits of smoothing and sidelobe reduction caused by the
+impulse response, the asymmetry is highly undesirable and should be corrected.
