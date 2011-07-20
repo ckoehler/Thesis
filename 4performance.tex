@@ -60,11 +60,11 @@ and can help quantify the loss in sensitivity caused by tapering.
 
 
 \section{Limitations}
-There are some limitations that need to be taken into consideration, e.g., whether waveforms used in weather radar need
-to be very Doppler tolerant. This is highly specific to weather radars and can simplify the task of waveform design.
-Another limitation is the effect of the amplifier impulse response on the signal.
-
-TODO: Rewrite
+As mentioned before, the core of pulse compression is the match filtering. Any kind of moving target, including weather,
+will introduce distortions to the waveform that cause a mismatch between the filter and the waveform. Depending on the
+waveform, this mismatch can be quite severe and greatly impact the performance of the weather radar. 
+Besides weather, other sources of distortions limit the performance of the waveform. In this section, another limitation
+that will be examined is the effect of a system impulse response on the waveform.
 
 
 \subsection{Doppler Effect for Weather Radars}
@@ -78,15 +78,15 @@ PRT $T_\mathrm{s} = \SI{1300}{\hertz}$, not taking into account any signal proce
 is observed.
 
 This mismatch effect on the matched filter has been quantified by Kelly and Wishner as follows \citep{Kelly:1965}.  For
-a signal of length $T$, a target of velocity $v$, and signal bandwidth $B$, the return Doppler-shifted signal can be
+a signal of length $\tau$, a target of velocity $v$, and signal bandwidth $B$, the return Doppler-shifted signal can be
 expressed as 
 \begin{equation}
-  T(1-\frac{2v}{c})=T-\Delta T
+  \tau(1-\frac{2v}{c})=\tau-\Delta \tau
 \end{equation}
-If $\Delta T$ is much smaller than $T$, i.e.,  $\Delta T \ll \frac{1}{B}$, the mismatch due to the Doppler effect can be
-neglected. In other words, $\frac{2v}{c}BT \ll 1$. For a \SI{1}{\micro\second} pulse at \SI{5}{\mega\hertz} bandwidth
+If $\Delta \tau$ is much smaller than $\tau$, i.e.,  $\Delta \tau \ll \frac{1}{B}$, the mismatch due to the Doppler effect can be
+neglected. In other words, $\frac{2v}{c}B\tau \ll 1$. For a \SI{1}{\micro\second} pulse at \SI{5}{\mega\hertz} bandwidth
 moving at \SI{30}{\metre\per\second}, $0.001 \ll 1$ is true, so the Doppler effect can be ignored.  The higher the pulse
-compression ratio $BT$ is, the more mismatch will be caused by the Doppler shift.
+compression ratio $B\tau$ is, the more mismatch will be caused by the Doppler shift.
 
 
 \subsection{Effects of Amplifier Impulse Response on the Ambiguity Function}

@@ -634,7 +634,7 @@
     \ \\
     \vskip 8.5 true in% %changed 7.0 to 8.5 LMK 10 May 2007
     \OUsinglespace %added LMK 10 May 2007
-    \copyright Copyright \  by \  \@author \ \@depositdate \\
+    \copyright \ Copyright\ by\ \@author \ \@depositdate \\
     All Rights Reserved.
     \end{center}
   \end{titlepage}
