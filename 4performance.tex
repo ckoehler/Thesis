@@ -7,7 +7,7 @@ In order to evaluate the pulse compression techniques examined in this work, sev
 quantify their performance. Together they can assist in creating and evaluating waveforms that perform optimally for
 weather radars.
 
-\subsection{3dB Range Resolution}
+\subsection{3 dB Range Resolution}
 The \SI{3}{\decibel} range resolution, given in units of meters, is the range resolution of the mainlobe
 \SI{3}{\decibel} down from the peak.  Lower value means finer resolution of the waveform. The factors that influence
 range resolution are mainly pulse length and bandwidth, as described in Equations \eqref{eq:rangeres} and
@@ -24,12 +24,11 @@ The performance of each code is measured by calculating the Integrated Sidelobe 
 \label{ISL}
 \text{ISL} = 10 \log \left(\frac{\sum\limits_{j} |s_j|^2}{\sum\limits_{k} |m_k|^2}\right)
 \end{equation}
-where $s_j$ is the power of the $j^{th}$ sidelobe, and $m_k$ the power of the $k^{th}$ mainlobe.
+where $s_j$ is the amplitude of the $j^{th}$ sidelobe, and $m_k$ the amplitude of the $k^{th}$ mainlobe.
 
-Lower ISL means better performance of the code. In this work, the ISL is only calculated with $v \in \left[-50,
-+50\right]\ \si{\metre\per\second}$ as the main focus is weather application. As such, the ISL gives the power ratio of
-sidelobes to mainlobe across the whole AF, with lower being better.
-
+Lower ISL means better performance of the code. In this work, the ISL is calculated across the whole AF, but limited in
+the Doppler dimension for values $v \in \left[-50, +50\right]\ \si{\metre\per\second}$ as the main focus is weather
+application and encountering targets that move faster than this is rare. 
 
 \subsection{Peak Sidelobe Level}
 The Peak Sidelobe Level (PSL) is the ratio between
@@ -45,7 +44,7 @@ so a waveform that has overall low sidelobes except for one very dominant one ma
 performing well enough for actual use due to the outlier sidelobe. 
 
 \subsection{Pulse Power Ratio}
-For amplitude tapering, another factor needs to be taken into consideration, i.e., the Pulse Power Ratio (PPR). For a
+For amplitude tapering, another factor needs to be taken into consideration, called the Pulse Power Ratio (PPR). For a
 rectangular pulse, \SI{100}{\percent} of the signal power is transmitted. For a amplitude-tapered pulse, however, that
 is not the case. The Pulse Power Ratio is defined as follows:
 
@@ -55,8 +54,8 @@ is not the case. The Pulse Power Ratio is defined as follows:
 \mathrm{PPR} = 10 \log \left(\frac{\int_{\tau} w^2(t)dt}{A_\mathrm{p}^2 \tau}\right), 
 \end{equation}
 where $w(t)$ is the tapering function applied to the pulse, integrated over the pulse length $\tau$, and $A_\mathrm{p}$ is the
-original amplitude.  This metric represents the fraction of energy that is utilized when amplitude tapering is applied
-and can help quantify the loss in sensitivity caused by tapering.
+original amplitude.  This metric indicates how much energy is lost when amplitude tapering is applied compared to a
+rectangular pulse with equal pulse length, and can help quantify the loss in sensitivity caused by tapering.
 
 
 \section{Limitations}
@@ -75,7 +74,7 @@ receiver.  This is especially pronounced at high target velocities. For atmosphe
 the aliasing velocity is \SI{32.5}{\metre\per\second}, based on $\lambda = \SI{0.1}{\metre}$ and a maximum
 PRT $T_\mathrm{s} = \SI{1300}{\hertz}$, not taking into account any signal processing techniques described previously \citep[p.
 47]{Doviak:2006}.  At that velocity, a Doppler frequency of $f_\mathrm{d} = \frac{2v}{\lambda} = \frac{65}{0.1} = \SI{650}{Hz}$
-is observed.
+is observed, which is very low compared to the carrier frequency of \SI{3000}{\mega\hertz}.
 
 This mismatch effect on the matched filter has been quantified in \cite{Kelly:1965} as follows. For
 a signal of length $\tau$, a target of velocity $v$, and signal bandwidth $B$, the return Doppler-shifted signal can be
@@ -93,9 +92,11 @@ compression ratio $B\tau$ is, the more mismatch will be caused by the Doppler sh
 \label{s:ireffects}
 
 Next, the effects of the amplifier in the receive chain on the pulse will be examined.  Starting with Equation
-\eqref{eq:AF}, convolve the return signal with $h(t)$, the impulse response of the system. The AF then becomes
+\eqref{eq:AF} describing the AF, the return signal is convolved with $h(t)$, the impulse response of the system. The AF
+then becomes:
 
 \begin{align*}
+\label{eq:afwithir}
    \chi(\tau_\mathrm{d},f_\mathrm{d}) &= \left|\int_{-\infty}^\infty{s(t) \left[(s^*(t+\tau_\mathrm{d}) e^{-j2\pi
    f_\mathrm{d} t}) \star h(t)\right]\ dt}\right| \\
    &= \left|\int_{-\infty}^\infty{s(t) \int_{-\infty}^{\infty}{s^*(t'+\tau_\mathrm{d}) e^{-j2\pi f_\mathrm{d} t'}h^*(t'-t) dt'}\ dt}\right| \\
@@ -106,6 +107,6 @@ Next, the effects of the amplifier in the receive chain on the pulse will be exa
 
 It can be seen that applying the impulse response to the return signal is equivalent to applying it to the original
 pulse $s(t)$.  This makes it easy in simulation to apply an impulse response to the calculations in order to evaluate
-the its effects on the AF.  The results of a Rayleigh-shaped impulse response on a rectangular pulse are presented in
+its effects on the AF.  The results of a Rayleigh-shaped impulse response on a rectangular pulse are presented in
 Section \ref{s:ireffects}.
 
