@@ -466,7 +466,8 @@
 %\pageleft{1.51 true in}
 \pageleft{1.50 true in}
 %\pageheight{8.73 true in}
-\pageheight{9.45 true in}
+%\pageheight{9.45 true in}
+\pageheight{9.10 true in} % lower page height so that the page numbers are .5 - 1in from the bottom.
 %\pagewidth{5.92 true in}
 \pagewidth{6.00 true in}
 %\pagemargin{2.0}
@@ -547,7 +548,7 @@
     \gdef\@mastersdegree{#1}%
   \else 
     \gdef\@doctorsdegree{#1}}
-\newcommand{\@mastersdegree}{MASTER OF SCIENCE IN ELECTRICAL AND COMPUTER ENGINEERING} %in metr added LMK 9 May 2007
+\newcommand{\@mastersdegree}{MASTER OF SCIENCE} %in metr added LMK 9 May 2007
 \newcommand{\@doctorsdegree}{Doctor of Philosophy}
 
 \newcommand{\majorfield}[1]{%
