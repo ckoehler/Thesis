@@ -12,7 +12,7 @@ modulation, and impulse response that is applied to the signal.  The returned wa
 frequency in order to avoid aliasing.
 
 If an impulse response was supplied, both the distorted and clean waveform will be returned, as well as the new pulse
-length $\tau$ which will be approximately twice the original $\tau$. That lengthening is due to the convolution of the
+length $\tau$ which will be twice the original $\tau$. That lengthening is due to the convolution of the
 original waveform $s(t)$ with the impulse response $h(t)$.
 
 \subsection{Calculating the Ambiguity Function}
@@ -47,8 +47,8 @@ not cause significant distortion to the signal for short pulses.
 
 Similarly, Figure \ref{fig:simplepulse-200us} shows the AF of a much longer \SI{200}{\micro\second} pulse. Comparing it
 to the shorter pulse, it looks very similar. There is some distortion at higher Doppler velocities for the longer pulse,
-but it is so minimal that it is minimal and the impact on weather radar applications is negligible.  Additionally,
-pulse lengths of \SI{200}{\micro\second} are not common. For comparison, the two pulse lengths used in the WSR-88D radar
+about \SI{-6}{\decibel}, which is significant but only occurs at high velocities and long pulses.
+However, pulse lengths of \SI{200}{\micro\second} are not common. For comparison, the two pulse lengths used in the WSR-88D radar
 network are \SI{1.57}{\micro\second} and \SI{4.57}{\micro\second} \citep[p. 47]{Doviak:2006}.
 
 
@@ -60,8 +60,8 @@ network are \SI{1.57}{\micro\second} and \SI{4.57}{\micro\second} \citep[p. 47]{
 weather phenomena.}
 \label{fig:simplepulse-15us}
 \includegraphics[width=\imgsizes]{figures/pulse-200us.png}
-\caption{ AF of a rectangular pulse of length 200 $\mu s$. There is still no significant effect on Doppler
-performance for typical velocities of weather phenomena. }
+\caption{ AF of a rectangular pulse of length 200 $\mu s$. The effect on Doppler
+performance for typical velocities of weather phenomena is about \SI{6}{\decibel} loss, which is significant. }
 \label{fig:simplepulse-200us}
 \end{figure}
 
@@ -74,16 +74,16 @@ performance for typical velocities of weather phenomena. }
 
 
 \section{Barker Code}
-In this section, a length 13 Barker code of different pulse lengths will be examined. Figures \ref{fig:barker13-15us} and
-\ref{fig:barker13-15us-0D} show a \SI{15}{\micro\second} pulse that has been phase coded with a length 13 Barker code. As
-for a rectangular pulse, there is no significant degradation of the signal with increasing Doppler shifts, so the
-Doppler distortions can be neglected.  The zero-Doppler cut shows the typical shape of the Barker code and sidelobes of
-about \SI{-22}{\decibel} \citep[p. 351]{Skolnik:2001}. The range resolution is approximately \SI{110 }{\metre} at the
-\SI{3}{\decibel} point.
+In this section, a length 13 Barker code of different pulse lengths will be examined. Figures \ref{fig:barker13-15us}
+and \ref{fig:barker13-15us-0D} show a \SI{15}{\micro\second} pulse that has been phase coded with a length 13 Barker
+code. As for a rectangular pulse, there is no Doppler distortion for a short pulse, so this effect can be neglected.
+The zero-Doppler cut shows the typical shape of the Barker code and sidelobes of about \SI{-22}{\decibel} \citep[p.
+351]{Skolnik:2001}. The range resolution is approximately \SI{110 }{\metre} at the \SI{3}{\decibel} point.
 
-Comparing these images to Figures \ref{fig:barker13-200us} and \ref{fig:barker13-200us-0D} again shows no significant
-difference in the Doppler dimension, so the pulse length has no effect on the shape of the AF for a Barker 13 code,
-besides the expected loss of range resolution caused by the longer pulse.
+Comparing these images to Figures \ref{fig:barker13-200us} and \ref{fig:barker13-200us-0D}, there is again significant
+difference in the Doppler dimension, so the pulse length does affect the shape of the AF for a Barker 13 code as well. The
+distortion of the mainlobe is minimal and can be neglected, but there is some sidelobe distortion, elevating their level
+to about \SI{-13}{\decibel}. The range delay is also larger due to the increased pulse length, as expected.
 
 \begin{figure}[H]
 \includegraphics[width=\imgsizes]{figures/barker-15us.png}
@@ -103,12 +103,12 @@ convective boundary layer (CBL) observations.
 
 \begin{figure}[H]
 \includegraphics[width=\imgsizes]{figures/barker-200us.png}
-\caption{ AF of the Barker 13 code of length 200 $\mu s$. There is again no mismatch in the Doppler dimension for
-weather radar applications. }
+\caption{ AF of the Barker 13 code of length 200 $\mu s$. There is some sidelobe distortion for high Doppler velocities,
+but the mainlobe level is not affected.}
 \label{fig:barker13-200us}
 \includegraphics[width=\imgsizes]{figures/barker-200us-0D.png}
-\caption{Zero Doppler Cut of the AF of a 13 element Barker code. Increasing $\tau$ does not affect the shape of the AF,
-only the range delay.}
+\caption{Zero Doppler Cut of the AF of a 13 element Barker code. Increasing $\tau$ does not affect the shape of the AF
+for zero Doppler velocity.}
 \label{fig:barker13-200us-0D}
 \end{figure}
 
@@ -166,8 +166,9 @@ $\tau=\SI{15}{\micro\second}$.}
 
 
 Figures \ref{fig:lfm-15us} and \ref{fig:lfm-200us} show the AFs of two LFM waveforms, with pulse lengths of
-\SI{15}{\micro\second} and \SI{200}{\micro\second}, respectively.  Comparing the two for differences shows once again
-that in the Doppler dimension, the pulse length has little effect for weather radar applications. 
+\SI{15}{\micro\second} and \SI{200}{\micro\second}, respectively.  Comparing the two for differences shows that in the
+Doppler dimension, the pulse length has little effect for weather radar applications. There is some shifting of the
+mainlobe, but it is negligible.
 
 
 \begin{figure}[H]
@@ -185,8 +186,9 @@ mismatch or range resolution. }
 One observation of significance is the range resolution of both signals.  Figures \ref{fig:lfm-15us-0d} and
 \ref{fig:lfm-200us-0d} show the zero-Doppler cut of both signals.  As expected, the sidelobes are around
 \SI{-13}{\decibel} in both AFs, but also, the shapes are approximately the same for each case, which means that the
-pulse length has little effect on the range resolution, which is approximately \SI{30 }{\metre}. Instead, range resolution is determined by the sweep bandwidth,
-not the pulse length, as is expressed in Equation \eqref{eq:lfm-rangeres}.
+pulse length has little effect on the range resolution, which is approximately \SI{30 }{\metre}. Instead, range
+resolution is determined by the sweep bandwidth, not the pulse length, as is expressed in Equation
+\eqref{eq:lfm-rangeres}.
 
 \begin{figure}[H]
 \includegraphics[width=\imgsizes]{figures/lfm-15us-0D.png}
@@ -220,11 +222,11 @@ sidelobe reduction, but loss in power and thus sensitivity becomes significant q
 \end{figure}
 
 
-Clearly, a trade-off is made. If the half power point is selected, the waveform would have an ISL of about
+Clearly, a trade-off must be made. If the half power point is selected, the waveform would have an ISL of about
 \SI{-36}{\decibel}, PSL of \SI{-47}{\decibel}, and a range resolution of \SI{68}{\metre}.
 The corresponding zero Doppler cut of the AF at this point is shown in figure \ref{fig:lfm-isl-15us-opti-slice18}. It
 clearly shows the sidelobes at about \SI{-50}{\decibel}, which means this waveform would be adequate for typical weather
-observations for a \SI{3}{\decibel} loss in power. 
+observations if a \SI{3}{\decibel} loss in power is acceptable. 
 
 
 \begin{figure}[H]
@@ -243,7 +245,7 @@ resolution is reduced to \SI{68}{\metre}, which is well sufficient for typical s
 As described in Section \ref{s:nlfm}, the frequency of a frequency modulated signal can be swept non-linearly as well.
 In order to find more useful waveforms for weather radar applications, this work evaluates several different sweep
 functions described by Equation \eqref{eq:nlfm-sweep} below. The PPR here is always 1 because no amplitude tapering is
-applied yet, so there is no loss of sensitivity. The general form is:
+applied yet, so there is no loss of sensitivity. The general form of the function describing the frequency sweep is:
 
 \begin{equation}
 \label{eq:nlfm-sweep}
@@ -285,7 +287,7 @@ To get a better picture of the NLFM waveforms, consider Figure \ref{fig:nlfm-sid
 slice of the NLFM waveform generated with the sweep function with $a=2.9293$. The mainlobe is approximately
 \SI{50}{\metre} at the \SI{3}{\decibel} point. The sidelobes are better than those of the LFM waveform at slightly
 higher than \SI{-30}{\decibel}.  In comparison, Figure \ref{fig:nlfm-side-15us-0D-2} shows the NLFM waveform generated
-with the sweep function with $a=6.46$.  Although the sidelobes are a little lower at \SI{-40}{\decibel} and the range
+with the sweep function with $a=6.46$.  The sidelobes are a little lower at \SI{-40}{\decibel} and the range
 resolution at the \SI{3}{\decibel} point is still only about \SI{70}{\metre}, making it a good waveform for weather
 radar applications.
 
