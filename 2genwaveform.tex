@@ -83,7 +83,7 @@ with the long pulse, doubling the time between sweeps. For some applications, th
 \end{figure}
 
 \section{Inter-pulse Coding}
-In order to distinguish return signals from differetn pulses, one can encode the transmit phase of each pulse. That way,
+In order to distinguish return signals from different pulses, one can encode the transmit phase of each pulse. That way,
 an echo from the first pulse that is received after the second pulse has already been transmitted can be identified to
 belong to the first pulse and thus distinguished from echoes caused by the second pulse.
 
@@ -91,7 +91,7 @@ This allows the use of a small PRT, resulting in good aliasing velocity, but als
 or even fourth trip echoes correctly. One such implementation is called SZ phase codes.  For this technique, every other
 pulse is phase shifted by a certain sequence $a_k = e^{j \Psi_k}$. On receive, the signal can be decoded by multiplying
 it with the complex conjugate of the coding sequence, $a^*_k$. This will make the first-trip signal coherent, leaving
-the rest of the signals with different phase shifts. To make the second-trip echos coherent, the return signal is
+the rest of the signals with different phase shifts. To make the second-trip echoes coherent, the return signal is
 multiplied by $a^*_{k-1}$, which will again leave the other trip signals encoded. This can be repeated for the other
 trip signals in the same way. In this manner, each trip signal can be made coherent and thus separated from the others.
 For more details, refer to \cite{Sachidananda:1999}.
@@ -110,7 +110,7 @@ decrease range resolution, which is defined as
 However, depending on the application, simply increasing the pulse length to increase sensitivity may not be a desirable
 solution.
 
-The bandwidth of pulse is partiallly determined by its shape. Taking the Fourier transform of the pulse yields its frequency
+The bandwidth of pulse is partially determined by its shape. Taking the Fourier transform of the pulse yields its frequency
 spectrum. The spectrum of a perfectly rectangular pulse, shown in Figure \ref{fig:pulsespectrum}, looks like a sinc
 function with sidelobes that extend into infinity, so its bandwidth is infinite bandwidth, making it impossible to
 generate in a real system. In practice, Gaussian pulse shapes are used because they can be created more easily and still
