@@ -2,14 +2,16 @@
 This work examined several different techniques of pulse compression and evaluated their performance 
 in regards to weather radar applications. 
 
-A rectangular pulse still performs fairly well, with good range resolution for very short pulses and no sidelobes. Even
-for pulse lengths up to \SI{200}{\micro\second}, there is no significant mismatch loss over the velocities commonly
-encountered in weather applications, although range resolution decreases as expected.
+A rectangular pulse still performs fairly well, with good range resolution for very short pulses and no sidelobes.  For
+pulse lengths of \SI{200}{\micro\second} there is some significant mismatch loss of about \SI{-6}{\decibel} over the
+velocities commonly encountered in weather applications. As expected, the range resolution decreases as well.
 
 Using a waveform that is phase coded with a Barker 13 code does increase the range resolution dramatically for the same
-pulse lengths to about \SI{110 }{\metre} for the same pulse length. However, the peak sidelobe level is only at about
+pulse lengths to about \SI{110}{\metre} for the same pulse length. However, the peak sidelobe level is only at about
 \SI{-22}{\decibel}, which makes this waveform unusable for typical storm observation. It could still be used in
-situations where a low PSL isn't necessary, like clear air measurements.
+situations where a low PSL isn't necessary, like clear air measurements. There is also some Doppler mismatch for long
+pulses and high Doppler velocities, although the mainlobe level is not affected, unlike for a rectangular pulse.
+Sidelobes are distorted and the PSL is raised to about \SI{-13}{\decibel}.
 
 Applying amplitude tapering to a Barker phase coded waveform has little benefit. The range resolution does not improve,
 and neither to ISL and PSL. Since a Barker 13 code is already ``perfect,'' this result is to be expected.
@@ -34,6 +36,11 @@ rapidly with increased tapering and larger $a$. For $a=2.75$ and $\beta=12.31$, 
 \SI{280}{\metre},
 with PSL at \SI{-70}{\decibel}. However, the loss of sensitivity due to the PPR is unacceptable at about
 \SI{-6}{\decibel}.
+
+The most significant result of taking the system impulse response into account is the asymmetric distortion of the AF in
+the range delay dimension. If possible, this effect should be corrected. As mentioned before, a couple of assumptions
+have been made in this simulation which will also change the result. The ideal course of action would be to measure the
+actual system impulse response and repeat the simulations with it, as well as testing the results in a real system.
 
 
 

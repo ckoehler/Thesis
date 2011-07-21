@@ -270,10 +270,10 @@ even better performance.
 \subsection{Parameterized NLFM Results}
 \label{s:nlfm-only-results}
 Figure \ref{fig:nlfm-side-15us-opti} shows the results for varying NLFM waveforms in regards to ISL, PSL, and range
-resolution. For larger $a$, the ISL also increases, with the maximum ISL being around \SI{-30}{decibel}. The PSL
+resolution. For larger $a$, the ISL also increases, with the maximum ISL being around \SI{-30}{\decibel}. The PSL
 decreases rapidly first to about \SI{-26}{\decibel} and then slowly decreases to about \SI{-40}{\decibel}, where it
 stays fairly constant. The range resolution gets progressively worse, starting at about \SI{30}{\metre} and increasing
-to about \SI{220}{\metre}, meaning the mainlobe broadens.  This also explains the decreasing and eventually constant
+to about \SI{300}{\metre}, meaning the mainlobe broadens.  This also explains the decreasing and eventually constant
 PSL, because the whole AF is one big mainlobe with only minimal sidelobes.
 
 \begin{figure}[H]
@@ -341,7 +341,7 @@ larger than a mere linear superposition of both.
 \begin{figure}[H]
 \includegraphics[width=\imgsizes]{figures/nlfm-kaiser-15us-opti-ppr.png}
 \caption{PPR optimization results for NLFM combined with Kaiser amplitude tapering. Since the PPR is only affected by
-the Kaiser window parameter $\beta$, the PPR does not change with $a$.}
+the Kaiser window parameter $\beta$, the PPR does not change with $a$ and is only shown with respect to $\beta$.}
 \label{fig:nlfm-kaiser-15us-opti-ppr}
 \includegraphics[width=\imgsizes]{figures/nlfm-kaiser-15us-opti-res.png}
 \caption{Resolution optimization results for NLFM combined with Kaiser amplitude tapering. Notable is the compounded
@@ -376,7 +376,11 @@ sidelobes but widens the mainlobe. Increasing $a$ has the same effect.}
 
 \section{Effects of Impulse Response on the Ambiguity Function}
 As discussed in Section \ref{s:ireffects}, as the return signal passes through the receive chain, it will be distorted
-by the impulse response of the amplifier. The effects of that on the waveform are presented here.  
+by the impulse response of the amplifier. The effects of that on the waveform are presented here. A couple of
+assumptions have been made. First, since the exact impulse response is unknown, a Rayleigh-shaped approximation is used.
+Second, it is assumed that the impulse response is as long as the pulse, in this case $\tau = \SI{15}{\micro\second}$,
+which is likely not accurate. However, doing this will exaggerate the effect and make it more easily visible, which is
+the goal of this section. 
 
 
 \subsection{Rectangular Pulse}
