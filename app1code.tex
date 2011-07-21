@@ -4,14 +4,16 @@
 }
 \begin{lstlisting}[language=Matlab]
 
-function [delay v af] = af(signal, clean_signal, tau, fs, v_max, f_points, carrier, full_af) 
+function [delay v af] = af(signal, clean_signal, tau, fs, v_max, f_points, 
+  carrier, full_af) 
+
   % Ambiguity function calculation
   % ambiguity function is af(t,f) = sum_over_t(u(t) * u'(t-tau) * exp(j*2*pi*f*t))
   %
   % fs = Range dimension sampling frequency
   % signal = the signal we need the AF of.
-  % clean_signal = if different from signal, this is the signal we use to create the time-
-  %                 shifted version, or u'(t-tau) above.
+  % clean_signal = if different from signal, this is the signal we use to create the
+  %                time-shifted version, or u'(t-tau) above.
   % tau = signal length
   
   % if no signal is given, assume that all we have is a clean signal
@@ -73,7 +75,8 @@ end
 
 \section{makesignal.m}
 \begin{lstlisting}[language=Matlab]
-function [signal ir_signal new_tau] = makesignal(amp, phase, freq_mod, imp_resp, tau, fs)
+function [signal ir_signal new_tau] = makesignal(amp, phase, freq_mod, imp_resp,
+      tau, fs)
 
   ir_signal = [];
 
