@@ -1,6 +1,7 @@
 The basic elements of a waveform that can be manipulated are its amplitude, phase, frequency, and timing.  Each of these
-components can be designed to adhere to the required specifications, e.g., duty cycle, aliasing velocity and
-range, resolution, sensitivity, etc.,  and will be described in more detail in this chapter. Figure \ref{fig:basic_waveform} can be used as a reference.
+components can be designed to adhere to the required specifications, e.g., duty cycle, aliasing velocity and range,
+resolution, sensitivity, etc.,  and will be described in more detail in this chapter. Figure \ref{fig:basic_waveform}
+can be used as a reference.
 
 \begin{figure}[h]
 \includegraphics[width=\imgsize]{figures/basic_waveform_f.png}
@@ -15,7 +16,7 @@ to describe the timing of consecutive pulses is the pulse repetition frequency (
 PRT. Both are used in literature to describe the same concept.
 
 The PRT determines two very important aspects of a radar, the \emph{aliasing range} $r_a$ and the \emph{aliasing
-velocity} $v_a$. They are given by the following equations \citep[p. 60-61]{Doviak:2006}.
+velocity} $v_a$. They are given by the following equations \citep[p. 60-61]{Doviak:2006}:
 
 \begin{equation}
 \label{eq:unambrange}
@@ -29,7 +30,7 @@ where $ c = \SI{3e8}{\metre\per\second}$ is the speed of light, and
 \end{equation}
 where $\lambda$ is the wavelength of the radar.
 
-The aliasing range describes the maximum range of the radar after which range aliasing occurs, i.e., targets that are
+The aliasing range describes the maximum range of the radar beyond which range aliasing occurs, i.e., targets that are
 farther away than the aliasing range will appear to be closer to the radar than they truly are. Referring to
 Figure \ref{fig:rangealiasing}, for example, if $r_\mathrm{a} = \SI{100}{\kilo\metre}$, and there is a target at a distance of
 \SI{150}{\kilo\metre} from the radar, it will appear to the radar to be only \SI{50}{\kilo\metre} away.  To increase
@@ -73,8 +74,9 @@ velocity of two staggered pulses of different lengths is defined as \citep[p. 17
   v_\mathrm{m} = \pm \frac{\lambda}{4(T_{\mathrm{s2}} - T_{\mathrm{s1}})}
 \end{equation}
 
-The disadvantage of this method is a longer scan time, since every radial now has to be scanned twice, once with the short and once
-with the long pulse, doubling the time between sweeps. For some applications, this is not an acceptable trade-off.
+The potential disadvantage of this method, assuming the number of pulses per PRT stays the same, is a longer scan time,
+since every radial now has to be scanned twice, once with the short and once with the long PRT, doubling the time
+between sweeps.
 
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/sprt.png}
@@ -112,7 +114,7 @@ solution.
 
 The bandwidth of pulse is partially determined by its shape. Taking the Fourier transform of the pulse yields its frequency
 spectrum. The spectrum of a perfectly rectangular pulse, shown in Figure \ref{fig:pulsespectrum}, looks like a sinc
-function with sidelobes that extend into infinity, so its bandwidth is infinite bandwidth, making it impossible to
+function with sidelobes that extend into infinity, so its bandwidth is infinite, making it impossible to
 generate in a real system. In practice, Gaussian pulse shapes are used because they can be created more easily and still
 have the correct bandwidth requirement. For such a pulse, bandwidth and pulse length are inverses of each other such
 that $B=\frac{1}{\tau}$. In this case, then, the aliasing range given in Equation \eqref{eq:rangeres} can be
@@ -125,7 +127,7 @@ rewritten as:
 
 \begin{figure}[h]
 \includegraphics[width=\imgsize]{figures/pulsespectrum.png}
-\caption{The frequency spectrum of a rectangular pulse. The sidelobes are cut off in the figure, but extend into
+\caption{The frequency spectrum of a rectangular pulse with $\tau=\SI{15}{\micro\second}$. The sidelobes are cut off in the figure, but extend into
 infinity.}
 \label{fig:pulsespectrum}
 \end{figure}
@@ -141,14 +143,15 @@ important metric that relates the amplifier's peak power, pulse length, and puls
   \label{eq:avgpower}
   P_{\mathrm{av}} = \frac{P_\mathrm{t} \tau}{T_\mathrm{s}},
 \end{equation}
-The goal is to maximize $P_{\mathrm{av}}$ while maintaining $T_\mathrm{s}$ for a desired maximum range.  The most
-commonly used transmitters are Klystrons, Magnetrons, Traveling Wave Tubes (TWT), and Solid-State Transistor Amplifiers.
-Klystrons are capable of high average and peak power with good gain and efficiency, and wide bandwidth \citep[p.
-692]{Skolnik:2001}.  However, to achieve large peak powers, high voltages and X-ray shielding are required, limiting
-klystrons to mostly stationary radars that have access to a high voltage power source. Klystrons are Linear-Beam Power
-Tubes in which electrons are emitted from a cathode, formed into a beam, and shot towards a collector. Between the
-cathode and the collector are RF cavities at which the electrons interact with an input signal by amplifying it
-\citep[pp. 694-695]{Skolnik:2001}. The amplified signal is then delivered to the output cavity and further down the
+The goal is to maximize $P_{\mathrm{av}}$ while maintaining $T_\mathrm{s}$ for a desired maximum range. 
+
+The most commonly used transmitters are Klystrons, Magnetrons, Traveling Wave Tubes (TWT), and Solid-State Transistor
+Amplifiers.  Klystrons are capable of high average and peak power with good gain and efficiency, and wide bandwidth
+\citep[p.  692]{Skolnik:2001}.  However, to achieve large peak powers, high voltages and X-ray shielding are required,
+limiting klystrons to mostly stationary radars that have access to a high voltage power source. Klystrons are
+Linear-Beam Power Tubes in which electrons are emitted from a cathode, formed into a beam, and shot towards a collector.
+Between the cathode and the collector are RF cavities at which the electrons interact with an input signal by amplifying
+it \citep[pp. 694-695]{Skolnik:2001}. The amplified signal is then delivered to the output cavity and further down the
 transmit chain of the radar.
 
 TWTs are similar to klystrons in terms of architecture, but power and bandwidth are not as high as those of a
@@ -170,7 +173,7 @@ most of the energy in a narrow mainlobe with no or low sidelobes.
 The matched filter is designed based on the maximization of the SNR. The following derivation traces the discussion
 given in \cite[pp. 24-27]{Levanon:2004}.
 
-Specifically, the SNR to be maximized is given by
+Specifically, the SNR to be maximized is given by:
 
 \begin{equation}
   \label{eq:mfsnr}
@@ -178,13 +181,13 @@ Specifically, the SNR to be maximized is given by
 \end{equation}
 where $s_\mathrm{o}$ is the output signal of the filter at a certain delay $t_\mathrm{0}$, and $n_\mathrm{o}$ is the Gaussian output noise. The
 variables influencing the output signal are the original signal $s(t)$ with delay $t_\mathrm{0}$. The whole output
-signal is then given by:
+signal is given by:
 
 \begin{equation}
   \label{eq:mfso}
   s_\mathrm{o}(t_\mathrm{0}) = \frac{1}{2 \pi} \int_{-\infty}^{\infty} H(\omega) S(\omega) \exp(j \omega t_\mathrm{0}) d\omega,
 \end{equation}
-where $S(\omega)$ is the Fourier transform of $s(t)$ and $H(\omega)$ the Fourier transform of $h(t)$, the impulse response
+where $S(\omega)$ is the Fourier transform of the input signal $s(t)$ and $H(\omega)$ the Fourier transform of $h(t)$, the impulse response
 of the matched filter that needs to be derived. The exponential describes the delay $t_\mathrm{0}$ in the frequency domain.
 The total output noise power $n_\mathrm{o}^2$ for white noise interference with spectral density $N_\mathrm{0}/2$ is described by:
 
@@ -260,7 +263,9 @@ autocorrelation function (ACF) of $s(t)$:
   s_\mathrm{o}(0) = \mathrm{ACF}(s(t)) = \int_{-\infty}^{\infty}{s(\tau_\mathrm{d}) s^*(\tau_\mathrm{d}-t)
   d\tau_\mathrm{d}}.
 \end{equation}
-The concept of the ACF for a rectangular pulse is shown in Figure \ref{fig:acf}.
+The concept of the ACF for a rectangular pulse is shown in Figure \ref{fig:acf}. The height of the triangle at any given
+point is determined by the overlap of signal with the matched filter response, with the maximum occurring when both
+exactly overlap.
 This is an important function because it describes the output of the radar depending on the waveform $s(t)$ used. It is
 the basis of analyzing the performance of radar signals in this work. As discussed before, the best result is achieved
 when the filter matches the waveform exactly. If that is not the case and there is a mismatch between the filter and the
@@ -329,7 +334,7 @@ simulations, this is the case for weather radar applications.
 
 If a wider range of velocities has to be covered, several
 different matched filters can be used, with each one matched to a different Doppler velocity range.  The reader is
-referred to Chapter 7.2 of \citep{Levanon:2004} for more information. Alternatively, the AFs of some waveforms are
+referred to Chapter 7.2 of \cite{Levanon:2004} for more information. Alternatively, the AFs of some waveforms are
 shaped like a ridge, so there will be a return signal no matter the Doppler shift. Chapter \ref{chap:pulsecompression} will
 introduce one such waveform.
 
