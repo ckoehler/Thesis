@@ -1,0 +1,2 @@
+This thesis is built using the Mac Latex User Group Tex package, with the excellent latexmk perl script.
+The PDF reader that allows automatic updates as the PDF is rebuilt is called Skim.
