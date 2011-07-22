@@ -297,34 +297,35 @@ where $s(t)$ is the complex envelope of the signal. It can clearly be seen that,
 AF reduces to the ACF, presented in Section \ref{s:2pc}.
 
 
-For a simple rectangular pulse of the form $s(t)=\frac{1}{\sqrt{\tau}} \text{rect}(\frac{t}{\tau})$, the AF is \citep{Levanon:2004}:
+For a simple rectangular pulse of the form $s(t)=\frac{1}{\sqrt{\tau}}, ~  \frac{-\tau}{2} \leq t \leq
+\frac{\tau}{2}$, the AF for $t > 0$ is defined over the range $0 \leq t \leq \tau$ and given as follows \citep[p. 173]{Richards:2005}:
 
 \begin{align*}
-  |\chi(\tau_\mathrm{d},f_\mathrm{d})| &= \left| \int_{-\infty}^\infty{s(t) s^*(t+\tau_\mathrm{d}) e^{j2\pi f_\mathrm{d} t} dt}\right| \\ 
-  &= 
-  \begin{cases}
-    \frac{1}{\tau} \int_{-\frac{\tau}{2} + \tau_\mathrm{d}}^{\frac{\tau}{2}}{e^{j2\pi f_\mathrm{d} t}dt} & \text{for $0
-    \leq \tau_\mathrm{d} \leq \tau$}, \\
-    \frac{1}{\tau} \int_{-\frac{\tau}{2}}^{\frac{\tau}{2} + \tau_\mathrm{d}}{e^{j2\pi f_\mathrm{d} t}dt} & \text{for
-    $-\tau
-    \leq \tau_\mathrm{d} < 0$}, \\
-    0 & \text{otherwise}. \\
-  \end{cases}
+  |\chi(t,f_\mathrm{d})| &= \left| \int_{-\tau/2+t}^{\tau/2}{\frac{1}{\tau} \exp(j 2 \pi f_\mathrm{d} s) ds}\right| \\ 
+  &=  \left| \frac{\exp[j 2 \pi f_\mathrm{d} \tau/2] - \exp[j 2 \pi f_\mathrm{d} ( - \tau/2 + t)]}{\tau j 2 \pi f_\mathrm{d}} \right| \\
+  &= \left| \frac{1}{\tau j 2 \pi f_\mathrm{d}} e^{j 2 \pi f_\mathrm{d} t/2} \left\{ \exp\left[j 2 \pi f_\mathrm{d}
+  \left(\frac{\tau}{2} - \frac{t}{2}\right)\right] - \exp\left[ -j 2 \pi f_\mathrm{d} \left(\frac{\tau}{2} -
+  \frac{t}{2}\right)\right] \right\} \right| \\
+  &= \left| \frac{\sin(\pi f_\mathrm{d} (\tau - t)) }{\pi f_\mathrm{d} \tau} \right|
 \end{align*}
 
-Evaluate the integrals to get:
+For $t < 0$, the result will be similar, but $(\tau - t)$ becomes $(\tau + t)$, so the final
+form, with a variable change from $t$ to $\tau_\mathrm{d}$ to be consistent with the definition given in Equation
+\eqref{eq:AF}, is then:
 
-\begin{align}
-  |\chi(\tau_\mathrm{d},f_\mathrm{d})| &= 
-  \begin{cases} 
-  \left|\left(1-\frac{|\tau_\mathrm{d}|}{\tau}\right) \frac{\sin[\pi \tau f_\mathrm{d}(1-
-  \frac{|\tau_\mathrm{d}|}{\tau})]}{\pi \tau f_\mathrm{d}(1-
-  \frac{|\tau_\mathrm{d}|}{\tau})}\right| & \text{for $|\tau_\mathrm{d}| \leq \tau$}, \\
-  0 & \text{otherwise}.
-  \end{cases}
-\end{align}
-For $\tau_\mathrm{d}=0$, the result is the $\mathrm{sinc}$ function, for $f_\mathrm{d}=0$ it is simply the ACF of a pulse, which is
-a triangle.
+\begin{equation}
+  |\chi(\tau_\mathrm{d},f_\mathrm{d})| = \left| \frac{\sin(\pi f_\mathrm{d} (\tau - |\tau_\mathrm{d}|)) }{\pi
+  f_\mathrm{d} \tau} \right| \text{, for } -\tau \leq \tau_\mathrm{d} \leq \tau
+\end{equation}
+
+For $\tau_\mathrm{d}=0$, the result is easily seen to be the $\mathrm{sinc}$ function. For $f_\mathrm{d}=0$,
+L'Hospital's Rule has to be applied, which yields the ACF of a pulse in the shape of a triangle:
+
+\begin{align*}
+  |\chi(\tau_\mathrm{d},0)| &= \left| \frac{\pi (\tau - |\tau_\mathrm{d}|) \cos(\pi f_\mathrm{d} (\tau - |\tau_\mathrm{d}|)) }{\pi
+  \tau} \right| \\
+  &= \frac{\tau - |\tau_\mathrm{d}|}{\tau} \text{, for } -\tau \leq \tau_\mathrm{d} \leq \tau
+\end{align*}
 
 The ideal shape of the AF depends on the application. One useful AF looks like a thumbtack and thus provides good range
 and Doppler resolution.  However, this also means that any moving target will result in a weak or, for the ideal case,
