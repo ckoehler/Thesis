@@ -22,6 +22,8 @@
 %
 % Might have been an easier way, but that worked for me."
 % revised April 21, 2009: \prefacesectionX will avoid incrementing the page number
+% revised July 21, 2011: Page numbers did not have enough margin on the bottom, per
+%       Grad College guidelines.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% USCthesis.cls
 %%% Experimental LaTeX2e version of the University of Southern
