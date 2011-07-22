@@ -1,2 +1,3 @@
-This thesis is built using the Mac Latex User Group Tex package, with the excellent latexmk perl script.
+This thesis is built using the MacTex package, available at http://www.tug.org/mactex/2011/.
+For continuous building during editing, I used the excellent latexmk PERL script.
 The PDF reader that allows automatic updates as the PDF is rebuilt is called Skim.
