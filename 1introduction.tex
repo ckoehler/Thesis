@@ -1,27 +1,27 @@
-There are numerous works available on waveform design, the most comprehensive being \cite{Levanon:2004}.  It covers the
+There are numerous works available on waveform design, the most comprehensive of which being \cite{Levanon:2004}.  This
+work covers the
 most common waveforms used today, such as pulses, pulse trains, frequency and phase modulated signals, as well as
 continuous wave signals, each accompanied by comprehensive discussion and examples.  \cite{Richards:2005} also discusses
-radar waveforms with an emphasis on frequency modulation and pulse trains, but generally focuses more on radar signal
+radar waveforms with an emphasis on frequency modulation and pulse trains, but focuses more generally on radar signal
 processing.  The work of \cite{Keeler:1999} has much information for weather radar applications, concentrating on filter
 design in phased array radars.  \cite{Mudukutore:1998} discusses the simulation of pulse compression for weather radars
-for phase coded signals and different filters, with a focus on sidelobe reduction.
+for phase coded signals and different filters, with an emphasis on sidelobe reduction.
 
 \section{Using Radar for Observing the Atmosphere}
-From hard target observation during WWII and the latter part of the
-20th century, radar quickly became a potential way to observe the atmosphere. As with all remote sensing applications,
-radar could give advanced warning and better insights into what is happening in the atmosphere in places that are not
-accessible or difficult to observe using other means, such as localized weather stations or weather balloons, because
-this single instrument could cover a very large area remotely. This made dense networks of instruments unnecessary,
-drastically lowering maintenance and operation expenses and increasing the area of observation.
+From hard target observation during WWII and the latter part of the 20th century, radar quickly became a potential way
+to observe the atmosphere. As with all remote sensing applications, radar can give advanced warning and better insights
+into what is happening in the atmosphere in places that are not accessible or difficult to observe using other means,
+such as localized weather stations or weather balloons. This made dense networks of instruments unnecessary, drastically
+lowering maintenance and operation expenses and increasing the area of observation.
 
 The most basic pulsed radar is able to determine the reflectivity of the atmosphere by measuring the return signal of
 the radar beam. Additionally, coherent radars can measure the Doppler shift of the return signal and use it to find the
-radial velocity of the target, i.e., the velocity component of the target that is directed right towards or away from
-the radar. This is achieved with a stable local oscillator (STALO). The STALO signal is split into an in-phase and a 90
-degree phase shifted signal, which are then mixed with the return signal and passed through a set of low pass filters that filter
-out the undesired frequency components. The two outputs of the filters are called $I$, the in-phase
-component, and $Q$, the quadrature component. 
-The phase of the $I$ and $Q$ components is sampled over several pulses to determine the Doppler frequency.
+radial velocity of the target, i.e., the velocity component of the target along the radar beam. This is normally
+achieved with a stable local oscillator (STALO). Simplified, the STALO signal is split into an in-phase and a 90 degree phase
+shifted signal, which are then mixed with the return signal and passed through a set of low pass filters that remove 
+the undesired frequency components. The two outputs of the filters are called $I$, the in-phase component, and $Q$, the
+quadrature component. It is necessary to measure the phase of the $I$ and $Q$ components over several pulses to determine the Doppler
+frequency, due to the long decorrelation time of the signal.
 
 
 The frequency of the radar, and thus its wavelength, contribute to the performance for weather observation, because some
@@ -31,7 +31,8 @@ signals of shorter wavelengths being more strongly attenuated \citep[pp. 42-43]{
 at S-band, more specifically between 2700 and 3000 MHz \citep[p. 47]{Doviak:2006}.  However, S-band is highly desired
 for other applications, like cellular phones, so C-band or X-band radars are also used for observing weather to avoid
 interference between different systems operating at the same frequency band. In such cases, the effects of attenuation
-can be somewhat mitigated by, e.g., using an attenuation correction technique that is based on \cite{Ryzhkov:2008}.  
+can be mitigated by, e.g., using techniques that are based on polarimetric measurements (\cite{Ryzhkov:2008},
+\cite{Brandes:2002}).  
 
 One advantage of higher frequency radars is the possibility of a smaller antenna size
 for the same angular resolution. Other components such as waveguides, amplifiers and support structure are also
@@ -43,7 +44,7 @@ components for Digital Array Radars is given in \cite{Tarran:2008}.
 
 As technology advances, demands on radar performance increase as well. Finer resolution offers better detail, while dual
 polarization radars provide even more data that can be used to better analyze the atmosphere \citep[p.
-242]{Doviak:2006}.  This data is derived from the so-called \emph{backscattering covariance matrix}, which relates the
+242]{Doviak:2006}.  These data are derived from the so-called \emph{backscattering covariance matrix}, which relates the
 backscattered electric field to the incident electric field. With two orthogonal polarizations, additional parametric
 variables are derived, e.g. $Z_{\mathrm{dr}}$, the differential reflectivity, $\rho_{\mathrm{hv}}$, the correlation
 coefficient, or $\Phi_{\mathrm{dp}}$, the differential phase. They are mostly used for hydrometeor classification \citep{Ryzhkov:2008} and
@@ -52,10 +53,10 @@ Quantitative Precipitation Estimation (QPE) \citep{Brandes:2002}.
 \section{Phased Array Radars}
 \label{s:par}
 Phased array radars move away from parabolic dish antennas to so-called antenna-arrays.  An antenna array is made up of
-discrete units of antennas distributed in space. Each antenna element may function as a receiver and/or transmitter.
-The NWRT Phased Array Radar, for example, has 4352 elements distributed across a plane \citep{Zrnic:2007}. Each of the
-elements is able to transmit a signal with a different phase shift. The way the phase shifts are set will result in the
-signals of all the array elements to add constructively, steering the radar beam in a certain direction.
+discrete antennas distributed in space. Each antenna element may function as a receiver and/or transmitter.  The NWRT
+Phased Array Radar, for example, has 4352 elements distributed across a plane \citep{Zrnic:2007}. Each of the elements
+is able to transmit a signal with a different phase shift. The distribution of the phase shifts will result in the
+signals of all the array elements to add constructively, steering the radar beam electronically in a certain direction.
 
 This electronic steering has the advantages of being very agile and flexible and can reduce overall scan time, focus on
 particular targets in space in any order, or reduce data correlation by steering the beam out-of-order across a storm, a
@@ -64,29 +65,32 @@ statistical accuracy because collected sample pairs are independent since they h
 the atmosphere to decorrelate before taking the next pair of samples in the same area.
 
 Some phased array radars, so-called \emph{active arrays}, do not have just one transmitter. Instead, they use one smaller
-amplifier in each element directly. These amplifiers are solid-state amplifiers, whose peak power is generally lower
-compared to a klystron or magnetron, because they are made with transistors. As such, they operate at lower voltages,
+amplifier for each element directly. These amplifiers are solid-state amplifiers, whose peak power is generally lower
+compared to a klystron or magnetron. As such, they operate at lower voltages,
 have a lower gain, and require longer duty cycles, but have higher reliability. To achieve the needed power, many of
-them can be operated in parallel and in multiple stages as modules \citep{Skolnik:2001}. So, instead of using a klystron
-or magnetron, a phased array radar can incorporate amplifier modules into the antenna element to power each one
-separately. The advantage of this kind of modular design is the high reliability and fault tolerance of the
-system.  Failure of individual elements still allows the radar to operate, and failed elements can simply be replaced
-with new ones.  This lowers maintenance and manufacturing costs because all the identical elements can be mass
+them must be operated in parallel and in multiple stages as modules \citep{Skolnik:2001}. So, instead of using a klystron
+or magnetron, an active phased array radar incorporates individual amplifier modules into each antenna element.
+One major advantage of this kind of modular design is the high reliability and fault tolerance of the
+system.  Failure of a small percentage of individual elements still allows the radar to operate, and failed elements can simply be replaced
+at a convenient time.  This lowers maintenance and manufacturing costs because all the identical elements can be mass
 produced and their components are often available COTS.
 
-One way to compensate for the lower duty cycle and peak power of solid-state amplifiers is to use longer pulses
-\citep[p. 702]{Skolnik:2001}. However, a longer pulse decreases range resolution, so a method is needed to improve the
-range resolution while keeping the signal-to-noise ratio (SNR) acceptable. One such method is called pulse compression.
+One way to compensate for the lower peak power of solid-state amplifiers is to use longer pulses \citep[p.
+702]{Skolnik:2001}, given their longer duty cycle. However, a longer pulse decreases range resolution, so a method is
+needed to improve the range resolution while keeping the sensitivity acceptable. One such method is called pulse
+compression.
 
 
 \section{The Need for Pulse Compression}
-Pulse compression is a technique to increase the SNR by using waveforms that allow the duration and bandwidth to be
-controlled separately \citep[pp. 42-43]{Richards:2005}.  A very early paper by Bell Labs introduces the concept of a
-Chirp, or a frequency modulated pulse, for exactly this purpose \citep{Klauder:1960}. Since then, other ways of
-achieving the same goal have been found and will be discussed in this work. Compression is achieved by using one or more
-matched filters, which will be introduced in Chapter \ref{genwaveform}.  This allows the design of waveforms such that
-their energy is focused in a mainlobe with low sidelobes, concentrating the signal energy as narrowly as possible
-\citep[p. 44]{Richards:2005}. 
+Pulse compression is a technique to increase sensitivity (increase the signal-to-noise ratio (SNR)) by using waveforms
+that allow the duration and bandwidth to be controlled separately \citep[pp. 42-43]{Richards:2005}.  An early paper by
+Bell Labs introduced the concept of a chirp, or frequency modulated pulse, for exactly this purpose
+\citep{Klauder:1960}. Since then, other ways of achieving the same goal have been found and will be discussed in this
+work. Compression is achieved by using one or more matched filters, the concept of which will be introduced in Chapter
+\ref{genwaveform}.  This allows the design of waveforms such that their energy is focused in a mainlobe with low
+sidelobes, concentrating the signal energy as narrowly as possible \citep[p. 44]{Richards:2005}. 
+
+TODO: discuss in terms or lobes, distinguish range from antenna lobes. Add figure.
 
 As mentioned previously, solid-state amplifiers are economical, but have lower peak power and higher duty cycles, so
 long pulses are necessary to achieve the same sensitivity. On one hand, range resolution is important to detect
@@ -94,7 +98,8 @@ small features and would suffer severely from longer pulses.
 On the other hand, the SNR is directly related to probability of detection, so it is very important to maintain a sufficient SNR.
 Furthermore, since weather signals have a large dynamic range, required for detecting anything from light rain or even
 just clear air measurements, to heavy rain and hail, a high SNR is absolutely necessary.  
-
 These requirements for good range resolution and SNR make pulse compression a welcome technique to improve weather
 radars. The different ways of accomplishing pulse compression are discussed in this thesis.
+
+TODO: summarize the other chapters.
 
