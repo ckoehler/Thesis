@@ -1,5 +1,5 @@
 This chapter examines the different approaches to quantifying waveform performance in the context of weather radar
-applications, as well as limitations associated with them.
+applications, as well as associated limitations.
 
 \section{Quantifications}
 \label{s:quantifications}
@@ -24,8 +24,9 @@ The performance of each code is measured by calculating the Integrated Sidelobe 
 \label{ISL}
 \text{ISL} = 10 \log \left(\frac{\sum\limits_{j} |s_j|^2}{\sum\limits_{k} |m_k|^2}\right)
 \end{equation}
-where $s_j$ is the amplitude of the $j^{th}$ sidelobe, and $m_k$ the amplitude of the $k^{th}$ mainlobe.
+where $s_j$ is the amplitude of the $j^{th}$ sidelobe, and $m_k$ the amplitude of the $k^\mathrm{th}$ mainlobe.
 
+TODO: plot of ISL.
 Lower ISL means better performance of the code. In this work, the ISL is calculated across the whole AF, but limited in
 the Doppler dimension for values $v \in \left[-50, +50\right]\ \si{\metre\per\second}$ as the main focus is weather
 application and encountering targets that move faster than this is rare. 
@@ -45,8 +46,8 @@ performing well enough for actual use due to the outlier sidelobe.
 
 \subsection{Pulse Power Ratio}
 For amplitude tapering, another factor needs to be taken into consideration, called the Pulse Power Ratio (PPR). For a
-rectangular pulse, \SI{100}{\percent} of the signal power is transmitted. For a amplitude-tapered pulse, however, that
-is not the case. The Pulse Power Ratio is defined as follows:
+rectangular pulse, \SI{100}{\percent} of the signal power is transmitted. For an amplitude-tapered pulse, however, that
+is not the case. The PPR is defined as follows:
 
 
 \begin{equation}
@@ -62,13 +63,13 @@ rectangular pulse with equal pulse length, and can help quantify the loss in sen
 As mentioned before, the core of pulse compression is the match filtering. Any kind of moving target, including weather,
 will introduce distortions to the waveform that cause a mismatch between the filter and the waveform. Depending on the
 waveform, this mismatch can be quite severe and greatly impact the performance of the weather radar. 
-Besides weather, other sources of distortions limit the performance of the waveform. In this section, another limitation
+Besides weather, other sources of distortion limit the performance of the waveform. In this section, another limitation
 that will be examined is the effect of a system impulse response on the waveform.
 
 
 \subsection{Doppler Effect for Weather Radars}
 \label{s:dopplereffect}
-One concern for pulse compression performance is the effect of a Doppler shift on matched filter in the receiver. A
+One concern for pulse compression performance is the effect of a Doppler shift on the matched filter in the receiver. A
 received signal that has been affected by a Doppler shift causes a mismatch in the matched filter processing of the
 receiver.  This is especially pronounced at high target velocities. For atmospheric weather radars, such as the WSR-88D,
 the aliasing velocity is \SI{32.5}{\metre\per\second}, based on $\lambda = \SI{0.1}{\metre}$ and a maximum
@@ -108,5 +109,5 @@ then becomes:
 It can be seen that applying the impulse response to the return signal is equivalent to applying it to the original
 pulse $s(t)$.  This makes it easy in simulation to apply an impulse response to the calculations in order to evaluate
 its effects on the AF.  The results of a Rayleigh-shaped impulse response on a rectangular pulse are presented in
-Section \ref{s:ireffects}.
+Section \ref{s:ireffectsopti}.
 

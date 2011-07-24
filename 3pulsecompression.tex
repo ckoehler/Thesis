@@ -6,9 +6,9 @@ to the desired specifications.
 
 \section{Amplitude Modulation}
 \label{s:ampmod}
-One way to suppress the sidelobes is to taper the amplitude of the signal such that less energy is transmitted towards
+One way to suppress range sidelobes is to taper the amplitude of the signal such that less energy is transmitted towards
 the edges of the signal in order to reduce so-called \emph{spectral leakage} caused by working with finite sequences of
-signal data \citep{Harris:1978}. In terms of bandwidth, the discontinuities of finite data sets introduce sharp edges
+a signal \citep{Harris:1978}. In terms of bandwidth, the discontinuities of finite signals introduce sharp edges
 that, similar to a perfectly rectangular pulse, increase the bandwidth needed to properly represent the signal. Since the
 bandwidth of any system is limited, amplitude tapering can help condition the signal to match the bandwidth requirements
 of the system.  However, tapering has at least two disadvantages.  First, less energy is illuminating the target because
@@ -16,9 +16,9 @@ the amplifier does not transmit as much power for an amplitude-tapered waveform 
 a lower SNR, which has a negative impact on detection. Second, the mainlobe is usually broadened, resulting in a decrease in
 spatial resolution.
 
-In this work, the Kaiser window is chosen because its shape can be changed based on only one parameter, $\alpha$.
-Evaluating different waveforms tapered by the Kaiser window with different values of $\alpha$ allows the amplitude
-tapering to be optimized for weather radar applications.  The Kaiser window is defined as:
+In this work, the Kaiser window is focused upon because of its flexibility and the fact that its shape can be changed based
+on only one parameter, $\alpha$.  Evaluating different waveforms tapered by the Kaiser window with different values of
+$\alpha$ allows the amplitude tapering to be optimized for weather radar applications.  The Kaiser window is defined as:
 
 \begin{equation}
   \label{eq:kaiser}
@@ -35,6 +35,7 @@ For the sake of simplicity, the function argument is redefined as $\beta = \pi \
 This work will use $\beta$ as the parameter describing the window shape.  Figure \ref{fig:kaiserparams} shows the Kaiser
 Window function for varying values of the parameter $\beta$.
 
+TODO: Kaiser plot not samples, but time. Spectrum needs ylabel.
 \begin{figure}[H]
 \includegraphics[width=\imgsizes]{figures/kaiserparams.png}
 \caption{For amplitude tapering, a Kaiser window is applied to the discussed waveforms.
@@ -49,11 +50,11 @@ of a rectangular pulse is given as a reference.}
 
 Figure \ref{fig:fftspec} shows the frequency spectrum of a rectangular pulse compared to pulses that have been tapered
 with different Kaiser windows. The spectrum of the rectangular pulse is a sinc function with sidelobes extending into
-infinity. Applying a window lowers the sidelobes and, with sufficiently aggressive tapering, removes them completely. It
-also broadens the mainlobe. As mentioned previously, tapering can also limit the bandwidth of the signal.
+infinity. Applying a window lowers the sidelobes and broadens the mainlobe. As mentioned previously, tapering can also
+limit the bandwidth of the signal.
 
 To make use of amplitude tapering, one important consideration is the choice of amplifier used in the system. Most
-transmitters operate most efficiently in saturation, i.e., completely on \citep[p. 692]{Skolnik:2001}. For amplitude
+transmitters operate most efficiently in saturation \citep[p. 692]{Skolnik:2001}. For amplitude
 tapering to work, the transmitter must operate linearly, which means it is not operating at peak efficiency. This loss
 in power will result in decreased sensitivity, so the trade-offs of this method must be considered.
 
@@ -68,19 +69,20 @@ examine how both schemes work and compare them to amplitude modulation, discusse
 \subsection{Linear Frequency Modulation}
 \label{s:lfm}
 For LFM, the frequency of the pulse is simply modulated linearly
-over a certain bandwidth $B$. This is called a chirp and defined by:
+over a certain bandwidth $B$. This is called a chirp and is defined by:
 
 \begin{equation}
 \label{eq:LFM}
-x(t) = e^{-j \pi k t^2 } ,\ \ 0 \leq t \leq \tau,
+s(t) = e^{-j \pi k t^2 } ,\ \ 0 \leq t \leq \tau,
 \end{equation}
 where $k= \pm \frac{B}{\tau}$ \citep[p.57]{Levanon:2004}. The real part of the waveform is shown in Figure
 \ref{fig:lfm-waveform}.
 
+TODO: ylabel
 \begin{figure}[h]
 \includegraphics[width=\imgsize]{figures/lfm-waveform-5us.png}
 \caption{Varying the frequency linearly over a certain bandwidth for the duration of the pulse is called Linear
-Frequency Modulation and results in a waveform like this.}
+Frequency Modulation. This plot shows the frequency increase over the pulse length $\tau=\SI{5}{\micro\second}$.}
 \label{fig:lfm-waveform}
 \end{figure}
 
@@ -93,6 +95,7 @@ instantaneous phase $\phi(t)$ such that:
 \omega(t) = \frac{1}{2 \pi}\frac{d\phi(t)}{dt}.
 \end{equation}
 The AF of $s'(t)$ is $|\chi(\tau_\mathrm{d},f_\mathrm{d}-k\tau_\mathrm{d})|$ \citep[p. 38]{Levanon:2004}.
+TODO: show derivation of this property. Show derivative for LFM.
 
 
 \begin{figure}[H]
@@ -108,6 +111,7 @@ compression very Doppler tolerant and thus convenient for radar applications tha
 velocity is unknown. The mismatch in range caused by the shifted ridge is called \emph{range-Doppler coupling} and can
 be corrected by alternating between an up- and a down-chirp and averaging the resulting range of both to get the true
 range \citep[p. 343]{Skolnik:2001}.
+TODO: work for weather, too?
 
 The maximum theoretical range resolution of an LFM waveform is now only dependent on the bandwidth $B$, not the pulse length $\tau$,
 and is expressed as \citep[p. 196]{Richards:2005}:
@@ -117,11 +121,12 @@ and is expressed as \citep[p. 196]{Richards:2005}:
 \end{equation}
 If $B=\frac{1}{\tau}$, this result is consistent with a traditional pulsed radar, as shown in Equation
 \eqref{eq:rangeresbwpulse}.
+TODO: change e to exp.
 
 \subsection{Non-linear Frequency Modulation}
 \label{s:nlfm}
 Equation \eqref{eq:LFM} is a special case that describes
-linear frequency modulation. A more general expression for a frequency modulated waveform is
+linear frequency modulation. A more general expression for a frequency modulated waveform is:
 
 \begin{equation}
 \label{eq:NLFM}
@@ -142,7 +147,7 @@ sweep patterns are investigated and their performance evaluated. The results are
 
 \subsection{Amplitude Tapering Compared to Frequency Modulation}
 \label{s:taperingandfm}
-Tapering the amplitude of a signal to reduce sidelobes delivers a similar result compared to simply sweeping the frequency
+Tapering the amplitude of a signal to reduce range sidelobes delivers a similar result compared to simply sweeping the frequency
 non-linearly. This relationship can be explained by considering the ACF of the signal. The sidelobes appear in the ACF,
 which is the inverse Fourier transform of the power spectrum. Thus modifying the power spectrum, e.g., by amplitude
 tapering, will likewise change the shape of the ACF.  From this follows that alternatively, the spectrum can be shaped
@@ -156,17 +161,15 @@ has a similar effect to chirping the frequency of the pulse non-linearly.}
 \label{fig:nlfmbwspectrum}
 \end{figure}
 
-
 Figure \ref{fig:nlfmbwspectrum} shows the results of a NLFM pulse and a tapered LFM pulse. An untapered LFM pulse is
 given for comparison. Both NLFM and tapering change the shape of the mainlobe and sidelobes in a similar way, so both
-must be considered in waveform design.
-Optimizing the shape of the NLFM is one of the challenges of waveform design.
+must be considered in waveform design.  Optimizing the shape of the NLFM is one of the challenges of waveform design.
 
 
 \subsection{Early Use of Frequency Modulation} 
 Since LFM is simply taking advantage of a property of the AF, as described in Section \ref{s:lfm}, it was one the
 earliest ways of improving sensitivity \citep[p. 57]{Levanon:2004} (see also \cite{Klauder:1960}).  It is simple to implement in analog hardware by
-using a voltage controlled oscillator (VCO) and very Doppler tolerant due to the slow decrease in slope, making it a
+using a voltage controlled oscillator (VCO) and is Doppler tolerant due to the slow decrease in slope, making it a
 popular choice for early radars that had to detect fast moving targets. With more processing being done in digital
 systems, other forms of pulse compression are becoming increasingly more common because they are easier to implement in
 digital systems.
@@ -174,7 +177,7 @@ digital systems.
 
 \section{Phase Modulation}
 Similar to amplitude modulation and frequency modulation, waveforms can be modulated in phase as well. A pulse $s(t)$ of
-length $\tau$ is divided up into $M$ different parts, and each part is assigned a different phase \citep[p. 100]{Levanon:2004}.
+length $\tau$ is divided into $M$ different parts, and each part is assigned a different phase \citep[p. 100]{Levanon:2004}.
 The set of phases associated with the different parts of the pulse is called the \emph{phase code} of
 $s(t)$. There is an unlimited number of phase codes and much work has gone into finding codes that improve the
 performance of waveform. Only a few different types will be discussed here.  The reader is encouraged to refer to
@@ -187,6 +190,7 @@ code, which is believed to exist up to a length of 13 \citep[p. 106]{Levanon:200
 +1 +1 +1 -1 -1 +1 +1 -1 +1 -1 +1 \citep[pp. 273-287]{Barker:1953}. It is called a ``perfect" code because its ACF has a
 main lobe of height 13 and sidelobes with heights of no more than 1, as depicted in Figure \ref{fig:barker13-acf}.
 
+TODO: add lag to Barker acf.
 \begin{figure}[h]
 \includegraphics[width=\imgsize]{figures/barker13-acf.png}
 \caption{ACF of the Barker code with length 13. Barker codes are ``perfect'', meaning they have minimal
@@ -203,6 +207,7 @@ between 0 and $2\pi$ in an attempt to gain a better performing code. These types
 
 Other polyphase codes include Frank codes and their derivatives, like P1, P2, and Px codes \citep[pp. 113-122]{Levanon:2004}, which
 are derived from sampling the phase of an LFM waveform and thus called \emph{chirplike}.
+TODO: add example.
 
 
 \subsection{Bandwidth for Phase Codes}

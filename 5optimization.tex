@@ -1,5 +1,5 @@
 In this section the setup and results of the simulations will be presented. First, the way the simulations were
-conducted is explained. After that, the results for various waveforms will be shown.
+conducted is explained. Afterwards , the results for various waveforms will be shown.
 
 \section{Setup and Configuration}
 All simulations were performed with the MATLAB\textsuperscript{\textregistered} software package.  The general algorithm
@@ -65,7 +65,7 @@ performance for typical velocities of weather phenomena is about \SI{6}{\decibel
 \label{fig:simplepulse-200us}
 \end{figure}
 
-
+TODO: show 0 doppler and 50 doppler in one plot.
 
 
 
@@ -74,7 +74,7 @@ performance for typical velocities of weather phenomena is about \SI{6}{\decibel
 
 
 \section{Barker Code}
-In this section, a length 13 Barker code of different pulse lengths will be examined. Figures \ref{fig:barker13-15us}
+In this section, a Barker 13 code of different pulse lengths will be examined. Figures \ref{fig:barker13-15us}
 and \ref{fig:barker13-15us-0D} show a \SI{15}{\micro\second} pulse that has been phase coded with a length 13 Barker
 code. As for a rectangular pulse, there is no Doppler distortion for a short pulse, so this effect can be neglected.
 The zero-Doppler cut shows the typical shape of the Barker code and sidelobes of about \SI{-22}{\decibel} \citep[p.
@@ -132,16 +132,17 @@ signal is not very useful for weather radar applications, even with amplitude ta
 
 \begin{figure}[H]
 \includegraphics[width=\imgsizes]{figures/barker-15us-opti.png}
-\caption{Amplitude tapering optimization results for a Barker 13 code. There is not much improvements compared to a
-plain Barker phase code.  }
+\caption{Amplitude tapering optimization results for a Barker 13 code. There is not much improvement compared to the
+standard Barker phase code.  }
 \label{fig:barker13-15us-opti}
 \includegraphics[width=\imgsizes]{figures/barker-15us-opti-slice3.png}
 \caption{Zero-Doppler slice at $\beta=1.026$, showing the possible improvement. PSL does not change noticeably.}
 \label{fig:barker13-15us-opti-slice3}
 \end{figure}
+TODO: show comparison to normal plot.
 
 
-
+TODO: taper each subpulse.
 
 
 
@@ -166,7 +167,7 @@ $\tau=\SI{15}{\micro\second}$.}
 
 
 Figures \ref{fig:lfm-15us} and \ref{fig:lfm-200us} show the AFs of two LFM waveforms, with pulse lengths of
-\SI{15}{\micro\second} and \SI{200}{\micro\second}, respectively.  Comparing the two for differences shows that in the
+\SI{15}{\micro\second} and \SI{200}{\micro\second}, respectively.  Comparing the two AFs shows that in the
 Doppler dimension, the pulse length has little effect for weather radar applications. There is some shifting of the
 mainlobe, but it is negligible.
 
@@ -184,7 +185,7 @@ mismatch or range resolution. }
 
 
 One observation of significance is the range resolution of both signals.  Figures \ref{fig:lfm-15us-0d} and
-\ref{fig:lfm-200us-0d} show the zero-Doppler cut of both signals.  As expected, the sidelobes are around
+\ref{fig:lfm-200us-0d} show the zero-Doppler cut of both signals.  As expected, the sidelobes are approximately
 \SI{-13}{\decibel} in both AFs, but also, the shapes are approximately the same for each case, which means that the
 pulse length has little effect on the range resolution, which is approximately \SI{30 }{\metre}. Instead, range
 resolution is determined by the sweep bandwidth, not the pulse length, as is expressed in Equation
@@ -199,6 +200,7 @@ resolution is determined by the sweep bandwidth, not the pulse length, as is exp
 shorter pulse as expected.}
 \label{fig:lfm-200us-0d}
 \end{figure}
+TODO: 0 doppler off of 0?
 
 
 \subsection{Linear Frequency Modulation with Amplitude Tapering}
@@ -224,7 +226,7 @@ sidelobe reduction, but loss in power and thus sensitivity becomes significant q
 
 Clearly, a trade-off must be made. If the half power point is selected, the waveform would have an ISL of about
 \SI{-36}{\decibel}, PSL of \SI{-47}{\decibel}, and a range resolution of \SI{68}{\metre}.
-The corresponding zero Doppler cut of the AF at this point is shown in figure \ref{fig:lfm-isl-15us-opti-slice18}. It
+The corresponding zero Doppler cut of the AF at this point is shown in Figure \ref{fig:lfm-isl-15us-opti-slice18}. It
 clearly shows the sidelobes at about \SI{-50}{\decibel}, which means this waveform would be adequate for typical weather
 observations if a \SI{3}{\decibel} loss in power is acceptable. 
 
@@ -235,7 +237,7 @@ observations if a \SI{3}{\decibel} loss in power is acceptable.
 resolution is reduced to \SI{68}{\metre}, which is well sufficient for typical storm observations.}
 \label{fig:lfm-isl-15us-opti-slice18}
 \end{figure}
-
+TODO: title -3 dB
 
 
 
@@ -244,14 +246,14 @@ resolution is reduced to \SI{68}{\metre}, which is well sufficient for typical s
 \section{Non-Linear Frequency Modulation}
 As described in Section \ref{s:nlfm}, the frequency of a frequency modulated signal can be swept non-linearly as well.
 In order to find more useful waveforms for weather radar applications, this work evaluates several different sweep
-functions described by Equation \eqref{eq:nlfm-sweep} below. The PPR here is always 1 because no amplitude tapering is
-applied yet, so there is no loss of sensitivity. The general form of the function describing the frequency sweep is:
+functions described by Equation \eqref{eq:nlfm-sweep} below. The PPR here is always 0 dB because no amplitude tapering is
+applied yet, so there is no loss of sensitivity. In this study, the general form of the function describing the frequency sweep is:
 
 \begin{equation}
 \label{eq:nlfm-sweep}
   f(t) = a t^7 + t,
 \end{equation}
-where $a$ varies from 0 to 10. Whole functions for different values of $a$ are shown in figure \ref{fig:nlfm-functions}.
+where $a$ varies from 0 to 10. Whole functions for different values of $a$ are shown in Figure \ref{fig:nlfm-functions}.
 Each function is applied over the pulse length $\tau$ of the signal.
 
 \begin{figure}[H]
@@ -260,6 +262,7 @@ Each function is applied over the pulse length $\tau$ of the signal.
 performance.}
 \label{fig:nlfm-functions}
 \end{figure}
+TODO: units and axes.
 
 For each function, a waveform and AF are generated and then evaluated according to the optimizations
 described in Section \ref{s:quantifications}. It is then determined which sweep function is best suited for weather
@@ -274,7 +277,7 @@ resolution. For larger $a$, the ISL also increases, with the maximum ISL being a
 decreases rapidly first to about \SI{-26}{\decibel} and then slowly decreases to about \SI{-40}{\decibel}, where it
 stays fairly constant. The range resolution gets progressively worse, starting at about \SI{30}{\metre} and increasing
 to about \SI{300}{\metre}, meaning the mainlobe broadens.  This also explains the decreasing and eventually constant
-PSL, because the whole AF is one big mainlobe with only minimal sidelobes.
+PSL, because the AF is essentially one large mainlobe with only minimal sidelobes. TODO: show example.
 
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/nlfm-side-15us-opti.png}
@@ -314,7 +317,7 @@ results are presented in Figures \ref{fig:nlfm-kaiser-15us-opti-isl}-\ref{fig:nl
 Looking at the ISL in Figure \ref{fig:nlfm-kaiser-15us-opti-isl}, it can be seen that the waveform that is most
 aggressively tapered generally has better ISL performance. The same is true for the NLFM parameter $a$, i.e., for higher
 $a$, ISL is lower.  Next, the PSL shown in Figure \ref{fig:nlfm-kaiser-15us-opti-psl} closely mirrors the shape of the
-ISL optimization, so the same discussion applies to it.
+ISL optimization, so the same discussion applies.
 
 \begin{figure}[H]
 \includegraphics[width=\imgsizes]{figures/nlfm-kaiser-15us-opti-isl.png}
@@ -375,12 +378,14 @@ sidelobes but widens the mainlobe. Increasing $a$ has the same effect.}
 
 
 \section{Effects of Impulse Response on the Ambiguity Function}
+\label{s:ireffectsopti}
 As discussed in Section \ref{s:ireffects}, as the return signal passes through the receive chain, it will be distorted
 by the impulse response of the amplifier. The effects of that on the waveform are presented here. A couple of
 assumptions have been made. First, since the exact impulse response is unknown, a Rayleigh-shaped approximation is used.
 Second, it is assumed that the impulse response is as long as the pulse, in this case $\tau = \SI{15}{\micro\second}$,
 which is likely not accurate. However, doing this will exaggerate the effect and make it more easily visible, which is
 the goal of this section. 
+TODO: reword. Tx amp and Rx amp.
 
 
 \subsection{Rectangular Pulse}
@@ -389,7 +394,8 @@ baseline, Figure \ref{fig:pulsewoir-15us} shows a rectangular pulse that is undi
 
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/pulsewoir-15us.png}
-\caption{ An ideal AF for a rectangular pulse of length $\tau = \SI{15}{\micro\second}$. }
+\caption{ An ideal AF for a rectangular pulse of length $\tau = \SI{15}{\micro\second}$. This is a reference to compare
+to the AF that has been distorted by a system impulse response.}
 \label{fig:pulsewoir-15us}
 \end{figure}
 
@@ -398,11 +404,12 @@ Figure \ref{fig:pulsewir-15us} shows the AF of a waveform that has been distorte
 \ref{fig:tf1}. The goal of this section is to study the effects of a non-linear response of the system to pulse compression.
 \begin{figure}[H]
 \includegraphics[width=\imgsizes]{figures/tf1.png}
-\caption{Rayleigh-shaped impulse response.}
+\caption{Rayleigh-shaped impulse response. It is applied to the signal over the signal's duration, one of the
+assumptions made in this simulation.}
 \label{fig:tf1}
 \includegraphics[width=\imgsizes]{figures/pulsewir-15us.png}
 \caption{ AF of a rectangular pulse with system distortion. The asymmetry of the impulse response is reflected
-in the asymmetric distortion in the pulse's AF. }
+in the asymmetric distortion in the AF. }
 \label{fig:pulsewir-15us}
 \end{figure}
 
@@ -419,9 +426,10 @@ pulse, the range delay is affected more by the distortion, severely impacting th
 \begin{figure}[H]
 \includegraphics[width=\imgsizes]{figures/barkerwir-15us.png}
 \caption{ AF of a Barker 13 phase code with system distortion. The asymmetry of the impulse response is reflected
-in the asymmetric distortion in the pulse's AF. }
+in the asymmetric distortion in the AF. }
 \label{fig:barkerwir-15us}
 \end{figure}
+TODO: add comparison image.
 
 
 \subsection{Frequency Modulation}
@@ -435,16 +443,18 @@ for the NLFM waveform.
 \begin{figure}[H]
 \includegraphics[width=\imgsizes]{figures/lfmwir-15us.png}
 \caption{ AF of an LFM waveform with system distortion. The asymmetry of the impulse response is reflected
-in the asymmetric distortion in the pulse's AF. }
+in the asymmetric distortion in the AF. }
 \label{fig:lfmwir-15us}
 \includegraphics[width=\imgsizes]{figures/nlfmwir-15us.png}
 \caption{ AF of a NLFM waveform with system distortion. The asymmetry of the impulse response is reflected
-in the asymmetric distortion in the pulse's AF. }
+in the asymmetric distortion in the AF. }
 \label{fig:nlfmwir-15us}
 \end{figure}
+TODO: add comparison image.
 
-Generally, then, a system impulse response has no significant effect on the Doppler distortion for weather radar
+Generally, a system impulse response has no significant effect on the Doppler distortion for weather radar
 applications. However, it does affect the range delay by smoothing out the waveform similar to amplitude tapering,
-lowering range resolution. The distortion is not symmetric because the system impulse response is not, either, which is
+lowering range resolution. The distortion is not symmetric because the system impulse response is not, which is
 the most significant result presented here. Despite the benefits of smoothing and sidelobe reduction caused by the
 impulse response, the asymmetry is highly undesirable and should be corrected.
+TODO: discuss how and add block diagram.

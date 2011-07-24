@@ -8,13 +8,14 @@ velocities commonly encountered in weather applications. As expected, the range 
 
 Using a waveform that is phase coded with a Barker 13 code does increase the range resolution dramatically for the same
 pulse lengths to about \SI{110}{\metre} for the same pulse length. However, the peak sidelobe level is only at about
-\SI{-22}{\decibel}, which makes this waveform unusable for typical storm observation. It could still be used in
-situations where a low PSL isn't necessary, like clear air measurements. There is also some Doppler mismatch for long
+\SI{-22}{\decibel}, which makes this waveform unusable for typical weather observation. It could still be used in
+situations where a low PSL is not necessary, like clear air measurements. There is also some Doppler mismatch for long
 pulses and high Doppler velocities, although the mainlobe level is not affected, unlike for a rectangular pulse.
 Sidelobes are distorted and the PSL is raised to about \SI{-13}{\decibel}.
 
 Applying amplitude tapering to a Barker phase coded waveform has little benefit. The range resolution does not improve,
 and neither to ISL and PSL. Since a Barker 13 code is already ``perfect,'' this result is to be expected.
+TODO: check first. Need to taper sub pulse.
 
 An LFM waveform has much better range resolution than both a rectangular and Barker phase coded pulse at about
 \SI{30}{\metre}.
@@ -46,20 +47,20 @@ actual system impulse response and repeat the simulations with it, as well as te
 
 
 \section{Future Work}
-There are several ways to improve on this work in the future.
+There are several ways to build upon on this work in the future.
 
-First, other waveform can be evaluated based on the presented metrics, like more complex phase coded signals. Other
+First, other waveforms can be evaluated based on the presented metrics, like more complex phase coded signals. Other
 sweeping functions for the NLFM waveform could be evaluated to perhaps find waveforms that perform better for weather
 radar applications. 
 
 Second, the effects of the amplifier impulse response and other system components could be better quantified and the
 results compared with the theoretical results that are expected. Particularly, attempts to correct for the distortion
-caused by the impulse response could be presented. One possibility is to pre-undo the distortions that are caused by the
+caused by the impulse response could be presented. One possibility is to pre-distort the distortions that are caused by the
 transmit and receive chain. The anti-distortion filter is designed to equalize the system response of the subsequent
 chain in between the waveform generator and antenna feed horn, which includes up-converter and amplifier.
 
 Third, the effects of volume scattering on the waveform should be examined. For weather radar applications, volumes of
-point scatterers are considered instead of simple point targets. E.g., in the case of rain, millions of raindrops will
+point scatterers are considered instead of simple point targets. In the case of rain, millions of raindrops will
 be present in a typical resolution volume of the radar, moving at different velocities and with different shapes. Both
 their size and velocity will be distributed over some probability density function, introducing a random element to the
 calculations. How exactly that affects the AF would be beneficial to determine.
