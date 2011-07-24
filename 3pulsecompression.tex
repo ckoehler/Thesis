@@ -73,7 +73,7 @@ over a certain bandwidth $B$. This is called a chirp and is defined by:
 
 \begin{equation}
 \label{eq:LFM}
-s(t) = e^{-j \pi k t^2 } ,\ \ 0 \leq t \leq \tau,
+s(t) = \exp(-j \pi k t^2 ) ,\ \ 0 \leq t \leq \tau,
 \end{equation}
 where $k= \pm \frac{B}{\tau}$ \citep[p.57]{Levanon:2004}. The real part of the waveform is shown in Figure
 \ref{fig:lfm-waveform}.
@@ -86,17 +86,20 @@ Frequency Modulation. This plot shows the frequency increase over the pulse leng
 \label{fig:lfm-waveform}
 \end{figure}
 
-The LFM effect is a consequence of a property of the AF.  This property states that given a signal $s(t)$, if $s(t)$ has
-an added phase that changes quadratically, i.e., $s'(t) = s(t) e^{-j\pi k t^2}$, this phase change is equivalent to a
-linear frequency modulation because the instantaneous frequency $\omega(t)$ is related to the derivative of the
-instantaneous phase $\phi(t)$ such that: 
+The Doppler tolerance of the LFM is a consequence of a property of the AF. The AF of $s'(t)$ is derived as follows:
 
-\begin{equation}
-\omega(t) = \frac{1}{2 \pi}\frac{d\phi(t)}{dt}.
-\end{equation}
-The AF of $s'(t)$ is $|\chi(\tau_\mathrm{d},f_\mathrm{d}-k\tau_\mathrm{d})|$ \citep[p. 38]{Levanon:2004}.
-TODO: show derivation of this property. Show derivative for LFM.
-
+\begin{align*}
+  |\chi(\tau_\mathrm{d},f_\mathrm{d})|
+  &= \left| \int_{-\infty}^\infty{s(t) \exp(-j \pi k t^2) s^*(t+\tau_\mathrm{d}) \exp[j \pi k (t + \tau_\mathrm{d})^2]
+  \exp(-j2\pi f_\mathrm{d} t) dt} \right| \\
+  &= \left| \exp(j \pi k \tau_\mathrm{d}^2)\int_{-\infty}^\infty{s(t) s^*(t+\tau_\mathrm{d})
+  \exp[j 2 \pi (  k \tau_\mathrm{d} - f_\mathrm{d}) t] dt} \right| \\
+  &= \left| \exp(j \pi k \tau_\mathrm{d}^2) ~ \chi'(\tau_\mathrm{d}, k \tau_\mathrm{d} - f_\mathrm{d} ) \right| \\
+  &= \left| \chi'(\tau_\mathrm{d}, k \tau_\mathrm{d} - f_\mathrm{d} ) \right|
+\end{align*}
+This shows that, for a signal modulated with a quadratic phase shift, the Doppler dimension changes based on the range
+delay, causing the shifted ridge.
+TODO: tighten this up.
 
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/lfm-full-15us.png}
@@ -111,7 +114,6 @@ compression very Doppler tolerant and thus convenient for radar applications tha
 velocity is unknown. The mismatch in range caused by the shifted ridge is called \emph{range-Doppler coupling} and can
 be corrected by alternating between an up- and a down-chirp and averaging the resulting range of both to get the true
 range \citep[p. 343]{Skolnik:2001}.
-TODO: work for weather, too?
 
 The maximum theoretical range resolution of an LFM waveform is now only dependent on the bandwidth $B$, not the pulse length $\tau$,
 and is expressed as \citep[p. 196]{Richards:2005}:
@@ -121,7 +123,6 @@ and is expressed as \citep[p. 196]{Richards:2005}:
 \end{equation}
 If $B=\frac{1}{\tau}$, this result is consistent with a traditional pulsed radar, as shown in Equation
 \eqref{eq:rangeresbwpulse}.
-TODO: change e to exp.
 
 \subsection{Non-linear Frequency Modulation}
 \label{s:nlfm}
@@ -130,14 +131,14 @@ linear frequency modulation. A more general expression for a frequency modulated
 
 \begin{equation}
 \label{eq:NLFM}
-x(t) =  e^{-j \Phi(t)} = e^{-j 2 \pi \int_0^t{f(x) dx}} ,\ \ 0 \leq t \leq \tau,
+x(t) =  \exp(-j \Phi(t)) = \exp(-j 2 \pi \int_0^t{f(x) dx}) ,\ \ 0 \leq t \leq \tau,
 \end{equation}
 where $f(x)$ defines the function of the frequency sweep \citep[p. 88]{Levanon:2004}. 
 In the LFM case, $f(x)=kx$, which simplifies Equation \eqref{eq:NLFM} to:
 
 \begin{equation}
 \label{eq:NLFM_simp}
-x(t) = e^{j 2 \pi \int_0^t{f(x) dx}} =  e^{j 2 \pi \frac{k t^2}{2}} = e^{j \pi k t^2},
+x(t) = \exp(j 2 \pi \int_0^t{f(x) dx}) =  \exp(j 2 \pi \frac{k t^2}{2}) = \exp(j \pi k t^2),
 \end{equation}
 which indicates that a quadratic phase modulation corresponds to a linear frequency change.  
 

@@ -73,12 +73,14 @@ velocity of two staggered pulses of different lengths is defined as \citep[p. 17
   \label{eq:vm}
   v_\mathrm{a} = \pm \frac{\lambda}{4(T_{\mathrm{s2}} - T_{\mathrm{s1}})}
 \end{equation}
+Specific ratios $\kappa = m/n$ of $T_\mathrm{s1}$ and $T_\mathrm{s2}$ improve the performance of this technique \citep{Torres:2004}.
+Specifically, $m$ and $n$ just need to be relatively prime for this method to work, and one such ratio that
+has been tested on a WSR-88D research radar is $2/3$, as described in the paper by \cite{Torres:2004}. 
 
 The potential disadvantage of this method, assuming the number of pulses per PRT stays the same, is a longer scan time,
 since every radial now has to be scanned twice, once with the short and once with the long PRT, doubling the time
 between sweeps.
 
-TODO: describe ratio, cite Torres.
 
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/sprt.png}
@@ -94,14 +96,14 @@ be associated with the first pulse and thus distinguished from echoes caused by 
 
 This allows the use of a small PRT, resulting in good aliasing velocity, but also the ability to unfold second, third,
 or even fourth trip echoes correctly. One such implementation is called SZ phase codes \cite{Sachidananda:1999}.  For this technique, every other
-pulse is phase shifted by a certain sequence $a_k = e^{j \Psi_k}$. On receive, the signal can be decoded by multiplying
+pulse is phase shifted by a certain sequence $a_k = \exp(j \Psi_k)$. On receive, the signal can be decoded by multiplying
 it with the complex conjugate of the coding sequence, $a^*_k$. This will make the first-trip signal coherent, leaving
 the rest of the signals with different phase shifts. To make the second-trip echoes coherent, the return signal is
 multiplied by $a^*_{k-1}$, which will again leave the other trip signals encoded. This can be repeated for the other
 trip signals in the same way. In this manner, each trip signal can be made coherent and thus separated from the others.
 For more details, refer to \cite{Sachidananda:1999}.
-
-TODO: imitations
+Many other ways of increasing the aliasing range with inter-pulse coding are possible, e.g. using an Ipatov 13 binary
+phase code, as presented by \cite{Levanon:2008}.
 
 
 \section{Pulse Length}
@@ -280,7 +282,7 @@ the basis of analyzing the performance of radar signals in this work. As discuss
 SNR is achieved
 when the filter matches the waveform exactly. If that is not the case and there is a mismatch between the filter and the
 signal, there will be some loss called \emph{mismatch loss}. One reason for mismatch loss is the Doppler phase shift applied
-to the return signal by a moving target. Adding that phase shift, given by $e^{-j 2 \pi f_\mathrm{d} t}$, where
+to the return signal by a moving target. Adding that phase shift, given by $\exp(-j 2 \pi f_\mathrm{d} t)$, where
 $f_\mathrm{d}$ is the
 Doppler frequency, leads to the main tool of evaluating waveforms in this work, the \emph{Ambiguity
 Function} (AF), which is described in the next section.
@@ -301,7 +303,7 @@ In \cite{Rihaczek:1968}, the AF is defined as:
 
 \begin{equation}
 \label{eq:AF}
-  |\chi(\tau_\mathrm{d},f_\mathrm{d})| = \left| \int_{-\infty}^\infty{s(t) s^*(t+\tau_\mathrm{d}) e^{-j2\pi f_\mathrm{d} t} dt}\right|,
+  |\chi(\tau_\mathrm{d},f_\mathrm{d})| = \left| \int_{-\infty}^\infty{s(t) s^*(t+\tau_\mathrm{d}) \exp(-j2\pi f_\mathrm{d} t) dt}\right|,
 \end{equation}
 where $s(t)$ is the complex envelope of the waveform. It can clearly be seen that, for $f_\mathrm{d} = 0$, the
 AF reduces to the ACF, presented in Section \ref{s:2pc}.
@@ -313,7 +315,7 @@ For a simple rectangular pulse of the form $s(t)=\frac{1}{\sqrt{\tau}}, ~  \frac
 \begin{align*}
   |\chi(t,f_\mathrm{d})| &= \left| \int_{-\tau/2+t}^{\tau/2}{\frac{1}{\tau} \exp(j 2 \pi f_\mathrm{d} s) ds}\right| \\ 
   &=  \left| \frac{\exp[j 2 \pi f_\mathrm{d} \tau/2] - \exp[j 2 \pi f_\mathrm{d} ( - \tau/2 + t)]}{\tau j 2 \pi f_\mathrm{d}} \right| \\
-  &= \left| \frac{1}{\tau j 2 \pi f_\mathrm{d}} e^{j 2 \pi f_\mathrm{d} t/2} \left\{ \exp\left[j 2 \pi f_\mathrm{d}
+  &= \left| \frac{1}{\tau j 2 \pi f_\mathrm{d}} \exp(j 2 \pi f_\mathrm{d} t/2) \left\{ \exp\left[j 2 \pi f_\mathrm{d}
   \left(\frac{\tau}{2} - \frac{t}{2}\right)\right] - \exp\left[ -j 2 \pi f_\mathrm{d} \left(\frac{\tau}{2} -
   \frac{t}{2}\right)\right] \right\} \right| \\
   &= \left| \frac{\sin(\pi f_\mathrm{d} (\tau - t)) }{\pi f_\mathrm{d} \tau} \right|
