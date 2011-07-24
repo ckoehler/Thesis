@@ -133,7 +133,6 @@ rewritten as:
 \end{equation}
 
 
-TODO: Rectangular Pulse only in the headline, put in dB.
 \begin{figure}[h]
 \includegraphics[width=\imgsize]{figures/pulsespectrum.png}
 \caption{The frequency spectrum of a rectangular pulse with $\tau=\SI{15}{\micro\second}$. The sidelobes are cut off in
@@ -338,7 +337,16 @@ L'Hospital's Rule has to be applied, which yields the ACF of a pulse in the shap
   \tau} \right| \\
   &= \frac{\tau - |\tau_\mathrm{d}|}{\tau} \text{, for } -\tau \leq \tau_\mathrm{d} \leq \tau
 \end{align*}
-TODO: plot for pulse AF.
+The full AF for a rectangular pulse is shown in Figure \ref{fig:pulsefullaf}. It shows the triangular shape in the range
+delay axis and the \mathrm{sinc} function shape in the Doppler dimension.
+
+
+\begin{figure}[h]
+\includegraphics[width=\imgsize]{figures/pulsefullaf.png}
+\caption{Full AF of a rectangular pulse. It shows the triangle shape in the range delay dimension and the \mathrm{sinc}
+shape in the Doppler dimension.}
+\label{fig:pulsefullaf}
+\end{figure}
 
 The ideal shape of the AF depends on the application. One useful AF looks like a thumbtack and thus provides good range
 and Doppler resolution.  However, this also means that any moving target will result in a weak or, for the ideal case,
