@@ -6,7 +6,7 @@ can be used as a reference.
 \begin{figure}[h]
 \includegraphics[width=\imgsize]{figures/basic_waveform_f.png}
 \caption{A basic waveform showing amplitude, period, phase, pulse length, and pulse repetition time (PRT). Each
-component controls the performance of the waveform.}
+component has a part in controlling the performance of the waveform.}
 \label{fig:basic_waveform}
 \end{figure}
 
@@ -32,7 +32,7 @@ where $\lambda$ is the wavelength of the radar.
 
 The aliasing range describes the maximum range of the radar beyond which range aliasing occurs, i.e., targets that are
 farther away than the aliasing range will appear to be closer to the radar than they truly are. Referring to
-Figure \ref{fig:rangealiasing}, for example, if $r_\mathrm{a} = \SI{100}{\kilo\metre}$, and there is a target at a distance of
+Figure \ref{fig:rangealiasing}, for example, if $r_\mathrm{a} = \SI{100}{\kilo\metre}$ and there is a target at a distance 
 \SI{150}{\kilo\metre} from the radar, it will appear to the radar to be only \SI{50}{\kilo\metre} away.  To increase
 $r_\mathrm{a}$, a longer PRT is needed.
 
@@ -63,7 +63,7 @@ aliasing range or high aliasing velocity, but not both \citep[p.  60-61]{Doviak:
 
 \section{Staggered PRT}
 As mentioned earlier, the problem with a single PRT is the so-called Doppler dilemma. A short PRT provides high aliasing
-velocity, while a long PRT gives us a large aliasing range. Neither gives us both.  One way around this limitation is by
+velocity, while a long PRT results in a large aliasing range. Neither accomplishes both.  One way around this limitation is by
 using two different PRTs, a long and a short one, and combine measurements of both to increase the aliasing velocity. The
 concept of using two PRTs is shown in Figure \ref{fig:sprt}.  Typically, the long PRT is chosen based on the desired
 aliasing range, while the short PRT is chosen such that their combination maximizes the aliasing velocity. The aliasing
@@ -95,7 +95,7 @@ an echo from the first pulse that is received after the second pulse has already
 be associated with the first pulse and thus distinguished from echoes caused by the second pulse.
 
 This allows the use of a small PRT, resulting in good aliasing velocity, but also the ability to unfold second, third,
-or even fourth trip echoes correctly. One such implementation is called SZ phase codes \cite{Sachidananda:1999}.  For this technique, every other
+or even fourth trip echoes correctly. One such implementation is called SZ phase codes \citep{Sachidananda:1999}.  For this technique, every other
 pulse is phase shifted by a certain sequence $a_k = \exp(j \Psi_k)$. On receive, the signal can be decoded by multiplying
 it with the complex conjugate of the coding sequence, $a^*_k$. This will make the first-trip signal coherent, leaving
 the rest of the signals with different phase shifts. To make the second-trip echoes coherent, the return signal is
@@ -176,12 +176,17 @@ discussed.
 \section{Matched Filter}
 \label{s:2pc}
 At the heart of pulse compression is the matched filter, which draws its name from the fact that it is matched to the
-transmitted waveform. As the waveform passes through the filter, it is compressed in range and will ideally concentrate
-most of the energy in a narrow mainlobe with low sidelobes. 
-The matched filter is designed based on the maximization of the SNR. The following derivation traces the discussion
-given in \cite[pp. 24-27]{Levanon:2004}.
+transmitted waveform. As the waveform passes through the filter, depicted in Figure \ref{fig:systemblock}, it is
+compressed in range and will ideally concentrate most of the energy in a narrow mainlobe with low sidelobes.  The
+matched filter is designed based on the maximization of the SNR. The following derivation traces the discussion given in
+\cite[pp. 24-27]{Levanon:2004}.
 
-TODO: simple system block diagram. SNR noise complex? What is it?
+\begin{figure}[h]
+\includegraphics[width=\imgsize]{figures/systemblock.png}
+\caption{Simple system block diagram to illustrate the concept of the matched filter. The output signal
+$s_\mathrm{o}(t)$ is the convolution of the input signal $s(t)$ and the system impulse response $h(t)$.}
+\label{fig:systemblock}
+\end{figure}
 
 Specifically, the SNR to be maximized is given by:
 
@@ -189,7 +194,8 @@ Specifically, the SNR to be maximized is given by:
   \label{eq:mfsnr}
   \left(\frac{S}{N}\right)_{\mathrm{out}} = \frac{|s_\mathrm{o}(t_\mathrm{0})|^2}{n_\mathrm{o}^2},
 \end{equation}
-where $s_\mathrm{o}$ is the output signal of the filter at a certain delay $t_\mathrm{0}$, and $n_\mathrm{o}$ is the Gaussian output noise. The
+where $s_\mathrm{o}$ is the output signal of the filter at a certain delay $t_\mathrm{0}$, and $n_\mathrm{o}$ is the
+mean output noise. The
 variables influencing the output signal are the original signal $s(t)$ with delay $t_\mathrm{0}$. The whole output
 signal is given by:
 
@@ -197,9 +203,9 @@ signal is given by:
   \label{eq:mfso}
   s_\mathrm{o}(t_\mathrm{0}) = \frac{1}{2 \pi} \int_{-\infty}^{\infty} H(\omega) S(\omega) \exp(j \omega t_\mathrm{0}) d\omega,
 \end{equation}
-where $S(\omega)$ is the Fourier transform of the input signal $s(t)$ and $H(\omega)$ the Fourier transform of $h(t)$, the impulse response
-of the desired matched filter. The exponential describes the time delay $t_\mathrm{0}$ in the frequency domain.
-The total output noise power $n_\mathrm{o}^2$ for white noise interference with spectral density $N_\mathrm{0}/2$ is described by:
+where $S(\omega)$ is the Fourier transform of the input signal $s(t)$ and $H(\omega)$ the Fourier transform of $h(t)$,
+the impulse response of the desired matched filter. The total output noise power $n_\mathrm{o}^2$ for input white noise
+with spectral density $N_\mathrm{0}/2$ is described by:
 
 \begin{equation}
   \label{eq:mfnoise}
@@ -262,7 +268,7 @@ pulse but its total energy.
 With $h(t)$ known, the output of the matched filter is then 
 \begin{equation}
   \label{eq:filterresponse}
-  s_\mathrm{o}(t_\mathrm{0}) = s(t) \star h(t) = \int_{-\infty}^{\infty}{s(\tau_\mathrm{d}) K s^*[t_\mathrm{0} - (t -
+  s_\mathrm{o}(t_\mathrm{0}) = s(t) \convolution h(t) = \int_{-\infty}^{\infty}{s(\tau_\mathrm{d}) K s^*[t_\mathrm{0} - (t -
   \tau_\mathrm{d})] d\tau_\mathrm{d}},
 \end{equation}
 where $\tau_\mathrm{d}$ is the range delay due to propagation.
@@ -273,8 +279,8 @@ autocorrelation function (ACF) of $s(t)$:
   s_\mathrm{o}(0) = \mathrm{ACF}(s(t)) = \int_{-\infty}^{\infty}{s(\tau_\mathrm{d}) s^*(\tau_\mathrm{d}-t)
   d\tau_\mathrm{d}}.
 \end{equation}
-TODO: compare to convolution. The concept of the ACF for a rectangular pulse is shown in Figure \ref{fig:acf}. The height of the triangle at any given
-point is determined by the overlap of signal with the matched filter response, with the maximum occurring when both
+The concept of the ACF for a rectangular pulse is shown in Figure \ref{fig:acf}. The height of the triangle at any given
+point is determined by the overlap of the signal with the matched filter response, with the maximum occurring when both
 exactly overlap.
 This is an important function because it describes the output of the radar depending on the waveform $s(t)$ used. It is
 the basis of analyzing the performance of radar signals in this work. As discussed before, the best result in terms of
@@ -312,10 +318,10 @@ For a simple rectangular pulse of the form $s(t)=\frac{1}{\sqrt{\tau}}, ~  \frac
 \frac{\tau}{2}$, the AF for $t > 0$ is defined over the range $0 \leq t \leq \tau$ and given as follows \citep[p. 173]{Richards:2005}:
 
 \begin{align*}
-  |\chi(t,f_\mathrm{d})| &= \left| \int_{-\tau/2+t}^{\tau/2}{\frac{1}{\tau} \exp(j 2 \pi f_\mathrm{d} s) ds}\right| \\ 
-  &=  \left| \frac{\exp[j 2 \pi f_\mathrm{d} \tau/2] - \exp[j 2 \pi f_\mathrm{d} ( - \tau/2 + t)]}{\tau j 2 \pi f_\mathrm{d}} \right| \\
-  &= \left| \frac{1}{\tau j 2 \pi f_\mathrm{d}} \exp(j 2 \pi f_\mathrm{d} t/2) \left\{ \exp\left[j 2 \pi f_\mathrm{d}
-  \left(\frac{\tau}{2} - \frac{t}{2}\right)\right] - \exp\left[ -j 2 \pi f_\mathrm{d} \left(\frac{\tau}{2} -
+  |\chi(t,f_\mathrm{d})| &= \left| \int_{-\tau/2+t}^{\tau/2}{\frac{1}{\tau} \exp(-j 2 \pi f_\mathrm{d} s) ds}\right| \\ 
+  &=  \left| \frac{\exp[-j 2 \pi f_\mathrm{d} \tau/2] - \exp[-j 2 \pi f_\mathrm{d} ( - \tau/2 + t)]}{- \tau j 2 \pi f_\mathrm{d}} \right| \\
+  &= \left| \frac{1}{-\tau j 2 \pi f_\mathrm{d}} \exp(-j 2 \pi f_\mathrm{d} t/2) \left\{ \exp\left[-j 2 \pi f_\mathrm{d}
+  \left(\frac{\tau}{2} - \frac{t}{2}\right)\right] - \exp\left[ j 2 \pi f_\mathrm{d} \left(\frac{\tau}{2} -
   \frac{t}{2}\right)\right] \right\} \right| \\
   &= \left| \frac{\sin(\pi f_\mathrm{d} (\tau - t)) }{\pi f_\mathrm{d} \tau} \right|
 \end{align*}
@@ -338,13 +344,13 @@ L'Hospital's Rule has to be applied, which yields the ACF of a pulse in the shap
   &= \frac{\tau - |\tau_\mathrm{d}|}{\tau} \text{, for } -\tau \leq \tau_\mathrm{d} \leq \tau
 \end{align*}
 The full AF for a rectangular pulse is shown in Figure \ref{fig:pulsefullaf}. It shows the triangular shape in the range
-delay axis and the \mathrm{sinc} function shape in the Doppler dimension.
+delay axis and the $\mathrm{sinc}$ function shape in the Doppler dimension.
 
 
 \begin{figure}[h]
 \includegraphics[width=\imgsize]{figures/pulsefullaf.png}
-\caption{Full AF of a rectangular pulse. It shows the triangle shape in the range delay dimension and the \mathrm{sinc}
-shape in the Doppler dimension.}
+\caption{Full AF of a rectangular pulse. It shows the triangle shape in the range delay dimension and the
+$\mathrm{sinc}$ shape in the Doppler dimension.}
 \label{fig:pulsefullaf}
 \end{figure}
 
