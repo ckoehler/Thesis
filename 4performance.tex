@@ -107,11 +107,11 @@ then becomes:
 \begin{align*}
 \label{eq:afwithir}
    \chi(\tau_\mathrm{d},f_\mathrm{d}) &= \left|\int_{-\infty}^\infty{s(t) \left[(s^*(t+\tau_\mathrm{d}) \exp(-j2\pi
-   f_\mathrm{d} t)) \convolution h(t)\right]\ dt}\right| \\
+   f_\mathrm{d} t)) * h(t)\right]\ dt}\right| \\
    &= \left|\int_{-\infty}^\infty{s(t) \int_{-\infty}^{\infty}{s^*(t'+\tau_\mathrm{d}) \exp(-j2\pi f_\mathrm{d} t')h^*(t'-t) dt'}\ dt}\right| \\
    &= \left|\int_{-\infty}^\infty{s^*(t'+\tau_\mathrm{d}) \exp(-j2\pi f_\mathrm{d} t')\int_{-\infty}^{\infty}{s(t)
    h^*(t'-t) dt}\ dt'}\right| \\
-   &= \left|\int_{-\infty}^\infty{[s(t') \convolution h(t')] s^*(t'+\tau_\mathrm{d}) \exp(-j2\pi f_\mathrm{d} t') \ dt'}\right| 
+   &= \left|\int_{-\infty}^\infty{[s(t') * h(t')] s^*(t'+\tau_\mathrm{d}) \exp(-j2\pi f_\mathrm{d} t') \ dt'}\right| 
 \end{align*}
 
 It can be seen that applying the impulse response to the return signal is equivalent to applying it to the original

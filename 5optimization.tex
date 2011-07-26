@@ -380,17 +380,6 @@ by an equivalent system with impulse response $g(t)$, with the matched filter im
 
 
 \subsection{Rectangular Pulse}
-To provide a
-baseline, Figure \ref{fig:pulsewoir-15us} shows a rectangular pulse that is undistorted as a reference again.
-
-\begin{figure}[H]
-\includegraphics[width=\imgsize]{figures/pulsewoir-15us.png}
-\caption{ An ideal AF for a rectangular pulse of length $\tau = \SI{15}{\micro\second}$. This is a reference to compare
-to the AF that has been distorted by a system impulse response.}
-\label{fig:pulsewoir-15us}
-\end{figure}
-
-
 Figure \ref{fig:pulsewir-15us} shows the AF of a waveform that has been distorted by a system with the impulse response shown in Figure
 \ref{fig:tf1}. The goal of this section is to study the effects of a non-linear response of the system to pulse compression.
 \begin{figure}[H]
@@ -398,6 +387,13 @@ Figure \ref{fig:pulsewir-15us} shows the AF of a waveform that has been distorte
 \caption{Rayleigh-shaped impulse response. It is applied to the signal over the signal's duration, one of the
 assumptions made in this simulation.}
 \label{fig:tf1}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=\imgsizes]{figures/pulsewoir-15us.png}
+\caption{ An ideal AF for a rectangular pulse of length $\tau = \SI{15}{\micro\second}$. This is a reference to compare
+to the AF that has been distorted by a system impulse response.}
+\label{fig:pulsewoir-15us}
 \includegraphics[width=\imgsizes]{figures/pulsewir-15us.png}
 \caption{ AF of a rectangular pulse with system distortion. The asymmetry of the impulse response is reflected
 in the asymmetric distortion in the AF. }
@@ -414,13 +410,17 @@ desirable and should be corrected.
 Figure \ref{fig:barkerwir-15us} shows the AF of a Barker 13 phase code with pulse length $\tau=\SI{15}{\micro\second}$.
 Similar to a rectangular pulse, the asymmetry of the impulse response is reflected in the AF. Unlike the rectangular
 pulse, the range delay is affected more by the distortion, severely impacting the range resolution.
+
 \begin{figure}[H]
+\includegraphics[width=\imgsizes]{figures/barker-15us-af.png}
+\caption{ AF of a Barker 13 phase code without system distortion. Given as a reference to compare to the AF that
+has been distorted by a system impulse response.}
+\label{fig:barker-15us-af}
 \includegraphics[width=\imgsizes]{figures/barkerwir-15us.png}
 \caption{ AF of a Barker 13 phase code with system distortion. The asymmetry of the impulse response is reflected
 in the asymmetric distortion in the AF. }
 \label{fig:barkerwir-15us}
 \end{figure}
-TODO: add comparison image.
 
 
 \subsection{Frequency Modulation}
@@ -432,16 +432,29 @@ distortion. For the LFM waveform, the smoothing almost eliminates the sidelobes,
 for the NLFM waveform.
 
 \begin{figure}[H]
+\includegraphics[width=\imgsizes]{figures/lfm-15us-af.png}
+\caption{ AF of an LFM waveform without system distortion. Given as a reference to compare to the AF that
+has been distorted by a system impulse response.}
+\label{fig:lfm-15us-af}
 \includegraphics[width=\imgsizes]{figures/lfmwir-15us.png}
 \caption{ AF of an LFM waveform with system distortion. The asymmetry of the impulse response is reflected
 in the asymmetric distortion in the AF. }
 \label{fig:lfmwir-15us}
+\end{figure}
+
+
+
+
+\begin{figure}[H]
+\includegraphics[width=\imgsizes]{figures/nlfm-15us-af.png}
+\caption{ AF of a NLFM waveform without system distortion. Given as a reference to compare to the AF that
+has been distorted by a system impulse response.}
+\label{fig:nlfm-15us-af}
 \includegraphics[width=\imgsizes]{figures/nlfmwir-15us.png}
 \caption{ AF of a NLFM waveform with system distortion. The asymmetry of the impulse response is reflected
 in the asymmetric distortion in the AF. }
 \label{fig:nlfmwir-15us}
 \end{figure}
-TODO: add comparison image.
 
 Generally, a system impulse response has no significant effect on the Doppler distortion for weather radar applications.
 However, it does affect the range delay by smoothing out the waveform similar to amplitude tapering, lowering range
@@ -452,7 +465,7 @@ transmitting it. Figure \ref{fig:predistortblock} shows a block diagram explaini
 passing into the matched filter, whose impulse response is denoted by $h(t)$, the waveform passes through the other
 parts of the receive chain, whose impulse response is given by $g(t)$, distorting the received waveform. To correct for
 that effect, the waveform is distorted with the inverse of the system impulse response $g^{-1}(t)$ before it leaves the
-transmitter chain, so that, on receive, the effect of $g(t)$ is cancelled out, because $g(t) \convolution g^{-1}(t) =
+transmitter chain, so that, on receive, the effect of $g(t)$ is cancelled out, because $g(t) * g^{-1}(t) =
 \delta$, where $\delta$ is the Dirac delta function.
 
 \begin{figure}[H]

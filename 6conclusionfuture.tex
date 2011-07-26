@@ -3,45 +3,43 @@ This work examined several different techniques of pulse compression and evaluat
 in regards to weather radar applications. 
 
 A rectangular pulse still performs fairly well, with good range resolution for very short pulses and no sidelobes.  For
-pulse lengths of \SI{200}{\micro\second} there is some significant mismatch loss of about \SI{-6}{\decibel} over the
-velocities commonly encountered in weather applications. As expected, the range resolution decreases as well.
+pulse lengths of \SI{200}{\micro\second} there is some significant mismatch loss of approximately \SI{-7}{\decibel} over the
+velocities commonly encountered in weather applications. As expected, the range resolution for the longer pulse decreases as well.
 
 Using a waveform that is phase coded with a Barker 13 code does increase the range resolution dramatically for the same
-pulse lengths to about \SI{110}{\metre} for the same pulse length. However, the peak sidelobe level is only at about
+pulse lengths to approximately \SI{110}{\metre}. However, the peak sidelobe level is only at approximately
 \SI{-22}{\decibel}, which makes this waveform unusable for typical weather observation. It could still be used in
-situations where a low PSL is not necessary, like clear air measurements. There is also some Doppler mismatch for long
-pulses and high Doppler velocities, although the mainlobe level is not affected, unlike for a rectangular pulse.
-Sidelobes are distorted and the PSL is raised to about \SI{-13}{\decibel}.
+situations where a low PSL is not necessary, like clear air measurements. There is no Doppler mismatch for long
+pulses and high Doppler velocities, and the mainlobe level is also not affected, unlike for a rectangular pulse.
 
-Applying amplitude tapering to a Barker phase coded waveform has little benefit. The range resolution does not improve,
-and neither to ISL and PSL. Since a Barker 13 code is already ``perfect,'' this result is to be expected.
-TODO: check first. Need to taper sub pulse.
+Applying amplitude tapering to a Barker phase coded waveform has little benefit for sidelobe levels. 
+The range resolution, however, does improve moderately with increased tapering, from \SI{160}{\metre} to around
+\SI{60}{\metre}.
 
-An LFM waveform has much better range resolution than both a rectangular and Barker phase coded pulse at about
-\SI{30}{\metre}.
-The PSL is higher at \SI{-13}{\decibel}, so the same discussion for the Barker code applies here. Sidelobe levels
-improved significantly with amplitude tapering, with range resolution decreasing only moderately. Sensitivity could be
-the limiting factor because the PPR decreases quickly with more aggressive tapering. With PPR at \SI{-3}{\decibel}, the
-ISL decreases to about \SI{-36}{\decibel} with the PSL decreasing to \SI{-47}{\decibel}. The range resolution with this
-degree of tapering is \SI{68}{\metre}, which would make this waveform adequate for weather radar applications.
+An LFM waveform has much better range resolution than both a rectangular and Barker phase coded pulse at approximately
+\SI{30}{\metre}.  The PSL is higher at \SI{-13}{\decibel}, so the LFM waveform has the same drawbacks as the Barker
+code, being not very usable for typical weather applications. Sidelobe levels improved significantly with amplitude
+tapering, with range resolution decreasing only moderately. Sensitivity could be the limiting factor because the PPR
+decreases quickly with more aggressive tapering. With PPR at \SI{-3}{\decibel}, the ISL decreases to approximately
+\SI{-36}{\decibel} with the PSL decreasing to \SI{-47}{\decibel}. The range resolution with this degree of tapering is
+\SI{68}{\metre}, which would make this waveform adequate for weather radar applications.
 
 Optimizing the frequency sweep for NLFM waveforms showed that it can improve performance even without amplitude
 tapering. Simulations indicated ISLs around \SI{-20}{\decibel} to \SI{-25}{\decibel} and PSLs around \SI{-20}{\decibel}
-to \SI{-40}{\decibel} while maintaining a range resolution of about \SI{100 }{\metre}. The PPR is \SI{0}{\decibel} because no
+to \SI{-40}{\decibel} while maintaining a range resolution of approximately \SI{100 }{\metre}. The PPR is \SI{0}{\decibel} because no
 tapering is applied yet, so while a tapered LFM waveform has better performance than NLFM, there is also a loss in
 sensitivity due to the tapering.
 
 Applying amplitude tapering to the NLFM reduces the ISL and PSL significantly, as it did for LFM waveforms. The decrease
 in sensitivity due to lower PPR has to be taken into account, as well as the loss in range resolution, which decreases
-rapidly with increased tapering and larger $a$. For $a=2.75$ and $\beta=12.31$, the range resolution is about
+rapidly with increased tapering and larger $a$. For $a=2.75$ and $\beta=12.31$, the range resolution is approximately
 \SI{280}{\metre},
-with PSL at \SI{-70}{\decibel}. However, the loss of sensitivity due to the PPR is unacceptable at about
+with PSL at \SI{-70}{\decibel}. However, the loss of sensitivity due to the PPR is unacceptable at approximately
 \SI{-6}{\decibel}.
 
 The most significant result of taking the system impulse response into account is the asymmetric distortion of the AF in
-the range delay dimension. If possible, this effect should be corrected. As mentioned before, a couple of assumptions
-have been made in this simulation which will also change the result. The ideal course of action would be to measure the
-actual system impulse response and repeat the simulations with it, as well as testing the results in a real system.
+the range delay dimension, which should be corrected if possible. The ideal course of action would be to measure the
+actual system impulse response and repeat the simulations with it, as well as test the results in a real system.
 
 
 
@@ -49,20 +47,39 @@ actual system impulse response and repeat the simulations with it, as well as te
 \section{Future Work}
 There are several ways to build upon on this work in the future.
 
-First, other waveforms can be evaluated based on the presented metrics, like more complex phase coded signals. Other
+First, other waveforms can be evaluated based on the presented metrics, such as more complex phase coded signals. Other
 sweeping functions for the NLFM waveform could be evaluated to perhaps find waveforms that perform better for weather
 radar applications. 
 
 Second, the effects of the amplifier impulse response and other system components could be better quantified and the
 results compared with the theoretical results that are expected. Particularly, attempts to correct for the distortion
-caused by the impulse response could be presented. One possibility is to pre-distort the distortions that are caused by the
-transmit and receive chain. The anti-distortion filter is designed to equalize the system response of the subsequent
-chain in between the waveform generator and antenna feed horn, which includes up-converter and amplifier.
+caused by the impulse response could be presented. One possibility that has briefly been mentioned in Section
+\ref{s:ireffectsopti} is to pre-distort the waveform on transmit to cancel out the effects caused by the receive chain.
+The anti-distortion filter is designed to equalize the system response of the subsequent chain in between the waveform
+generator and antenna feed horn, which includes up-converter and amplifier.
 
 Third, the effects of volume scattering on the waveform should be examined. For weather radar applications, volumes of
 point scatterers are considered instead of simple point targets. In the case of rain, millions of raindrops will
 be present in a typical resolution volume of the radar, moving at different velocities and with different shapes. Both
 their size and velocity will be distributed over some probability density function, introducing a random element to the
 calculations. How exactly that affects the AF would be beneficial to determine.
+
+Fourth, the connection between amplitude tapering and frequency modulation should be precisely quantified. Briefly
+explained, tapering the amplitude of a signal to reduce range sidelobes delivers a similar result compared to simply
+sweeping the frequency non-linearly. This relationship can be explained by considering the ACF of the signal. The
+sidelobes appear in the ACF, which is the inverse Fourier transform of the power spectrum. Thus modifying the power
+spectrum, e.g., by amplitude tapering, will likewise change the shape of the ACF.  From this follows that alternatively,
+the spectrum can be shaped by varying the frequency sweep non-linearly to spend more time at frequencies that should be
+enhanced \citep[p.  87]{Levanon:2004}. 
+
+\begin{figure}[h]
+\includegraphics[width=\imgsize]{figures/nlfmbwspectrum.png}
+\caption{Frequency spectrum comparison of NLFM and amplitude tapering. It shows that applying a window to the amplitude
+has a similar effect to chirping the frequency of the pulse non-linearly.}
+\label{fig:nlfmbwspectrum}
+\end{figure}
+Figure \ref{fig:nlfmbwspectrum} shows the results of a NLFM pulse and a tapered LFM pulse. An untapered LFM pulse is
+given for comparison. Both NLFM and tapering change the shape of the mainlobe and sidelobes in a similar way, so both
+must be considered in waveform design. Describing the exact relationship between the two would be useful.
 
 

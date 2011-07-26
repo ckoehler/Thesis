@@ -4,16 +4,15 @@
 }
 \begin{lstlisting}[language=Matlab]
 
-function [delay v af] = af(signal, clean_signal, tau, fs, v_max, f_points, 
-  carrier, full_af) 
-
+function [delay v af] = af(signal, clean_signal, tau, fs, v_max, f_points,
+    carrier, full_af) 
   % Ambiguity function calculation
   % ambiguity function is af(t,f) = sum_over_t(u(t) * u'(t-tau) * exp(j*2*pi*f*t))
   %
   % fs = Range dimension sampling frequency
   % signal = the signal we need the AF of.
-  % clean_signal = if different from signal, this is the signal we use to create the
-  %                time-shifted version, or u'(t-tau) above.
+  % clean_signal = if different from signal, this is the signal we use to create 
+  %                the time-shifted version, or u'(t-tau) above.
   % tau = signal length
   
   % if no signal is given, assume that all we have is a clean signal
@@ -41,7 +40,7 @@ function [delay v af] = af(signal, clean_signal, tau, fs, v_max, f_points,
   af = [];
   
   % convert v_max to a frequency
-  f_max = v_max/lam;
+  f_max = 2*v_max/lam;
 
   % frequency span
   if full_af
@@ -66,7 +65,7 @@ function [delay v af] = af(signal, clean_signal, tau, fs, v_max, f_points,
   delay = [-fliplr(t) t(2:end)] * c / 2;
 
   % convert doppler frequency to velocity
-  v = f .* lam;
+  v = f .* lam ./ 2;
 end
 
 \end{lstlisting}

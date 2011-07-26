@@ -268,7 +268,7 @@ pulse but its total energy.
 With $h(t)$ known, the output of the matched filter is then 
 \begin{equation}
   \label{eq:filterresponse}
-  s_\mathrm{o}(t_\mathrm{0}) = s(t) \convolution h(t) = \int_{-\infty}^{\infty}{s(\tau_\mathrm{d}) K s^*[t_\mathrm{0} - (t -
+  s_\mathrm{o}(t_\mathrm{0}) = s(t) * h(t) = \int_{-\infty}^{\infty}{s(\tau_\mathrm{d}) K s^*[t_\mathrm{0} - (t -
   \tau_\mathrm{d})] d\tau_\mathrm{d}},
 \end{equation}
 where $\tau_\mathrm{d}$ is the range delay due to propagation.
