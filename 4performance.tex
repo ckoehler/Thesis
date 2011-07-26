@@ -13,7 +13,7 @@ The \SI{3}{\decibel} range resolution, given in units of meters, is the range re
 range resolution are mainly pulse length and bandwidth, as described in Equations \eqref{eq:rangeres} and
 \eqref{eq:rangeresbwpulse}. For pulse length, the shorter the pulse, the better the resolution; for bandwidth, the
 higher the bandwidth the better the resolution. Amplitude tapering or NLFM can also change the resolution because they
-affect the bandwidth, as explained in Section \ref{s:taperingandfm}.
+can affect the bandwidth of the waveform.
 
 
 \subsection{Integrated Sidelobe Level}
@@ -24,12 +24,20 @@ The performance of each code is measured by calculating the Integrated Sidelobe 
 \label{ISL}
 \text{ISL} = 10 \log \left(\frac{\sum\limits_{j} |s_j|^2}{\sum\limits_{k} |m_k|^2}\right)
 \end{equation}
-where $s_j$ is the amplitude of the $j^{th}$ sidelobe, and $m_k$ the amplitude of the $k^\mathrm{th}$ mainlobe.
+where $s_j$ is the amplitude of the $j^{th}$ sidelobe data point, and $m_k$ the amplitude of the $k^\mathrm{th}$
+mainlobe data point. The ISL is thus the ratio between the area under the sidelobes and the area under the mainlobe, as
+depicted in Figure \ref{fig:barker13-isl}.
 
-TODO: plot of ISL.
+\begin{figure}[H]
+\includegraphics[width=\imgsize]{figures/barker13-isl.png}
+\caption{The ACF of a Barker 13 code. The ISL describes the ratio between the area under the sidelobes (red) and the area under the
+mainlobe (blue).}
+\label{fig:barker13-isl}
+\end{figure}
+
 Lower ISL means better performance of the code. In this work, the ISL is calculated across the whole AF, but limited in
 the Doppler dimension for values $v \in \left[-50, +50\right]\ \si{\metre\per\second}$ as the main focus is weather
-application and encountering targets that move faster than this is rare. 
+applications and encountering targets that move faster than this is rare. 
 
 \subsection{Peak Sidelobe Level}
 The Peak Sidelobe Level (PSL) is the ratio between
@@ -55,12 +63,12 @@ is not the case. The PPR is defined as follows:
 \mathrm{PPR} = 10 \log \left(\frac{\int_{\tau} w^2(t)dt}{A_\mathrm{p}^2 \tau}\right), 
 \end{equation}
 where $w(t)$ is the tapering function applied to the pulse, integrated over the pulse length $\tau$, and $A_\mathrm{p}$ is the
-original amplitude.  This metric indicates how much energy is lost when amplitude tapering is applied compared to a
+original amplitude.  This metric indicates how much power is lost when amplitude tapering is applied compared to a
 rectangular pulse with equal pulse length, and can help quantify the loss in sensitivity caused by tapering.
 
 
 \section{Limitations}
-As mentioned before, the core of pulse compression is the match filtering. Any kind of moving target, including weather,
+As mentioned before, the core of pulse compression is the matched filtering. Any kind of moving target, including weather,
 will introduce distortions to the waveform that cause a mismatch between the filter and the waveform. Depending on the
 waveform, this mismatch can be quite severe and greatly impact the performance of the weather radar. 
 Besides weather, other sources of distortion limit the performance of the waveform. In this section, another limitation
@@ -99,11 +107,11 @@ then becomes:
 \begin{align*}
 \label{eq:afwithir}
    \chi(\tau_\mathrm{d},f_\mathrm{d}) &= \left|\int_{-\infty}^\infty{s(t) \left[(s^*(t+\tau_\mathrm{d}) \exp(-j2\pi
-   f_\mathrm{d} t)) \star h(t)\right]\ dt}\right| \\
+   f_\mathrm{d} t)) \convolution h(t)\right]\ dt}\right| \\
    &= \left|\int_{-\infty}^\infty{s(t) \int_{-\infty}^{\infty}{s^*(t'+\tau_\mathrm{d}) \exp(-j2\pi f_\mathrm{d} t')h^*(t'-t) dt'}\ dt}\right| \\
    &= \left|\int_{-\infty}^\infty{s^*(t'+\tau_\mathrm{d}) \exp(-j2\pi f_\mathrm{d} t')\int_{-\infty}^{\infty}{s(t)
    h^*(t'-t) dt}\ dt'}\right| \\
-   &= \left|\int_{-\infty}^\infty{[s(t') \star h(t')] s^*(t'+\tau_\mathrm{d}) \exp(-j2\pi f_\mathrm{d} t') \ dt'}\right| 
+   &= \left|\int_{-\infty}^\infty{[s(t') \convolution h(t')] s^*(t'+\tau_\mathrm{d}) \exp(-j2\pi f_\mathrm{d} t') \ dt'}\right| 
 \end{align*}
 
 It can be seen that applying the impulse response to the return signal is equivalent to applying it to the original
