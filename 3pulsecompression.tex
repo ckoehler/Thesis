@@ -67,8 +67,8 @@ examine how both schemes work and compare them to amplitude modulation, discusse
 
 \subsection{Linear Frequency Modulation}
 \label{s:lfm}
-For LFM, the frequency of the pulse is simply modulated linearly
-over a certain bandwidth $B$. This is called a chirp and is defined by:
+For LFM, the frequency of the pulse is simply modulated linearly over a certain bandwidth $B$. This is called a chirp
+and is defined by:
 
 \begin{equation}
 \label{eq:LFM}
@@ -83,8 +83,31 @@ where $k= \pm \frac{B}{\tau}$ \citep[p.57]{Levanon:2004}. The real part of the w
 Frequency Modulation. This plot shows the frequency increase over the pulse length $\tau=\SI{5}{\micro\second}$.}
 \label{fig:lfm-waveform}
 \end{figure}
+A quadratic phase modulation is the equivalent of a linear frequency modulation, because the instantaneous frequency is
+the derivative of the phase. Thus, for a phase $\phi = 2 \pi (f_\mathrm{0} t + k t^2 / 2)$, the instantaneous frequency
+is \citep{Klauder:1960}:
+\begin{equation}
+  f_\mathrm{i} = \frac{1}{2 \pi} \frac{d \phi}{dt} = f_\mathrm{0} + k t,
+\end{equation}
+where $f_\mathrm{0}$ is the carrier frequency which, in these examples, is $0$.
 
-The Doppler tolerance of the LFM is a consequence of a property of the AF. The AF of $s'(t)$ is derived as follows:
+The maximum theoretical range resolution of an LFM waveform is only dependent on the bandwidth $B$, not the pulse length $\tau$,
+and is expressed as \citep[p. 196]{Richards:2005}:
+\begin{equation}
+  \label{eq:lfm-rangeres}
+  \Delta r = \frac{c}{2 B}.
+\end{equation}
+If $B=\frac{1}{\tau}$, this result is consistent with a traditional pulsed radar, as shown in Equation
+\eqref{eq:rangeresbwpulse}.
+
+As seen in Figure \ref{fig:lfm-full}, the slow drop-off of the peak in the AF, also called a ridge, makes LFM pulse
+compression very Doppler tolerant and thus convenient for radar applications that have to deal with targets whose
+velocity is unknown. The mismatch in range caused by the shifted ridge is called \emph{range-Doppler coupling} and can
+be corrected by alternating between an up- and a down-chirp and averaging the resulting range of both to get the true
+range \citep[p. 343]{Skolnik:2001}.
+
+The Doppler tolerance of the LFM waveform is a consequence of a property of the AF. The AF of a waveform that has a linear
+frequency shift applied to it, i.e., $s'(t) = s(t) \exp(-j \pi k t^2)$, is given as follows:
 
 \begin{align*}
   |\chi(\tau_\mathrm{d},f_\mathrm{d})|
@@ -97,7 +120,6 @@ The Doppler tolerance of the LFM is a consequence of a property of the AF. The A
 \end{align*}
 This shows that, for a signal modulated with a quadratic phase shift, the Doppler dimension changes based on the range
 delay, causing the shifted ridge.
-TODO: tighten this up.
 
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/lfm-full-15us.png}
@@ -107,20 +129,6 @@ tolerant as seen by the ridge. Notice the extreme radial velocities and the comp
 \end{figure}
 
 
-As seen in Figure \ref{fig:lfm-full}, the slow drop-off of the peak in the AF, also called a ridge, makes LFM pulse
-compression very Doppler tolerant and thus convenient for radar applications that have to deal with targets whose
-velocity is unknown. The mismatch in range caused by the shifted ridge is called \emph{range-Doppler coupling} and can
-be corrected by alternating between an up- and a down-chirp and averaging the resulting range of both to get the true
-range \citep[p. 343]{Skolnik:2001}.
-
-The maximum theoretical range resolution of an LFM waveform is now only dependent on the bandwidth $B$, not the pulse length $\tau$,
-and is expressed as \citep[p. 196]{Richards:2005}:
-\begin{equation}
-  \label{eq:lfm-rangeres}
-  \Delta r = \frac{c}{2 B}.
-\end{equation}
-If $B=\frac{1}{\tau}$, this result is consistent with a traditional pulsed radar, as shown in Equation
-\eqref{eq:rangeresbwpulse}.
 
 \subsection{Non-linear Frequency Modulation}
 \label{s:nlfm}
@@ -129,40 +137,20 @@ linear frequency modulation. A more general expression for a frequency modulated
 
 \begin{equation}
 \label{eq:NLFM}
-x(t) =  \exp(-j \Phi(t)) = \exp(-j 2 \pi \int_0^t{f(x) dx}) ,\ \ 0 \leq t \leq \tau,
+s(t) =  \exp(-j \Phi(t)) = \exp(-j 2 \pi \int_0^t{f(x) dx}) ,\ \ 0 \leq t \leq \tau,
 \end{equation}
 where $f(x)$ defines the function of the frequency sweep \citep[p. 88]{Levanon:2004}. 
 In the LFM case, $f(x)=kx$, which simplifies Equation \eqref{eq:NLFM} to:
 
 \begin{equation}
 \label{eq:NLFM_simp}
-x(t) = \exp(j 2 \pi \int_0^t{f(x) dx}) =  \exp(j 2 \pi \frac{k t^2}{2}) = \exp(j \pi k t^2),
+s(t) = \exp(j 2 \pi \int_0^t{f(x) dx}) =  \exp(j 2 \pi \frac{k t^2}{2}) = \exp(j \pi k t^2),
 \end{equation}
 which indicates that a quadratic phase modulation corresponds to a linear frequency change.  
 
 However, $f(x)$ can be any function that describes the sweep pattern within the frequency band.  In this work, various
 sweep patterns are investigated and their performance evaluated. The results are presented in Chapter
 \ref{chap:optimization}.
-
-\subsection{Amplitude Tapering Compared to Frequency Modulation}
-\label{s:taperingandfm}
-Tapering the amplitude of a signal to reduce range sidelobes delivers a similar result compared to simply sweeping the frequency
-non-linearly. This relationship can be explained by considering the ACF of the signal. The sidelobes appear in the ACF,
-which is the inverse Fourier transform of the power spectrum. Thus modifying the power spectrum, e.g., by amplitude
-tapering, will likewise change the shape of the ACF.  From this follows that alternatively, the spectrum can be shaped
-by varying the frequency sweep non-linearly to spend more time at frequencies that should be enhanced \citep[p.
-87]{Levanon:2004}. 
-
-\begin{figure}[h]
-\includegraphics[width=\imgsize]{figures/nlfmbwspectrum.png}
-\caption{Frequency spectrum comparison of NLFM and amplitude tapering. It shows that applying a window to the amplitude
-has a similar effect to chirping the frequency of the pulse non-linearly.}
-\label{fig:nlfmbwspectrum}
-\end{figure}
-
-Figure \ref{fig:nlfmbwspectrum} shows the results of a NLFM pulse and a tapered LFM pulse. An untapered LFM pulse is
-given for comparison. Both NLFM and tapering change the shape of the mainlobe and sidelobes in a similar way, so both
-must be considered in waveform design.  Optimizing the shape of the NLFM is one of the challenges of waveform design.
 
 
 \subsection{Early Use of Frequency Modulation} 
@@ -184,9 +172,9 @@ performance of waveform. Only a few different types will be discussed here.  The
 
 
 \subsection{Binary Codes}
-Binary codes vary the phase of the signal in increments of $\pi$.  The most commonly known phase code is the Barker
-code, which is believed to exist up to a length of 13 \citep[p. 106]{Levanon:2004}.  The Barker 13 code looks like +1 +1
-+1 +1 +1 -1 -1 +1 +1 -1 +1 -1 +1 \citep[pp. 273-287]{Barker:1953}. It is called a ``perfect" code because its ACF has a
+Binary codes vary the phase of the signal in increments of $\pi$.  The most commonly known phase code is the Barker code
+\citep[pp. 273-287]{Barker:1953}, which is believed to exist up to a length of 13 \citep[p. 106]{Levanon:2004}.  The
+Barker 13 code looks like +1 +1 +1 +1 +1 -1 -1 +1 +1 -1 +1 -1 +1 . It is called a ``perfect" code because its ACF has a
 main lobe of height 13 and sidelobes with heights of no more than 1, as depicted in Figure \ref{fig:barker13-acf}.
 
 \begin{figure}[h]
@@ -205,7 +193,6 @@ between 0 and $2\pi$ in an attempt to gain a better performing code. These types
 
 Other polyphase codes include Frank codes and their derivatives, like P1, P2, and Px codes \citep[pp. 113-122]{Levanon:2004}, which
 are derived from sampling the phase of an LFM waveform and thus called \emph{chirplike}.
-TODO: add example.
 
 
 \subsection{Bandwidth for Phase Codes}
