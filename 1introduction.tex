@@ -17,22 +17,22 @@ lowering maintenance and operation expenses and increasing the area of observati
 The most basic pulsed radar is able to determine the reflectivity of the atmosphere by measuring the return signal of
 the radar beam. Additionally, coherent radars can measure the Doppler shift of the return signal and use it to find the
 radial velocity of the target, i.e., the velocity component of the target along the radar beam. This is normally
-achieved with a stable local oscillator (STALO). Simplified, the STALO signal is split into an in-phase and a 90 degree phase
-shifted signal, which are then mixed with the return signal and passed through a set of low pass filters that remove 
-the undesired frequency components. The two outputs of the filters are called $I$, the in-phase component, and $Q$, the
-quadrature component. It is necessary to measure the phase of the $I$ and $Q$ components over several pulses to determine the Doppler
-frequency, due to the long decorrelation time of the signal.
+achieved with a stable local oscillator (STALO). Simplified, the STALO signal is split into an in-phase and a 90 degree
+phase shifted signal, which are then mixed with the return signal and passed through a set of low-pass filters that
+remove the undesired frequency components. The two outputs of the filters are called $I$, the in-phase component, and
+$Q$, the quadrature component, respectively. It is necessary to measure the phase of the $I$ and $Q$ components over
+several pulses to determine the Doppler frequency, due to the long decorrelation time of the signal.
 
 
 The frequency of the radar, and thus its wavelength, contribute to the performance for weather observation, because some
 wavelengths perform better than others, especially with respect to attenuation through hydrometeors \citep[p.
 448]{Skolnik:2001}. Specifically, attenuation due to rain depends on the wavelength, as does attenuation in clouds, with
-signals of shorter wavelengths being more strongly attenuated \citep[pp. 42-43]{Doviak:2006}.   The WSR-88D network radars operate
-at S-band, more specifically between 2700 and 3000 MHz \citep[p. 47]{Doviak:2006}.  However, S-band is highly desired
-for other applications, like cellular phones, so C-band or X-band radars are also used for observing weather to avoid
-interference between different systems operating at the same frequency band. In such cases, the effects of attenuation
-can be mitigated by, e.g., using techniques that are based on polarimetric measurements (\cite{Ryzhkov:2008},
-\cite{Brandes:2002}).  
+signals of shorter wavelengths being more strongly attenuated \citep[pp. 42-43]{Doviak:2006}.   The WSR-88D network
+radars operate at S-band, more specifically between 2700 and 3000 MHz \citep[p. 47]{Doviak:2006}.  However, S-band is
+highly desired for other applications, like cellular phones, so C-band or X-band radars are also used for observing
+weather to avoid interference between different systems operating at the same frequency band. For radars of shorter
+wavelengths, the effects of attenuation can be mitigated by, e.g., using techniques that are based on polarimetric
+measurements (\cite{Ryzhkov:2008}, \cite{Brandes:2002}).  
 
 One advantage of higher frequency radars is the possibility of a smaller antenna size
 for the same angular resolution. Other components such as waveguides, amplifiers and support structure are also
@@ -65,15 +65,15 @@ statistical accuracy because collected sample pairs are independent since they h
 the atmosphere to decorrelate before taking the next pair of samples in the same area.
 
 Some phased array radars, so-called \emph{active arrays}, do not have just one transmitter. Instead, they use one smaller
-amplifier for each element directly. These amplifiers are solid-state amplifiers, whose peak power is generally lower
+amplifier for each element. These amplifiers are solid-state amplifiers, whose peak power is generally lower
 compared to a klystron or magnetron. As such, they operate at lower voltages,
 have a lower gain, and require longer duty cycles, but have higher reliability. To achieve the needed power, many of
 them must be operated in parallel and in multiple stages as modules \citep{Skolnik:2001}. So, instead of using a klystron
 or magnetron, an active phased array radar incorporates individual amplifier modules into each antenna element.
 One major advantage of this kind of modular design is the high reliability and fault tolerance of the
 system.  Failure of a small percentage of individual elements still allows the radar to operate, and failed elements can simply be replaced
-at a convenient time.  This lowers maintenance and manufacturing costs because all the identical elements can be mass
-produced and their components are often available COTS.
+at a convenient time.  This lowers maintenance and manufacturing costs because the components of the identical elements can be mass
+produced and could be available COTS.
 
 One way to compensate for the lower peak power of solid-state amplifiers is to use longer pulses \citep[p.
 702]{Skolnik:2001}, given their longer duty cycle. However, a longer pulse decreases range resolution, so a method is
@@ -92,13 +92,13 @@ sidelobes, concentrating the signal energy as narrowly as possible \citep[p. 44]
 the main- and sidelobes of an antenna pattern, but in range-time instead.
 
 As mentioned previously, solid-state amplifiers are economical, but have lower peak power and higher duty cycles, so
-long pulses are necessary to achieve the same sensitivity. On one hand, range resolution is important to detect
-small features and would suffer severely from longer pulses.
-On the other hand, the SNR is directly related to probability of detection, so it is very important to maintain a sufficient SNR.
+long pulses are necessary to achieve the same sensitivity. On one hand, range resolution is important to detect small
+features and would suffer severely from longer pulses.  On the other hand, the SNR is directly related to the
+probability of detection \citep[p. 44]{Skolnik:2001}, so it is very important to maintain a sufficient SNR.
 Furthermore, since weather signals have a large dynamic range, required for detecting anything from light rain or even
-just clear air measurements, to heavy rain and hail, a high SNR is absolutely necessary.  
-These requirements for good range resolution and SNR make pulse compression a welcome technique to improve weather
-radars. The different ways of accomplishing pulse compression are discussed in this thesis.
+just clear air measurements, to heavy rain and hail, a high SNR is absolutely necessary.  These requirements for good
+range resolution and SNR make pulse compression a welcome technique to improve weather radars. The different ways of
+accomplishing pulse compression are discussed in this thesis.
 
 Chapter 2 discusses the general aspects of waveforms and their design and introduces a way to measure their performance.
 The topic of Chapter 3 is pulse compression and the various ways of applying modulation to the waveform. Chapter 4
