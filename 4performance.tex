@@ -100,22 +100,25 @@ compression ratio $B\tau$ is, the more mismatch will be caused by the Doppler sh
 \subsection{Effects of Amplifier Impulse Response on the Ambiguity Function}
 \label{s:ireffects}
 
-Next, the effects of the amplifier in the receive chain on the pulse will be examined.  Starting with Equation
-\eqref{eq:AF} describing the AF, the return signal is convolved with $h(t)$, the impulse response of the system. The AF
-then becomes:
+Next, the effects of the amplifier in the receive chain on the pulse will be examined. For simplification, the
+components in the receive chain up to and excluding the matched filter are represented by some equivalent system with
+impulse response $g(t)$, shown in Figure \ref{fig:distortblock}.  Starting with Equation \eqref{eq:AF} describing the
+AF, the signal is convolved with $g(t)$, the impulse response of the system. The AF then becomes:
 
 \begin{align*}
 \label{eq:afwithir}
-   \chi(\tau_\mathrm{d},f_\mathrm{d}) &= \left|\int_{-\infty}^\infty{s(t) \left[(s^*(t+\tau_\mathrm{d}) \exp(-j2\pi
-   f_\mathrm{d} t)) * h(t)\right]\ dt}\right| \\
-   &= \left|\int_{-\infty}^\infty{s(t) \int_{-\infty}^{\infty}{s^*(t'+\tau_\mathrm{d}) \exp(-j2\pi f_\mathrm{d} t')h^*(t'-t) dt'}\ dt}\right| \\
-   &= \left|\int_{-\infty}^\infty{s^*(t'+\tau_\mathrm{d}) \exp(-j2\pi f_\mathrm{d} t')\int_{-\infty}^{\infty}{s(t)
-   h^*(t'-t) dt}\ dt'}\right| \\
-   &= \left|\int_{-\infty}^\infty{[s(t') * h(t')] s^*(t'+\tau_\mathrm{d}) \exp(-j2\pi f_\mathrm{d} t') \ dt'}\right| 
+   \chi(\tau_\mathrm{d},f_\mathrm{d}) &= \left|\int_{-\infty}^\infty{\left[(s(t) \exp(-j2\pi
+   f_\mathrm{d} t)) * g(t)\right] s^*(t+\tau_\mathrm{d}) \ dt}\right| 
 \end{align*}
 
-It can be seen that applying the impulse response to the return signal is equivalent to applying it to the original
-pulse $s(t)$.  This makes it easy in simulation to apply an impulse response to the calculations in order to evaluate
-its effects on the AF.  The results of a Rayleigh-shaped impulse response on a rectangular pulse are presented in
-Section \ref{s:ireffectsopti}.
+\begin{figure}[h!]
+\includegraphics[width=\imgsize]{figures/distortblock.png}
+\caption{A very simplified block diagram of the receive chain. All components except the matched filter are represented
+by an equivalent system with impulse response $g(t)$, with the matched filter impulse response denoted as $h(t)$.}
+\label{fig:distortblock}
+\end{figure}
 
+A couple of assumptions have been made. First, since the exact impulse response is unknown, a Rayleigh-shaped
+approximation is used for $g(t)$.  Second, it is assumed that the impulse response is as long as the pulse, in this case
+$\tau = \SI{15}{\micro\second}$, which is very likely not accurate. However, doing this will exaggerate the effect and
+make it more easily visible.  The results for various waveforms are presented in Section \ref{s:ireffectsopti}.

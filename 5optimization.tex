@@ -362,22 +362,7 @@ sidelobes but widens the mainlobe. Increasing $a$ has the same effect.}
 \section{Effects of Impulse Response on the Ambiguity Function}
 \label{s:ireffectsopti}
 As discussed in Section \ref{s:ireffects}, as the return signal passes through the receive chain, it will be distorted
-by the system impulse response. For simplification, the components in the receive chain up to and excluding the matched
-filter are represented by some equivalent system with impulse response $g(t)$, shown in Figure
-\ref{fig:distortblock}. The effects of that on the waveform are presented here. A couple of
-assumptions have been made. First, since the exact impulse response is unknown, a Rayleigh-shaped approximation is used
-for $g(t)$.
-Second, it is assumed that the impulse response is as long as the pulse, in this case $\tau = \SI{15}{\micro\second}$,
-which is very likely not accurate. However, doing this will exaggerate the effect and make it more easily visible, which is
-the goal of this section. 
-
-\begin{figure}[H]
-\includegraphics[width=\imgsize]{figures/distortblock.png}
-\caption{A very simplified block diagram of the receive chain. All components except the matched filter are represented
-by an equivalent system with impulse response $g(t)$, with the matched filter impulse response denoted as $h(t)$.}
-\label{fig:distortblock}
-\end{figure}
-
+by the system impulse response. The effects of that on various waveforms are presented here. 
 
 \subsection{Rectangular Pulse}
 Figure \ref{fig:pulsewir-15us} shows the AF of a waveform that has been distorted by a system with the impulse response shown in Figure
@@ -389,7 +374,7 @@ assumptions made in this simulation.}
 \label{fig:tf1}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
 \includegraphics[width=\imgsizes]{figures/pulsewoir-15us.png}
 \caption{ An ideal AF for a rectangular pulse of length $\tau = \SI{15}{\micro\second}$. This is a reference to compare
 to the AF that has been distorted by a system impulse response.}
