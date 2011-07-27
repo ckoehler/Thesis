@@ -79,22 +79,35 @@ that will be examined is the effect of a system impulse response on the waveform
 \label{s:dopplereffect}
 One concern for pulse compression performance is the effect of a Doppler shift on the matched filter in the receiver. A
 received signal that has been affected by a Doppler shift causes a mismatch in the matched filter processing of the
-receiver.  This is especially pronounced at high target velocities. For atmospheric weather radars, such as the WSR-88D,
-the aliasing velocity is \SI{32.5}{\metre\per\second}, based on $\lambda = \SI{0.1}{\metre}$ and a maximum
-PRT $T_\mathrm{s} = \SI{1300}{\hertz}$, not taking into account any signal processing techniques described previously \citep[p.
-47]{Doviak:2006}.  At that velocity, a Doppler frequency of $f_\mathrm{d} = \frac{2v}{\lambda} = \frac{65}{0.1} = \SI{650}{Hz}$
-is observed, which is very low compared to the carrier frequency of \SI{3000}{\mega\hertz}.
+receiver.  This is especially pronounced at high target velocities and is dependent on the used waveform.
 
-This mismatch effect on the matched filter has been quantified in \cite{Kelly:1965} as follows. For
-a signal of length $\tau$, a target of velocity $v$, and signal bandwidth $B$, the return Doppler-shifted signal can be
-expressed as 
+This mismatch effect for a pulse waveform on the matched filter can be quantified as follows. Referring back to Equation
+\eqref{eq:pulseaf}, consider the Doppler dimension only, i.e. $\tau_\mathrm{d} = 0$. This is the familiar
+$\mathrm{sinc}$ function:
+
 \begin{equation}
-  \tau(1-\frac{2v}{c})=\tau-\Delta \tau
+\label{eq:pulseafsinc}
+  |\chi(0,f_\mathrm{d})| = \left| \frac{\sin(\pi f_\mathrm{d} \tau ) }{\pi
+  f_\mathrm{d} \tau} \right| \text{, for } -\tau \leq \tau_\mathrm{d} \leq \tau.
 \end{equation}
-If $\Delta \tau$ is much smaller than $\tau$, i.e.,  $\Delta \tau \ll \frac{1}{B}$, the mismatch due to the Doppler effect can be
-neglected. In other words, $\frac{2v}{c}B\tau \ll 1$. For a \SI{1}{\micro\second} pulse at \SI{5}{\mega\hertz} bandwidth
-moving at \SI{30}{\metre\per\second}, $0.001 \ll 1$ is true, so the Doppler effect can be ignored.  The higher the pulse
-compression ratio $B\tau$ is, the more mismatch will be caused by the Doppler shift.
+This function has a value of $0$ exactly when $f_\mathrm{d}$ is a multiple of $1/\tau$, as shown in Figure
+\ref{fig:sincnulls}. Thus, if a Doppler frequency is much less than the inverse of the pulse length, i.e., $f_\mathrm{d}
+\ll 1/\tau$, its effect on the waveform can be neglected.
+
+\begin{figure}[h!]
+\includegraphics[width=\imgsize]{figures/sincnulls.png}
+\caption{The $\mathrm{sinc}$ function describes the AF of a pulse in the Doppler dimension. It is $0$ when
+$f_\mathrm{d}$ is a multiple of $1/\tau$.}
+\label{fig:sincnulls}
+\end{figure}
+
+For atmospheric weather radars, such as the WSR-88D with a wavelength of \SI{3000}{\mega\hertz}, and a target velocity of \SI{50}{\metre\per\second}, a Doppler frequency of $|f_\mathrm{d}| =
+\left|\frac{2v}{\lambda}\right| = \frac{100}{0.1} = \SI{1}{\kilo\hertz}$ is observed. That is very low compared to the first null occurring
+at $1/\tau$, where $\tau=\SI{4.57}{\micro\second}$, the long pulse of a WSR-88D radar \citep[p.  47]{Doviak:2006}. In
+this case, $1/\tau = 1/\SI{4.57}{\micro\second} = \SI{218.82}{\kilo\hertz}$. Thus a sufficiently short pulse is very
+Doppler tolerant, although that Doppler tolerance decreases with increased pulse length, as the optimization
+calculations will show.
+
 
 
 \subsection{Effects of Amplifier Impulse Response on the Ambiguity Function}
@@ -108,8 +121,9 @@ AF, the signal is convolved with $g(t)$, the impulse response of the system. The
 \begin{align*}
 \label{eq:afwithir}
    \chi(\tau_\mathrm{d},f_\mathrm{d}) &= \left|\int_{-\infty}^\infty{\left[(s(t) \exp(-j2\pi
-   f_\mathrm{d} t)) * g(t)\right] s^*(t+\tau_\mathrm{d}) \ dt}\right| 
+   f_\mathrm{d} t)) * g(t)\right] s^*(t+\tau_\mathrm{d}) \ dt}\right|
 \end{align*}
+The results for various waveforms are presented in Section \ref{s:ireffectsopti}.
 
 \begin{figure}[h!]
 \includegraphics[width=\imgsize]{figures/distortblock.png}
@@ -118,7 +132,3 @@ by an equivalent system with impulse response $g(t)$, with the matched filter im
 \label{fig:distortblock}
 \end{figure}
 
-A couple of assumptions have been made. First, since the exact impulse response is unknown, a Rayleigh-shaped
-approximation is used for $g(t)$.  Second, it is assumed that the impulse response is as long as the pulse, in this case
-$\tau = \SI{15}{\micro\second}$, which is very likely not accurate. However, doing this will exaggerate the effect and
-make it more easily visible.  The results for various waveforms are presented in Section \ref{s:ireffectsopti}.
