@@ -104,7 +104,9 @@ As seen in Figure \ref{fig:lfm-full}, the slow drop-off of the peak in the AF, a
 compression very Doppler tolerant and thus convenient for radar applications that have to deal with targets whose
 velocity is unknown. The mismatch in range caused by the shifted ridge is called \emph{range-Doppler coupling} and can
 be corrected by alternating between an up- and a down-chirp and averaging the resulting range of both to get the true
-range \citep[p. 343]{Skolnik:2001}.
+range \citep[p. 343]{Skolnik:2001}. However, since the range mismatch is in range-time and changes the location of range
+gates, the averaging process to get the true range will result in range gate misalignments for distributed targets and
+introduce inaccuracies.
 
 The Doppler tolerance of the LFM waveform is a consequence of a property of the AF. The AF of a waveform that has a linear
 frequency shift applied to it, i.e., $s'(t) = s(t) \exp(-j \pi k t^2)$, is given as follows:
@@ -122,10 +124,14 @@ This shows that, for a signal modulated with a quadratic phase shift, the Dopple
 delay, causing the shifted ridge.
 
 \begin{figure}[H]
-\includegraphics[width=\imgsize]{figures/lfm-full-15us.png}
-\caption{AF for $\tau=\SI{15}{\micro\second}$ for a \SI{9550}{\mega\hertz} radar. LFM waveforms are very Doppler
+\includegraphics[width=\imgsizes]{figures/lfm-full-15us.png}
+\caption{AF for an up-chirp LFM with $\tau=\SI{15}{\micro\second}$ for a \SI{9550}{\mega\hertz} radar. LFM waveforms are very Doppler
 tolerant as seen by the ridge. Notice the extreme radial velocities and the comparatively small range mismatch.}
 \label{fig:lfm-full}
+\includegraphics[width=\imgsizes]{figures/lfm-full-downchirp-15us.png}
+\caption{AF for a down-chirp LFM with $\tau=\SI{15}{\micro\second}$ for a \SI{9550}{\mega\hertz} radar. Chirping down
+instead of up changes the direction of the ridge and makes range corrections possible.}
+\label{fig:lfm-full-down}
 \end{figure}
 
 

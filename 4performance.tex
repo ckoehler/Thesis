@@ -113,9 +113,11 @@ calculations will show.
 \subsection{Effects of Amplifier Impulse Response on the Ambiguity Function}
 \label{s:ireffects}
 
-Next, the effects of the amplifier in the receive chain on the pulse will be examined. For simplification, the
-components in the receive chain up to and excluding the matched filter are represented by some equivalent system with
-impulse response $g(t)$, shown in Figure \ref{fig:distortblock}.  Starting with Equation \eqref{eq:AF} describing the
+Next, the effects of the components in the transmit and receive chains on the pulse will be examined. For
+simplification, these
+components, excluding the matched filter, are represented by some equivalent system with
+impulse response $g(t)$, in the case of the receive chain, and $g'(t)$, in the case of the transmit chain. A block
+diagram is shown in Figure \ref{fig:distortblock}.  Starting with Equation \eqref{eq:AF} describing the
 AF, the signal is convolved with $g(t)$, the impulse response of the system. The AF then becomes:
 
 \begin{align*}
@@ -127,8 +129,9 @@ The results for various waveforms are presented in Section \ref{s:ireffectsopti}
 
 \begin{figure}[h!]
 \includegraphics[width=\imgsize]{figures/distortblock.png}
-\caption{A very simplified block diagram of the receive chain. All components except the matched filter are represented
-by an equivalent system with impulse response $g(t)$, with the matched filter impulse response denoted as $h(t)$.}
+\caption{Block diagram showing the radar TX and RX chains. The components are represented by equivalent systems with
+impulse responses $g(t)$ for the RX chain and $g'(t)$ for the TX chain. The matched filter impulse response is denoted
+as $h(t)$.}
 \label{fig:distortblock}
 \end{figure}
 

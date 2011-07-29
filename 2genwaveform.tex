@@ -1,7 +1,7 @@
 The basic elements of a waveform that can be manipulated are its amplitude, phase, frequency, and timing.  Each of these
 components can be designed to adhere to the required specifications, e.g., duty cycle, aliasing velocity and range,
-resolution, sensitivity, etc.,  and will be described in more detail in this chapter. Figure \ref{fig:basic_waveform}
-can be used as a reference.
+resolution, sensitivity, etc., and will be described in more detail in this chapter. Note that all waveforms discussed
+in this work are at baseband, i.e., without carrier. Figure \ref{fig:basic_waveform} can be used as a reference.
 
 \begin{figure}[h]
 \includegraphics[width=\imgsize]{figures/basic_waveform_f.png}
@@ -32,16 +32,17 @@ where $\lambda$ is the wavelength of the radar.
 
 The aliasing range describes the maximum range of the radar beyond which range aliasing occurs, i.e., targets that are
 farther away than the aliasing range will appear to be closer to the radar than they truly are. Referring to
-Figure \ref{fig:rangealiasing}, for example, if $r_\mathrm{a} = \SI{100}{\kilo\metre}$ and there is a target at a distance 
-\SI{150}{\kilo\metre} from the radar, it will appear to the radar to be only \SI{50}{\kilo\metre} away.  To increase
-$r_\mathrm{a}$, a longer PRT is needed.
+Figure \ref{fig:rangealiasing}, for example, the echos from different pulses of two targets separated by $r_\mathrm{a}$
+will arrive at the radar at the same time, so the radar will not be able to distinguish them. Furthermore, the target
+range is known to be of the form $r + kr_\mathrm{a}$, but $k$ will be unknown, making the range ambiguous.
+To increase $r_\mathrm{a}$, a longer PRT is needed.
 
 \begin{figure}[H]
 \includegraphics[width=\imgsizes]{figures/rangealiasing.png}
-\caption{Diagram explaining the aliasing range. Returned signals from a target at \SI{150}{\kilo\metre}, which is
-outside the aliasing range, fold over ambiguously and appear as a target at \SI{50}{\kilo\metre} w.r.t. the second pulse. }
+\caption{Diagram explaining the aliasing range. If two targets are separated by $r_\mathrm{a}$, the echo from pulse 1
+off target 2 arrives at the radar at the same time as the echo from pulse 2 off target 1, thus the radar will not be able to
+distinguish them.  }
 \label{fig:rangealiasing}
-
 \includegraphics[width=\imgsizes]{figures/velocityaliasing.png}
 \caption{Diagram explaining the detected velocity. Targets that move at velocities outside the aliasing velocity will fold over
 and cause ambiguity, which may be slower and/or in opposite direction. }
@@ -177,7 +178,8 @@ discussed.
 \label{s:2pc}
 At the heart of pulse compression is the matched filter, which draws its name from the fact that it is matched to the
 transmitted waveform. As the waveform passes through the filter, depicted in Figure \ref{fig:systemblock}, it is
-compressed in range and will ideally concentrate most of the energy in a narrow mainlobe with low sidelobes.  The
+compressed in range and will ideally concentrate most of the energy in a narrow mainlobe with low sidelobes. In the case
+of weather, sidelobes of \SI{-60}{\decibel} or lower are considered adequate \citep{Griffith:1994}. The
 matched filter is designed based on the maximization of the SNR. The following derivation traces the discussion given in
 \cite[pp. 24-27]{Levanon:2004}.
 
@@ -304,15 +306,17 @@ signal with the matched filter response, so that it reaches its maximum when bot
 
 \section{Ambiguity Function}
 \label{s:af}
-In \cite{Rihaczek:1968}, the AF is defined as:
+In this works, the AF is defined as:
 
 \begin{equation}
 \label{eq:AF}
   |\chi(\tau_\mathrm{d},f_\mathrm{d})| = \left| \int_{-\infty}^\infty{s(t) s^*(t+\tau_\mathrm{d}) \exp(-j2\pi f_\mathrm{d} t) dt}\right|,
 \end{equation}
-where $s(t)$ is the complex envelope of the waveform. It can clearly be seen that, for $f_\mathrm{d} = 0$, the
-AF reduces to the ACF, presented in Section \ref{s:2pc}.
+where $s(t)$ is the complex envelope of the waveform. There are many other ways of defining the AF, e.g.
+\cite{Rihaczek:1968} or \cite{Sinsky:1974}.
 
+It can clearly be seen that, for $f_\mathrm{d} = 0$, the
+AF reduces to the ACF, presented in Section \ref{s:2pc}.
 
 For a simple rectangular pulse of the form $s(t)=\frac{1}{\sqrt{\tau}}, ~  \frac{-\tau}{2} \leq t \leq
 \frac{\tau}{2}$, the AF for $t > 0$ is defined over the range $0 \leq t \leq \tau$ and given as follows \citep[p. 173]{Richards:2005}:
