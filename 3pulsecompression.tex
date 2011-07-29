@@ -103,10 +103,11 @@ If $B=\frac{1}{\tau}$, this result is consistent with a traditional pulsed radar
 As seen in Figure \ref{fig:lfm-full}, the slow drop-off of the peak in the AF, also called a ridge, makes LFM pulse
 compression very Doppler tolerant and thus convenient for radar applications that have to deal with targets whose
 velocity is unknown. The mismatch in range caused by the shifted ridge is called \emph{range-Doppler coupling} and can
-be corrected by alternating between an up- and a down-chirp and averaging the resulting range of both to get the true
-range \citep[p. 343]{Skolnik:2001}. However, since the range mismatch is in range-time and changes the location of range
-gates, the averaging process to get the true range will result in range gate misalignments for distributed targets and
-introduce inaccuracies.
+be corrected by alternating between an up- and a down-chirp, which causes the direction of the ridge to be reversed, as
+shown in Figures \ref{fig:lfm-full} and \ref{fig:lfm-full-down}. The resulting range of both can then be averaged
+to get the true range \citep[p. 343]{Skolnik:2001}. However, since the range mismatch is in range-time and changes the
+location of range gates, the averaging process to get the true range will result in range gate misalignments for
+distributed targets and introduce inaccuracies.
 
 The Doppler tolerance of the LFM waveform is a consequence of a property of the AF. The AF of a waveform that has a linear
 frequency shift applied to it, i.e., $s'(t) = s(t) \exp(-j \pi k t^2)$, is given as follows:
