@@ -2,8 +2,9 @@ This thesis is built using the MacTex package, available at http://www.tug.org/m
 For continuous building during editing, I used the excellent latexmk PERL script.
 The PDF reader that allows automatic updates as the PDF is rebuilt is called Skim.
 
-All the .tex files and the references.bib file are Copyright 2011 Christoph Koehler. They are given simply as an example on how one
-may format a thesis. You may not copy any content without proper attribution. Be smart, be nice.
+All the .tex files and the references.bib file are Copyright 2011 Christoph
+Koehler. They are given simply as an example on how one may format a thesis.
+You may not copy any content without proper attribution. Be smart, be nice.
 
-See the individual files for credit and author information. I am indebted to their work which made it
-fairly simple for me to get all this working!
+See the individual files for credit and author information. I am indebted to
+their work which made it fairly simple for me to get all this working!
