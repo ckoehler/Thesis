@@ -7,13 +7,8 @@ to compute the AF is presented, with the complete code given in Appendix \ref{ap
 
 
 \subsection{Generating Waveforms}
-The simulations are done in multiple parts. First, a waveform is generated based on a given amplitude, phase, frequency
-modulation, and impulse response that is applied to the signal.  The returned waveform is generated at a proper sampling
-frequency in order to avoid aliasing.
-
-If an impulse response was supplied, both the distorted and clean waveform will be returned, as well as the new pulse
-length $\tau$ which will be twice the original $\tau$. That lengthening is due to the convolution of the
-original waveform $s(t)$ with the impulse response $h(t)$.
+The simulations are done in multiple parts. First, a waveform is generated based on a given amplitude, phase, and frequency
+modulation.  The returned waveform is generated at a proper sampling frequency in order to avoid aliasing.
 
 \subsection{Calculating the Ambiguity Function}
 Once the waveform has been returned, the AF is generated and plotted in a surface plot.  In pseudo-code, given the
