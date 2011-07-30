@@ -55,10 +55,12 @@ The anti-distortion filter is designed to equalize the system response of the su
 generator and antenna feed horn, which includes up-converter and amplifier.
 
 Third, the effects of volume scattering on the waveform should be examined. For weather radar applications, volumes of
-point scatterers are considered instead of simple point targets. In the case of rain, millions of raindrops will
-be present in a typical resolution volume of the radar, moving at different velocities and with different shapes. Both
+point scatterers are considered instead of simple point targets. In the case of rain, millions of raindrops will be
+present in a typical resolution volume of the radar, moving at different velocities and with different shapes. Both
 their size and velocity will be distributed over some probability density function, introducing a random element to the
-calculations. How exactly that affects the AF would be beneficial to determine.
+calculations. How exactly that affects the AF would be beneficial to determine. Additionally, the exact effects of
+averaging the measurements from an up- and a down-chirp to determine range accurately in a distributed scatterer
+environment should be examined.
 
 Fourth, the connection between amplitude tapering and frequency modulation should be precisely quantified. Briefly
 explained, tapering the amplitude of a signal to reduce range sidelobes delivers a similar result compared to simply

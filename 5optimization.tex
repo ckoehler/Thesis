@@ -145,9 +145,13 @@ resolution is determined by the sweep bandwidth, not the pulse length, as is exp
 
 \subsection{Linear Frequency Modulation with Amplitude Tapering}
 LFM has the disadvantage of very high sidelobes at about \SI{-13}{\decibel}.  These can be mitigate with amplitude
-tapering. In this work, a Kaiser window is applied to demonstrate the effects of amplitude tapering.  Based on Equation \eqref{eq:kaiser2}, the parameter $\beta$
-is varied from 0 to 20 in approximately 0.2 increments, and the AF generated and evaluated for each by quantifying its performance according to the
-metrics described in Section \ref{s:quantifications}. The results are shown in Figure \ref{fig:lfm-isl-15us-opti}.
+tapering. In this work, a Kaiser window is applied to demonstrate the effects of amplitude tapering.  Based on Equation
+\eqref{eq:kaiser2}, the parameter $\beta$ is varied from 0 to 20 in approximately 0.2 increments, and the AF generated
+and evaluated for each by quantifying its performance according to the metrics described in Section
+\ref{s:quantifications}. The results are shown in Figure \ref{fig:lfm-isl-15us-opti}, which shows the same optimizations
+for both the whole AF and just the zero-Doppler slice. There is no significant difference, so using the whole AF for
+calculations does not adversely affect the calculations. Thus, to be comprehensive, the rest of the optimizations in
+this work are made across the whole AF.
 
 As expected, the ISL dramatically decreases, as does the PSL. At the same time, the range resolution decreases from an
 initial \SI{40}{\metre} to about \SI{200}{\metre}. The PPR may be the limiting metric here because the tapered signal
@@ -159,7 +163,8 @@ sensitivity.
 \begin{figure}[H]
 \includegraphics[width=\imgsize]{figures/lfm-isl-15us-opti.png}
 \caption{Optimization results for LFM with Kaiser amplitude tapering and $\tau=\SI{15}{\micro\second}$. Tapering the amplitude is very effective for
-sidelobe reduction, but loss in power and thus sensitivity becomes significant quickly. }
+sidelobe reduction, but loss in power and thus sensitivity becomes significant quickly. Both results for the whole AF as
+well as just the zero-Doppler slice are shown. }
 \label{fig:lfm-isl-15us-opti}
 \end{figure}
 
@@ -177,19 +182,6 @@ observations if a \SI{3}{\decibel} loss in power is acceptable.
 resolution is reduced to \SI{68}{\metre}, which is well sufficient for typical storm observations.}
 \label{fig:lfm-isl-15us-opti-slice18}
 \end{figure}
-
-For comparison, Figure \ref{fig:lfm-isl-0d-15us-opti} shows the same optimizations done and presented in Figure
-\ref{fig:lfm-isl-15us-opti}, but only across the zero-Doppler slice of the AF, not the whole AF. There is no significant
-difference, so using the whole AF for calculations does not adversely affect the calculations. Thus, to be
-comprehensive, the rest of the optimizations in this work are made across the whole AF.
-
-\begin{figure}[H]
-\includegraphics[width=\imgsize]{figures/lfm-isl-0d-15us-opti.png}
-\caption{Optimization results for LFM with Kaiser amplitude tapering and $\tau=\SI{15}{\micro\second}$. Here, only the
-zero Doppler cut is examined, not the whole AF.  }
-\label{fig:lfm-isl-0d-15us-opti}
-\end{figure}
-
 
 
 \section{Non-Linear Frequency Modulation}
